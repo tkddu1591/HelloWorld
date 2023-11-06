@@ -5,11 +5,13 @@
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
     "@reduxjs/toolkit": "^1.9.7",
+
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@tanstack/react-query": "^5.7.2",
     "axios": "^1.6.0",
     "codemirror": "^6.0.1",
     "env-cmd": "^10.1.0",
+
     "jquery": "^3.7.1",
     "moment": "2.29.4",
     "nouislider": "15.4.0",

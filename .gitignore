@@ -10,6 +10,9 @@
 ../front/
 /.idea/
 /back/log/
+
+/node_modules/
+
 *.yml
 *.gradle
 

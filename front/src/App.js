@@ -29,10 +29,14 @@ import HomeMain from "./pages/home/HomeMain";
 import {Navigate, Outlet, Route, Routes} from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage";
 import ProfilePage from "./views/examples/ProfilePage";
-import LoginPage from "./views/examples/LoginPage";
+import LoginPage from "./pages/member/LoginPage";
 import Home from "./pages/home/Home";
+
+import Member from "./pages/member/Member";
+
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import CodingtestView from "./pages/codingtest/CodingtestView";
+
 
 function App() {
     React.useEffect(() => {
@@ -62,7 +66,7 @@ function App() {
                     <Route path="company" >
 
                     </Route>
-                    <Route path="member">
+                    <Route path="member" element={<Member/>}>
 
                 </Route>
                 <Route path="/codingTest" element={<CodingtestList/>}>
@@ -89,6 +93,7 @@ function App() {
                 <Route path="/landing-page" element={<LandingPage/>}/>
                 <Route path="/profile-page" element={<ProfilePage/>}/>
                 <Route path="/login-page" element={<LoginPage/>}/>
+                <Route path="/signup-page" element={<SignUp/>}/>
 
                 <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}<div>404Page</div></>}/>
             </Routes>
