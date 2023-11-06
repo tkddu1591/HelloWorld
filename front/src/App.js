@@ -31,6 +31,8 @@ import LandingPage from "./views/examples/LandingPage";
 import ProfilePage from "./views/examples/ProfilePage";
 import LoginPage from "./views/examples/LoginPage";
 import Home from "./pages/home/Home";
+import CodingtestList from "./pages/codingtest/CodingtestList";
+import CodingtestView from "./pages/codingtest/CodingtestView";
 
 function App() {
     React.useEffect(() => {
@@ -62,8 +64,11 @@ function App() {
                     </Route>
                     <Route path="member">
 
-                    </Route>
-                    <Route path="codingTest">
+                </Route>
+                <Route path="/codingTest" element={<CodingtestList/>}>
+
+                </Route>
+                <Route path="/codingTestView" element={<CodingtestView/>}>
 
                     </Route>
                     <Route path="lecture">
