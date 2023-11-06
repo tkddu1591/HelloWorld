@@ -17,8 +17,6 @@ H
 src/views/NucleoIcons.js,f\6\f6bd84ee452a7256005ad13dac415c1cf26291f3
 U
 %src/components/Headers/IndexHeader.js,4\8\489a16ab9cee9bfdb2da23b8a471a1ea8a4f52c4
-B
-src/views/Index.js,a\8\a84b0662439360425d6c8293d06cf80683506a84
 U
 %src/components/Navbars/IndexNavbar.js,6\a\6ab4a60f8642bfa831ca80d8a54fb2b26f48cbef
 A
@@ -27,3 +25,28 @@ A
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 <
 src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
+V
+&src/views/index-sections/Pagination.js,f\d\fd1f04c3fd0486a50cb24da231b6ac1f628fbe49
+R
+"src/views/index-sections/SignUp.js,0\0\0094fa8f0b6b16a5068689cb8d1797578f196879
+`
+0src/assets/scss/now-ui-kit/_carousel_퍼플.scss,3\a\3a891cea9749fb7ac213b71bd2232e02be770166
+Y
+)src/assets/scss/now-ui-kit/_progress.scss,e\8\e8fa5121f0c7b36dcd1c512140decd06d9e906c1
+T
+$src/views/index-sections/Carousel.js,6\2\6202a3d26f9b9293baa5c3b816ef506b36fadbdb
+P
+ src/views/index-sections/Tabs.js,5\1\51c92a5ea3a01d3064ee55de3a08647d35e58760
+[
++src/views/index-sections/Carousel_보라.js,6\8\688636350eee4329d9cb1224032506675854cfda
+L
+src/pages/home/HomeHeader.js,3\3\33995c9a891447ecf3c3330fc2787e97acbc9131
+J
+src/pages/home/HomeMain.js,6\1\61f3abcd720a3ee46d238bdb07565759b17b6adb
+:
+
+src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
+Z
+*src/assets/scss/now-ui-kit/_variables.scss,2\9\294c028df55f2a183fa6fa39daee0995acc0f715
+a
+1src/assets/scss/react/now-ui-kit/_responsive.scss,b\b\bb3eb9f95d859870c84aae91189f4937389e0b7d

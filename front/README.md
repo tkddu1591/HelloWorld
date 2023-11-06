@@ -114,7 +114,7 @@ now-ui-kit-react
     │       └── IndexNavbar.js
     ├── index.js
     └── views
-        ├── Index.js
+        ├── App.js
         ├── NucleoIcons.js
         ├── examples
         │   ├── LandingPage.js
