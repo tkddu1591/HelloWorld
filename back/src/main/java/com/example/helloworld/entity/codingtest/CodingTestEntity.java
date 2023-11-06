@@ -19,7 +19,7 @@ public class CodingTestEntity {
     private int codingTestNo;
     @ManyToOne
     @JoinColumn(name = "uid")
-    private MemberEntity memberEntity;
+    private MemberEntity member;
     private String title;
     private String content;
     private int level;

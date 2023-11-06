@@ -7,6 +7,7 @@ import {
     NavLink, Row, UncontrolledCarousel,
 } from "reactstrap";
 import React, {createRef, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const items = [
     {
@@ -66,6 +67,7 @@ function HomeHeader() {
         setActiveIndex(newIndex);
     };
 
+    let navigate = useNavigate();
     return (
         <>
             <div className="clear-filter page-header" style={{minHeight: '10vh', maxHeight: '500px'}}>
@@ -204,10 +206,10 @@ function HomeHeader() {
                             href="#pablo"
                             onClick={(e) => {
                                 e.preventDefault();
-                                setPills("1");
+                                navigate("/lecture/list")
                             }}
                         >
-                            <i className="far fa-gem"></i>
+                            <i className="now-ui-icons business_briefcase-24"></i>
                             <span className="far"
                                   style={{fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px'}}>교육</span>
                         </NavLink>
@@ -218,10 +220,10 @@ function HomeHeader() {
                             href="#pablo"
                             onClick={(e) => {
                                 e.preventDefault();
-                                setPills("2");
+                                navigate("/codingTest/list")
                             }}
                         >
-                            <i className="fa fa-thermometer-full"></i>
+                            <i className="now-ui-icons files_single-copy-04"></i>
                             <span className="far"
                                   style={{fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px'}}>코딩테스트</span>
                         </NavLink>
@@ -233,10 +235,10 @@ function HomeHeader() {
                             href="#pablo"
                             onClick={(e) => {
                                 e.preventDefault();
-                                setPills("3");
+                                navigate("/company/list")
                             }}
                         >
-                            <i className="fa fa-suitcase"></i>
+                            <i  className="now-ui-icons business_badge"></i>
                             <span className="far"
                                   style={{fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px'}}>채용공고</span>
                         </NavLink>
@@ -247,10 +249,10 @@ function HomeHeader() {
                             href="#pablo"
                             onClick={(e) => {
                                 e.preventDefault();
-                                setPills("4");
+                                navigate("/community/list")
                             }}
                         >
-                            <i className="fa fa-suitcase"></i>
+                            <i  className="now-ui-icons business_globe"></i>
                             <span className="far"
                                   style={{fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px'}}>커뮤니티</span>
                         </NavLink>

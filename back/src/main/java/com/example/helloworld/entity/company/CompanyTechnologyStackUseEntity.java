@@ -13,11 +13,11 @@ import lombok.*;
 public class CompanyTechnologyStackUseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int TechnologyStackUseNo;
+    private int technologyStackUseNo;
     @ManyToOne
     @JoinColumn(name = "technologyStackNo")
-    private CompanyTechnologyStackEntity TechnologyStack;
+    private CompanyTechnologyStackEntity technologyStack;
     @ManyToOne
     @JoinColumn(name = "companyNo")
-    private CompanyEntity Company;
+    private CompanyEntity company;
 }

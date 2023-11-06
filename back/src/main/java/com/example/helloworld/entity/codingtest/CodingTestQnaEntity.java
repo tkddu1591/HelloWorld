@@ -13,17 +13,17 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "codingTest_qna")
-public class CodingTestQnaEntitiy {
+public class CodingTestQnaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int qnaNo;
     private int codeQanNo;
     @ManyToOne
     @JoinColumn(name = "codingTestNo")
-    private CodingTestEntity codingTestEntity;
+    private CodingTestEntity codingTest;
     @ManyToOne
     @JoinColumn(name = "uid")
-    private MemberEntity memberEntity;
+    private MemberEntity member;
     private String title;
     private String content;
     private int comment;

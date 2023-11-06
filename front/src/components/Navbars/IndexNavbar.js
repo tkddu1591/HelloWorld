@@ -91,18 +91,18 @@ function IndexNavbar() {
                                     href="#pablo"
                                     nav
                                     onClick={(e) => e.preventDefault()}
-                                    style={{fontSize:'15px'}}
+                                    style={{fontSize: '15px'}}
                                 >
                                     <i className="now-ui-icons business_briefcase-24 mr-1"></i>
-                                    <p >교육</p>
+                                    <p>교육</p>
                                 </DropdownToggle>
                                 <DropdownMenu>
-                                    <DropdownItem to="/index" tag={Link}>
+                                    <DropdownItem to="/lecture/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         전체
                                     </DropdownItem>
                                     <DropdownItem
-                                        href="https://demos.creative-tim.com/now-ui-kit-react/#/documentation/introduction?ref=nukr-index-navbar"
+                                        to="/lecture/list"
                                         target="_blank"
                                     >
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
@@ -116,28 +116,25 @@ function IndexNavbar() {
                                     color="default"
                                     href="#pablo"
                                     nav
-                                    style={{fontSize:'15px'}}
+                                    style={{fontSize: '15px'}}
                                     onClick={(e) => e.preventDefault()}
                                 >
                                     <i className="now-ui-icons files_single-copy-04 mr-1"></i>
                                     <p>코딩테스트</p>
                                 </DropdownToggle>
                                 <DropdownMenu>
-                                    <DropdownItem to="/index" tag={Link}>
+                                    <DropdownItem
+                                        to="/codingTest/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         전체
                                     </DropdownItem>
                                     <DropdownItem
-                                        href="https://demos.creative-tim.com/now-ui-kit-react/#/documentation/introduction?ref=nukr-index-navbar"
-                                        target="_blank"
-                                    >
+                                        to="/codingTest/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         단계별 풀기
                                     </DropdownItem>
                                     <DropdownItem
-                                        href="https://demos.creative-tim.com/now-ui-kit-react/#/documentation/introduction?ref=nukr-index-navbar"
-                                        target="_blank"
-                                    >
+                                        to="/codingTest/qna" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         Q&A
                                     </DropdownItem>
@@ -149,26 +146,26 @@ function IndexNavbar() {
                                     color="default"
                                     href="#pablo"
                                     nav
-                                    style={{fontSize:'15px'}}
+                                    style={{fontSize: '15px'}}
                                     onClick={(e) => e.preventDefault()}
                                 >
                                     <i className="now-ui-icons business_badge mr-1"></i>
                                     <p>채용공고</p>
                                 </DropdownToggle>
                                 <DropdownMenu>
-                                    <DropdownItem to="/index" tag={Link}>
+                                    <DropdownItem to="/company/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         채용공고
                                     </DropdownItem>
-                                    <DropdownItem to="/index" tag={Link}>
+                                    <DropdownItem to="/company/apply" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         지원한 공고
                                     </DropdownItem>
-                                    <DropdownItem to="/index" tag={Link}>
+                                    <DropdownItem to="/company/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         관심있는 공고
                                     </DropdownItem>
-                                    <DropdownItem to="/index" tag={Link}>
+                                    <DropdownItem to="/company/my" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         받은 제안
                                     </DropdownItem>
@@ -180,7 +177,7 @@ function IndexNavbar() {
                                     color="default"
                                     href="#pablo"
                                     nav
-                                    style={{fontSize:'15px'}}
+                                    style={{fontSize: '15px'}}
                                     onClick={(e) => e.preventDefault()}
                                 >
                                     <i className="now-ui-icons business_globe mr-1"></i>
@@ -188,23 +185,17 @@ function IndexNavbar() {
                                 </DropdownToggle>
                                 <DropdownMenu>
                                     <DropdownItem
-                                        href="https://demos.creative-tim.com/now-ui-kit-react/#/documentation/introduction?ref=nukr-index-navbar"
-                                        target="_blank"
-                                    >
+                                        to="/community/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         개발자 라운지
                                     </DropdownItem>
                                     <DropdownItem
-                                        href="https://demos.creative-tim.com/now-ui-kit-react/#/documentation/introduction?ref=nukr-index-navbar"
-                                        target="_blank"
-                                    >
+                                        to="/community/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         스터디
                                     </DropdownItem>
                                     <DropdownItem
-                                        href="https://demos.creative-tim.com/now-ui-kit-react/#/documentation/introduction?ref=nukr-index-navbar"
-                                        target="_blank"
-                                    >
+                                        to="/community/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         Q&A
                                     </DropdownItem>
@@ -245,7 +236,7 @@ function IndexNavbar() {
                                         </DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
-                        </NavItem>
+                            </NavItem>
                             {/*  <NavItem>
                                 <NavLink
                                     href="https://twitter.com/CreativeTim?ref=creativetim"
@@ -284,7 +275,7 @@ function IndexNavbar() {
                                 <UncontrolledTooltip target="#instagram-tooltip">
                                     Follow us on Instagram
                                 </UncontrolledTooltip>
-                            </NavItem>*/}            {/*  <NavItem>
+                            </NavItem>*/} {/*  <NavItem>
                                 <NavLink
                                     href="https://twitter.com/CreativeTim?ref=creativetim"
                                     target="_blank"
