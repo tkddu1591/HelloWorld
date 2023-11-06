@@ -31,6 +31,10 @@ import LandingPage from "./views/examples/LandingPage";
 import ProfilePage from "./views/examples/ProfilePage";
 import LoginPage from "./views/examples/LoginPage";
 import Home from "./pages/home/Home";
+// COMMUNITY
+import List from "./pages/community/List";
+import View from "./pages/community/View";
+import Write from "./pages/community/Write";
 
 function App() {
     React.useEffect(() => {
@@ -57,7 +61,7 @@ function App() {
                     <Route path="/" element={<Home/>}>
 
                     </Route>
-                    <Route path="company" >
+                    <Route path="company">
 
                     </Route>
                     <Route path="member">
@@ -70,7 +74,9 @@ function App() {
 
                     </Route>
                     <Route path="community">
-
+                        <Route path={"list"} element={<List></List>}/>
+                        <Route path={"view"} element={<View></View>}/>
+                        <Route path={"write"} element={<Write></Write>}/>
                     </Route>
                     <Route path="dm">
 
@@ -85,7 +91,9 @@ function App() {
                 <Route path="/profile-page" element={<ProfilePage/>}/>
                 <Route path="/login-page" element={<LoginPage/>}/>
 
-                <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}<div>404Page</div></>}/>
+                <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}
+                    <div>404Page</div>
+                </>}/>
             </Routes>
             {/*얘네가 인덱스*/}
 

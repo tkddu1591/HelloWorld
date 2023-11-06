@@ -1,0 +1,271 @@
+.icons-search {
+    background-image: url('../../../public/images/community/community_icons.png');
+    background-size: 771px 780px;
+    background-repeat: no-repeat;
+    text-indent: -999999em;
+    display: block;
+    display: inline-block;
+    line-height: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-position: 0 0
+}
+
+.list-table{
+    line-height: 9px;
+    font-weight: 300;
+    font-size: 13px;
+}
+a{
+    color: indianred;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+ul, li, ol, dl{
+    list-style: none;
+}
+body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+tbody{
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr{
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+script {
+    display: none;
+}
+
+div{
+    display: block;
+}
+
+/*******************************************************/
+
+.main-area{
+    width:1140px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.article li{
+    display: block;
+    padding: 16px 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eeeeef;
+}
+
+.article .card_area{
+    display: table;
+    position: relative;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.article .con{
+    display: table-cell;
+    position: relative;
+    color: #222;
+}
+
+.article .tit_area{
+    display: table;
+}
+
+.article .tit_area .tit{
+    display: table-cell;
+}
+.article .tit_area .tit{
+    display: table;
+    table-layout: fixed;
+}
+
+.article .tit_area .tit strong{
+    display: block;
+    height: 22px;
+    font-size: 16px;
+    line-height: 22px;
+    display: block;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.article .tit_area .txt{
+    display: block;
+    max-height: 44px;
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 22px;
+    display: block;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    word-wrap: break-word;
+    word-break: break-word;
+    color: #666;
+}
+
+.article .con:only-child .con_bottom{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 35px;
+}
+
+.article .con:only-child .con_bottom{
+    position: static;
+    padding-top: 23px;
+}
+
+.article .user_info{
+    ovwerflow: hidden;
+}
+
+.article .user_info .pers_nick_area{
+    float: left;
+}
+
+.article .user_info .pers_nick_area > table {
+    width: auto;
+}
+
+.article .user_info .pers_nick_area .p-nick{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.m-tcol-c{
+    color: #333;
+}
+
+.article .user_info .m-tcol-c{
+    color: #222 !important;
+}
+
+.article .user_info .date_num{
+    float: left;
+    color: #999;
+}
+
+.article .user_info .date_num:before{
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 2px;
+    margin: 0 5px 4px 7px;
+    border-radius: 2px;
+    background-color: #999;
+}
+
+.article .user_info .date{
+    margin-right: 16px;
+}
+
+.article .like_area{
+    display: inline-block;
+    padding: 0 0 0 7px;
+    vertical-align: top;
+}
+
+.article .like_area .comment_area{
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: top;
+}
+
+.article .like_area .comment_area .comment_ico {
+    margin-top: 2px;
+    font-size: 0;
+    line-height: 0;
+    color: transparent;
+    background-position: -285px -45px;
+    width: 13px;
+    height: 12px;
+}
+
+.article .like_area .comment_area .num {
+    color:#222;
+}
+
+.article .like_area .u_likeit_list_module{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.article .user_info .date_num{
+    float: left;
+    color: #999;
+}
+
+.article .like_area .u_likeit_list_module .u_ico {
+    margin-top: 2px;
+    background-position: -285px -86px;
+    width: 13px;
+    height: 10px;
+}
+
+.article .like_area .u_likeit_list_module .u_ico img {
+    display: none;
+}
+
+.article.like_area .u_likeit_list_module .u_cnt {
+    color: #222;
+}
+
+.article .user_info:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.article .con_bottom:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.article li:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+
