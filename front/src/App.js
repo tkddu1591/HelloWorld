@@ -26,7 +26,7 @@ import Examples from "./views/index-sections/Examples.js";
 import Download from "./views/index-sections/Download.js";
 import HomeHeader from "./pages/home/HomeHeader";
 import HomeMain from "./pages/home/HomeMain";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Outlet, Route, Routes} from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage";
 import ProfilePage from "./views/examples/ProfilePage";
 import LoginPage from "./views/examples/LoginPage";
@@ -47,37 +47,45 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path="/index" element={<Home/>}>
+                <Route path="/" element={<>
+                    <IndexNavbar/>
+                    <div className="main">
+                        <Outlet></Outlet>
+                    </div>
+                    <DarkFooter/>
+                </>}>
+                    <Route path="/" element={<Home/>}>
+
+                    </Route>
+                    <Route path="company" >
+
+                    </Route>
+                    <Route path="member">
+
+                    </Route>
+                    <Route path="codingTest">
+
+                    </Route>
+                    <Route path="lecture">
+
+                    </Route>
+                    <Route path="community">
+
+                    </Route>
+                    <Route path="dm">
+
+                    </Route>
+                    <Route path="my">
+
+                    </Route>
 
                 </Route>
-                <Route path="/company">
-
-                </Route>
-                <Route path="/member">
-
-                </Route>
-                <Route path="/codingTest">
-
-                </Route>
-                <Route path="/lectuer">
-
-                </Route>
-                <Route path="/community">
-
-                </Route>
-                <Route path="/dm">
-
-                </Route>
-                <Route path="my">
-
-                </Route>
-
                 <Route path="/nucleo-icons" element={<NucleoIcons/>}/>
                 <Route path="/landing-page" element={<LandingPage/>}/>
                 <Route path="/profile-page" element={<ProfilePage/>}/>
                 <Route path="/login-page" element={<LoginPage/>}/>
 
-                <Route path="*" element={<Navigate to="/index" replace/>}/>
+                <Route path="*" element={<Navigate to="/" replace/>}/>
             </Routes>
             {/*얘네가 인덱스*/}
 

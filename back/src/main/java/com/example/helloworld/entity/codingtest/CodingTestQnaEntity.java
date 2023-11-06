@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "codingTest_qna")
-public class CodingTestQnaEntitiy {
+public class CodingTestQnaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int qnaNo;
