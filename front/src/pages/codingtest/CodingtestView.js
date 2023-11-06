@@ -52,7 +52,7 @@ function BasicElements() {
         }
     });
 }
-
+g
 function CodingtestView(){
     const [iconPills, setIconPills] = React.useState("1");
     const [pills, setPills] = React.useState("1");
