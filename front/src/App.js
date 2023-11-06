@@ -1,4 +1,4 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 
 // reactstrap components
 // import {
@@ -6,33 +6,21 @@ import React from "react";
 
 // core components
 import IndexNavbar from "./components/Navbars/IndexNavbar.js";
-import IndexHeader from "./components/Headers/IndexHeader.js";
 import DarkFooter from "./components/Footers/DarkFooter.js";
 
 // sections for this page
-import Images from "./views/index-sections/Images.js";
-import BasicElements from "./views/index-sections/BasicElements.js";
-import Navbars from "./views/index-sections/Navbars.js";
-import Tabs from "./views/index-sections/Tabs.js";
-import Pagination from "./views/index-sections/Pagination.js";
-import Notifications from "./views/index-sections/Notifications.js";
-import Typography from "./views/index-sections/Typography.js";
-import Javascript from "./views/index-sections/Javascript.js";
-import Carousel from "./views/index-sections/Carousel.js";
 import NucleoIcons from "./views/index-sections/NucleoIcons.js";
-import CompleteExamples from "./views/index-sections/CompleteExamples.js";
-import SignUp from "./views/index-sections/SignUp.js";
-import Examples from "./views/index-sections/Examples.js";
-import Download from "./views/index-sections/Download.js";
-import HomeHeader from "./pages/home/HomeHeader";
-import HomeMain from "./pages/home/HomeMain";
-import {Navigate, Outlet, Route, Routes} from "react-router-dom";
+import { Outlet, Route, Routes} from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage";
 import ProfilePage from "./views/examples/ProfilePage";
 import LoginPage from "./views/examples/LoginPage";
 import Home from "./pages/home/Home";
-
+import LectureList from "./pages/lecture/list/LectureList";
+const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 function App() {
+    function fallback (){
+        return  <i>loading....</i>
+    }
     React.useEffect(() => {
         document.body.classList.add("index-page");
         document.body.classList.add("sidebar-collapse");
@@ -57,7 +45,7 @@ function App() {
                     <Route path="/" element={<Home/>}>
 
                     </Route>
-                    <Route path="company" >
+                    <Route path="company">
 
                     </Route>
                     <Route path="member">
@@ -66,8 +54,12 @@ function App() {
                     <Route path="codingTest">
 
                     </Route>
-                    <Route path="lecture">
-
+                    <Route path="lecture" element={<><Suspense fallback={fallback()}>
+                        <Outlet></Outlet>
+                    </Suspense>
+                    </>}>
+                        <Route path="list" element={<LectureList></LectureList> }></Route>
+                        <Route path="index" element={<LectureHome></LectureHome>}></Route>
                     </Route>
                     <Route path="community">
 
@@ -85,7 +77,9 @@ function App() {
                 <Route path="/profile-page" element={<ProfilePage/>}/>
                 <Route path="/login-page" element={<LoginPage/>}/>
 
-                <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}<div>404Page</div></>}/>
+                <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}
+                    <div>404Page</div>
+                </>}/>
             </Routes>
             {/*얘네가 인덱스*/}
 
