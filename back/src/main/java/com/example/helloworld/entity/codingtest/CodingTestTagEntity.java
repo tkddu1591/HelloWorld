@@ -21,7 +21,7 @@ public class CodingTestTagEntity {
     private CodingTestEntity codingTest;
     @ManyToOne
     @JoinColumn(name = "uid")
-    private MemberEntity uid;
+    private MemberEntity member;
     private LocalDateTime regDate;
     private String regIp;
     private boolean isDelete;

@@ -6,7 +6,7 @@ import com.example.helloworld.entity.company.CompanyTechnologyStackUseEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface CompanyTechnologyStackUseMapper {
+public interface CompanyTechnologyStackUseTransform {
     public CompanyTechnologyStackUseDTO toDTO(CompanyTechnologyStackUseEntity entity);
     public CompanyTechnologyStackUseEntity toEntity(CompanyTechnologyStackUseDTO dto);
 }
