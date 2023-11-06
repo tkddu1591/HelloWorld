@@ -20,10 +20,10 @@ public class CodingTestQnaEntity {
     private int codeQanNo;
     @ManyToOne
     @JoinColumn(name = "codingTestNo")
-    private CodingTestEntity codingTestEntity;
+    private CodingTestEntity codingTest;
     @ManyToOne
     @JoinColumn(name = "uid")
-    private MemberEntity memberEntity;
+    private MemberEntity member;
     private String title;
     private String content;
     private int comment;

@@ -20,11 +20,11 @@ public class CodingTestAnswerEntity {
     private int answerNo;
     @ManyToOne
     @JoinColumn(name = "codingTestNo")
-    private CodingTestEntity codingTestNo;
+    private CodingTestEntity codingTest;
     private String content;
     @ManyToOne
     @JoinColumn(name = "uid")
-    private MemberEntity uid;
+    private MemberEntity member;
     private boolean isCorrect;
     private String langName;
     private LocalDateTime regDate;

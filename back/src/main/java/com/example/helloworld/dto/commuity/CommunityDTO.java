@@ -16,7 +16,7 @@ public class CommunityDTO {
     private int cateNo;
     private int studyNo;
     private int fileNo;
-    private int hasTag;
+    private int hasTagNo;
     private LocalDateTime regDate;
     private String regIp;
     private boolean isDelete;
