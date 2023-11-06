@@ -17,7 +17,7 @@
 */
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 
 // styles for this kit
 import "assets/css/bootstrap.min.css";
@@ -26,24 +26,21 @@ import "assets/demo/demo.css?v=1.5.0";
 import "assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 // pages for this kit
 import App from "./App.js";
-import NucleoIcons from "views/NucleoIcons.js";
-import LoginPage from "views/examples/LoginPage.js";
-import LandingPage from "views/examples/LandingPage.js";
-import ProfilePage from "views/examples/ProfilePage.js";
+import store from "./store";
+import {Provider} from "react-redux";
+import reportWebVitals from "./reportWebVitals";
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-    /*<BrowserRouter basename={"/Html/HelloWorld"}> //json에 homepage까지 변경 필요*/
-    <BrowserRouter>
-        <Routes>
-            <Route path="/index" element={<App/>}/>
-            <Route path="/nucleo-icons" element={<NucleoIcons/>}/>
-            <Route path="/landing-page" element={<LandingPage/>}/>
-            <Route path="/profile-page" element={<ProfilePage/>}/>
-            <Route path="/login-page" element={<LoginPage/>}/>
-
-            <Route path="*" element={<Navigate to="/index" replace/>}/>
-        </Routes>
-    </BrowserRouter>
+    <React.StrictMode>
+        <Provider store={store}>
+            {/*<BrowserRouter basename="/"> route 페이지 설정*/}
+            <BrowserRouter>
+                {/*<ScrollToTop/>*/}
+                <App/>
+            </BrowserRouter>
+        </Provider>
+    </React.StrictMode>
 );
+reportWebVitals();

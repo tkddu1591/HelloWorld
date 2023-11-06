@@ -26,6 +26,11 @@ import Examples from "./views/index-sections/Examples.js";
 import Download from "./views/index-sections/Download.js";
 import HomeHeader from "./pages/home/HomeHeader";
 import HomeMain from "./pages/home/HomeMain";
+import {Navigate, Route, Routes} from "react-router-dom";
+import LandingPage from "./views/examples/LandingPage";
+import ProfilePage from "./views/examples/ProfilePage";
+import LoginPage from "./views/examples/LoginPage";
+import Home from "./pages/home/Home";
 
 function App() {
     React.useEffect(() => {
@@ -41,32 +46,41 @@ function App() {
     });
     return (
         <>
-            <IndexNavbar/>
-            <div className="wrapper">
-                {/*<IndexHeader />*/}
-                <div className="main">
-                    <HomeHeader></HomeHeader>
-                    <HomeMain></HomeMain>
+            <Routes>
+                <Route path="/index" element={<Home/>}>
 
-                    {/*<Carousel />*/}
-                    {/*<Pagination />*/}
-                    {/* <Images />
-          <BasicElements />
-          <Navbars />
-          <Tabs />
-          <SignUp />
-          <Notifications />
-          <Typography />
-          <Javascript />
+                </Route>
+                <Route path="/company">
 
-          <NucleoIcons />
-          <CompleteExamples />
+                </Route>
+                <Route path="/member">
 
-          <Examples />
-          <Download />*/}
-                </div>
-                <DarkFooter/>
-            </div>
+                </Route>
+                <Route path="/codingTest">
+
+                </Route>
+                <Route path="/lectuer">
+
+                </Route>
+                <Route path="/community">
+
+                </Route>
+                <Route path="/dm">
+
+                </Route>
+                <Route path="my">
+
+                </Route>
+
+                <Route path="/nucleo-icons" element={<NucleoIcons/>}/>
+                <Route path="/landing-page" element={<LandingPage/>}/>
+                <Route path="/profile-page" element={<ProfilePage/>}/>
+                <Route path="/login-page" element={<LoginPage/>}/>
+
+                <Route path="*" element={<Navigate to="/index" replace/>}/>
+            </Routes>
+            {/*얘네가 인덱스*/}
+
         </>
     );
 }
