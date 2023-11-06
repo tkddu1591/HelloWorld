@@ -85,7 +85,7 @@ function App() {
                 <Route path="/profile-page" element={<ProfilePage/>}/>
                 <Route path="/login-page" element={<LoginPage/>}/>
 
-                <Route path="*" element={<Navigate to="/" replace/>}/>
+                <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}<div>404Page</div></>}/>
             </Routes>
             {/*얘네가 인덱스*/}
 

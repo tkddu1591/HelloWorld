@@ -129,16 +129,12 @@ function IndexNavbar() {
                                         전체
                                     </DropdownItem>
                                     <DropdownItem
-                                        to="/codingTest/list"
-                                        target="_blank"
-                                    >
+                                        to="/codingTest/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         단계별 풀기
                                     </DropdownItem>
                                     <DropdownItem
-                                        to="/codingTest/qna"
-                                        target="_blank"
-                                    >
+                                        to="/codingTest/qna" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         Q&A
                                     </DropdownItem>
@@ -189,23 +185,17 @@ function IndexNavbar() {
                                 </DropdownToggle>
                                 <DropdownMenu>
                                     <DropdownItem
-                                        to="/community/list"
-                                        target="_blank"
-                                    >
+                                        to="/community/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         개발자 라운지
                                     </DropdownItem>
                                     <DropdownItem
-                                        to="/community/list"
-                                        target="_blank"
-                                    >
+                                        to="/community/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         스터디
                                     </DropdownItem>
                                     <DropdownItem
-                                        to="/community/list"
-                                        target="_blank"
-                                    >
+                                        to="/community/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         Q&A
                                     </DropdownItem>
