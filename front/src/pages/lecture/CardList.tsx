@@ -3,13 +3,14 @@ import React, {useState} from "react";
 import SelectBox from "../../components/SelectBox";
 import {useNavigate} from "react-router-dom";
 import {changeDTO} from "../../store/changeDTO";
+import PageListViewType from "../../components/PageListType";
 
 interface ListItem {
     title: string;
     more?: boolean;
     listLoading?: { loading?: string, view?: string };
     setListLoading?: (state: { loading?: string, view?: string }) => void
-    sortType?: any;
+    sortType?: any
 }
 
 function CardList({title, more, setListLoading, listLoading, sortType}: ListItem) {
@@ -26,45 +27,7 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                 <div style={{display: "flex", justifyContent: 'space-between'}}>
                     <div>
                         <h3 style={{textAlign: "left", marginBottom: '10px', display: 'inline-block'}}>{title}</h3>
-
-                        {listLoading?.loading &&
-                            <div style={{display: 'inline-block', marginLeft: '10px'}}>
-                                <Button color={listLoading.loading == 'scroll' ? "info" : ''}
-                                        style={{width: '15px', paddingLeft: '10px'}}
-                                        onClick={() => {
-                                            if (setListLoading)
-                                                changeDTO(setListLoading, 'loading', 'scroll');
-                                        }}>
-                                    <i className="bi bi-chevron-double-down"></i>
-                                </Button>
-                                <Button color={listLoading.loading == 'paging' ? "info" : ''}
-                                        style={{width: '15px', paddingLeft: '10px'}}
-                                        onClick={() => {
-                                            if (setListLoading)
-                                                changeDTO(setListLoading, 'loading', 'paging');
-                                        }}>
-                                    <i className="bi bi-book-half"></i>
-                                </Button>
-                            </div>}
-                        {listLoading?.view &&
-                            <div style={{display: 'inline-block', marginLeft: '10px'}}>
-                                <Button color={listLoading.view == 'card' ? "success" : ''}
-                                        style={{width: '15px', paddingLeft: '10px'}}
-                                        onClick={() => {
-                                            if (setListLoading)
-                                                changeDTO(setListLoading, 'view', 'card');
-                                        }}>
-                                    <i className="bi bi-grid-fill"></i>
-                                </Button>
-                                <Button color={listLoading.view == 'list' ? "success" : ''}
-                                        style={{width: '15px', paddingLeft: '10px'}}
-                                        onClick={() => {
-                                            if (setListLoading)
-                                                changeDTO(setListLoading, 'view', 'list');
-                                        }}>
-                                    <i className="bi bi-list-task"></i>
-                                </Button>
-                            </div>}
+                        <PageListViewType setListLoading={setListLoading} listLoading={listLoading}></PageListViewType>
                     </div>
                     {more &&
                         <span
@@ -73,7 +36,7 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                             style={{boxShadow: '0 4px 6px rgba(0,0,0,0.1)', backgroundColor: 'lightgray', padding: '3px', marginLeft: '2px', fontSize: '11px', fontWeight: 'bolder'}}></i></span>}
 
                     {sortType && <div style={{marginTop: '10px'}}>
-                        <SelectBox options={sortType} value={sortType[0]}></SelectBox>
+                        <SelectBox options={sortType.list} value={sortType.list[0]} isSearchable={sortType.isSearchable}></SelectBox>
                     </div>}
                 </div>
                 <Row style={{padding: '10px'}}>
@@ -315,6 +278,7 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
 
     </>
 }
+
 
 // @ts-ignore
 export default CardList

@@ -3,15 +3,11 @@ import SelectBox from "../../components/SelectBox";
 import React from "react";
 
 interface ListItem {
-    sorts?: ({ title: string; placeholder: string; list: { value: number | string; label: string; }[]; isMulti?: boolean })[]
+    sorts?: ({ title: string; placeholder: string; isSearchable?:boolean; list: { value: number | string; label: string; }[]; isMulti?: boolean })[]
 }
 
 //sort는 0, 1, 2개의 값만 입력이 가능함.
 function LectureSearch({sorts}: ListItem) {
-    //type 0, 1, 2
-    if (sorts) {
-        console.log(sorts[0].list)
-    }
     return <>
         <Container>
             <Row>
@@ -35,7 +31,7 @@ function LectureSearch({sorts}: ListItem) {
                              key={sort.placeholder}>
                             <div className="App">
                                 <SelectBox options={sort.list} isMulti={sort.isMulti}
-                                           placeholder={sort.placeholder}></SelectBox>
+                                           placeholder={sort.placeholder} isSearchable={sort.isSearchable} ></SelectBox>
                             </div>
                         </Col>
                     ))}
