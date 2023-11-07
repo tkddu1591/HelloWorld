@@ -1,6 +1,5 @@
 import React, {lazy, Suspense} from "react";
 
-// reactstrap components
 // import {
 // } from "reactstrap";
 
@@ -10,10 +9,10 @@ import DarkFooter from "./components/Footers/DarkFooter.js";
 
 // sections for this page
 import NucleoIcons from "./views/index-sections/NucleoIcons.js";
-import {Outlet, Route, Routes} from "react-router-dom";
+import {Navigate, Outlet, Route, Routes} from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage";
 import ProfilePage from "./views/examples/ProfilePage";
-import LoginPage from "./pages/member/LoginPage";
+import LoginPage from "./views/examples/LoginPage";
 import Home from "./pages/home/Home";
 import LectureList from "./pages/lecture/list/LectureList";
 
@@ -24,8 +23,12 @@ import SignUp from "./pages/member/SignUp";
 import FindByPass from "./pages/member/FindByPass";
 import LectureView from "./pages/lecture/LectureView/LectureView";
 
-const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
+// COMMUNITY
 
+import CommunityList from "./pages/community/CommunityList";
+import CommunityView from "./pages/community/CommunityView";
+import CommunityWrite from "./pages/community/CommunityWrite";
+const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 
 function App() {
     function fallback() {
@@ -74,7 +77,9 @@ function App() {
                         <Route path="view" element={<LectureView></LectureView>}></Route>
                     </Route>
                     <Route path="community">
-
+                        <Route path={"list"} element={<CommunityList></CommunityList>}/>
+                        <Route path={"view"} element={<CommunityView></CommunityView>}/>
+                        <Route path={"write"} element={<CommunityWrite></CommunityWrite>}/>
                     </Route>
                     <Route path="dm">
 
