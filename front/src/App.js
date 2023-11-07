@@ -22,16 +22,9 @@ import CodingtestView from "./pages/codingtest/CodingtestView";
 
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
-<<<<<<< HEAD
-
 import CodingtestResult from "./pages/codingtest/CodingtestResult";
-import CodingtestQna from "./pages/codingtest/CodingtestQna";
-import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
-
-import LectureView from "./pages/lecture/view/LectureView";
-=======
 import LectureView from "./pages/lecture/LectureView/LectureView";
->>>>>>> 57d789b4c7c7cff87d84411a2c88c1bae7c9ebdd
+
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 
