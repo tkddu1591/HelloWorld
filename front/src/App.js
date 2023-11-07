@@ -22,6 +22,9 @@ import CodingtestView from "./pages/codingtest/CodingtestView";
 
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
+import CodingtestResult from "./pages/codingtest/CodingtestResult";
+import CodingtestQna from "./pages/codingtest/CodingtestQna";
+import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 
 
@@ -44,6 +47,7 @@ function App() {
         <>
             <Routes>
                 <Route path="/" element={<>
+
                     <IndexNavbar/>
                     <div className="main">
                         <Outlet></Outlet>
@@ -62,7 +66,16 @@ function App() {
                 <Route path="/codingTest" element={<CodingtestList/>}>
 
                 </Route>
+                    <Route path="/codingTestResult" element={<CodingtestResult/>}>
+
+                    </Route>
+                    <Route path="/codingTestQna" element={<CodingtestQna/>}>
+
+                    </Route>
                 <Route path="/codingTestView" element={<CodingtestView/>}>
+
+                    </Route>
+                    <Route path="/codingtestQnaView" element={<CodingtestQnaView/>}>
 
                     </Route>
                     <Route path="lecture" element={<><Suspense fallback={fallback()}>
