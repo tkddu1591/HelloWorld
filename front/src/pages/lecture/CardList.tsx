@@ -104,12 +104,12 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                                         style={{color: 'red', marginRight: '10px'}}>50%</span>￦35,000</p>
                                     </span>
 
-                                    <span style={{display: "inline-block", textAlign: "right", marginTop: '3px'}}>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
+                                    <span style={{display: "inline-block", textAlign: "right"}}>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -168,11 +168,11 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                                     </span>
 
                                     <span style={{display: "inline-block", textAlign: "right", marginTop: '3px'}}>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -220,11 +220,11 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                                     </span>
 
                                     <span style={{display: "inline-block", textAlign: "right", marginTop: '3px'}}>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -283,11 +283,11 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                                     </span>
 
                                     <span style={{display: "inline-block", textAlign: "right", marginTop: '3px'}}>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange"}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>

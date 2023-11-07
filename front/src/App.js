@@ -22,6 +22,7 @@ import CodingtestView from "./pages/codingtest/CodingtestView";
 
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
+import LectureView from "./pages/lecture/view/LectureView";
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 
@@ -73,6 +74,7 @@ function App() {
                     </>}>
                         <Route path="list" element={<LectureList></LectureList>}></Route>
                         <Route path="index" element={<LectureHome></LectureHome>}></Route>
+                        <Route path="view" element={<LectureView></LectureView>}></Route>
                     </Route>
                     <Route path="community">
 
