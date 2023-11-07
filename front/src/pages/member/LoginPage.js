@@ -3,26 +3,24 @@ import React from "react";
 // reactstrap components
 import {
     Button,
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Form,
     Input,
     InputGroupAddon,
     InputGroupText,
-    InputGroup,
-    Container,
-    Col
+    InputGroup, Container, Row, Card, Form, CardBody, CardTitle, CardHeader, CardFooter,
 } from "reactstrap";
 
 // core components
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
 import DarkFooter from "../../components/Footers/DarkFooter";
 import Switch from "react-bootstrap-switch";
+import {faComment, faLock, faAt} from "@fortawesome/free-solid-svg-icons";
+import InputField from "./componentsByMember/inputCmpnts/InputField";
+import SocialLogin from "./componentsByMember/buttonCmpnts/SocialLogin";
+import LinkTo from "./componentsByMember/inputCmpnts/LinkTo";
+
+
 
 function LoginPage() {
-    const [leftFocus, setLeftFocus] = React.useState(false);
     React.useEffect(() => {
         document.body.classList.add("login-page");
         document.body.classList.add("sidebar-collapse");
@@ -35,42 +33,63 @@ function LoginPage() {
         };
     }, []);
     return (<>
-        <form style={{
-            marginTop: "150px",
-            display:"flex", 
-            justifyContent:"center" }}>
-            <div style={{maxWidth: "400px", width: "80%"}}>
-                <InputGroup className={leftFocus ? "input-group-focus" : ""}>
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                            <i className="fa fa-user-circle"></i>
-                        </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                        placeholder="아이디 입력"
-                        type="text"
-                        onFocus={() => setLeftFocus(true)}
-                        onBlur={() => setLeftFocus(false)}
-                    ></Input>
-                </InputGroup>
-                <InputGroup className={leftFocus ? "input-group-focus" : ""}>
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                            <i className="fa fa-user-circle"></i>
-                        </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                        placeholder="비밀번호 입력"
-                        type="text"
-                        onFocus={() => setLeftFocus(true)}
-                        onBlur={() => setLeftFocus(false)}
-                    ></Input>
-                </InputGroup>
-                <Button className="btn-round" color="info" type="button" style={{width:"100%"}}>
-                    로그인
-                </Button>
-            </div>
-        </form>
+        <IndexNavbar/>
+
+        <div
+            className="section section-signup"
+            style={{minHeight: "700px"}}
+        >
+            <Container>
+                <Row>
+                    <Card className="card-signup">
+                        <Form action="" className="form" method="">
+
+                            <CardHeader className="text-center">
+                                <CardTitle className="title-up" tag="h3">
+                                    HELLO WORLD
+                                </CardTitle>
+                            </CardHeader>
+
+                            <CardBody>
+                                <InputField
+                                    placeholder="이메일 입력"
+                                    type="text" icon={faAt}/>
+
+                                <InputField
+                                    placeholder="비밀번호 입력"
+                                    type="password" icon={faLock}/>
+
+                                <Switch offColor="" offText="OFF" onColor="" onText="ON" />자동로그인
+
+                                <SocialLogin />
+                            </CardBody>
+
+                            <CardBody className="text-center" style={{marginBottom: "70px"}}>
+
+                                <Button className="btn-round" color="info" type="button" style={{width:"100%"}}>
+                                    로그인
+                                </Button>
+
+                                <LinkTo
+                                    text="회원가입"
+                                    to="/signup-page"
+                                    color="grey"
+                                    pos="left"
+                                />
+
+                                <LinkTo
+                                    text="비밀번호 찾기"
+                                    to="/findByPass-page"
+                                    pos="right"
+                                />
+                            </CardBody>
+                        </Form>
+                    </Card>
+                </Row>
+            </Container>
+        </div>
+
+        <DarkFooter/>
     </>);
 }
 
