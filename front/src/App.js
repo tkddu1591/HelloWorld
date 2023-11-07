@@ -1,31 +1,14 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 
-// reactstrap components
 // import {
 // } from "reactstrap";
 
 // core components
 import IndexNavbar from "./components/Navbars/IndexNavbar.js";
-import IndexHeader from "./components/Headers/IndexHeader.js";
 import DarkFooter from "./components/Footers/DarkFooter.js";
 
 // sections for this page
-import Images from "./views/index-sections/Images.js";
-import BasicElements from "./views/index-sections/BasicElements.js";
-import Navbars from "./views/index-sections/Navbars.js";
-import Tabs from "./views/index-sections/Tabs.js";
-import Pagination from "./views/index-sections/Pagination.js";
-import Notifications from "./views/index-sections/Notifications.js";
-import Typography from "./views/index-sections/Typography.js";
-import Javascript from "./views/index-sections/Javascript.js";
-import Carousel from "./views/index-sections/Carousel.js";
 import NucleoIcons from "./views/index-sections/NucleoIcons.js";
-import CompleteExamples from "./views/index-sections/CompleteExamples.js";
-import SignUp from "./views/index-sections/SignUp.js";
-import Examples from "./views/index-sections/Examples.js";
-import Download from "./views/index-sections/Download.js";
-import HomeHeader from "./pages/home/HomeHeader";
-import HomeMain from "./pages/home/HomeMain";
 import {Navigate, Outlet, Route, Routes} from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage";
 import ProfilePage from "./views/examples/ProfilePage";
@@ -40,12 +23,12 @@ import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
 import LectureView from "./pages/lecture/view/LectureView";
 
-const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
-
 // COMMUNITY
-import List from "./pages/community/List";
-import View from "./pages/community/View";
-import Write from "./pages/community/Write";
+
+import CommunityList from "./pages/community/CommunityList";
+import CommunityView from "./pages/community/CommunityView";
+import CommunityWrite from "./pages/community/CommunityWrite";
+const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 
 function App() {
     function fallback() {
@@ -97,9 +80,9 @@ function App() {
                         <Route path="view" element={<LectureView></LectureView>}></Route>
                     </Route>
                     <Route path="community">
-                        <Route path={"list"} element={<List></List>}/>
-                        <Route path={"view"} element={<View></View>}/>
-                        <Route path={"write"} element={<Write></Write>}/>
+                        <Route path={"list"} element={<CommunityList></CommunityList>}/>
+                        <Route path={"view"} element={<CommunityView></CommunityView>}/>
+                        <Route path={"write"} element={<CommunityWrite></CommunityWrite>}/>
                     </Route>
                     <Route path="dm">
 

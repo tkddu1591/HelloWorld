@@ -8,6 +8,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Pagination from 'react-bootstrap/Pagination';
 import {Col, Container, FormGroup, Input, Row} from "reactstrap";
 import Select from "react-select";
+import PageListViewType from "../../components/PageListType";
 
 const options = [
     {value: 'java', label: 'Java'},
@@ -36,11 +37,12 @@ const searchSelect = [
     {value: '4', label: '댓글작성자'}
 ];
 
-function List() {
+function CommunityList() {
     const [iconPills, setIconPills] = React.useState("1");
     const [pills, setPills] = React.useState("1");
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedSearch, setSelectedSearch] = useState(null);
+    const [listLoading, setListLoading] = useState({loading: 'scroll', view: 'card'});
     return (<>
         <Container style={{userSelect: 'none'}}>
             <div className="list">
@@ -49,7 +51,7 @@ function List() {
                            selectedOption={selectedOption}
                            setSelectedOption={setSelectedOption}
                            options={options}></SearchBar>
-                <PillsExample></PillsExample>
+                <PillsExample listLoading={listLoading} setListLoading={setListLoading}></PillsExample>
                 <TabContent></TabContent>
                 <AdvancedExample></AdvancedExample>
             </div>
@@ -60,7 +62,7 @@ function List() {
 function SearchBar(props) {
     return (<>
         <div className="search_area"
-             style={{marginTop: "100px", minWidth:"160px"}}>
+             style={{marginTop: "100px", minWidth: "160px"}}>
             <Row>
                 <Col lg="2">
                     <Select
@@ -104,25 +106,33 @@ function SearchBar(props) {
         </div>
     </>)
 }
-function PillsExample() {
+
+function PillsExample({listLoading, setListLoading}) {
     return (
-        <Nav variant="pills" defaultActiveKey="/home"
-             style={{width: "1140px", marginLeft: "auto", marginRight: "auto"}}>
-            <Nav.Item>
-                <Nav.Link eventKey="link-0">최신순</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-1">댓글 많은순</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-2">좋아요 많은순</Nav.Link>
-            </Nav.Item>
-        </Nav>
+        <div style={{display: "flex", justifyContent: 'space-between'}}>
+
+            <Nav variant="pills" defaultActiveKey="/home"
+                 style={{width: "auto"}}>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-0">최신순</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-1">댓글 많은순</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-2">좋아요 많은순</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            <div>
+                <PageListViewType listLoading={listLoading} setListLoading={setListLoading}></PageListViewType>
+            </div>
+        </div>
     );
 }
+
 function TabContent() {
     return (<>
-        <div className="main-area">
+        <div className="main-area" style={{display: "flex", justifyContent: 'space-between'}} >
             <ul className={"article"}>
                 <li>
                     <a className={"board_name"}>자유게시판</a>
@@ -495,6 +505,7 @@ function TabContent() {
         </div>
     </>)
 }
+
 function AdvancedExample() {
     return (
         <Pagination className={"justify-content-center"} style={{marginTop: "10px", marginBottom: "10px"}}>
@@ -516,10 +527,6 @@ function AdvancedExample() {
         </Pagination>
     );
 }
-
-
-
-
 
 
 /*function SearchArea() {
@@ -632,4 +639,4 @@ function UnderlineExample() {
         </>
     );
 }*/
-export default List;
+export default CommunityList;

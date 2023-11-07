@@ -1,9 +1,9 @@
 import React from "react";
 
-function Write() {
+function CommunityWrite() {
     return (<>
         <div className="write"></div>
     </>)
 }
 
-export default Write;
+export default CommunityWrite;
