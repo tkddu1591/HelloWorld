@@ -46,7 +46,7 @@ function LectrueViewHeader(){
 
                     </div>
                     <div style={{display: "flex", justifyContent: "center"}}>
-                        <span style={{textAlign: "center", fontSize: '13px', fontFamily: 'nanumsquare'}}>수강중</span>
+                        <span style={{textAlign: "center", fontSize: '12px', fontFamily: 'NanumSquare'}}>수강중</span>
                     </div>
 
                     <div

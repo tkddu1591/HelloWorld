@@ -22,7 +22,7 @@ import CodingtestView from "./pages/codingtest/CodingtestView";
 
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
-import LectureView from "./pages/lecture/view/LectureView";
+import LectureView from "./pages/lecture/LectureView/LectureView";
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 
