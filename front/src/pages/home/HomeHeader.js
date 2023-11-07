@@ -206,7 +206,7 @@ function HomeHeader() {
                             href="#pablo"
                             onClick={(e) => {
                                 e.preventDefault();
-                                navigate("/lecture/list")
+                                navigate("/lecture/index")
                             }}
                         >
                             <i className="now-ui-icons business_briefcase-24"></i>
