@@ -7,7 +7,7 @@ import LectureSearch from "../LectureSearch";
 
 
 function LectureList() {
-    const sortType: any = [
+    const sortType: {value:string, label:string}[] = [
         {value: 'lectureNo', label: '최신순'},
         {value: 'hit', label: '조회순'},
         {value: 'sold', label: '판매많은순'},
@@ -41,7 +41,7 @@ function LectureList() {
             isMulti: true,
         },
     ])
-    const [listLoading, setListLoading] = useState<string>('scroll');
+    const [listLoading, setListLoading] = useState<{loading?:string, view?:string }>({loading:'scroll', view:'card'});
     return <>
         <div style={{marginTop: '100px'}}></div>
         <LectureSearch sorts={sorts}></LectureSearch>
