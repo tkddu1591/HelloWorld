@@ -2,15 +2,17 @@ import React, {useState} from "react";
 import SubmitButton from "./buttonCmpnts/SubmitButton";
 import {Button} from "reactstrap";
 
-function TermsModal({status}) {
-    const terms = "The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid";
-    const [isStatus, setStatus] = useState('none');
+const TERMS = "The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid";
+function TermsModal({isOpenModal, onClickAgreeButton}) {
 
+    /*const [sss, setSss] = useState();
+    * react hooks은 조건부 랜더링 아래에서 사용 x */
+    if(!isOpenModal)return null;
     return (
         <>
             <div
                 style={{
-                display: isStatus,
+                display: 'flex',
                 width: "100%",
                 height: "100%",
                 position: "fixed",
@@ -36,14 +38,17 @@ function TermsModal({status}) {
                         top: "42%",
                         left: "50%",
                         transform: "translate(-50%, -50%)"
-                    }}>{terms}</textarea>
+                    }}>{TERMS}</textarea>
 
-                    <Button color="default" style={{
-                        position: "absolute",
-                        left: "50%",
-                        bottom: "15px",
-                        width: "30%",
-                        transform: "translate(-50%, -50%)"}}>
+                    <Button color="default"
+                            style={{
+                                position: "absolute",
+                                left: "50%",
+                                bottom: "15px",
+                                width: "30%",
+                                transform: "translate(-50%, -50%)"}}
+                            onClick={onClickAgreeButton}
+                    >
                         동의합니다.
                     </Button>
                 </div>

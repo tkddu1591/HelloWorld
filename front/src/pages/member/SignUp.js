@@ -28,7 +28,15 @@ import TermsModal from "./componentsByMember/TermsModal";
 // core components
 
 function SignUp() {
-  const [status, setStatus] = useState("grey")
+  const [agree_terms, setAgree_terms] = useState("grey");
+  const [modalSwitch, setModalSwitch] = useState('flex');
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  function onClickAgreeButton() {
+    setIsOpenModal(false);
+    setAgree_terms('green');
+  }
+
   return (
     <>
       <IndexNavbar/>
@@ -74,9 +82,10 @@ function SignUp() {
                 </CardBody>
 
                 <div style={{textAlign: "center"}}>
-                  <FontAwesomeIcon icon={faCircleCheck} style={{color: status}} />
+                  <FontAwesomeIcon icon={faCircleCheck} style={{color: agree_terms}} />
                   &nbsp;
-                  <d onClick={()=>{setStatus("green")}}>
+                  <d style={{textDecoration: "underline"}}
+                     onClick={()=>{setIsOpenModal(true)}}>
                     이용약관
                   </d>에 동의합니다.
                 </div>
@@ -98,7 +107,8 @@ function SignUp() {
           </Row>
         </Container>
       </div>
-      <TermsModal />
+      {/*{isOpenModal && <TermsModal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}/>}*/}
+      <TermsModal isOpenModal={isOpenModal} onClickAgreeButton={onClickAgreeButton}/>
 
       <DarkFooter/>
 
