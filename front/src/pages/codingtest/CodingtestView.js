@@ -1,18 +1,6 @@
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
 import DarkFooter from "../../components/Footers/DarkFooter";
-import React, {createRef, useEffect} from "react";
-import {
-    Button, Card, CardBody, CardHeader, CardLink, CardSubtitle, CardText, CardTitle, CarouselItem,
-    Col,
-    Container,
-    FormGroup,
-    Input,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    Label, Nav, NavItem, NavLink, Pagination, PaginationItem, PaginationLink,
-    Row, TabContent, TabPane
-} from "reactstrap";
+import React, {createRef} from "react";
 import Slider from "nouislider";
 import CodingTestHeader from "./CodingtestHeader";
 import {EditorView, basicSetup} from "codemirror"
@@ -52,7 +40,6 @@ function BasicElements() {
         }
     });
 }
-g
 function CodingtestView(){
     const [iconPills, setIconPills] = React.useState("1");
     const [pills, setPills] = React.useState("1");

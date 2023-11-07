@@ -16,12 +16,13 @@ import ProfilePage from "./views/examples/ProfilePage";
 import LoginPage from "./pages/member/LoginPage";
 import Home from "./pages/home/Home";
 import LectureList from "./pages/lecture/list/LectureList";
-const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
-
 import Member from "./pages/member/Member";
 
-import CodingtestList from "./pages/codingtest/CodingtestList";
 import CodingtestView from "./pages/codingtest/CodingtestView";
+
+import CodingtestList from "./pages/codingtest/CodingtestList";
+import SignUp from "./pages/member/SignUp";
+const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 
 
 function App() {

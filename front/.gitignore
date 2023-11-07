@@ -25,3 +25,4 @@ package-lock.json
 /.idea/sonarlint/
 /.idea/
 .idea
+/front.iml
