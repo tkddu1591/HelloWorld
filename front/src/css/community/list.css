@@ -11,6 +11,11 @@
     background-position: 0 0
 }
 
+input, button{
+    border: 0;
+    border-radius: 0;
+}
+
 .list-table{
     line-height: 9px;
     font-weight: 300;
@@ -19,8 +24,9 @@
 a{
     color: indianred;
     cursor: pointer;
-    text-decoration: none;
+    /*text-decoration: none;*/
 }
+
 
 ul {
     display: block;
@@ -64,8 +70,20 @@ script {
 div{
     display: block;
 }
+.article strong:hover {
+    text-decoration: underline;
+}
 
+.article a.txt:hover {
+    text-decoration: underline;
+}
 /*******************************************************/
+.list .nav-tabs{
+    width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 .main-area{
     width:1140px;
@@ -79,6 +97,14 @@ div{
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     border-bottom: 1px solid #eeeeef;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.article .board_name {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #666;
 }
 
 .article .card_area{
@@ -141,7 +167,7 @@ div{
     color: #666;
 }
 
-.article .con:only-child .con_bottom{
+.article .con .con_bottom{
     position: absolute;
     bottom: 0;
     left: 0;
@@ -149,13 +175,13 @@ div{
     padding-top: 35px;
 }
 
-.article .con:only-child .con_bottom{
+/*.article .con .con_bottom{
     position: static;
     padding-top: 23px;
-}
+}*/
 
 .article .user_info{
-    ovwerflow: hidden;
+    overflow: hidden;
 }
 
 .article .user_info .pers_nick_area{
@@ -207,7 +233,7 @@ div{
 
 .article .like_area .comment_area{
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 9px;
     vertical-align: top;
 }
 
@@ -268,4 +294,144 @@ div{
     clear: both;
 }
 
+.article .movie-img {
+    display: table-cell;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    /*padding-left: 35px;*/
+    vertical-align: top;
+}
 
+.article .movie-img a {
+    display: block;
+    position: relative;
+    height: 100%;
+}
+
+.article .movie-img a:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 46%;
+    height: 21%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    content: '';
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.article img {
+    vertical-align: top;
+}
+/*img {
+    max-width: 100%;
+    border-radius: 1px;
+}*/
+
+.article img {
+    width: 120px;
+    aspect-ratio: auto 120 / 120;
+    height: 120px;
+}
+
+.article .comment_area .comment_ico{
+    display: inline-block;
+    background-image: url(https://ssl.pstatic.net/static/cafe/cafe_pc/sp/sp_icon_06952b76.svg);
+    background-repeat: no-repeat;
+    vertical-align: top;
+}
+
+.article .like_area .u_likeit_list_module .u_ico{
+    display: inline-block;
+    background-image: url(https://ssl.pstatic.net/static/cafe/cafe_pc/sp/sp_icon_06952b76.svg);
+    background-repeat: no-repeat;
+    vertical-align: top;
+}
+
+.list-search{
+    border-top-color: #ebebea;
+    background-color: #f9f9f8;
+}
+
+.input_component {
+    display: inline-block;
+    position: relative;
+    height: 36px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: solid 1px;
+    vertical-align: top;
+}
+
+.select_component {
+    border-color: #ddd;
+    background-color: #fff;
+    width: 200px;
+}
+
+.select_component .select_box {
+    color: #333;
+}
+
+.select_component .select_box:after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 12px;
+    background-position: -229px -185px;
+    width: 12px;
+    height: 5px;
+}
+
+.select_component .select_box:after {
+    display: inline-block;
+    background-image: url(https://ssl.pstatic.net/static/cafe/cafe_pc/sp/sp_icon_06952b76.svg);
+    background-repeat: no-repeat;
+    vertical-align: top;
+}
+
+.select_component .select_list {
+    display: none;
+    overflow-y: auto;
+    position: absolute;
+    top: 34px;
+    left: -1px;
+    width: 100%;
+    max-height: 288px;
+    border: solid 1px #ddd;
+    background-color: #fff;
+    z-index: 12;
+}
+
+.select_component .select_list li a {
+    display: block;
+    height: 36px;
+    padding: 0 12px;
+    line-height: 36px;
+    color: #333;
+    white-space: nowrap;
+}
+
+.input_search_area {
+    display: inline-block;
+}
+
+.input_search_area .input_component {
+    float: left;
+    border-right: 0;
+}
+
+.input_component input {
+    background-color: #fff;
+    color: #333;
+}
+
+.input_search_area .btn-search-green {
+    display: inline-block;
+    width: 56px;
+    height: 36px;
+    background-color: #03c75a;
+    border: 0;
+    color: #fff;
+}
