@@ -7,14 +7,19 @@ import LectureSearch from "../LectureSearch";
 
 
 function LectureList() {
-    const sortType: {value:string, label:string}[] = [
-        {value: 'lectureNo', label: '최신순'},
-        {value: 'hit', label: '조회순'},
-        {value: 'sold', label: '판매많은순'},
-        {value: 'review', label: '리뷰많은순'},
-        {value: 'price', label: '가격높은순'},
-    ];
-
+    const [sortType, setSortType] = useState(
+        {
+            title: 'sort',
+            list: [
+                {value: 'lectureNo', label: '최신순'},
+                {value: 'hit', label: '조회순'},
+                {value: 'sold', label: '판매많은순'},
+                {value: 'review', label: '리뷰많은순'},
+                {value: 'price', label: '가격높은순'},
+            ],
+            isSearchable: false,
+            isMulti: false,
+        })
     const [sorts, setSorts] = useState([
         {
             title: 'level',
@@ -26,6 +31,7 @@ function LectureList() {
                 {value: 3, label: '중급'},
                 {value: 4, label: '고급'},
             ],
+            isSearchable: false,
             isMulti: false,
         },
         {
