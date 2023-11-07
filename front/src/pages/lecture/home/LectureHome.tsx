@@ -1,6 +1,6 @@
 import LectureHeader from "./LectureHeader";
 import React from "react";
-import LectureIndexList from "./LectureIndexList";
+import CardList from "../CardList";
 
 
 function LectureHome() {
@@ -8,7 +8,9 @@ function LectureHome() {
 
     return <>
         <LectureHeader></LectureHeader>
-        <LectureIndexList></LectureIndexList>
+        <CardList title={"추천강의"} more={true}></CardList>
+        <CardList title={"인기강의"} more={true}></CardList>
+        <CardList title={"최근강의"} more={true}></CardList>
     </>
 }
 
