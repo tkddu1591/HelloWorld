@@ -10,7 +10,7 @@ import DarkFooter from "./components/Footers/DarkFooter.js";
 
 // sections for this page
 import NucleoIcons from "./views/index-sections/NucleoIcons.js";
-import { Outlet, Route, Routes} from "react-router-dom";
+import {Outlet, Route, Routes} from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage";
 import ProfilePage from "./views/examples/ProfilePage";
 import LoginPage from "./pages/member/LoginPage";
@@ -22,16 +22,21 @@ import CodingtestView from "./pages/codingtest/CodingtestView";
 
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
+
 import CodingtestResult from "./pages/codingtest/CodingtestResult";
 import CodingtestQna from "./pages/codingtest/CodingtestQna";
 import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
+
+import LectureView from "./pages/lecture/view/LectureView";
+
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 
 
 function App() {
-    function fallback (){
-        return  <i>loading....</i>
+    function fallback() {
+        return <i>loading....</i>
     }
+
     React.useEffect(() => {
         document.body.classList.add("index-page");
         document.body.classList.add("sidebar-collapse");
@@ -62,8 +67,9 @@ function App() {
                     </Route>
                     <Route path="member" element={<Member/>}>
 
-                </Route>
-                <Route path="/codingTest" element={<CodingtestList/>}>
+                    </Route>
+                    <Route path="/codingTest" element={<CodingtestList/>}>
+
 
                 </Route>
                     <Route path="/codingTestResult" element={<CodingtestResult/>}>
@@ -75,6 +81,10 @@ function App() {
                 <Route path="/codingTestView" element={<CodingtestView/>}>
 
                     </Route>
+                    <Route path="/codingTest/view" element={<CodingtestView/>}>
+
+
+                    </Route>
                     <Route path="/codingtestQnaView" element={<CodingtestQnaView/>}>
 
                     </Route>
@@ -82,8 +92,9 @@ function App() {
                         <Outlet></Outlet>
                     </Suspense>
                     </>}>
-                        <Route path="list" element={<LectureList></LectureList> }></Route>
+                        <Route path="list" element={<LectureList></LectureList>}></Route>
                         <Route path="index" element={<LectureHome></LectureHome>}></Route>
+                        <Route path="view" element={<LectureView></LectureView>}></Route>
                     </Route>
                     <Route path="community">
 
