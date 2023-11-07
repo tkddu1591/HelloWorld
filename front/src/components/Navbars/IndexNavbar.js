@@ -97,6 +97,10 @@ function IndexNavbar() {
                                     <p>교육</p>
                                 </DropdownToggle>
                                 <DropdownMenu>
+                                    <DropdownItem to="/lecture/index" tag={Link}>
+                                        <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
+                                        교육 홈
+                                    </DropdownItem>
                                     <DropdownItem to="/lecture/list" tag={Link}>
                                         <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                                         전체

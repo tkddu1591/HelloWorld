@@ -1,10 +1,10 @@
 import {
-    Button, Carousel, CarouselIndicators, CarouselItem,
+    Carousel, CarouselIndicators, CarouselItem,
     Col,
     Container,
     Nav,
     NavItem,
-    NavLink, Row, UncontrolledCarousel,
+    NavLink, Row
 } from "reactstrap";
 import React, {createRef, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -27,14 +27,15 @@ const items = [
     }
 ];
 
-function HomeHeader() {
+function LectureHeader() {
     const [pills, setPills] = useState("0");
-    let pageHeader = createRef();
+    let pageHeader: React.RefObject<any> = createRef();
 
     useEffect(() => {
         if (window.innerWidth > 991) {
             const updateScroll = () => {
                 let windowScrollTop = window.pageYOffset / 3;
+                // @ts-ignore
                 pageHeader.current.style.transform =
                     "translate3d(0," + windowScrollTop + "px,0)";
             };
@@ -73,6 +74,7 @@ function HomeHeader() {
             <div className="clear-filter page-header" style={{minHeight: '30vh', maxHeight: '500px', height:'auto'}}>
                 <div
                     className="page-header-image"
+
                     ref={pageHeader}
                 ></div>
                 <Container style={{paddingLeft: 0, paddingRight: 0}}>
@@ -186,84 +188,12 @@ function HomeHeader() {
                         </Col>
                     </Row>
 
-                    <div className="content brand" style={{marginTop: '10px'}}>
-                        <h1 className="h1-seo" style={{color: "black"}}><img
-                            src={`${process.env.PUBLIC_URL}/images/home/main_logo.png`}
-                            style={{width: '30px', marginBottom:'5px'}}/>Hello World</h1>
-                    </div>
 
                 </Container>
-            </div>
-            <div>
-                <Nav
-                    className="nav-pills-info nav-pills-just-icons d-flex justify-content-center"
-                    pills
-                    role="tablist"
-                >
-                    <NavItem className="mr-2">
-                        <NavLink
-                            className={pills === "1" ? "active" : ""}
-                            href="#pablo"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                navigate("/lecture/index")
-                            }}
-                        >
-                            <i className="now-ui-icons business_briefcase-24"></i>
-                            <span className="far"
-                                  style={{fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px'}}>교육</span>
-                        </NavLink>
-                    </NavItem>
-                    <NavItem className="mr-2">
-                        <NavLink
-                            className={pills === "2" ? "active" : ""}
-                            href="#pablo"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                navigate("/codingTest/list")
-                            }}
-                        >
-                            <i className="now-ui-icons files_single-copy-04"></i>
-                            <span className="far"
-                                  style={{fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px'}}>코딩테스트</span>
-                        </NavLink>
-
-                    </NavItem>
-                    <NavItem className="mr-2">
-                        <NavLink
-                            className={pills === "3" ? "active" : ""}
-                            href="#pablo"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                navigate("/company/list")
-                            }}
-                        >
-                            <i  className="now-ui-icons business_badge"></i>
-                            <span className="far"
-                                  style={{fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px'}}>채용공고</span>
-                        </NavLink>
-                    </NavItem>
-                    <NavItem className="mr-2">
-                        <NavLink
-                            className={pills === "4" ? "active" : ""}
-                            href="#pablo"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                navigate("/community/list")
-                            }}
-                        >
-                            <i  className="now-ui-icons business_globe"></i>
-                            <span className="far"
-                                  style={{fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px'}}>커뮤니티</span>
-                        </NavLink>
-                    </NavItem>
-                </Nav>
-                <br></br>
-                <br></br>
             </div>
         </>
     );
 
 }
 
-export default HomeHeader;
+export default LectureHeader;
