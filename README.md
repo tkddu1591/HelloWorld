@@ -11,6 +11,7 @@ HelloWorld 프로젝트
 - hook-form: npm i react-hook-form
 - 기본 모듈 : npm install
 - env.cmd : npm install env-cmd
+- codemirror : npm i codemirror @codemirror/lang-javascript
 
 # gitignore 파일
 - application.properties
