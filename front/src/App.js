@@ -27,10 +27,14 @@ import FindByPass from "./pages/member/FindByPass";
 import CompanyList from "./pages/company/CompanyList";
 import CompanyView from "./pages/company/CompanyView";
 import LectureView from "./pages/lecture/view/LectureView";
+
+import LectureDetail from "./pages/lecture/detail/LectureDetail";
+
 import CodingtestQna from "./pages/codingtest/CodingtestQna";
 import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
 import CodingtestQnaWrite from "./pages/codingtest/CodingtestQnaWrite";
 import CodingtestBestCode from "./pages/codingtest/CodingtestBestCode";
+
 
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
@@ -55,6 +59,8 @@ function App() {
     return (
         <>
             <Routes>
+
+
                 <Route path="/" element={<>
 
                     <IndexNavbar/>
@@ -131,8 +137,6 @@ function App() {
                 <Route path="/nucleo-icons" element={<NucleoIcons/>}/>
                 <Route path="/landing-page" element={<LandingPage/>}/>
                 <Route path="/profile-page" element={<ProfilePage/>}/>
-
-
                 <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}
                     <div>404Page</div>
                 </>}/>

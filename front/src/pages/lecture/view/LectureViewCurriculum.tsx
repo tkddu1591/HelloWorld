@@ -15,7 +15,6 @@ function LectureViewCurriculum() {
 
 function LectureViewCurriculumTable() {
     let [viewCurriculum, setViecurriculum] = useState<boolean[]>([true, false]);
-    console.log(viewCurriculum)
     return <>
         <div style={{marginTop: '20px'}}>
             <div style={{display: "flex", justifyContent: 'space-between', marginBottom: '10px'}}>

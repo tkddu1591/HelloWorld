@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import Select from "react-select";
 import SelectBox from "../../../components/Lecture/SelectBox";
 import CardList from "../CardList";
-import LectureSearch from "../LectureSearch";
+import SearchBar from "../../../components/Lecture/SearchBar";
 
 
 function LectureList() {
@@ -50,7 +50,7 @@ function LectureList() {
     const [listLoading, setListLoading] = useState<{loading?:string, view?:string }>({loading:'scroll', view:'card'});
     return <>
         <div style={{marginTop: '100px'}}></div>
-        <LectureSearch sorts={sorts}></LectureSearch>
+        <SearchBar sorts={sorts}></SearchBar>
         <div style={{marginTop: '20px'}}>
             <CardList title={"강의목록"} listLoading={listLoading} setListLoading={setListLoading}
                       sortType={sortType}></CardList>

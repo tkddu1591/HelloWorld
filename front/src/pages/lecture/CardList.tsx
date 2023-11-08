@@ -28,7 +28,6 @@ function CardList({title, more, setListLoading, listLoading, sortType, colSize =
         lg: 4,
         xl: 3
     });
-    console.log(colSize)
     useEffect(() => {
 
         if (colSize < 6)

@@ -40,7 +40,7 @@ function Star({size, change = false, score=0}: StarProps) {
                            setCount(item)
                            setHover(false)
                        }}
-                       style={{color: (hover ? '' : "orange"), fontSize: (size + 'px')}}></i>
+                       style={{color: (hover ? '' : "orange"),cursor:"pointer", fontSize: (size + 'px')}}></i>
                 else
                     return <i key={item}
                               style={{color:  "orange", fontSize: (size + 'px')}}
