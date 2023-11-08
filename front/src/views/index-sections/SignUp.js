@@ -14,7 +14,7 @@ import {
   InputGroupText,
   InputGroup,
   Container,
-  Row
+  Row,
 } from "reactstrap";
 
 // core components
@@ -31,7 +31,7 @@ function SignUp() {
           backgroundImage: "url(" + require("assets/img/bg11.jpg") + ")",
           backgroundSize: "cover",
           backgroundPosition: "top center",
-          minHeight: "700px"
+          minHeight: "700px",
         }}
       >
         <Container>
@@ -141,7 +141,7 @@ function SignUp() {
             <Button
               className="btn-round btn-white"
               color="default"
-              to="/login-page"
+              to="/member/login"
               outline
               size="lg"
               tag={Link}

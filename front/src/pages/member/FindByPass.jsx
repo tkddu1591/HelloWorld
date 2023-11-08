@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -27,10 +27,26 @@ import StatusText from "./componentsByMember/status/StatusText";
 // core components
 
 function FindByPass() {
+  const [emailButton, setEmailButton] = useState("default");
+  const [buttonText, setButtonText] = useState("인증번호 요청");
+  const [emailIcon, setEmailIcon] = useState(faCircleQuestion);
+  const [emailIconColor, setEmailIconColor] = useState("");
+  const [isOpenEmail, setIsOpenEmail] = useState(false);
+
+  function emailClick() {
+    if(isOpenEmail === false){
+      setIsOpenEmail(true);
+      setEmailButton("warning");
+      setButtonText("인증번호 확인");
+    }else if(isOpenEmail === true){
+      setEmailButton("success");
+      setButtonText("인증 완료");
+      setEmailIcon(faCircleCheck);
+      setEmailIconColor("green");
+    }
+  }
   return (
     <>
-      <IndexNavbar/>
-
       <div
         className="section section-signup"
         style={{
@@ -55,19 +71,24 @@ function FindByPass() {
 
                   <InputField
                       placeholder="이메일 인증번호 입력"
-                      type="text" icon={faCircleQuestion}/>
+                      type="text" icon={emailIcon} color={emailIconColor}/>
                   {/*완료되면 icon={faCircleCheck} style={{color: "#2bff0f",}} 날리기*/}
 
-                  <SubmitButton status="default"
-                    text="인증번호 요청"/>
+                  <Button
+                      onClick={emailClick}
+                      color={emailButton}
+                      style={{marginLeft: "60%", width: "40%"}}>
+                    {buttonText}
+                  </Button>
 
-                  <InputField
+                  {isOpenEmail && <><InputField
                       placeholder="새 비밀번호 입력"
                       type="password" icon={faLock}/>
 
-                  <InputField
-                      placeholder="새 비밀번호 확인"
-                      type="password" icon={faLock}/>
+                    <InputField
+                    placeholder="새 비밀번호 확인"
+                    type="password" icon={faLock}/></>}
+
                 </CardBody>
 
                 <CardFooter className="text-center">
@@ -87,10 +108,6 @@ function FindByPass() {
           </Row>
         </Container>
       </div>
-
-
-
-      <DarkFooter/>
     </>
   );
 }
