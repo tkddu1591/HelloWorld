@@ -1,5 +1,5 @@
 import {Col, Container, FormGroup, Input, Row} from "reactstrap";
-import SelectBox from "../../components/SelectBox";
+import SelectBox from "../../components/Lecture/SelectBox";
 import React from "react";
 
 interface ListItem {

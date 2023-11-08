@@ -1,32 +1,63 @@
 import {Button, Col, Container, Row} from "reactstrap";
-import React, {useState} from "react";
-import SelectBox from "../../components/SelectBox";
+import React, {useEffect, useState} from "react";
+import SelectBox from "../../components/Lecture/SelectBox";
 import {useNavigate} from "react-router-dom";
 import {changeDTO} from "../../store/changeDTO";
-import PageListViewType from "../../components/PageListType";
+import PageListViewType from "../../components/Lecture/PageListType";
 
 interface ListItem {
-    title: string;
+    title?: string;
     more?: boolean;
     listLoading?: { loading?: string, view?: string };
     setListLoading?: (state: { loading?: string, view?: string }) => void
     sortType?: any
+    colSize?: number
 }
 
-function CardList({title, more, setListLoading, listLoading, sortType}: ListItem) {
+function CardList({title, more, setListLoading, listLoading, sortType, colSize = 12}: ListItem) {
     let navigate = useNavigate();
 
     function handleClick(e) {
         navigate('/lecture/view');
     }
 
+    const [cardSize, setCardSize] = useState({
+        sm: 12,
+        md: 6,
+        lg: 4,
+        xl: 3
+    });
+    useEffect(() => {
+        if (colSize < 12)
+            setCardSize({
+                sm: 12,
+                md: 6,
+                lg: 6,
+                xl: 4
+            })
+        else if (colSize < 9)
+            setCardSize({
+                sm: 12,
+                md: 12,
+                lg: 6,
+                xl: 6
+            })
+        else if (colSize < 6)
+            setCardSize({
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 6
+            })
+    })
     return <>
         <Container>
 
             <div id="cards">
                 <div style={{display: "flex", justifyContent: 'space-between'}}>
                     <div>
-                        <h3 style={{textAlign: "left", marginBottom: '10px', display: 'inline-block'}}>{title}</h3>
+                        {title &&
+                            <h3 style={{textAlign: "left", marginBottom: '10px', display: 'inline-block'}}>{title}</h3>}
                         <PageListViewType setListLoading={setListLoading} listLoading={listLoading}></PageListViewType>
                     </div>
                     {more &&
@@ -36,11 +67,12 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                             style={{boxShadow: '0 4px 6px rgba(0,0,0,0.1)', backgroundColor: 'lightgray', padding: '3px', marginLeft: '2px', fontSize: '11px', fontWeight: 'bolder'}}></i></span>}
 
                     {sortType && <div style={{marginTop: '10px'}}>
-                        <SelectBox options={sortType.list} value={sortType.list[0]} isSearchable={sortType.isSearchable}></SelectBox>
+                        <SelectBox options={sortType.list} value={sortType.list[0]}
+                                   isSearchable={sortType.isSearchable}></SelectBox>
                     </div>}
                 </div>
                 <Row style={{padding: '10px'}}>
-                    <Col sm="12" md="6" lg='4' xl="3" style={{padding: '10px'}}
+                    <Col sm={cardSize.sm} md={cardSize.md} lg={cardSize.lg} xl={cardSize.xl} style={{padding: '10px'}}
                     >
                         <div
                             style={{borderRadius: '5%', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '0'}}
@@ -55,7 +87,7 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
 
                             <div style={{
                                 textAlign: 'left',
-                                padding: '10px'
+                                padding: '10px',
                             }}>
                                 <div><span style={{fontWeight: "700", cursor: "pointer"}}
                                            onClick={handleClick}>제목</span></div>
@@ -68,11 +100,16 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                                     </span>
 
                                     <span style={{display: "inline-block", textAlign: "right"}}>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -84,12 +121,13 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
 
                                     <Button className="btn-round" color="success" type="button" onClick={(e) => {
                                         e.preventDefault()
-                                    }}>
+                                    }} style={{fontFamily: 'nanumsquare'}}
+                                    >
                                         북마크 중
                                     </Button>
                                     <Button className="btn-round" color="primary" type="button" onClick={(e) => {
                                         e.preventDefault()
-                                    }}>
+                                    }} style={{fontFamily: 'nanumsquare'}}>
                                         할인 중
                                         <span style={{
                                             borderLeft: '1px solid skyblue',
@@ -103,8 +141,8 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                             </div>
                         </div>
                     </Col>
-
-                    <Col sm="12" md="6" lg='4' xl="3" style={{padding: '10px'}}>
+                    <Col sm={cardSize.sm} md={cardSize.md} lg={cardSize.lg} xl={cardSize.xl} style={{padding: '10px'}}
+                    >
                         <div
                             style={{borderRadius: '5%', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '0'}}
                         >
@@ -118,7 +156,7 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
 
                             <div style={{
                                 textAlign: 'left',
-                                padding: '10px'
+                                padding: '10px',
                             }}>
                                 <div><span style={{fontWeight: "700", cursor: "pointer"}}
                                            onClick={handleClick}>제목</span></div>
@@ -130,12 +168,17 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                                         style={{color: 'red', marginRight: '10px'}}>50%</span>￦35,000</p>
                                     </span>
 
-                                    <span style={{display: "inline-block", textAlign: "right", marginTop: '3px'}}>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                    <span style={{display: "inline-block", textAlign: "right"}}>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -147,16 +190,16 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
 
                                     <Button className="btn-round" color="success" type="button" onClick={(e) => {
                                         e.preventDefault()
-                                    }}>
+                                    }} style={{fontFamily: 'nanumsquare'}}
+                                    >
                                         북마크 중
                                     </Button>
-
                                 </div>
                             </div>
                         </div>
                     </Col>
-
-                    <Col sm="12" md="6" lg='4' xl="3" style={{padding: '10px'}}>
+                    <Col sm={cardSize.sm} md={cardSize.md} lg={cardSize.lg} xl={cardSize.xl} style={{padding: '10px'}}
+                    >
                         <div
                             style={{borderRadius: '5%', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '0'}}
                         >
@@ -170,7 +213,7 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
 
                             <div style={{
                                 textAlign: 'left',
-                                padding: '10px'
+                                padding: '10px',
                             }}>
                                 <div><span style={{fontWeight: "700", cursor: "pointer"}}
                                            onClick={handleClick}>제목</span></div>
@@ -182,12 +225,17 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                                         style={{color: 'red', marginRight: '10px'}}>50%</span>￦35,000</p>
                                     </span>
 
-                                    <span style={{display: "inline-block", textAlign: "right", marginTop: '3px'}}>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                    <span style={{display: "inline-block", textAlign: "right"}}>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -199,12 +247,13 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
 
                                     <Button className="btn-round" color="" type="button" onClick={(e) => {
                                         e.preventDefault()
-                                    }}>
+                                    }} style={{fontFamily: 'nanumsquare'}}
+                                    >
                                         북마크
                                     </Button>
                                     <Button className="btn-round" color="primary" type="button" onClick={(e) => {
                                         e.preventDefault()
-                                    }}>
+                                    }} style={{fontFamily: 'nanumsquare'}}>
                                         할인 중
                                         <span style={{
                                             borderLeft: '1px solid skyblue',
@@ -218,8 +267,8 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                             </div>
                         </div>
                     </Col>
-
-                    <Col sm="12" md="6" lg='4' xl="3" style={{padding: '10px'}}>
+                    <Col sm={cardSize.sm} md={cardSize.md} lg={cardSize.lg} xl={cardSize.xl} style={{padding: '10px'}}
+                    >
                         <div
                             style={{borderRadius: '5%', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '0'}}
                         >
@@ -233,7 +282,7 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
 
                             <div style={{
                                 textAlign: 'left',
-                                padding: '10px'
+                                padding: '10px',
                             }}>
                                 <div><span style={{fontWeight: "700", cursor: "pointer"}}
                                            onClick={handleClick}>제목</span></div>
@@ -245,12 +294,17 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
                                         style={{color: 'red', marginRight: '10px'}}>50%</span>￦35,000</p>
                                     </span>
 
-                                    <span style={{display: "inline-block", textAlign: "right", marginTop: '3px'}}>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
-                                        <i className={"bi bi-star-fill"} style={{color: "orange", fontSize:'17px'}}></i>
+                                    <span style={{display: "inline-block", textAlign: "right"}}>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <i className={"bi bi-star-fill"}
+                                           style={{color: "orange", fontSize: '17px'}}></i>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -262,15 +316,14 @@ function CardList({title, more, setListLoading, listLoading, sortType}: ListItem
 
                                     <Button className="btn-round" color="" type="button" onClick={(e) => {
                                         e.preventDefault()
-                                    }}>
+                                    }} style={{fontFamily: 'nanumsquare'}}
+                                    >
                                         북마크
                                     </Button>
-
                                 </div>
                             </div>
                         </div>
                     </Col>
-
                 </Row>
             </div>
         </Container>

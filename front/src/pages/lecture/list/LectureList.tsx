@@ -1,7 +1,7 @@
 import {Button, Col, Container, FormGroup, Input, Row} from "reactstrap";
 import React, {useState} from "react";
 import Select from "react-select";
-import SelectBox from "../../../components/SelectBox";
+import SelectBox from "../../../components/Lecture/SelectBox";
 import CardList from "../CardList";
 import LectureSearch from "../LectureSearch";
 

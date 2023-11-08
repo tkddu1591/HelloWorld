@@ -14,6 +14,11 @@ HelloWorld 프로젝트
 - codemirror : npm i codemirror @codemirror/lang-javascript
 - select : npm install react-select
 - bootstarp : npm install react-bootstrap
+- npm install @fortawesome/react-fontawesome 
+- npm install @fortawesome/fontawesome-svg-core 
+- npm i @fortawesome/free-brands-svg-icons
+- npm i @fortawesome/free-solid-svg-icons 
+- npm i @fortawesome/free-regular-svg-icons
 
 # gitignore 파일
 - application.properties
