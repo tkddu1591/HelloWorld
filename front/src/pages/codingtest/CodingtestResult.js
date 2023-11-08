@@ -20,35 +20,7 @@ import Select from "react-select";
 
 const code = 'const a = 0;';
 
-function BasicElements() {
-    const [leftFocus, setLeftFocus] = React.useState(false);
-    const [rightFocus, setRightFocus] = React.useState(false);
-    let pageHeader = createRef();
-    React.useEffect(() => {
-        if (
-            !document
-                .getElementById("sliderRegular")
-                .classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderRegular"), {
-                start: [50],
-                connect: [true, false],
-                step: 0.5,
-                range: {min: 0, max: 100},
-            });
-        }
-        if (
-            !document.getElementById("sliderDouble").classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderDouble"), {
-                start: [20, 80],
-                connect: [false, true, false],
-                step: 1,
-                range: {min: 0, max: 100},
-            });
-        }
-    });
-}
+
 
 
 function CodingtestResult() {
@@ -107,7 +79,7 @@ function CodingtestResult() {
                     <Card style={{width: "80%", height: '100%', display: 'block', margin: '0 auto'}}>
                         <CardBody>
                             <CardTitle tag="h2" style={{marginTop: '-10px', borderBottom: '1px dashed #E6E6FA'}}>
-                                Result
+                                실패!
                             </CardTitle>
                             <CardTitle tag="h5" style={{marginTop: '-10px', borderBottom: '1px dashed #E6E6FA'}}>
                                 Compiler runtime error, info: "cpu_time": 0, "real_time": 2, "memory": 0, "signal": 10,

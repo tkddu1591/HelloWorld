@@ -15,35 +15,7 @@ import {
 import Slider from "nouislider";
 import CodingTestHeader from "./CodingtestHeader";
 
-function BasicElements() {
-    const [leftFocus, setLeftFocus] = React.useState(false);
-    const [rightFocus, setRightFocus] = React.useState(false);
-    let pageHeader = createRef();
-    React.useEffect(() => {
-        if (
-            !document
-                .getElementById("sliderRegular")
-                .classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderRegular"), {
-                start: [50],
-                connect: [true, false],
-                step: 0.5,
-                range: {min: 0, max: 100},
-            });
-        }
-        if (
-            !document.getElementById("sliderDouble").classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderDouble"), {
-                start: [20, 80],
-                connect: [false, true, false],
-                step: 1,
-                range: {min: 0, max: 100},
-            });
-        }
-    });
-}
+
 
 function CodingtestQna(){
     const [iconPills, setIconPills] = React.useState("1");
@@ -56,25 +28,16 @@ function CodingtestQna(){
             <div className="main">
                 <CodingTestHeader></CodingTestHeader>
 
-                    <Container >
+
                             <Row style={{display:'flex',justifyContent:'center'}}>
                                 <Col lg="8" sm="6" style={{marginTop:'-30px',display:'inline-block'}}>
                                     <Form>
-                                    <FormGroup>{/*
-                                        <select className="bootstrap-select" aria-label="Default select example" style={{textAlign:'left'}}>
-                                            <option value={0}>단계를 선택해주세요</option>
-                                            <option value={1}>1단계</option>
-                                            <option value={2}>2단계</option>
-                                            <option value={3}>3단계</option>
-                                            <option value={4}>4단계</option>
-                                        </select>*/}
-
+                                    <FormGroup>
                                         <Input style={{display:'flex',justifyContent:'center'}}
                                             defaultValue=""
                                             placeholder="질문을 검색해봐라"
                                             type="text"
                                         >
-
                                         </Input>
                                     </FormGroup>
                                     </Form>
@@ -88,8 +51,8 @@ function CodingtestQna(){
                             <th scope="col" style={{width:'80px'}} ></th>
                             <th scope="col" style={{width:'80px'}} >난이도</th>
                             <th scope="col">제목</th>
-                            <th scope="col" style={{width:'150px'}}>완료한 사람</th>
-                            <th scope="col" style={{width:'150px'}}>정답률</th>
+                            <th scope="col" style={{width:'150px'}}>조회수</th>
+                            <th scope="col" style={{width:'150px'}}>추천수</th>
                         </thead>
                         <tr>
                             <td scope="row">
@@ -103,7 +66,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -124,7 +87,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -145,7 +108,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -166,7 +129,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -187,7 +150,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -208,7 +171,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -229,7 +192,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -250,7 +213,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -271,7 +234,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -292,7 +255,7 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
                             </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>3</a>
@@ -301,6 +264,30 @@ function CodingtestQna(){
                                 <a href={'#'} style={{color:'black'}}>4</a>
                             </td>
                         </tr>
+                        <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>1</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>3</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>4</a>
+                            </td>
+                        </tr>
+
+
+
                     </table>
                         <Pagination style={{display:'flex',justifyContent:'center',textAlign:'center', width:'100%'}}>
                             <PaginationItem>
@@ -356,6 +343,7 @@ function CodingtestQna(){
                                 </PaginationLink>
                             </PaginationItem>
                         </Pagination>
+
                         <Card style={{ width: "20rem" ,display:'flex',float:'right',top:'-800px',left:'400px'}}>
                             <CardBody>
                                 <CardTitle tag="h4">사용자 ID 출력공간</CardTitle>
@@ -380,9 +368,6 @@ function CodingtestQna(){
                             </CardBody>
                         </Card>
 
-
-
-                    </Container>
 
 
 
