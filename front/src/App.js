@@ -26,6 +26,7 @@ import CodingtestResult from "./pages/codingtest/CodingtestResult";
 import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
 import CodingtestQna from "./pages/codingtest/CodingtestQna";
 import LectureView from "./pages/lecture/view/LectureView";
+import LectureDetail from "./pages/lecture/detail/LectureDetail";
 
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
@@ -50,6 +51,8 @@ function App() {
     return (
         <>
             <Routes>
+
+
                 <Route path="/" element={<>
 
                     <IndexNavbar/>
@@ -108,7 +111,7 @@ function App() {
                 <Route path="/profile-page" element={<ProfilePage/>}/>
                 <Route path="/login-page" element={<LoginPage/>}/>
                 <Route path="/signup-page" element={<SignUp/>}/>
-
+                <Route path="/lecture/detail/:lectureNo" element={<LectureDetail/>}/>
                 <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}
                     <div>404Page</div>
                 </>}/>

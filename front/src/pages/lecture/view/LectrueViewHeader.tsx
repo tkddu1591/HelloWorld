@@ -2,8 +2,10 @@ import {Button, Col, Progress, Row} from "reactstrap";
 import React from "react";
 import '../scss/lecture.scss'
 import Star from "../../../components/Lecture/Star";
+import {useNavigate} from "react-router-dom";
 
 function LectrueViewHeader(){
+    let navigate = useNavigate();
     return<>
         <h3 style={{marginBottom: '15px'}}>(무료) 매우쉽게 알려주는 git & github</h3>
         <div className='ddd'>
@@ -25,9 +27,10 @@ function LectrueViewHeader(){
                 <div
                     style={{border: '1px solid lightgray', borderRadius: '2px', height: '240px', padding: '20px', backgroundColor: '#Fafafa'}}>
                     <Button
+                        onClick={()=>{navigate('/lecture/detail/lectureNo')}}
                         style={{borderRadius: '5px', height: '60px', width:'100%',backgroundColor: '#FF5554', paddingTop: '20px', display: "flex", justifyContent: "center", cursor: "pointer", marginBottom: '20px'}}>
                             <span
-                                style={{textAlign: "center", color: "white", display: "inline-block", fontSize: '17px', fontWeight: 'bold', fontFamily: '한컴 말랑말랑'}}>수강 계속하기</span>
+                                style={{textAlign: "center", color: "white", display: "inline-block", fontSize: '17px', fontWeight: 'bold', fontFamily: '한컴 말랑말랑'} }>수강 계속하기</span>
                     </Button>
 
                     <div className="progress-container progress-danger"
