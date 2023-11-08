@@ -140,13 +140,13 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"}>
+                                    <a className={"tit"} href={"view"}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"}>
+                                <a className={"txt"} href={"view"}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -187,7 +187,7 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a>
+                            <a href={"view"}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -201,13 +201,13 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"}>
+                                    <a className={"tit"} href={"view"}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"}>
+                                <a className={"txt"} href={"view"}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -248,7 +248,7 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a>
+                            <a href={"view"}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -262,13 +262,13 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"}>
+                                    <a className={"tit"} href={"view"}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"}>
+                                <a className={"txt"} href={"view"}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -309,7 +309,7 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a>
+                            <a href={"view"}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -323,13 +323,13 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"}>
+                                    <a className={"tit"} href={"view"}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"}>
+                                <a className={"txt"} href={"view"}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -370,7 +370,7 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a>
+                            <a href={"view"}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -384,13 +384,13 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"}>
+                                    <a className={"tit"} href={"view"}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"}>
+                                <a className={"txt"} href={"view"}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -431,7 +431,7 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a>
+                            <a href={"view"}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -445,13 +445,13 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"}>
+                                    <a className={"tit"} href={"view"}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"}>
+                                <a className={"txt"} href={"view"}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -492,7 +492,7 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a>
+                            <a href={"view"}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
