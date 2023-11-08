@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Card, CardBody, CardHeader, Col, Container, Nav, NavItem, NavLink, Row, TabContent, TabPane} from "reactstrap";
 import CompanyCard from "./componentsByCompany/CompanyCard";
-import LectureSearch from "../lecture/LectureSearch";
+import SearchBar from "../../components/Lecture/SearchBar";
 
 function CompanyList() {
     const companyData = {
@@ -73,7 +73,7 @@ function CompanyList() {
         <>
             <Container>
                 <div style={{marginTop:'100px'}}>
-                <LectureSearch sorts={sorts}></LectureSearch>
+                <SearchBar sorts={sorts}></SearchBar>
                 </div>
 
                 <div style={{marginTop: "62px", width: "100%", height: "auto", minHeight: "300px"}}>

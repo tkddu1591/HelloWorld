@@ -34,6 +34,9 @@ import CodingtestQna from "./pages/codingtest/CodingtestQna";
 import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
 import CodingtestQnaWrite from "./pages/codingtest/CodingtestQnaWrite";
 import CodingtestBestCode from "./pages/codingtest/CodingtestBestCode";
+import CommunityList from "./pages/community/CommunityList";
+import CommunityView from "./pages/community/CommunityView";
+import CommunityWrite from "./pages/community/CommunityWrite";
 
 
 
@@ -60,7 +63,7 @@ function App() {
         <>
             <Routes>
 
-
+                <Route path="/lecture/detail/:id" element={<LectureDetail/>}/>
                 <Route path="/" element={<>
 
                     <IndexNavbar/>
@@ -92,7 +95,7 @@ function App() {
                         <Route path="view" element={<CompanyView />}></Route>
                     </Route>
 
-                    <Route path="/codingTest" element={<CodingtestList/>}>
+                    <Route path="/codingTest/list" element={<CodingtestList/>}>
 
 
                 </Route>
@@ -124,7 +127,9 @@ function App() {
                         <Route path="view" element={<LectureView></LectureView>}></Route>
                     </Route>
                     <Route path="community">
-
+                        <Route path={"list"} element={<CommunityList></CommunityList>}/>
+                        <Route path={"view"} element={<CommunityView></CommunityView>}/>
+                        <Route path={"write"} element={<CommunityWrite></CommunityWrite>}/>
                     </Route>
                     <Route path="dm">
 

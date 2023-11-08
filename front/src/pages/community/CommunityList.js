@@ -1,14 +1,10 @@
 import React, {useState} from "react";
-import Table from 'react-bootstrap/Table';
 import Nav from 'react-bootstrap/Nav';
 import "./../../css/community/list.css";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Pagination from 'react-bootstrap/Pagination';
 import {Col, Container, FormGroup, Input, Row} from "reactstrap";
 import Select from "react-select";
-import PageListViewType from "../../components/PageListType";
+import PageListViewType from "../../components/Lecture/PageListType";
 
 const options = [
     {value: 'java', label: 'Java'},
