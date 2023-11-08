@@ -1,17 +1,15 @@
 import {Col, Table} from "reactstrap";
 import React, {useEffect, useState} from "react";
 import {changeDTO} from "../../../store/changeDTO";
+import Subhead from "../../../Subhead";
 
 function LectureViewCurriculum() {
     return <>
         <Col lg='9'>
-            <div style={{marginTop: '20px', borderBottom: '2px solid lightgray'}}><span
-                style={{fontSize: '20px', borderBottom: '2px solid red'}}>
-                        커리큘럼
-                        </span>
-            </div>
+            <Subhead title={'커리큘럼'}></Subhead>
             <LectureViewCurriculumTable></LectureViewCurriculumTable>
-
+            <LectureViewCurriculumTable></LectureViewCurriculumTable>
+            <LectureViewCurriculumTable></LectureViewCurriculumTable>
         </Col></>
 }
 

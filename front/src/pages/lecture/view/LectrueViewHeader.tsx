@@ -1,15 +1,13 @@
 import {Button, Col, Progress, Row} from "reactstrap";
 import React from "react";
+import '../scss/lecture.scss'
+import Star from "../../../components/Lecture/Star";
 
 function LectrueViewHeader(){
     return<>
         <h3 style={{marginBottom: '15px'}}>(무료) 매우쉽게 알려주는 git & github</h3>
-        <div>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
+        <div className='ddd'>
+            <Star size={20} score={5}></Star>
             <span style={{marginLeft: '5px'}}>( 1,200 리뷰 )</span>
             <span style={{marginLeft: '20px'}}>
                     <i className="bi bi-people-fill" style={{fontSize: '15px', marginRight: '3px'}}></i>
@@ -26,11 +24,11 @@ function LectrueViewHeader(){
             <Col lg='3' style={{marginTop: '10px'}}>
                 <div
                     style={{border: '1px solid lightgray', borderRadius: '2px', height: '240px', padding: '20px', backgroundColor: '#Fafafa'}}>
-                    <div
-                        style={{borderRadius: '5px', height: '60px', backgroundColor: '#FF5554', paddingTop: '20px', display: "flex", justifyContent: "center", cursor: "pointer", marginBottom: '20px'}}>
+                    <Button
+                        style={{borderRadius: '5px', height: '60px', width:'100%',backgroundColor: '#FF5554', paddingTop: '20px', display: "flex", justifyContent: "center", cursor: "pointer", marginBottom: '20px'}}>
                             <span
                                 style={{textAlign: "center", color: "white", display: "inline-block", fontSize: '17px', fontWeight: 'bold', fontFamily: '한컴 말랑말랑'}}>수강 계속하기</span>
-                    </div>
+                    </Button>
 
                     <div className="progress-container progress-danger"
                          style={{display: "flex", justifyContent: "center"}}>
@@ -63,7 +61,7 @@ function LectrueViewHeader(){
                             </span>
                 </div>
                 <div style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>
-                    <Button>
+                    <Button style={{fontFamily:'nanumsquare'}}>
                         영상 버퍼링 이슈가 있다면?
                     </Button>
                 </div>

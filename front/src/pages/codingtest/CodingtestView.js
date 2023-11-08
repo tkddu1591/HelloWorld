@@ -15,40 +15,14 @@ import{
     CardText,
     CardLink
 } from "reactstrap";
+import {Link} from "react-router-dom";
+import LinkTo from "../member/componentsByMember/inputCmpnts/LinkTo";
 
 
 
 const code = 'const a = 0;';
 
-function BasicElements() {
-    const [leftFocus, setLeftFocus] = React.useState(false);
-    const [rightFocus, setRightFocus] = React.useState(false);
-    let pageHeader = createRef();
-    React.useEffect(() => {
-        if (
-            !document
-                .getElementById("sliderRegular")
-                .classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderRegular"), {
-                start: [50],
-                connect: [true, false],
-                step: 0.5,
-                range: {min: 0, max: 100},
-            });
-        }
-        if (
-            !document.getElementById("sliderDouble").classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderDouble"), {
-                start: [20, 80],
-                connect: [false, true, false],
-                step: 1,
-                range: {min: 0, max: 100},
-            });
-        }
-    });
-}
+
 
 
 
@@ -90,6 +64,8 @@ function CodingtestView(){
 
     const code = 'const a = 0;';
 
+
+
     return<>
 
         <IndexNavbar/>
@@ -101,7 +77,7 @@ function CodingtestView(){
                 <div style={{marginTop:'-40px'}}>
                     <Card style={{ width: "80%",height:'auto',display:'block',margin:'0 auto' }}>
                         <CardBody>
-                            <CardTitle tag="h4">다음문제를 풀어봐라(문제제목)</CardTitle>
+                            <CardTitle tag="h4">A+B(문제제목)</CardTitle>
                             <CardSubtitle className="mb-2 text-muted" style={{display:'flex',textAlign:'center',justifyContent:'center'}}>
                                 <table class="table">
                                     <thead>
@@ -133,7 +109,7 @@ function CodingtestView(){
                                 <div style={{height:'20px'}}></div>
 
                                 <div>
-                                    <div style={{borderBottom:'1px dashed #E6E6FA '}}>
+                                    <div style={{borderBottom:'1px dashed #E6E6FA'}}>
                                         <div style={{display:'inline-block', borderBottom:'1px solid blue', width:'50px'}}>입력</div>
                                     </div>
                                     <div style={{marginTop:'15px',marginLeft:'20px'}}>
@@ -204,19 +180,32 @@ function CodingtestView(){
                                 }}
                                 value={code}
                                 options={{
-                                    theme: 'myTheme',
+                                    theme: {myTheme},
                                     tabSize:3,
                                     keyMap: 'sublime',
                                     mode: 'jsx',
                                 }}
                             />
+                                
                             <div style={{display:'inline-block',marginTop:'30px',width:'100%'}}>
-
+                                <Link to="/codingtest/result">
                                     <button style={{float:'right',width:'100px',backgroundColor:'#2CA8FF',color:'white',border:'1px solid white'}}>
                                         제출
                                     </button>
+                                </Link>
+                                <Link to="/codingtest/qna/write">
+                                <button style={{float:'right',width:'100px',backgroundColor:'#2CA8FF',color:'white',border:'1px solid white'}}>
+                                    질문하러가기
+                                </button>
+                                </Link>
+                                <Link to="/codingtest/qna/best">
+                                    <button style={{float:'right',width:'150px',backgroundColor:'#2CA8FF',color:'white',border:'1px solid white'}}>
+                                        다른사람의 정답보기
+                                    </button>
+                                </Link>
 
                             </div>
+
                             </form>
                         </CardBody>
                     </Card>

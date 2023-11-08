@@ -16,7 +16,7 @@ import {
   Container,
   UncontrolledTooltip,
 } from "reactstrap";
-
+import '../../scss/font.scss'
 function IndexNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-info");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
@@ -236,6 +236,7 @@ function IndexNavbar() {
                 </UncontrolledDropdown>
               </NavItem>
               {/*  <NavItem>
+
                                 <NavLink
                                     href="https://twitter.com/CreativeTim?ref=creativetim"
                                     target="_blank"

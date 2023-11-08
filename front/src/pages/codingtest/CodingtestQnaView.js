@@ -2,10 +2,7 @@ import IndexNavbar from "../../components/Navbars/IndexNavbar";
 import React, {createRef} from "react";
 import Slider from "nouislider";
 import CodingTestHeader from "./CodingtestHeader";
-import * as PropTypes from "prop-types";
-import {EditorView, basicSetup} from "codemirror"
-import {javascript} from "@codemirror/lang-javascript"
-import CodeMirror from '@uiw/react-codemirror';
+
 // reactstrap components
 import {
     Card,
@@ -15,78 +12,27 @@ import {
     CardText,
     CardLink, Breadcrumb, BreadcrumbItem
 } from "reactstrap";
+import UserPopup from "../../components/Lecture/UserPopup";
 
 
 
 const code = 'const a = 0;';
 
-function BasicElements() {
-    const [leftFocus, setLeftFocus] = React.useState(false);
-    const [rightFocus, setRightFocus] = React.useState(false);
-    let pageHeader = createRef();
-    React.useEffect(() => {
-        if (
-            !document
-                .getElementById("sliderRegular")
-                .classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderRegular"), {
-                start: [50],
-                connect: [true, false],
-                step: 0.5,
-                range: {min: 0, max: 100},
-            });
-        }
-        if (
-            !document.getElementById("sliderDouble").classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderDouble"), {
-                start: [20, 80],
-                connect: [false, true, false],
-                step: 1,
-                range: {min: 0, max: 100},
-            });
-        }
-    });
-}
 
 
 
 
 
-function CodingtestQnaView(){
-    const [iconPills, setIconPills] = React.useState("1");
-    const [pills, setPills] = React.useState("1");
-    let myTheme = EditorView.theme({
-        "&": {
-            color: "white",
-            backgroundColor: "#034"
-        },
-        ".cm-content": {
-            caretColor: "#0e9"
-        },
-        "&.cm-focused .cm-cursor": {
-            borderLeftColor: "#0e9"
-        },
-        "&.cm-focused .cm-selectionBackground, ::selection": {
-            backgroundColor: "#074"
-        },
-        ".cm-gutters": {
-            backgroundColor: "#045",
-            color: "#ddd",
-            border: "none"
-        }
-    }, {dark: true})
+
+function CodingtestQnaView({popup, setPopup}){
+
+    let popupSetting= {
+        top: 20,
+        marginLeft: 0,
+        marginRight: 50
+    }
 
 
-
-    new EditorView({
-        doc: 'console.log("hello")',
-        extensions: [
-            basicSetup
-        ],
-        parent: document.querySelector("#editor")
-    })
 
     const code = 'import java.io.BufferedReader;\n' +
         'import java.io.IOException;\n' +
@@ -128,6 +74,14 @@ function CodingtestQnaView(){
         '\t\n' +
         '}';
 
+    const arr= code.split("\n");
+
+    const [uparticle, setUparticle] = React.useState(0);
+    const [downarticle, setDownarticle] = React.useState(0);
+    const [upanswer, setUpanswer] = React.useState(0);
+    const [downanswer, setDownanswer] = React.useState(0);
+
+
     return<>
 
         <IndexNavbar/>
@@ -140,73 +94,123 @@ function CodingtestQnaView(){
                     <Card style={{ width: "80%",height:'auto',display:'block',margin:'0 auto' }}>
                         <CardBody>
 
-                            <CardTitle tag="h4">이거 어케풀어용??</CardTitle>
-                            <CardSubtitle className="mb-2 text-muted" style={{}}>
-                                hams9876 2023.11.07
-                            </CardSubtitle>
-                            <CardText>
+                            <CardTitle tag="h4"  style={{marginTop:'-10px'}}>이거 어케풀어용??</CardTitle>
+                            <div style={{borderBottom:'1px dashed #E6E6FA'}}>
+                                {popup === 'user' && <UserPopup popupSetting={popupSetting}></UserPopup>}
+                                <p style={{fontSize: '12px', color: 'gray', margin: 0}}
+                                ><span style={{cursor: "pointer"}} onClick={() => {
+                                    setPopup('user')
+                                }}>사용자</span> / 2023-10-10 18:26</p>
+                            </div>
+                            <CardText style={{marginTop:'10px'}}>
                                 <div>
-                                    ㅠㅠㅠㅠ 넘어려워용 ㅠㅠㅠㅠㅠ
+                                    ㅠㅠㅠㅠ 넘어려워용 ㅠㅠㅠㅠㅠ(질문글 내용)
                                 </div>
                                 <Breadcrumb>
                                     <BreadcrumbItem active >
-                                        <CodeMirror
-                                            style={{
-                                                width : '100%',
-                                                height:'auto',
-                                                border:'1px solid #E6E6FA'
-                                            }}
-                                            value={code}
-                                            options={{
-                                                theme: 'myTheme',
-                                                tabSize:3,
-                                                keyMap: 'sublime',
-                                                mode: 'jsx',
-                                            }}
-                                        />
+                                        {arr}
+
                                     </BreadcrumbItem>
                                 </Breadcrumb>
-                            </CardText>
 
+                            </CardText>
+                            <div style={{textAlign:'center',height:'50px'}}>
+                                <div style={{width:'50px',height:'auto',display:'inline-block',border:'1px solid #2CA8FF'}}>
+                                    <button
+                                        style={{border:'none',backgroundColor:'white', width:'100%',height:'auto'}}
+                                        onClick={()=>{setUparticle(uparticle+1,alert('추천'))}}
+                                    >
+                                        <p style={{fontSize:'13px',height:'30px',display:'block'}}>{uparticle}
+                                            <i className="now-ui-icons ui-2_like" style={{display:'block'}}></i>
+                                        </p>
+                                    </button>
+                                </div>
+
+                                <div style={{display:'inline-block',width:'10px'}}></div>
+
+                                <div style={{width:'50px',height:'auto',display:'inline-block' ,border:'1px solid red'}}>
+                                    <button
+                                        style={{border:'none',backgroundColor:'white', width:'100%',height:'auto'}}
+                                        onClick={()=>{setDownarticle(downarticle+1,alert('비추천'))}}
+                                    >
+                                        <p style={{fontSize:'13px',height:'30px',display:'block'}}>{downarticle}
+                                            <i className="now-ui-icons ui-2_like" style={{transform:'rotateX(180deg)',display:'block'}}></i>
+                                        </p>
+                                    </button>
+                                </div>
+                            </div>
                         </CardBody>
                     </Card>
                     <div style={{height:'20px'}}></div>
 
                     <Card style={{  width: "80%",height:'100%',display:'block',margin:'0 auto' }}>
                         <CardBody>
-                            <CardTitle tag="h4" style={{marginTop:'-10px',borderBottom:'1px dashed #E6E6FA'}}>니가알아서 풀어라 어디다대고 질문질이냐(답변제목)</CardTitle>
-                            <form>
-                            <CodeMirror
-                                style={{
-                                    width : '100%',
-                                    border:'1px solid #E6E6FA'
-                                }}
-                                value={code}
-                                options={{
-                                    theme: 'myTheme',
-                                    tabSize:3,
-                                    keyMap: 'sublime',
-                                    mode: 'jsx',
-                                }}
-                            />
+                            <CardTitle tag="h4" style={{marginTop:'-10px'}}>
+                            <div style={{borderBottom:'1px dashed #E6E6FA'}}>
+                                <div style={{borderBottom:'1px dashed #E6E6FA'}}>
+                                    {popup === 'user' && <UserPopup popupSetting={popupSetting}></UserPopup>}
+                                    <p style={{fontSize: '12px', color: 'gray', margin: 0}}
+                                    ><span style={{cursor: "pointer"}} onClick={() => {
+                                        setPopup('user')
+                                    }}>사용자</span> / 2023-10-10 18:26</p>
+                                </div>
+                            </div>
+                            </CardTitle>
+                            <form style={{marginTop:'10px'}}>
+                                <Breadcrumb>
+                                    <BreadcrumbItem active >
+
+                                        가나다라마바사(답변내용)
+
+                                    </BreadcrumbItem>
+                                </Breadcrumb>
+
                             <div style={{display:'inline-block',marginTop:'30px',width:'100%'}}>
                                     <a style={{float:'right',width:'100px',backgroundColor:'#2CA8FF',color:'white',border:'1px solid white',textAlign:'center'}}>
                                        수정
                                     </a>
                             </div>
                             </form>
+                            <div style={{textAlign:'center',height:'50px'}}>
+                                <div style={{width:'50px',height:'auto',display:'inline-block',border:'1px solid #2CA8FF'}}>
+                                    <button
+                                        style={{border:'none',backgroundColor:'white', width:'100%',height:'auto'}}
+                                        onClick={()=>{setUpanswer(upanswer+1,alert('답변추천'))}}
+                                    >
+                                        <p style={{fontSize:'13px',height:'30px',display:'block'}}>{upanswer}
+                                            <i className="now-ui-icons ui-2_like" style={{display:'block'}}></i>
+                                        </p>
+                                    </button>
+                                </div>
+
+                                <div style={{display:'inline-block',width:'10px'}}></div>
+
+                                <div style={{width:'50px',height:'auto',display:'inline-block' ,border:'1px solid red'}}>
+                                    <button
+                                        style={{border:'none',backgroundColor:'white', width:'100%',height:'auto'}}
+                                        onClick={()=>{setDownanswer(downanswer+1,alert('답변 비추천'))}}
+                                    >
+                                        <p style={{fontSize:'13px',height:'30px',display:'block'}}>{downanswer}
+                                            <i className="now-ui-icons ui-2_like" style={{transform:'rotateX(180deg)',display:'block'}}></i>
+                                        </p>
+                                    </button>
+                                </div>
+                            </div>
+
                         </CardBody>
                     </Card>
+
+                    <div style={{height:'20px'}}></div>
 
                     <Card style={{  width: "80%",height:'100%',display:'block',margin:'0 auto' }}>
                         <CardBody>
                             <CardTitle tag="h4" style={{marginTop:'-10px',borderBottom:'1px dashed #E6E6FA'}}>답변작성</CardTitle>
                             <form>
-                                
-                               <textarea cols="30" rows="20" style={{width:'100%',height:'auto'}}> 정신나갈것같아</textarea>
+
+                               <textarea cols="30" rows="20" style={{width:'100%',height:'auto',border:'1px solid #E6E6FA'}} placeholder=" 답변으로 등록할 내용을 입력하세요"></textarea>
                                 <div style={{display:'inline-block',marginTop:'30px',width:'100%'}}>
                                     <a style={{float:'right',width:'100px',backgroundColor:'#2CA8FF',color:'white',border:'1px solid white',textAlign:'center'}}>
-                                        수정
+                                        등록
                                     </a>
                                 </div>
                             </form>
@@ -215,28 +219,6 @@ function CodingtestQnaView(){
                     <div style={{height:'50px'}}></div>
 
 
-
-
-                    {/*<div>문제내용
-                        <div> 문제 descript<br/>
-                            <p>descript 내용</p>
-                        </div>
-                        <div>문제 input<br/>
-                            <p>input 내용</p>
-                        </div>
-                        <div>문제 output<br/>
-                            <p>output 내용</p>
-                        </div>
-                        <div>sample input<br/>
-                            <textarea required> sample input 내용</textarea>
-                        </div>
-                        <div>sample output<br/>
-                            <textarea required> sample output 내용</textarea>
-                        </div>
-                        <div>hint<br/>
-                            <textarea required> hint 내용</textarea>
-                        </div>
-                    </div>*/}
 
                 </div>
 

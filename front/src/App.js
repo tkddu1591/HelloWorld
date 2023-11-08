@@ -5,6 +5,7 @@ import React, {lazy, Suspense} from "react";
 // } from "reactstrap";
 
 // core components
+
 import IndexNavbar from "./components/Navbars/IndexNavbar.js";
 import DarkFooter from "./components/Footers/DarkFooter.js";
 
@@ -22,12 +23,14 @@ import CodingtestView from "./pages/codingtest/CodingtestView";
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
 import CodingtestResult from "./pages/codingtest/CodingtestResult";
-import LectureView from "./pages/lecture/LectureView/LectureView";
-import CodingtestQna from "./pages/codingtest/CodingtestQna";
-import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
 import FindByPass from "./pages/member/FindByPass";
 import CompanyList from "./pages/company/CompanyList";
 import CompanyView from "./pages/company/CompanyView";
+import LectureView from "./pages/lecture/view/LectureView";
+import CodingtestQna from "./pages/codingtest/CodingtestQna";
+import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
+import CodingtestQnaWrite from "./pages/codingtest/CodingtestQnaWrite";
+import CodingtestBestCode from "./pages/codingtest/CodingtestBestCode";
 
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
@@ -87,21 +90,24 @@ function App() {
 
 
                 </Route>
-                    <Route path="/codingTestResult" element={<CodingtestResult/>}>
+                    <Route path="/codingTest/Result" element={<CodingtestResult/>}>
 
                     </Route>
-                    <Route path="/codingTestQna" element={<CodingtestQna/>}>
+                    <Route path="/codingTest/Qna" element={<CodingtestQna/>}>
 
                     </Route>
-                <Route path="/codingTestView" element={<CodingtestView/>}>
+                <Route path="/codingTest/View" element={<CodingtestView/>}>
 
                     </Route>
                     <Route path="/codingTest/view" element={<CodingtestView/>}>
 
+                    </Route>
+                    <Route path="/codingtest/Qna/View" element={<CodingtestQnaView/>}>
 
                     </Route>
-                    <Route path="/codingtestQnaView" element={<CodingtestQnaView/>}>
-
+                    <Route path="/codingtest/Qna/write" element={<CodingtestQnaWrite/>}>
+                    </Route>
+                    <Route path="/codingtest/Qna/best" element={<CodingtestBestCode/>}>
                     </Route>
                     <Route path="lecture" element={<><Suspense fallback={fallback()}>
                         <Outlet></Outlet>
@@ -132,7 +138,6 @@ function App() {
                 </>}/>
             </Routes>
             {/*얘네가 인덱스*/}
-
         </>
     );
 }
