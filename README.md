@@ -23,7 +23,7 @@ HelloWorld 프로젝트
 
 터미널 입력
 - npm install npm install @tanstack/react-query npm install react-router-dom@6 npm install axios npm install @reduxjs/toolkit react-redux npm install react-daum-postcode npm i react-hook-form npm install env-cmd npm i codemirror @codemirror/lang-javascript npm install react-select npm install react-bootstrap npm install @fortawesome/react-fontawesome npm install @fortawesome/fontawesome-svg-core npm i @fortawesome/free-brands-svg-icons npm i @fortawesome/free-solid-svg-icons npm i @fortawesome/free-regular-svg-icons npm install react-player
-또는
+  <br> 또는
 - npm run install
 # gitignore 파일
 - application.properties
