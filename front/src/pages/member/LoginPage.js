@@ -33,7 +33,6 @@ function LoginPage() {
         };
     }, []);
     return (<>
-        <IndexNavbar/>
 
         <div
             className="section section-signup"
@@ -72,14 +71,14 @@ function LoginPage() {
 
                                 <LinkTo
                                     text="회원가입"
-                                    to="/signup-page"
+                                    to="/member/signup"
                                     color="grey"
                                     pos="left"
                                 />
 
                                 <LinkTo
                                     text="비밀번호 찾기"
-                                    to="/findByPass-page"
+                                    to="/member/findByPass"
                                     pos="right"
                                 />
                             </CardBody>
@@ -89,7 +88,6 @@ function LoginPage() {
             </Container>
         </div>
 
-        <DarkFooter/>
     </>);
 }
 
