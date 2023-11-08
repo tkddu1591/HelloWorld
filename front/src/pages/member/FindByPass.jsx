@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -23,20 +23,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import InputField from "./componentsByMember/inputCmpnts/InputField";
 import SubmitButton from "./componentsByMember/buttonCmpnts/SubmitButton";
 import StatusText from "./componentsByMember/status/StatusText";
-import TermsModal from "./componentsByMember/TermsModal";
 
 // core components
 
-function SignUp() {
-  const [agree_terms, setAgree_terms] = useState("grey");
-  const [modalSwitch, setModalSwitch] = useState('flex');
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  function onClickAgreeButton() {
-    setIsOpenModal(false);
-    setAgree_terms('green');
-  }
-
+function FindByPass() {
   return (
     <>
       <IndexNavbar/>
@@ -64,14 +54,6 @@ function SignUp() {
                       type="text" icon={faAt}/>
 
                   <InputField
-                      placeholder="비밀번호 입력"
-                      type="password" icon={faLock}/>
-
-                  <InputField
-                      placeholder="비밀번호 확인"
-                      type="password" icon={faLock}/>
-
-                  <InputField
                       placeholder="이메일 인증번호 입력"
                       type="text" icon={faCircleQuestion}/>
                   {/*완료되면 icon={faCircleCheck} style={{color: "#2bff0f",}} 날리기*/}
@@ -79,16 +61,14 @@ function SignUp() {
                   <SubmitButton status="default"
                     text="인증번호 요청"/>
 
-                </CardBody>
+                  <InputField
+                      placeholder="새 비밀번호 입력"
+                      type="password" icon={faLock}/>
 
-                <div style={{textAlign: "center"}}>
-                  <FontAwesomeIcon icon={faCircleCheck} style={{color: agree_terms}} />
-                  &nbsp;
-                  <d style={{textDecoration: "underline"}}
-                     onClick={()=>{setIsOpenModal(true)}}>
-                    이용약관
-                  </d>에 동의합니다.
-                </div>
+                  <InputField
+                      placeholder="새 비밀번호 확인"
+                      type="password" icon={faLock}/>
+                </CardBody>
 
                 <CardFooter className="text-center">
                   <Button
@@ -98,7 +78,7 @@ function SignUp() {
                     onClick={(e) => e.preventDefault()}
                     size="lg"
                   >
-                    회원가입
+                    비밀번호 변경
                   </Button>
                 </CardFooter>
 
@@ -107,13 +87,12 @@ function SignUp() {
           </Row>
         </Container>
       </div>
-      {/*{isOpenModal && <TermsModal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}/>}*/}
-      <TermsModal isOpenModal={isOpenModal} onClickAgreeButton={onClickAgreeButton}/>
+
+
 
       <DarkFooter/>
-
     </>
   );
 }
 
-export default SignUp;
+export default FindByPass;
