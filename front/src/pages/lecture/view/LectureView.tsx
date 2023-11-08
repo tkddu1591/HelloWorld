@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Col, Container, Row, Table} from "reactstrap";
+import { Container, Row} from "reactstrap";
 import LectrueViewHeader from "./LectrueViewHeader";
 import '../scss/content.scss'
 import '../scss/lecture.scss'
