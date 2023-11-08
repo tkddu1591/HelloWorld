@@ -39,7 +39,8 @@
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "compile-sass": "sass src/assets/scss/now-ui-kit.scss src/assets/css/now-ui-kit.css",
-    "minify-sass": "sass src/assets/scss/now-ui-kit.scss src/assets/css/now-ui-kit.min.css --style compressed"
+    "minify-sass": "sass src/assets/scss/now-ui-kit.scss src/assets/css/now-ui-kit.min.css --style compressed",
+    "install": "npm install npm install @tanstack/react-query npm install react-router-dom@6 npm install axios npm install @reduxjs/toolkit react-redux npm install react-daum-postcode npm i react-hook-form npm install env-cmd npm i codemirror @codemirror/lang-javascript npm install react-select npm install react-bootstrap npm install @fortawesome/react-fontawesome npm install @fortawesome/fontawesome-svg-core npm i @fortawesome/free-brands-svg-icons npm i @fortawesome/free-solid-svg-icons npm i @fortawesome/free-regular-svg-icons"
   },
   "eslintConfig": {
     "extends": [

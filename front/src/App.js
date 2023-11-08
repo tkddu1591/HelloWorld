@@ -5,6 +5,7 @@ import React, {lazy, Suspense} from "react";
 // } from "reactstrap";
 
 // core components
+
 import IndexNavbar from "./components/Navbars/IndexNavbar.js";
 import DarkFooter from "./components/Footers/DarkFooter.js";
 
@@ -22,7 +23,7 @@ import CodingtestView from "./pages/codingtest/CodingtestView";
 
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
-import LectureView from "./pages/lecture/LectureView/LectureView";
+import LectureView from "./pages/lecture/view/LectureView";
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
 
