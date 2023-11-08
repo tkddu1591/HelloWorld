@@ -45,13 +45,13 @@ function BasicElements() {
     });
 }
 
-function CodingtestList(){
+function CodingtestQna(){
     const [iconPills, setIconPills] = React.useState("1");
     const [pills, setPills] = React.useState("1");
     return<>
 
         <IndexNavbar/>
-        <div className="wrapper" >
+        <div className="wrapper">
             {/*<IndexHeader />*/}
             <div className="main">
                 <CodingTestHeader></CodingTestHeader>
@@ -71,22 +71,11 @@ function CodingtestList(){
 
                                         <Input style={{display:'flex',justifyContent:'center'}}
                                             defaultValue=""
-                                            placeholder="문제제목을 입력하세요"
+                                            placeholder="질문을 검색해봐라"
                                             type="text"
                                         >
 
                                         </Input>
-
-                                            <FormGroup>
-                                                <Input id="exampleFormControlSelect1" type="select" style={{marginTop:'5px'}}>
-                                                    <option>난이도를 선택해주세요</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </Input>
-                                            </FormGroup>
-
                                     </FormGroup>
                                     </Form>
                                 </Col>
@@ -95,6 +84,8 @@ function CodingtestList(){
 
                     <table class="table" style={{textAlign:'center'}}>
                         <thead>
+                        
+                            <th scope="col" style={{width:'80px'}} ></th>
                             <th scope="col" style={{width:'80px'}} >난이도</th>
                             <th scope="col">제목</th>
                             <th scope="col" style={{width:'150px'}}>완료한 사람</th>
@@ -102,33 +93,12 @@ function CodingtestList(){
                         </thead>
                         <tr>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
                             </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
-                            </td>
-                        </tr>
-                        <tr>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
@@ -144,33 +114,12 @@ function CodingtestList(){
                         </tr>
                         <tr>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
                             </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
-                            </td>
-                        </tr>
-                        <tr>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
@@ -186,6 +135,13 @@ function CodingtestList(){
                         </tr>
                         <tr>
                             <td scope="row">
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
+                            </td>
+                            <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
@@ -200,6 +156,13 @@ function CodingtestList(){
                         </tr>
                         <tr>
                             <td scope="row">
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
+                            </td>
+                            <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
@@ -214,6 +177,13 @@ function CodingtestList(){
                         </tr>
                         <tr>
                             <td scope="row">
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
+                            </td>
+                            <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
@@ -227,6 +197,97 @@ function CodingtestList(){
                             </td>
                         </tr>
                         <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>1</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>2</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>3</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>4</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>1</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>2</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>3</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>4</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>1</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>2</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>3</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>4</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>1</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>2</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>3</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>4</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
+                                    <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
+                                        0
+                                    </div>
+                                </a>
+                            </td>
                             <td scope="row">
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
@@ -295,7 +356,7 @@ function CodingtestList(){
                                 </PaginationLink>
                             </PaginationItem>
                         </Pagination>
-                        <Card style={{ width: "20rem" ,display:'flex',float:'right',top:'-600px',left:'400px'}}>
+                        <Card style={{ width: "20rem" ,display:'flex',float:'right',top:'-800px',left:'400px'}}>
                             <CardBody>
                                 <CardTitle tag="h4">사용자 ID 출력공간</CardTitle>
                                 <CardSubtitle className="mb-2 text-muted">
@@ -325,8 +386,6 @@ function CodingtestList(){
 
 
 
-
-
                 {/*<Carousel />*/}
                 {/*<Pagination />*/}
                 {/* <Images />
@@ -347,4 +406,4 @@ function CodingtestList(){
         </div>
     </>
 }
-export default CodingtestList;
+export default CodingtestQna;
