@@ -5,6 +5,7 @@ import React, {lazy, Suspense} from "react";
 // } from "reactstrap";
 
 // core components
+
 import IndexNavbar from "./components/Navbars/IndexNavbar.js";
 import DarkFooter from "./components/Footers/DarkFooter.js";
 

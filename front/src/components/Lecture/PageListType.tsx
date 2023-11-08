@@ -1,5 +1,5 @@
 import {Button} from "reactstrap";
-import {changeDTO} from "../store/changeDTO";
+import {changeDTO} from "../../store/changeDTO";
 import React from "react";
 
 function PageListViewType({listLoading, setListLoading}){

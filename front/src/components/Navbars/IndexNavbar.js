@@ -16,7 +16,7 @@ import {
     Container,
     UncontrolledTooltip,
 } from "reactstrap";
-
+import '../../scss/font.scss'
 function IndexNavbar() {
     const [navbarColor, setNavbarColor] = React.useState("navbar-info");
     const [collapseOpen, setCollapseOpen] = React.useState(false);
@@ -215,7 +215,7 @@ function IndexNavbar() {
                                     id="upgrade-to-pro"
                                     target="_blank"
                                 >
-                                    <p>로그인</p>
+                                    <p style={{fontFamily:'nanumsquare', fontWeight:550}}>로그인</p>
                                 </Button>
                             </NavItem>
                             <NavItem>
@@ -227,7 +227,7 @@ function IndexNavbar() {
                                         target="_blank"
                                     >
                                         <i className="now-ui-icons users_single-02 mr-1"></i>
-                                        <p>여덟글자입니다마</p>
+                                        <p style={{fontFamily:'nanumsquare', fontWeight:550}}>여덟글자입니다마</p>
                                     </DropdownToggle>
                                     <DropdownMenu>
                                         <DropdownItem to="/profile-page" tag={Link}>

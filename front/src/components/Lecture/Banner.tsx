@@ -11,24 +11,23 @@ import {useNavigate} from "react-router-dom";
 
 const items = [
     {
-        src: require("assets/img/banner/banner1.jpg"),
+        src: require("../../assets/img/banner/banner1.jpg"),
         altText: "Nature, United States",
         caption: "Nature, United States"
     },
     {
-        src: require("assets/img/banner/banner2.jpg"),
+        src: require("../../assets/img/banner/banner2.jpg"),
         altText: "Somewhere Beyond, United States",
         caption: "Somewhere Beyond, United States"
     },
     {
-        src: require("assets/img/banner/banner3.jpg"),
+        src: require("../../assets/img/banner/banner3.jpg"),
         altText: "Yellowstone National Park, United States",
         caption: "Yellowstone National Park, United States"
     }
 ];
 
-function LectureHeader() {
-    const [pills, setPills] = useState("0");
+function Banner() {
     let pageHeader: React.RefObject<any> = createRef();
 
     useEffect(() => {
@@ -71,62 +70,13 @@ function LectureHeader() {
     let navigate = useNavigate();
     return (
         <>
-            <div className="clear-filter page-header" style={{minHeight: '30vh', maxHeight: '500px', height:'auto'}}>
+
                 <div
                     className="page-header-image"
 
                     ref={pageHeader}
                 ></div>
                 <Container style={{paddingLeft: 0, paddingRight: 0}}>
-                    {/*<section style={{width:'100%', border:'1px solid black'}} filter-color="blue" className="clear-filter">
-                        <div className="shape shape-style-1 shape-default">
-                            <span />
-                            <span />
-                            <span />
-                            <span />
-                            <span />
-                            <span />
-                        </div>
-                        <Container className="py-md">
-                            <Row className="justify-content-between align-items-center">
-                                <Col className="mb-5 mb-lg-0" lg="5">
-                                    <h1 className="text-white font-weight-light">
-                                        Bootstrap carousel
-                                    </h1>
-                                    <p className="lead text-white mt-4">
-                                        Argon Design System comes with four pre-built pages to help
-                                        you get started faster. You can change the text and images and
-                                        you're good to go.
-                                    </p>
-                                    <Button
-                                        className="btn-white mt-4"
-                                        color="default"
-                                        href="https://demos.creative-tim.com/argon-design-system-react/#/documentation/alerts?ref=adsr-landing-page"
-                                    >
-                                        See all components
-                                    </Button>
-                                </Col>
-                                <Col className="mb-lg-auto" lg="6" style={{marginTop:'30px'}}>
-                                    <div className="rounded shadow-lg overflow-hidden transform-perspective-right">
-                                        <UncontrolledCarousel items={items} />
-                                    </div>
-                                </Col>
-                            </Row>
-                        </Container>
-                         SVG separator
-                        <div className="separator separator-bottom separator-skew">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                preserveAspectRatio="none"
-                                version="1.1"
-                                viewBox="0 0 2560 100"
-                                x="0"
-                                y="0"
-                            >
-                                <polygon className="fill-white" />
-                            </svg>
-                        </div>
-                    </section>*/}
                     <Row className="justify-content-center">
                         <Col>
                             <Carousel
@@ -190,10 +140,9 @@ function LectureHeader() {
 
 
                 </Container>
-            </div>
         </>
     );
 
 }
 
-export default LectureHeader;
+export default Banner;

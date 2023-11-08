@@ -1,5 +1,6 @@
 import {Col} from "reactstrap";
 import React from "react";
+import Banner from "../../../components/Lecture/Banner";
 
 function LectureViewContent(){
     return<>
@@ -25,7 +26,9 @@ function LectureViewContent(){
                 <br/>
                 <p>(현재 수강료 0원 이벤트중, 수강기간 6개월)</p>
             </div>
-        </Col></>
+            <Banner></Banner>
+        </Col>
+    </>
 }
 
 export default LectureViewContent
