@@ -14,36 +14,11 @@ import {
 } from "reactstrap";
 import Slider from "nouislider";
 import CodingTestHeader from "./CodingtestHeader";
+import Select from "react-select";
 
-function BasicElements() {
-    const [leftFocus, setLeftFocus] = React.useState(false);
-    const [rightFocus, setRightFocus] = React.useState(false);
-    let pageHeader = createRef();
-    React.useEffect(() => {
-        if (
-            !document
-                .getElementById("sliderRegular")
-                .classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderRegular"), {
-                start: [50],
-                connect: [true, false],
-                step: 0.5,
-                range: {min: 0, max: 100},
-            });
-        }
-        if (
-            !document.getElementById("sliderDouble").classList.contains("noUi-target")
-        ) {
-            Slider.create(document.getElementById("sliderDouble"), {
-                start: [20, 80],
-                connect: [false, true, false],
-                step: 1,
-                range: {min: 0, max: 100},
-            });
-        }
-    });
-}
+
+
+
 
 function CodingtestList(){
     const [iconPills, setIconPills] = React.useState("1");
@@ -77,14 +52,12 @@ function CodingtestList(){
 
                                         </Input>
 
-                                            <FormGroup>
-                                                <Input id="exampleFormControlSelect1" type="select" style={{marginTop:'5px'}}>
-                                                    <option>난이도를 선택해주세요</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </Input>
+                                            <FormGroup style={{marginTop:'5px'}}>
+
+                                                <Select
+                                                >
+
+                                                </Select>
                                             </FormGroup>
 
                                     </FormGroup>
@@ -105,27 +78,13 @@ function CodingtestList(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
                             </td>
                         </tr>
                         <tr>
@@ -133,27 +92,13 @@ function CodingtestList(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
                             </td>
                         </tr>
                         <tr>
@@ -161,27 +106,13 @@ function CodingtestList(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
                             </td>
                         </tr>
                         <tr>
@@ -189,27 +120,13 @@ function CodingtestList(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
                             </td>
                         </tr>
                         <tr>
@@ -217,13 +134,13 @@ function CodingtestList(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
                             </td>
                         </tr>
                         <tr>
@@ -231,13 +148,69 @@ function CodingtestList(){
                                 <a href={'#'} style={{color:'black'}}>1</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>2</a>
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>3</a>
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
                             </td>
                             <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4</a>
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>1</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>1</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>1</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>1</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
+                            </td>
+                            <td scope="row">
+                                <a href={'#'} style={{color:'black'}}>67.5%</a>
                             </td>
                         </tr>
                     </table>

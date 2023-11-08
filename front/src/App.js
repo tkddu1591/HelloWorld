@@ -17,14 +17,18 @@ import ProfilePage from "./views/examples/ProfilePage";
 import LoginPage from "./pages/member/LoginPage";
 import Home from "./pages/home/Home";
 import LectureList from "./pages/lecture/list/LectureList";
-import Member from "./pages/member/Member";
+
 
 import CodingtestView from "./pages/codingtest/CodingtestView";
 
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
 import CodingtestResult from "./pages/codingtest/CodingtestResult";
-import LectureView from "./pages/lecture/LectureView/LectureView";
+import LectureView from "./pages/lecture/view/LectureView";
+import CodingtestQna from "./pages/codingtest/CodingtestQna";
+import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
+import CodingtestQnaWrite from "./pages/codingtest/CodingtestQnaWrite";
+import CodingtestBestCode from "./pages/codingtest/CodingtestBestCode";
 
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
@@ -63,28 +67,27 @@ function App() {
                     <Route path="company">
 
                     </Route>
-                    <Route path="member" element={<Member/>}>
-
-                    </Route>
-                    <Route path="/codingTest" element={<CodingtestList/>}>
-
+                    <Route path="/codingTest/list" element={<CodingtestList/>}>
 
                 </Route>
-                    <Route path="/codingTestResult" element={<CodingtestResult/>}>
+                    <Route path="/codingTest/Result" element={<CodingtestResult/>}>
 
                     </Route>
-                    <Route path="/codingTestQna" element={<CodingtestQna/>}>
+                    <Route path="/codingTest/Qna" element={<CodingtestQna/>}>
 
                     </Route>
-                <Route path="/codingTestView" element={<CodingtestView/>}>
+                <Route path="/codingTest/View" element={<CodingtestView/>}>
 
                     </Route>
                     <Route path="/codingTest/view" element={<CodingtestView/>}>
 
+                    </Route>
+                    <Route path="/codingtest/Qna/View" element={<CodingtestQnaView/>}>
 
                     </Route>
-                    <Route path="/codingtestQnaView" element={<CodingtestQnaView/>}>
-
+                    <Route path="/codingtest/Qna/write" element={<CodingtestQnaWrite/>}>
+                    </Route>
+                    <Route path="/codingtest/Qna/best" element={<CodingtestBestCode/>}>
                     </Route>
                     <Route path="lecture" element={<><Suspense fallback={fallback()}>
                         <Outlet></Outlet>
@@ -116,7 +119,6 @@ function App() {
                 </>}/>
             </Routes>
             {/*얘네가 인덱스*/}
-
         </>
     );
 }
