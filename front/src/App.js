@@ -23,8 +23,8 @@ import CodingtestView from "./pages/codingtest/CodingtestView";
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
 import CodingtestResult from "./pages/codingtest/CodingtestResult";
-import CodingtestQna from "./pages/codingtest/CodingtestQna";
 import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
+import CodingtestQna from "./pages/codingtest/CodingtestQna";
 import LectureView from "./pages/lecture/view/LectureView";
 
 
