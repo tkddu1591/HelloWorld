@@ -16,7 +16,6 @@ import ProfilePage from "./views/examples/ProfilePage";
 import LoginPage from "./pages/member/LoginPage";
 import Home from "./pages/home/Home";
 import LectureList from "./pages/lecture/list/LectureList";
-import Member from "./pages/member/Member";
 
 import CodingtestView from "./pages/codingtest/CodingtestView";
 
@@ -24,6 +23,11 @@ import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
 import CodingtestResult from "./pages/codingtest/CodingtestResult";
 import LectureView from "./pages/lecture/LectureView/LectureView";
+import CodingtestQna from "./pages/codingtest/CodingtestQna";
+import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
+import FindByPass from "./pages/member/FindByPass";
+import CompanyList from "./pages/company/CompanyList";
+import CompanyView from "./pages/company/CompanyView";
 
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
@@ -59,12 +63,26 @@ function App() {
                     <Route path="/" element={<Home/>}>
 
                     </Route>
-                    <Route path="company">
 
+                    <Route path="member" element={
+                        <Suspense fallback={fallback()}>
+                            <Outlet />
+                        </Suspense>
+                    }>
+                        <Route path="login" element={<LoginPage/>}/>
+                        <Route path="signup" element={<SignUp/>}/>
+                        <Route path="findByPass" element={<FindByPass/>}/>
                     </Route>
-                    <Route path="member" element={<Member/>}>
 
+                    <Route path="company" element={
+                        <Suspense fallback={fallback()}>
+                            <Outlet />
+                        </Suspense>
+                    }>
+                        <Route path="list" element={<CompanyList />}></Route>
+                        <Route path="view" element={<CompanyView />}></Route>
                     </Route>
+
                     <Route path="/codingTest" element={<CodingtestList/>}>
 
 
@@ -107,8 +125,7 @@ function App() {
                 <Route path="/nucleo-icons" element={<NucleoIcons/>}/>
                 <Route path="/landing-page" element={<LandingPage/>}/>
                 <Route path="/profile-page" element={<ProfilePage/>}/>
-                <Route path="/login-page" element={<LoginPage/>}/>
-                <Route path="/signup-page" element={<SignUp/>}/>
+
 
                 <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}
                     <div>404Page</div>

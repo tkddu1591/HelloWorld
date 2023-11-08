@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faLock, faAt, circle } from "@fortawesome/free-solid-svg-icons";
 
-function InputField({ type, placeholder, icon }) {
+function InputField({ type, placeholder, icon, color }) {
     const [isFocus, setIsFocus] = useState(false);
 
     return (
@@ -17,7 +17,7 @@ function InputField({ type, placeholder, icon }) {
             <InputGroup className={isFocus ? "input-group-focus" : ""}>
                 <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                        <FontAwesomeIcon icon={icon} />
+                        <FontAwesomeIcon icon={icon} style={{color: color}}/>
                     </InputGroupText>
                 </InputGroupAddon>
                 <Input
