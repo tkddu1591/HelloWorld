@@ -12,7 +12,7 @@ import NucleoIcons from "./views/index-sections/NucleoIcons.js";
 import {Navigate, Outlet, Route, Routes} from "react-router-dom";
 import LandingPage from "./views/examples/LandingPage";
 import ProfilePage from "./views/examples/ProfilePage";
-import LoginPage from "./views/examples/LoginPage";
+import LoginPage from "./pages/member/LoginPage";
 import Home from "./pages/home/Home";
 import LectureList from "./pages/lecture/list/LectureList";
 
