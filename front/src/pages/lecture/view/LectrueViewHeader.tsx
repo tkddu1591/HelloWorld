@@ -1,16 +1,13 @@
 import {Button, Col, Progress, Row} from "reactstrap";
 import React from "react";
 import '../scss/lecture.scss'
+import Star from "../../../components/Lecture/Star";
 
 function LectrueViewHeader(){
     return<>
         <h3 style={{marginBottom: '15px'}}>(무료) 매우쉽게 알려주는 git & github</h3>
         <div className='ddd'>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
-            <i className={"bi bi-star-fill"} style={{color: "orange", fontSize: '20px'}}></i>
+            <Star size={20} score={5}></Star>
             <span style={{marginLeft: '5px'}}>( 1,200 리뷰 )</span>
             <span style={{marginLeft: '20px'}}>
                     <i className="bi bi-people-fill" style={{fontSize: '15px', marginRight: '3px'}}></i>

@@ -4,6 +4,7 @@ import SelectBox from "../../components/Lecture/SelectBox";
 import {useNavigate} from "react-router-dom";
 import {changeDTO} from "../../store/changeDTO";
 import PageListViewType from "../../components/Lecture/PageListType";
+import Star from "../../components/Lecture/Star";
 
 interface ListItem {
     title?: string;
@@ -27,13 +28,15 @@ function CardList({title, more, setListLoading, listLoading, sortType, colSize =
         lg: 4,
         xl: 3
     });
+    console.log(colSize)
     useEffect(() => {
-        if (colSize < 12)
+
+        if (colSize < 6)
             setCardSize({
                 sm: 12,
-                md: 6,
-                lg: 6,
-                xl: 4
+                md: 12,
+                lg: 12,
+                xl: 6
             })
         else if (colSize < 9)
             setCardSize({
@@ -42,14 +45,14 @@ function CardList({title, more, setListLoading, listLoading, sortType, colSize =
                 lg: 6,
                 xl: 6
             })
-        else if (colSize < 6)
+        else if (colSize < 12)
             setCardSize({
                 sm: 12,
-                md: 12,
-                lg: 12,
-                xl: 6
+                md: 6,
+                lg: 6,
+                xl: 4
             })
-    })
+    },[])
     return <>
         <Container>
 
@@ -100,16 +103,7 @@ function CardList({title, more, setListLoading, listLoading, sortType, colSize =
                                     </span>
 
                                     <span style={{display: "inline-block", textAlign: "right"}}>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <Star size={17} score={5}></Star>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -169,16 +163,7 @@ function CardList({title, more, setListLoading, listLoading, sortType, colSize =
                                     </span>
 
                                     <span style={{display: "inline-block", textAlign: "right"}}>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <Star size={17} score={4}></Star>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -226,16 +211,7 @@ function CardList({title, more, setListLoading, listLoading, sortType, colSize =
                                     </span>
 
                                     <span style={{display: "inline-block", textAlign: "right"}}>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <Star size={17} score={3}></Star>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
@@ -295,16 +271,7 @@ function CardList({title, more, setListLoading, listLoading, sortType, colSize =
                                     </span>
 
                                     <span style={{display: "inline-block", textAlign: "right"}}>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
-                                        <i className={"bi bi-star-fill"}
-                                           style={{color: "orange", fontSize: '17px'}}></i>
+                                        <Star size={17} score={2}></Star>
                                     </span>
                                 </div>
                                 <div style={{justifyContent: 'space-between', display: "flex"}}>
