@@ -17,14 +17,15 @@ import ProfilePage from "./views/examples/ProfilePage";
 import LoginPage from "./pages/member/LoginPage";
 import Home from "./pages/home/Home";
 import LectureList from "./pages/lecture/list/LectureList";
-import Member from "./pages/member/Member";
 
 import CodingtestView from "./pages/codingtest/CodingtestView";
 
 import CodingtestList from "./pages/codingtest/CodingtestList";
 import SignUp from "./pages/member/SignUp";
 import CodingtestResult from "./pages/codingtest/CodingtestResult";
-import LectureView from "./pages/lecture/LectureView/LectureView";
+import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
+import CodingtestQna from "./pages/codingtest/CodingtestQna";
+import LectureView from "./pages/lecture/view/LectureView";
 
 
 const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
@@ -61,9 +62,6 @@ function App() {
 
                     </Route>
                     <Route path="company">
-
-                    </Route>
-                    <Route path="member" element={<Member/>}>
 
                     </Route>
                     <Route path="/codingTest" element={<CodingtestList/>}>
