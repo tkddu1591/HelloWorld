@@ -37,6 +37,9 @@ import CodingtestBestCode from "./pages/codingtest/CodingtestBestCode";
 import CommunityList from "./pages/community/CommunityList";
 import CommunityView from "./pages/community/CommunityView";
 import CommunityWrite from "./pages/community/CommunityWrite";
+import CompanyApply from "./pages/company/CompanyApply";
+import CompanyBookmark from "./pages/company/CompanyBookmark";
+import FindByEmail from "./pages/member/FindByEmail";
 
 
 
@@ -76,23 +79,18 @@ function App() {
 
                     </Route>
 
-                    <Route path="member" element={
-                        <Suspense fallback={fallback()}>
-                            <Outlet />
-                        </Suspense>
-                    }>
+                    <Route path="member" element={<Suspense fallback={fallback()}><Outlet /></Suspense>}>
                         <Route path="login" element={<LoginPage/>}/>
                         <Route path="signup" element={<SignUp/>}/>
                         <Route path="findByPass" element={<FindByPass/>}/>
+                        <Route path="findByEmail" element={<FindByEmail/>}/>
                     </Route>
 
-                    <Route path="company" element={
-                        <Suspense fallback={fallback()}>
-                            <Outlet />
-                        </Suspense>
-                    }>
+                    <Route path="company" element={<Suspense fallback={fallback()}><Outlet /></Suspense>}>
                         <Route path="list" element={<CompanyList />}></Route>
                         <Route path="view" element={<CompanyView />}></Route>
+                        <Route path="apply" element={<CompanyApply />}></Route>
+                        <Route path="bookmark" element={<CompanyBookmark />}></Route>
                     </Route>
 
                     <Route path="/codingTest/list" element={<CodingtestList/>}>

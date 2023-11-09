@@ -24,6 +24,7 @@ import InputField from "./componentsByMember/inputCmpnts/InputField";
 import SubmitButton from "./componentsByMember/buttonCmpnts/SubmitButton";
 import StatusText from "./componentsByMember/status/StatusText";
 import TermsModal from "./componentsByMember/TermsModal";
+import MemberHeader from "./componentsByMember/MemberHeader";
 
 // core components
 
@@ -58,22 +59,12 @@ function SignUp() {
 
   return (
     <>
-      <div
-        className="section section-signup"
-        style={{
-          minHeight: "700px"
-        }}
-      >
+      <div style={{minHeight: "700px", paddingTop: "130px"}}>
         <Container>
           <Row>
             <Card className="card-signup">
               <Form action="" className="form" method="">
-
-                <CardHeader className="text-center">
-                  <CardTitle className="title-up" tag="h3">
-                    HELLO WORLD
-                  </CardTitle>
-                </CardHeader>
+                <MemberHeader text={'회원가입'}/>
 
                 <CardBody>
                   <InputField

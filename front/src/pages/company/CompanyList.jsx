@@ -4,15 +4,96 @@ import CompanyCard from "./componentsByCompany/CompanyCard";
 import SearchBar from "../../components/Lecture/SearchBar";
 
 function CompanyList() {
-    const companyData = {
-        image: 'cool photo',
+    const [companyData, setCompanyData] = useState([{
+        image: '/images/home/main_logo.png',
         title: 'JAVA 백엔드 개발자 모집',
-        company: '(주)만두래곤요리킹',
-        local: '강서구',
+        company: '(주)만두래곤요리킹조리킹',
+        location: '강서구',
         career: '2~10년',
         education: '무관',
-        expireDate: '11/14'
-    };
+        expireDate: '11/14',
+        isBookmark: false,
+    },
+    {
+        image: '/images/home/main_logo.png',
+        title: 'JAVA 백엔드 개발자 모집',
+        company: '(주)만두래곤요리킹조리킹',
+        location: '강서구',
+        career: '2~10년',
+        education: '무관',
+        expireDate: '11/14',
+        isBookmark: false,
+    },
+    {
+        image: '/images/home/main_logo.png',
+        title: 'JAVA 백엔드 개발자 모집',
+        company: '(주)만두래곤요리킹조리킹',
+        location: '강서구',
+        career: '2~10년',
+        education: '무관',
+        expireDate: '11/14',
+        isBookmark: true,
+    },
+    {
+        image: '/images/home/main_logo.png',
+        title: 'JAVA 백엔드 개발자 모집',
+        company: '(주)만두래곤요리킹조리킹',
+        location: '강서구',
+        career: '2~10년',
+        education: '무관',
+        expireDate: '11/14',
+        isBookmark: true,
+    },
+    {
+        image: '/images/home/main_logo.png',
+        title: 'JAVA 백엔드 개발자 모집',
+        company: '(주)만두래곤요리킹조리킹',
+        location: '강서구',
+        career: '2~10년',
+        education: '무관',
+        expireDate: '11/14',
+        isBookmark: false,
+    },
+    {
+        image: '/images/home/main_logo.png',
+        title: 'JAVA 백엔드 개발자 모집',
+        company: '(주)만두래곤요리킹조리킹',
+        location: '강서구',
+        career: '2~10년',
+        education: '무관',
+        expireDate: '11/14',
+        isBookmark: true,
+    },
+    {
+        image: '/images/home/main_logo.png',
+        title: 'JAVA 백엔드 개발자 모집',
+        company: '(주)만두래곤요리킹조리킹',
+        location: '강서구',
+        career: '2~10년',
+        education: '무관',
+        expireDate: '11/14',
+        isBookmark: false,
+    },
+    {
+        image: '/images/home/main_logo.png',
+        title: 'JAVA 백엔드 개발자 모집',
+        company: '(주)만두래곤요리킹조리킹',
+        location: '강서구',
+        career: '2~10년',
+        education: '무관',
+        expireDate: '11/14',
+        isBookmark: false,
+    },
+    {
+        image: '/images/home/main_logo.png',
+        title: 'JAVA 백엔드 개발자 모집',
+        company: '(주)만두래곤요리킹조리킹',
+        location: '강서구',
+        career: '2~10년',
+        education: '무관',
+        expireDate: '11/14',
+        isBookmark: false,
+    }]);
     const [sorts, setSorts] = useState([
         {
             title: 'position',
@@ -25,7 +106,7 @@ function CompanyList() {
                 {value: 4, label: '안드로이드'},
             ],
             isSearchable: false,
-            isMulti: false,
+            isMulti: true,
         },
         {
             title: 'skill',
@@ -80,15 +161,9 @@ function CompanyList() {
                     <h3 style={{textAlign: "left", marginBottom: '10px', borderBottom: "1px solid lightgrey", display: 'inline-block'}}>채용중인 회사</h3>
                     <div id="cards">
                         <Row style={{padding: '10px'}}>
-                            <CompanyCard data={companyData} />
-                            <CompanyCard data={companyData} />
-                            <CompanyCard data={companyData} />
-                            <CompanyCard data={companyData} />
-                            <CompanyCard data={companyData} />
-                            <CompanyCard data={companyData} />
-                            <CompanyCard data={companyData} />
-                            <CompanyCard data={companyData} />
-                            <CompanyCard data={companyData} />
+                            {companyData.map((company, index) => (
+                                <CompanyCard key={index} data={company} />
+                            ))}
                         </Row>
                     </div>
                 </div>
