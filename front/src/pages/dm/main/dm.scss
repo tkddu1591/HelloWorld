@@ -1,0 +1,30 @@
+/*.dm-user-select:hover {
+
+  .dm-user-dot {
+    font-size: 500px;
+    animation-name: colorChange;
+    animation-duration: 200ms;
+    color: grey;
+  }
+}*/
+.dm-user-name:hover {
+  text-decoration: underline;
+}
+
+.dm-user-content:hover {
+  text-decoration: underline;
+}
+
+.dm-user-dot {
+  color: grey;
+
+}
+
+@keyframes colorChange {
+  from {
+    color: #ffffff;
+  }
+  to {
+    color: #777777;
+  }
+}
