@@ -13,6 +13,8 @@ import {
     CardLink, Breadcrumb, BreadcrumbItem, Input
 } from "reactstrap";
 import UserPopup from "../../components/Lecture/UserPopup";
+import CodeAside from "./aside/CodeAside";
+import {Link} from "react-router-dom";
 
 
 
@@ -36,9 +38,10 @@ function CodingtestQnaView(){
             {/*<IndexHeader />*/}
             <div className="main">
                 <CodingTestHeader></CodingTestHeader>
-                <script src="./CodeMirror.js"></script>
+                <script src="codemirror/CodeMirror.js"></script>
                 <div style={{marginTop:'-40px'}}>
-                    <Card style={{ width: "80%",height:'auto',display:'block',margin:'0 auto' }}>
+                    <CodeAside></CodeAside>
+                    <Card style={{ width: "60%",height:'auto',display:'block',margin:'0 auto' }}>
                         <CardBody>
                             <form>
                                <CardText>
@@ -60,12 +63,13 @@ function CodingtestQnaView(){
                                     <textarea className="form-control" name="content" rows="50" cols="50" placeholder="내용을 입력하세요." style={{border:'1px solid lightgray'}}></textarea>
                                 </div>
 
-
+                                <Link to="/codingtest/qna">
                                 <div style={{display:'inline-block',marginTop:'30px',width:'100%'}}>
                                     <a style={{float:'right',width:'100px',backgroundColor:'#2CA8FF',color:'white',border:'1px solid white',textAlign:'center'}}>
                                         등록
                                     </a>
                                 </div>
+                                </Link>
                             </form>
                         </CardBody>
                     </Card>

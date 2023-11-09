@@ -1,0 +1,36 @@
+
+.right-aside{
+    right: 0px;
+    transition: right 0.3s;
+}
+
+@media (min-width: 1725px) {
+    .right-aside {
+        right: -100px; /* 화면 크기가 1725px 이상일 때 오른쪽에 고정 */
+    }
+}
+@media (max-width: 1724px) {
+    .right-aside {
+        right: -300px; /* 화면 크기가 1725px 이상일 때 오른쪽에 고정 */
+    }
+}
+
+
+
+@media (min-width: 1922px) {
+
+    .right-aside {
+        right: 100px; /* 화면 크기가 768px 이하일 때 오른쪽에 고정 */
+    }
+
+}
+
+@media (min-width: 2300px) {
+
+    .right-aside {
+        right: 150px; /* 전체화면일떄 */
+    }
+
+}
+
+
