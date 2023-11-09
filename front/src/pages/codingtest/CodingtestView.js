@@ -1,10 +1,7 @@
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
-import React, {createRef} from "react";
-import Slider from "nouislider";
+import React, {createRef, useState} from "react";
 import CodingTestHeader from "./CodingtestHeader";
-import * as PropTypes from "prop-types";
 import {EditorView, basicSetup} from "codemirror"
-import {javascript} from "@codemirror/lang-javascript"
 import CodeMirror from '@uiw/react-codemirror';
 // reactstrap components
 import{
@@ -13,24 +10,14 @@ import{
     CardTitle,
     CardSubtitle,
     CardText,
-    CardLink
 } from "reactstrap";
 import {Link} from "react-router-dom";
-import LinkTo from "../member/componentsByMember/inputCmpnts/LinkTo";
-
-
-
-const code = 'const a = 0;';
-
-
-
-
-
-
+import CodeAside from "./aside/CodeAside";
+import SelectBox from "../../components/Lecture/SelectBox";
+import SearchBar from "../../components/Lecture/SearchBar";
+import Select from "react-select";
 
 function CodingtestView(){
-    const [iconPills, setIconPills] = React.useState("1");
-    const [pills, setPills] = React.useState("1");
     let myTheme = EditorView.theme({
         "&": {
             color: "white",
@@ -62,9 +49,43 @@ function CodingtestView(){
         parent: document.querySelector("#editor")
     })
 
-    const code = 'const a = 0;';
+    const code = 'public class Main {\n' +
+        '\n' +
+        '\tpublic static void main(String[] args) {\n' +
+        '\t\t\n' +
+        '\t\tSystem.out.println("Hello World!");\n' +
+        '\t}\n' +
+        '\t\n' +
+        '}';
 
+    const [sorts, setSorts] = useState([
+        {
+            title: 'level',
+            placeholder: '레벨을 선택해주세요',
+            list: [
+                {value: 0, label: '전체'},
+                {value: 1, label: '입문'},
+                {value: 2, label: '초급'},
+                {value: 3, label: '중급'},
+                {value: 4, label: '고급'},
+            ],
+            isSearchable: false,
+            isMulti: false,
+        }
+        ]);
+    const options = [
+        { value: 'Java', label: 'Java' },
+        { value: 'Python3', label: 'Python3' },
+        { value: 'Javascript', label: 'Javascript' },
+    ];
 
+    const [listLoading, setListLoading] = useState({loading:'scroll', view:'card'});
+
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const handleChange = (selected) => {
+        setSelectedOption(selected);
+    };
 
     return<>
 
@@ -73,12 +94,13 @@ function CodingtestView(){
             {/*<IndexHeader />*/}
             <div className="main">
                 <CodingTestHeader></CodingTestHeader>
-                <script src="./CodeMirror.js"></script>
+                <script src="codemirror/CodeMirror.js"></script>
+                <CodeAside></CodeAside>
                 <div style={{marginTop:'-40px'}}>
-                    <Card style={{ width: "80%",height:'auto',display:'block',margin:'0 auto' }}>
+                    <Card style={{ width: "60%",height:'auto',display:'block',margin:'0 auto' }}>
                         <CardBody>
-                            <CardTitle tag="h4">A+B(문제제목)</CardTitle>
-                            <CardSubtitle className="mb-2 text-muted" style={{display:'flex',textAlign:'center',justifyContent:'center'}}>
+                            <CardTitle tag="h4" style={{fontSize:'30px'}}>A+B(문제제목)</CardTitle>
+                            <CardSubtitle className="mb-2 text-muted" style={{display:'flex',textAlign:'center',justifyContent:'center',fontSize:'16px'}}>
                                 <table class="table">
                                     <thead>
                                         <th>시간제한</th>
@@ -96,7 +118,7 @@ function CodingtestView(){
                                     </tr>
                                 </table>
                             </CardSubtitle>
-                            <CardText>
+                            <CardText style={{fontSize:'16px'}}>
                                 <div>
                                     <div style={{borderBottom:'1px dashed #E6E6FA '}}>
                                         <div style={{display:'inline-block', borderBottom:'1px solid blue', width:'50px'}}>문제</div>
@@ -169,10 +191,13 @@ function CodingtestView(){
                     </Card>
                     <div style={{height:'20px'}}></div>
 
-                    <Card style={{  width: "80%",height:'100%',display:'block',margin:'0 auto' }}>
+                    <Card style={{  width: "60%",height:'100%',display:'block',margin:'0 auto' }}>
                         <CardBody>
                             <CardTitle tag="h4" style={{marginTop:'-10px',borderBottom:'1px dashed #E6E6FA'}}>코드를 입력해주세요</CardTitle>
                             <form>
+                                <SelectBox options={options} isMulti={sorts.isMulti}
+                                        placeholder="언어를 선택해주세요" isSearchable={sorts.isSearchable}/>
+                                <div style={{height:'20px'}}></div>
                             <CodeMirror
                                 style={{
                                     width : '100%',
@@ -180,7 +205,7 @@ function CodingtestView(){
                                 }}
                                 value={code}
                                 options={{
-                                    theme: {myTheme},
+                                    theme: 'dark',
                                     tabSize:3,
                                     keyMap: 'sublime',
                                     mode: 'jsx',
@@ -210,9 +235,6 @@ function CodingtestView(){
                         </CardBody>
                     </Card>
                     <div style={{height:'50px'}}></div>
-
-
-
 
                     {/*<div>문제내용
                         <div> 문제 descript<br/>

@@ -98,7 +98,7 @@ function App() {
                     <Route path="/codingTest/list" element={<CodingtestList/>}>
 
 
-                </Route>
+                    </Route>
                     <Route path="/codingTest/Result" element={<CodingtestResult/>}>
 
                     </Route>

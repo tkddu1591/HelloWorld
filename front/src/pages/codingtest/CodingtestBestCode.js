@@ -1,21 +1,17 @@
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
 import React, {createRef, useState} from "react";
-import Slider from "nouislider";
 import CodingTestHeader from "./CodingtestHeader";
-import * as PropTypes from "prop-types";
 import {EditorView, basicSetup} from "codemirror"
-import {javascript} from "@codemirror/lang-javascript"
 import CodeMirror from '@uiw/react-codemirror';
 // reactstrap components
 import {
     Card,
-    CardBody,
     CardTitle,
     CardSubtitle,
-    CardText,
-    CardLink, Pagination, PaginationItem, PaginationLink
+    Pagination, PaginationItem, PaginationLink
 } from "reactstrap";
-import Select from "react-select";
+import CodeAside from "./aside/CodeAside";
+import CodeMirrorSample from "./codemirror/CodeMirrorSample";
 
 
 
@@ -80,12 +76,6 @@ function CodingtestBestCode() {
         '\t}\n' +
         '\n' +
         '}';
-    const options = [
-        {value: 'chocolate', label: 'Chocolate'},
-        {value: 'strawberry', label: 'Strawberry'},
-        {value: 'vanilla', label: 'Vanilla'},
-    ];
-
 
     const [selectedOption, setSelectedOption] = useState(null);
 
@@ -97,80 +87,37 @@ function CodingtestBestCode() {
             {/*<IndexHeader />*/}
             <div className="main">
                 <CodingTestHeader></CodingTestHeader>
-                <script src="./CodeMirror.js"></script>
-                <div style={{width: "80%", height: '100%', display: 'block', margin: '0 auto'}}>
-                    <CardTitle tag="h4" style={{marginTop:'-10px'}}>
+                <CodeAside></CodeAside>
+                <script src="codemirror/CodeMirror.js"></script>
+
+                <div style={{width: "60%", height: '100%', display: 'block', margin: '0 auto'}}>
+                    <CardTitle tag="h4" style={{marginTop:'-30px',fontSize:'40px'}}>
                         다른 사용자가 푼 풀이내용
                     </CardTitle>
                 </div>
                 <div style={{height:'20px'}}></div>
-                <Card style={{width: "80%", height: '100%', display: 'block', margin: '0 auto'}}>
+                <Card style={{width: "60%", height: '100%', display: 'block', margin: '0 auto'}}>
                     <div style={{height:'10px'}}></div>
                     <CardSubtitle style={{marginTop:'10px',marginBottom:'10px'}}>
                         lomong7807@gmail.com님의 풀이
                     </CardSubtitle>
-                    <CodeMirror
-                        style={{
-                            width : '100%',
-                            border:'1px solid #E6E6FA',
-                            readOnly: true
-                        }}
-                        value={code}
-                        options={{
-                            theme: {myTheme},
-                            tabSize:3,
-                            keyMap: 'sublime',
-                            mode: 'jsx',
-                            readOnly: true
-                        }}
-                    />
+                    <CodeMirrorSample></CodeMirrorSample>
                 </Card>
                 <div style={{height:'20px'}}></div>
-                <Card style={{width: "80%", height: '100%', display: 'block', margin: '0 auto'}}>
+                <Card style={{width: "60%", height: '100%', display: 'block', margin: '0 auto'}}>
                     <div style={{height:'10px'}}></div>
                     <CardSubtitle style={{marginTop:'10px',marginBottom:'10px'}}>
                         shipdesignup@gmail.com님의 풀이
                     </CardSubtitle>
-
-                    <CodeMirror
-                        style={{
-                            width : '100%',
-                            border:'1px solid #E6E6FA',
-                            readOnly: true
-                        }}
-                        value={code}
-                        options={{
-                            theme: {myTheme},
-                            tabSize:3,
-                            keyMap: 'sublime',
-                            mode: 'jsx',
-                            readOnly: true
-                        }}
-                    />
+                    <CodeMirrorSample></CodeMirrorSample>
                 </Card>
                 <div style={{height:'20px'}}></div>
-                <Card style={{width: "80%", height: '100%', display: 'block', margin: '0 auto'}}>
+                <Card style={{width: "60%", height: '100%', display: 'block', margin: '0 auto'}}>
                     <div style={{height:'10px'}}></div>
                     <CardSubtitle style={{marginTop:'10px',marginBottom:'10px'}}>
                         ainu90@gmail.com님의 풀이
                     </CardSubtitle>
-                    <CodeMirror
-                        style={{
-                            width : '100%',
-                            border:'1px solid #E6E6FA',
-                            readOnly: 'true'
-                        }}
-                        value={code}
-                        options={{
-                            theme: 'Dark',
-                            tabSize:3,
-                            keyMap: 'sublime',
-                            mode: 'text/x-java',
-                            readOnly: true
-
-                        }}
-
-                    />
+                    <CodeMirrorSample></CodeMirrorSample>
                 </Card>
                 <div style={{height:'20px'}}></div>
                 <Pagination style={{display:'flex',justifyContent:'center',textAlign:'center', width:'100%'}}>

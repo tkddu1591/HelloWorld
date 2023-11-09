@@ -1,49 +1,68 @@
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
-import React, {createRef, useEffect} from "react";
+import React, {createRef, useEffect, useState} from "react";
 import {
-    Button, Card, CardBody, CardHeader, CardLink, CardSubtitle, CardText, CardTitle, CarouselItem,
+    Card, CardBody, CardText, CardTitle,
     Col,
     Container, Form,
     FormGroup,
     Input,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    Label, Nav, NavItem, NavLink, Pagination, PaginationItem, PaginationLink,
-    Row, TabContent, TabPane
+    Pagination, PaginationItem, PaginationLink,
+    Row
 } from "reactstrap";
-import Slider from "nouislider";
 import CodingTestHeader from "./CodingtestHeader";
 import Select from "react-select";
+import CardListCode from "./aside/CardListCode";
+import CodeAside from "./aside/CodeAside";
+import SelectBox from "../../components/Lecture/SelectBox";
 
 
 
 
 
 function CodingtestList(){
-    const [iconPills, setIconPills] = React.useState("1");
-    const [pills, setPills] = React.useState("1");
+    const [sorts, setSorts] = useState([
+        {
+            title: 'level',
+            placeholder: '레벨을 선택해주세요',
+            list: [
+                {value: 0, label: '전체'},
+                {value: 1, label: '입문'},
+                {value: 2, label: '초급'},
+                {value: 3, label: '중급'},
+                {value: 4, label: '고급'},
+            ],
+            isSearchable: false,
+            isMulti: false,
+        }
+    ]);
+    const options = [
+        { value: '1', label: '1단계' },
+        { value: '2', label: '2단계' },
+        { value: '3', label: '3단계' },
+        { value: '4', label: '4단계' },
+        { value: '5', label: '5단계' },
+    ];
+
+    const [listLoading, setListLoading] = useState({loading:'scroll', view:'card'});
+
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const handleChange = (selected) => {
+        setSelectedOption(selected);
+    };
     return<>
 
         <IndexNavbar/>
         <div className="wrapper" >
-            {/*<IndexHeader />*/}
             <div className="main">
                 <CodingTestHeader></CodingTestHeader>
+                <CodeAside></CodeAside>
 
-                    <Container >
+                <Container >
                             <Row style={{display:'flex',justifyContent:'center'}}>
                                 <Col lg="8" sm="6" style={{marginTop:'-30px',display:'inline-block'}}>
                                     <Form>
-                                    <FormGroup>{/*
-                                        <select className="bootstrap-select" aria-label="Default select example" style={{textAlign:'left'}}>
-                                            <option value={0}>단계를 선택해주세요</option>
-                                            <option value={1}>1단계</option>
-                                            <option value={2}>2단계</option>
-                                            <option value={3}>3단계</option>
-                                            <option value={4}>4단계</option>
-                                        </select>*/}
-
+                                    <FormGroup>
                                         <Input style={{display:'flex',justifyContent:'center'}}
                                             defaultValue=""
                                             placeholder="문제제목을 입력하세요"
@@ -51,15 +70,10 @@ function CodingtestList(){
                                         >
 
                                         </Input>
-
                                             <FormGroup style={{marginTop:'5px'}}>
-
-                                                <Select
-                                                >
-
-                                                </Select>
+                                                <SelectBox options={options} isMulti={sorts.isMulti}
+                                                           placeholder="단계를 선택해주세요" isSearchable={sorts.isSearchable}/>
                                             </FormGroup>
-
                                     </FormGroup>
                                     </Form>
                                 </Col>
@@ -268,38 +282,7 @@ function CodingtestList(){
                                 </PaginationLink>
                             </PaginationItem>
                         </Pagination>
-                        <Card style={{ width: "20rem" ,display:'flex',float:'right',top:'-600px',left:'400px'}}>
-                            <CardBody>
-                                <CardTitle tag="h4">사용자 ID 출력공간</CardTitle>
-                                <CardSubtitle className="mb-2 text-muted">
-
-                                </CardSubtitle>
-                                <CardText>
-                                    내용 1
-                                </CardText>
-                                <CardText>
-                                    내용 2
-                                </CardText>
-                                <CardText>
-                                    내용 3
-                                </CardText>
-                                <CardLink href="#pablo" onClick={e => e.preventDefault()}>
-                                    질문하러 가기
-                                </CardLink>
-                                <CardLink href="#pablo" onClick={e => e.preventDefault()}>
-
-                                </CardLink>
-                            </CardBody>
-                        </Card>
-
-
-
                     </Container>
-
-
-
-
-
                 {/*<Carousel />*/}
                 {/*<Pagination />*/}
                 {/* <Images />
@@ -318,6 +301,7 @@ function CodingtestList(){
           <Download />*/}
             </div>
         </div>
+        <div style={{height:'20px'}}></div>
     </>
 }
 export default CodingtestList;
