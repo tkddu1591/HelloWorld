@@ -5,6 +5,8 @@ import Pagination from 'react-bootstrap/Pagination';
 import {Col, Container, FormGroup, Input, Row} from "reactstrap";
 import Select from "react-select";
 import PageListViewType from "../../components/Lecture/PageListType";
+import Button from 'react-bootstrap/Button';
+import {useNavigate} from "react-router-dom";
 
 const options = [
     {value: 'java', label: 'Java'},
@@ -39,6 +41,7 @@ function CommunityList() {
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedSearch, setSelectedSearch] = useState(null);
     const [listLoading, setListLoading] = useState({loading: 'scroll', view: 'card'});
+    let navigate = useNavigate();
     return (<>
         <Container style={{userSelect: 'none'}}>
             <div className="list">
@@ -47,7 +50,7 @@ function CommunityList() {
                            selectedOption={selectedOption}
                            setSelectedOption={setSelectedOption}
                            options={options}></SearchBar>
-                <PillsExample listLoading={listLoading} setListLoading={setListLoading}></PillsExample>
+                <PillsExample listLoading={listLoading} setListLoading={setListLoading} navigate={navigate}></PillsExample>
                 <TabContent></TabContent>
                 <AdvancedExample></AdvancedExample>
             </div>
@@ -103,7 +106,7 @@ function SearchBar(props) {
     </>)
 }
 
-function PillsExample({listLoading, setListLoading}) {
+function PillsExample({listLoading, setListLoading, navigate}) {
     return (
         <div style={{display: "flex", justifyContent: 'space-between'}}>
 
@@ -119,7 +122,17 @@ function PillsExample({listLoading, setListLoading}) {
                     <Nav.Link eventKey="link-2">좋아요 많은순</Nav.Link>
                 </Nav.Item>
             </Nav>
+
             <div>
+                <Button variant="primary" style={{background:"#2CA8FF"}} onClick={
+                    ()=>{navigate("/community/write");}
+                }>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-keyboard" viewBox="0 0 16 16" style={{marginRight:"5px"}}>
+                        <path d="M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z"/>
+                        <path d="M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z"/>
+                    </svg>
+                    글 작성하기
+                </Button>{' '}
                 <PageListViewType listLoading={listLoading} setListLoading={setListLoading}></PageListViewType>
             </div>
         </div>
