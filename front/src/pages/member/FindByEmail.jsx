@@ -9,25 +9,17 @@ import {
   CardFooter,
   CardTitle,
   Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
   Row
 } from "reactstrap";
-import IndexNavbar from "../../components/Navbars/IndexNavbar";
-import DarkFooter from "../../components/Footers/DarkFooter";
-import {faLock, faAt, faCircleCheck, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faLock, faAt, faCircleCheck, faCircleQuestion, faSquarePhone, faUser} from "@fortawesome/free-solid-svg-icons";
 import InputField from "./componentsByMember/inputCmpnts/InputField";
-import SubmitButton from "./componentsByMember/buttonCmpnts/SubmitButton";
-import StatusText from "./componentsByMember/status/StatusText";
+import LinkTo from "./componentsByMember/inputCmpnts/LinkTo";
 import MemberHeader from "./componentsByMember/MemberHeader";
 
 // core components
 
-function FindByPass() {
+function FindByEmail() {
   const [emailButton, setEmailButton] = useState("default");
   const [buttonText, setButtonText] = useState("인증번호 요청");
   const [emailIcon, setEmailIcon] = useState(faCircleQuestion);
@@ -59,32 +51,21 @@ function FindByPass() {
             <Card className="card-signup">
               <Form action="" className="form" method="">
 
-                <MemberHeader text={'비밀번호 찾기'}/>
+                <MemberHeader text={'이메일 찾기'}/>
 
                 <CardBody>
                   <InputField
-                      placeholder="이메일 입력"
-                      type="text" icon={faAt}/>
-
+                      placeholder="이름 입력"
+                      type="text" icon={faUser}/>
                   <InputField
-                      placeholder="이메일 인증번호 입력"
-                      type="text" icon={emailIcon} color={emailIconColor}/>
-                  {/*완료되면 icon={faCircleCheck} style={{color: "#2bff0f",}} 날리기*/}
+                      placeholder="휴대번호 입력"
+                      type="text" icon={faSquarePhone}/>
 
-                  <Button
-                      onClick={emailClick}
-                      color={emailButton}
-                      style={{marginLeft: "60%", width: "40%"}}>
-                    {buttonText}
-                  </Button>
-
-                  {isOpenEmail && <><InputField
-                      placeholder="새 비밀번호 입력"
-                      type="password" icon={faLock}/>
-
-                    <InputField
-                    placeholder="새 비밀번호 확인"
-                    type="password" icon={faLock}/></>}
+                  <LinkTo
+                      text="비밀번호 찾기"
+                      to="/member/findByPass"
+                      pos="right"
+                  />
 
                 </CardBody>
 
@@ -96,7 +77,7 @@ function FindByPass() {
                     onClick={(e) => e.preventDefault()}
                     size="lg"
                   >
-                    비밀번호 변경
+                    이메일 찾기
                   </Button>
                 </CardFooter>
 
@@ -109,4 +90,4 @@ function FindByPass() {
   );
 }
 
-export default FindByPass;
+export default FindByEmail;

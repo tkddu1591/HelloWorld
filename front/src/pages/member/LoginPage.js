@@ -15,23 +15,14 @@ import DarkFooter from "../../components/Footers/DarkFooter";
 import Switch from "react-bootstrap-switch";
 import {faComment, faLock, faAt} from "@fortawesome/free-solid-svg-icons";
 import InputField from "./componentsByMember/inputCmpnts/InputField";
-import SocialLogin from "./componentsByMember/buttonCmpnts/SocialLogin";
+import SocialLoginButton from "./componentsByMember/buttonCmpnts/SocialLoginButton";
 import LinkTo from "./componentsByMember/inputCmpnts/LinkTo";
+import AutoLoginButton from "./componentsByMember/buttonCmpnts/AutoLoginButton";
+import MemberHeader from "./componentsByMember/MemberHeader";
 
 
 
 function LoginPage() {
-    React.useEffect(() => {
-        document.body.classList.add("login-page");
-        document.body.classList.add("sidebar-collapse");
-        document.documentElement.classList.remove("nav-open");
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
-        return function cleanup() {
-            document.body.classList.remove("login-page");
-            document.body.classList.remove("sidebar-collapse");
-        };
-    }, []);
     return (<>
 
         <div
@@ -43,11 +34,7 @@ function LoginPage() {
                     <Card className="card-signup">
                         <Form action="" className="form" method="">
 
-                            <CardHeader className="text-center">
-                                <CardTitle className="title-up" tag="h3">
-                                    HELLO WORLD
-                                </CardTitle>
-                            </CardHeader>
+                            <MemberHeader text={'로그인'}/>
 
                             <CardBody>
                                 <InputField
@@ -58,9 +45,9 @@ function LoginPage() {
                                     placeholder="비밀번호 입력"
                                     type="password" icon={faLock}/>
 
-                                <Switch offColor="" offText="OFF" onColor="" onText="ON" />자동로그인
+                                <AutoLoginButton />
 
-                                <SocialLogin />
+                                <SocialLoginButton />
                             </CardBody>
 
                             <CardBody className="text-center" style={{marginBottom: "70px"}}>
@@ -77,8 +64,8 @@ function LoginPage() {
                                 />
 
                                 <LinkTo
-                                    text="비밀번호 찾기"
-                                    to="/member/findByPass"
+                                    text="이메일/비밀번호 찾기"
+                                    to="/member/findByEmail"
                                     pos="right"
                                 />
                             </CardBody>

@@ -162,7 +162,7 @@ function IndexNavbar() {
                     <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                     지원한 공고
                   </DropdownItem>
-                  <DropdownItem to="/company/list" tag={Link}>
+                  <DropdownItem to="/company/bookmark" tag={Link}>
                     <i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
                     관심있는 공고
                   </DropdownItem>
