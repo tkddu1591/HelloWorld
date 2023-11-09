@@ -67,7 +67,7 @@
     "fsevents": "2.3.2",
     "chokidar": "3.5.3"
   },
-  "homepage": "./",
+  "homepage": "/Html/HelloWorld",
   "devDependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

@@ -35,7 +35,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            {/*<BrowserRouter basename="/"> route 페이지 설정*/}
+            {/*<BrowserRouter basename="/Html/HelloWorld">*/}
             <BrowserRouter>
                 {/*<ScrollToTop/>*/}
                 <App/>

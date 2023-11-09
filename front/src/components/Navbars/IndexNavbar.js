@@ -195,7 +195,7 @@ function IndexNavbar() {
                                         className="nav-link btn-info"
                                         style={{ backgroundColor: 'none' }}
                                         onClick={() => {
-                                            handleOpenNewTab('http://localhost:3000/dm');
+                                            handleOpenNewTab('/dm');
                                         }}
                                         id="upgrade-to-pro"
                                         target="_blank">
