@@ -6,10 +6,10 @@ function LectureViewContent(){
     return<>
         <Col lg="9">
             <div
-                style={{width: '100%', padding: '20px', paddingLeft: '40px', marginTop: '10px', border: '1px solid lightgray', borderRadius: '5px', backgroundColor: '#Fafafa'}}>
-                <span style={{color:'red'}}>Home</span>
+                style={{width: '100%', padding: '20px', paddingLeft: '30px', marginTop: '10px', border: '1px solid lightgray', borderRadius: '5px', backgroundColor: '#Fafafa'}}>
+                <span style={{color:'red', fontSize:'16px'}}>Home</span>
             </div>
-            <div style={{marginTop:'40px', fontFamily:'NanumSquare, sans-serif', fontSize:'14px'}}>
+            <div style={{marginTop:'40px', fontFamily:'NanumSquare, sans-serif', fontSize:'14px'}} className='detailContent'>
                 <p>코드짜다가 갑자기 2일 전으로 시간을 돌리고 싶으면?</p>
                 <p>팀원과 코드 충돌없이 협업하고 싶으면?</p>
                 <p>버전 컨트롤을 도와주는 소프트웨어인 git 쓰면 가능합니다.</p>

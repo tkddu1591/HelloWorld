@@ -49,7 +49,7 @@ function IndexNavbar() {
                                 src={`${process.env.PUBLIC_URL}/images/home/main_logo.png`}
                                 style={{ width: '20px' }}
                             />{' '}
-                            Hello World
+                            <span style={{fontSize:'19px'}}>Hello World</span>
                         </NavbarBrand>
                         <UncontrolledTooltip target="#navbar-brand">홈페이지로 이동합니다.</UncontrolledTooltip>
                         <button

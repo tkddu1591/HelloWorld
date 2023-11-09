@@ -1,7 +1,7 @@
 import React from 'react';
 import DmMainUsers from './DmMainUsers';
 
-function DmMainTable() {
+function DmMainTable({title}) {
    let num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
    return (
       <>
@@ -14,7 +14,7 @@ function DmMainTable() {
             {num.map((item, index) => {
                return (
                   <div key={item}>
-                     <DmMainUsers index={index}></DmMainUsers>
+                     <DmMainUsers title={title} index={index}></DmMainUsers>
                   </div>
                );
             })}

@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 function LectrueViewHeader(){
     let navigate = useNavigate();
     return<>
-        <h3 style={{marginBottom: '15px'}}>(무료) 매우쉽게 알려주는 git & github</h3>
+        <h3 style={{marginBottom: '15px', fontSize:'30px'}}>(무료) 매우쉽게 알려주는 git & github</h3>
         <div className='ddd'>
             <Star size={20} score={5}></Star>
             <span style={{marginLeft: '5px'}}>( 1,200 리뷰 )</span>

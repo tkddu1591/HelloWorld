@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './dm.scss';
 import DmMainTable from './DmMainTable';
 import DmHeader from '../DmHeader';
 
 function DmMain() {
-   return (
-      <>
-         <DmHeader isMain={true}></DmHeader>
-         <DmMainTable></DmMainTable>
-      </>
-   );
+	const [title] = useState('내 채팅');
+	return (
+		<>
+			<DmHeader isMain={true} title={title}></DmHeader>
+			<DmMainTable title={title}></DmMainTable>
+		</>
+	);
 }
 
 export default DmMain;

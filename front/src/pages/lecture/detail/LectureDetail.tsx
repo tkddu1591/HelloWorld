@@ -17,8 +17,9 @@ function LectureDetail() {
 
     return (
         <>
+            <LectureDetailAside></LectureDetailAside>
 
-            <div style={{width: '100%', height: '100%'}} className={'detailContent'}>
+            <div style={{width: '100%', height: '100%', zIndex:0, position:'relative'}} className={'detailContent'}>
                 <div style={{position: 'absolute', padding: '80px', paddingTop: '40px', width: '100%', height: '100%'}}>
                     <div style={{display: "flex", justifyContent: 'right', color: 'gray'}}>
                         <i className="bi bi-bar-chart-fill"></i> <span style={{marginLeft: '5px'}}>2 분</span>
@@ -51,7 +52,6 @@ function LectureDetail() {
                 </div>
 
             </div>
-            <LectureDetailAside ></LectureDetailAside>
         </>
     );
 }

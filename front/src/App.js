@@ -37,6 +37,9 @@ import CommunityView from './pages/community/CommunityView';
 import CommunityWrite from './pages/community/CommunityWrite';
 import DmMain from './pages/dm/main/DmMain';
 import DmChat from './pages/dm/Chat/DmChat';
+import './scss/main.scss'
+import DmBlock from "./pages/dm/block/DmBlock";
+import DmHide from "./pages/dm/DmHide/DmHide";
 
 const LectureHome = lazy(() => import('./pages/lecture/home/LectureHome'));
 
@@ -61,6 +64,8 @@ function App() {
          <Routes>
             <Route path="/lecture/detail/:id" element={<LectureDetail />} />
             <Route path="/dm" element={<DmMain></DmMain>}></Route>
+            <Route path="/dm/block" element={<DmBlock></DmBlock>}></Route>
+            <Route path="/dm/hide" element={<DmHide></DmHide>}></Route>
             <Route path="/dm/chat/:id" element={<DmChat></DmChat>}></Route>
             <Route
                path="/"
