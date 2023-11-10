@@ -104,13 +104,12 @@ function SignUp() {
 
                 <CardFooter className="text-center">
                   <Button
-                    className="btn-neutral btn-round"
+                    className="btn-neutral"
                     color="info"
-                    href="#pablo"
                     onClick={(e) => e.preventDefault()}
                     size="lg"
                   >
-                    회원가입
+                    <Link to="/member/finishSignup">회원가입</Link>
                   </Button>
                 </CardFooter>
 

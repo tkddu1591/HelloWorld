@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Badge, Button, Col} from "reactstrap";
 import {Link} from "react-router-dom";
 import BookmarkIcon from "./BookmarkIcon";
@@ -7,7 +7,9 @@ import BookmarkIcon from "./BookmarkIcon";
 
 
 function CompanyCard(props) {
-    const { image, title, company, location, career, education, expireDate, applyStatus, isView, isBookmark } = props.data;
+    const { image, title, company, location, career,
+        education, expireDate, applyStatus,
+        isView, isBookmark } = props.data;
     let badgeColor = "default";
     badgeColor =
         (applyStatus === '최종합격'
@@ -39,7 +41,6 @@ function CompanyCard(props) {
                     </span><br/>
                     <span style={{float:"right"}}>
                         ~{expireDate}
-
                     </span>
 
 

@@ -40,6 +40,7 @@ import CommunityWrite from "./pages/community/CommunityWrite";
 import CompanyApply from "./pages/company/CompanyApply";
 import CompanyBookmark from "./pages/company/CompanyBookmark";
 import FindByEmail from "./pages/member/FindByEmail";
+import FinishSignup from "./pages/member/FinishSignup";
 
 
 
@@ -82,6 +83,7 @@ function App() {
                     <Route path="member" element={<Suspense fallback={fallback()}><Outlet /></Suspense>}>
                         <Route path="login" element={<LoginPage/>}/>
                         <Route path="signup" element={<SignUp/>}/>
+                        <Route path="finishSignup" element={<FinishSignup/>}/>
                         <Route path="findByPass" element={<FindByPass/>}/>
                         <Route path="findByEmail" element={<FindByEmail/>}/>
                     </Route>
