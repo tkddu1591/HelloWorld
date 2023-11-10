@@ -8,71 +8,115 @@ import IndexNavbar from './components/Navbars/IndexNavbar.js';
 import DarkFooter from './components/Footers/DarkFooter.js';
 
 // sections for this page
-import NucleoIcons from './views/index-sections/NucleoIcons.js';
-import { Outlet, Route, Routes } from 'react-router-dom';
-import LandingPage from './views/examples/LandingPage';
-import ProfilePage from './views/examples/ProfilePage';
-import LoginPage from './pages/member/LoginPage';
-import Home from './pages/home/Home';
-import LectureList from './pages/lecture/list/LectureList';
+import NucleoIcons from "./views/index-sections/NucleoIcons.js";
+import {Outlet, Route, Routes} from "react-router-dom";
+import LandingPage from "./views/examples/LandingPage";
+import ProfilePage from "./views/examples/ProfilePage";
+import LoginPage from "./pages/member/LoginPage";
+import Home from "./pages/home/Home";
+import LectureList from "./pages/lecture/list/LectureList";
 
-import CodingtestView from './pages/codingtest/CodingtestView';
+import CodingtestView from "./pages/codingtest/CodingtestView";
 
-import CodingtestList from './pages/codingtest/CodingtestList';
-import SignUp from './pages/member/SignUp';
-import CodingtestResult from './pages/codingtest/CodingtestResult';
-import FindByPass from './pages/member/FindByPass';
-import CompanyList from './pages/company/CompanyList';
-import CompanyView from './pages/company/CompanyView';
-import LectureView from './pages/lecture/view/LectureView';
+import CodingtestList from "./pages/codingtest/CodingtestList";
+import SignUp from "./pages/member/SignUp";
+import CodingtestResult from "./pages/codingtest/CodingtestResult";
+import FindByPass from "./pages/member/FindByPass";
+import CompanyList from "./pages/company/CompanyList";
+import CompanyView from "./pages/company/CompanyView";
+import LectureView from "./pages/lecture/view/LectureView";
 
-import LectureDetail from './pages/lecture/detail/LectureDetail';
+import LectureDetail from "./pages/lecture/detail/LectureDetail";
 
-import CodingtestQna from './pages/codingtest/CodingtestQna';
-import CodingtestQnaView from './pages/codingtest/CodingtestQnaView';
-import CodingtestQnaWrite from './pages/codingtest/CodingtestQnaWrite';
-import CodingtestBestCode from './pages/codingtest/CodingtestBestCode';
-import CommunityList from './pages/community/CommunityList';
-import CommunityView from './pages/community/CommunityView';
-import CommunityWrite from './pages/community/CommunityWrite';
-import DmMain from './pages/dm/main/DmMain';
-import DmChat from './pages/dm/Chat/DmChat';
-import './scss/main.scss'
-import DmBlock from "./pages/dm/block/DmBlock";
-import DmHide from "./pages/dm/DmHide/DmHide";
+import CodingtestQna from "./pages/codingtest/CodingtestQna";
+import CodingtestQnaView from "./pages/codingtest/CodingtestQnaView";
+import CodingtestQnaWrite from "./pages/codingtest/CodingtestQnaWrite";
+import CodingtestBestCode from "./pages/codingtest/CodingtestBestCode";
+import CommunityList from "./pages/community/CommunityList";
+import CommunityView from "./pages/community/CommunityView";
+import CommunityWrite from "./pages/community/CommunityWrite";
+import CompanyApply from "./pages/company/CompanyApply";
+import CompanyBookmark from "./pages/company/CompanyBookmark";
+import FindByEmail from "./pages/member/FindByEmail";
+import FinishSignup from "./pages/member/FinishSignup";
 
-const LectureHome = lazy(() => import('./pages/lecture/home/LectureHome'));
+
+
+const LectureHome = lazy(() => import("./pages/lecture/home/LectureHome"));
+
 
 function App() {
-   function fallback() {
-      return <i>loading....</i>;
-   }
+    function fallback() {
+        return <i>loading....</i>
+    }
 
-   React.useEffect(() => {
-      document.body.classList.add('index-page');
-      document.body.classList.add('sidebar-collapse');
-      document.documentElement.classList.remove('nav-open');
-      window.scrollTo(0, 0);
-      document.body.scrollTop = 0;
-      return function cleanup() {
-         document.body.classList.remove('index-page');
-         document.body.classList.remove('sidebar-collapse');
-      };
-   });
-   return (
-      <>
-         <Routes>
-            <Route path="/lecture/detail/:id" element={<LectureDetail />} />
-            <Route path="/dm" element={<DmMain></DmMain>}></Route>
-            <Route path="/dm/block" element={<DmBlock></DmBlock>}></Route>
-            <Route path="/dm/hide" element={<DmHide></DmHide>}></Route>
-            <Route path="/dm/chat/:id" element={<DmChat></DmChat>}></Route>
-            <Route
-               path="/"
-               element={
-                  <>
-                     <IndexNavbar />
-                     <div className="main">
+    React.useEffect(() => {
+        document.body.classList.add("index-page");
+        document.body.classList.add("sidebar-collapse");
+        document.documentElement.classList.remove("nav-open");
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        return function cleanup() {
+            document.body.classList.remove("index-page");
+            document.body.classList.remove("sidebar-collapse");
+        };
+    });
+    return (
+        <>
+            <Routes>
+
+                <Route path="/lecture/detail/:id" element={<LectureDetail/>}/>
+                <Route path="/" element={<>
+
+                    <IndexNavbar/>
+                    <div className="main">
+                        <Outlet></Outlet>
+                    </div>
+                    <DarkFooter/>
+                </>}>
+                    <Route path="/" element={<Home/>}>
+
+                    </Route>
+
+                    <Route path="member" element={<Suspense fallback={fallback()}><Outlet /></Suspense>}>
+                        <Route path="login" element={<LoginPage/>}/>
+                        <Route path="signup" element={<SignUp/>}/>
+                        <Route path="finishSignup" element={<FinishSignup/>}/>
+                        <Route path="findByPass" element={<FindByPass/>}/>
+                        <Route path="findByEmail" element={<FindByEmail/>}/>
+                    </Route>
+
+                    <Route path="company" element={<Suspense fallback={fallback()}><Outlet /></Suspense>}>
+                        <Route path="list" element={<CompanyList />}></Route>
+                        <Route path="view" element={<CompanyView />}></Route>
+                        <Route path="apply" element={<CompanyApply />}></Route>
+                        <Route path="bookmark" element={<CompanyBookmark />}></Route>
+                    </Route>
+
+                    <Route path="/codingTest/list" element={<CodingtestList/>}>
+
+
+                </Route>
+                    <Route path="/codingTest/Result" element={<CodingtestResult/>}>
+
+                    </Route>
+                    <Route path="/codingTest/Qna" element={<CodingtestQna/>}>
+
+                    </Route>
+                <Route path="/codingTest/View" element={<CodingtestView/>}>
+
+                    </Route>
+                    <Route path="/codingTest/view" element={<CodingtestView/>}>
+
+                    </Route>
+                    <Route path="/codingtest/Qna/View" element={<CodingtestQnaView/>}>
+
+                    </Route>
+                    <Route path="/codingtest/Qna/write" element={<CodingtestQnaWrite/>}>
+                    </Route>
+                    <Route path="/codingtest/Qna/best" element={<CodingtestBestCode/>}>
+                    </Route>
+                    <Route path="lecture" element={<><Suspense fallback={fallback()}>
                         <Outlet></Outlet>
                      </div>
                      <DarkFooter />
