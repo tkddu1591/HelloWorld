@@ -39,6 +39,7 @@ import DmChat from './pages/dm/Chat/DmChat';
 import DmHide from './pages/dm/DmHide/DmHide';
 import DmBlock from './pages/dm/block/DmBlock';
 import DmMain from './pages/dm/main/DmMain';
+import MyInfo from "./pages/my/MyInfo";
 import Fallback from './pages/Fallback';
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
@@ -194,7 +195,9 @@ function App() {
 						<Route path={'view'} element={<CommunityView></CommunityView>} />
 						<Route path={'write'} element={<CommunityWrite></CommunityWrite>} />
 					</Route>
-					<Route path="my"></Route>
+					<Route path="my">
+						<Route path={'info'} element={<MyInfo />} />
+					</Route>
 				</Route>
 				<Route path="/nucleo-icons" element={<NucleoIcons />} />
 				<Route path="/landing-page" element={<LandingPage />} />
