@@ -10,17 +10,17 @@ import React, {createRef, useEffect, useState} from "react";
 
 const items = [
     {
-        src: require("assets/img/banner/banner1.jpg"),
+        src: require("../../../assets/img/banner/banner1.jpg"),
         altText: "Nature, United States",
         caption: "Nature, United States"
     },
     {
-        src: require("assets/img/banner/banner2.jpg"),
+        src: require("../../../assets/img/banner/banner2.jpg"),
         altText: "Somewhere Beyond, United States",
         caption: "Somewhere Beyond, United States"
     },
     {
-        src: require("assets/img/banner/banner3.jpg"),
+        src: require("../../../assets/img/banner/banner3.jpg"),
         altText: "Yellowstone National Park, United States",
         caption: "Yellowstone National Park, United States"
     }
