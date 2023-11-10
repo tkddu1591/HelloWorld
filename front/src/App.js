@@ -43,6 +43,7 @@ import DmChat from './pages/dm/Chat/DmChat';
 import DmHide from './pages/dm/DmHide/DmHide';
 import DmBlock from './pages/dm/block/DmBlock';
 import DmMain from './pages/dm/main/DmMain';
+import MyInfo from "./pages/my/MyInfo";
 
 const LectureHome = lazy(() => import('./pages/lecture/home/LectureHome'));
 
@@ -182,7 +183,9 @@ function App() {
 						<Route path={'view'} element={<CommunityView></CommunityView>} />
 						<Route path={'write'} element={<CommunityWrite></CommunityWrite>} />
 					</Route>
-					<Route path="my"></Route>
+					<Route path="my">
+						<Route path={'info'} element={<MyInfo />} />
+					</Route>
 				</Route>
 				<Route path="/nucleo-icons" element={<NucleoIcons />} />
 				<Route path="/landing-page" element={<LandingPage />} />

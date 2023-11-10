@@ -33,18 +33,20 @@ function FinishSignup() {
             <Card className="card-signup" style={{textAlign:"center"}}>
               <MemberHeader text={'회원가입이 완료되었습니다.'}/>
               <span>
-                추가 정보를 입력하지 않으면 <br/>
-                <strong style={{textDecoration: "underline"}}>이용에 제한</strong>이 있을 수 있습니다.
+                추가 정보를 입력하지 않으면 <br/> 이메일 찾기 등 &nbsp;
+                <strong style={{textDecoration: "underline"}}>
+                  서비스에 제한
+                </strong>이 있을 수 있습니다.
               </span>
 
               <CardBody>
                 <Button color="success" style={{width:"40%", height:"100px", marginRight:"5px", fontSize:"16px"}}>
-                  <Link to={"/profile-page"}>
+                  <Link to={"/my/info"}>
                     일반회원 <br/> 추가 정보 입력하기
                   </Link>
                 </Button>
                 <Button color="warning" style={{width:"40%", height:"100px", fontSize:"16px"}}>
-                  <Link to={"/profile-page"}>
+                  <Link to={"/my/business"}>
                     강사·업체 추가 정보 입력하기
                   </Link>
                 </Button>
