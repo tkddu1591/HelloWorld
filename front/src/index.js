@@ -36,8 +36,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
    <React.StrictMode>
       <Provider store={store}>
-         {/*<BrowserRouter basename='/Html/HelloWorld'>*/}
-         <BrowserRouter>
+         <BrowserRouter basename='/Html/HelloWorld'>
+            {/*<BrowserRouter>*/}
             {/*<ScrollToTop/>*/}
             <App />
          </BrowserRouter>
