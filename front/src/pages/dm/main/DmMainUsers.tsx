@@ -38,8 +38,8 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 		if (title === '내 채팅') {
 			setPopupSetting({
 				width: 162,
-		top: -15,
-		right: 10,
+				top: -15,
+				right: 10,
 				condition: [
 					{
 						data: '차단',
@@ -63,8 +63,8 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 		} else if (title === '숨김유저') {
 			setPopupSetting({
 				width: 139,
-		top: -15,
-		right: 10,
+				top: -15,
+				right: 10,
 				condition: [
 					{
 						data: '숨김해제',
@@ -83,8 +83,8 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 		} else if (title === '차단유저') {
 			setPopupSetting({
 				width: 139,
-		top: -15,
-		right: 10,
+				top: -15,
+				right: 10,
 				condition: [
 					{
 						data: '차단해제',
@@ -116,8 +116,8 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 					height: '57px',
 					display: 'flex',
 					borderBottom: '1px solid lightgray',
-					justifyContent:'left',
-					position:'relative'
+					justifyContent: 'left',
+					position: 'relative',
 				}}>
 				<div
 					style={{
@@ -136,7 +136,7 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 				</div>
 				<div
 					style={{
-						width:"calc(100% - 150px)",
+						width: 'calc(100% - 150px)',
 					}}>
 					<div
 						style={{
@@ -183,26 +183,28 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 						</>
 					)}
 				</div>
-				{index===(5)&&title==='내 채팅'&&<div
-					style={{
-						marginTop: '20px',
-						backgroundColor: '#FF5554',
-						color: 'white',
-						paddingLeft:'5px',
-						paddingRight:'5px',
-						height: '20px',
-						position:'absolute',
-						borderRadius:'10px',
-						right:'50px',
-					}}>
-					122
-				</div>}
+				{index === 5 && title === '내 채팅' && (
+					<div
+						style={{
+							marginTop: '20px',
+							backgroundColor: '#FF5554',
+							color: 'white',
+							paddingLeft: '5px',
+							paddingRight: '5px',
+							height: '20px',
+							position: 'absolute',
+							borderRadius: '10px',
+							right: '50px',
+						}}>
+						122
+					</div>
+				)}
 				<div
 					style={{
-						width: '50px',
-						position:'absolute',
-						right:'0',
-						top:'10px',
+						width: '30px',
+						position: 'absolute',
+						right: '0',
+						top: '10px',
 					}}>
 					<i
 						className="bi bi-three-dots-vertical dm-user-dot"
@@ -210,11 +212,11 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 							fontSize: '30px',
 							marginTop: '8px',
 							cursor: 'pointer',
-							zIndex:'0'
+							zIndex: '0',
 						}}
 						onClick={() => setPopup(!popup)}></i>
 					{popup && (
-						<div style={{ position: 'relative', zIndex:'2' }}>
+						<div style={{ position: 'relative', zIndex: '2' }}>
 							<UserPopup popupSetting={popupSetting}></UserPopup>
 						</div>
 					)}

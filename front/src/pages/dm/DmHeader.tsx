@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserPopup from '../../components/Lecture/UserPopup';
+import DmChatAside from './Chat/aside/DmChatAside';
 
 interface DmHeaderProps {
 	isMain?: boolean;
@@ -39,6 +40,7 @@ function DmHeader({ isMain = false, title = '내 채팅' }: DmHeaderProps) {
 			},
 		],
 	};
+	console.log(title.indexOf('님과의 채팅') !== -1);
 	const [popup, setPopup] = React.useState('');
 	return (
 		<>
@@ -84,6 +86,7 @@ function DmHeader({ isMain = false, title = '내 채팅' }: DmHeaderProps) {
 						}}>
 						{popup === 'chat' && <UserPopup popupSetting={chatPopupSetting}></UserPopup>}
 					</i>
+
 					<i
 						className="bi bi-justify"
 						onClick={() => {
@@ -94,12 +97,16 @@ function DmHeader({ isMain = false, title = '내 채팅' }: DmHeaderProps) {
 							fontSize: '25px',
 							cursor: 'pointer',
 						}}>
-						{popup === 'menu' && <UserPopup popupSetting={menuPopupSetting}></UserPopup>}
+						{title.indexOf('님과의 채팅') === -1 && popup === 'menu' && (
+							<UserPopup popupSetting={menuPopupSetting}></UserPopup>
+						)}
 					</i>
 				</div>
 			</div>
+			{title.indexOf('님과의 채팅') !== -1 && <DmChatAside popup={popup}></DmChatAside>}
 		</>
 	);
 }
+
 
 export default DmHeader;

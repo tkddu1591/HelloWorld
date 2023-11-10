@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { MouseEventHandler, ReactNode } from 'react';
+import { MouseEventHandler } from 'react';
 
 interface UserPopupProps {
 	popupSetting: {
@@ -51,7 +51,8 @@ function UserPopup({ popupSetting }: UserPopupProps) {
 					padding: '5px',
 					backgroundColor: '#Fafafa',
 					fontSize: '13px',
-					zIndex: '99999999999999999'
+					zIndex: '99999999999999999',
+					color: 'black',
 				}}>
 				{popupSetting.condition.map((item, index) => {
 					return (

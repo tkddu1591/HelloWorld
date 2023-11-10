@@ -28,70 +28,76 @@
     color: #777777;
   }
 }
+
 .opponentChatFirst {
-  position:relative;
+  position: relative;
   margin-left: 10px;
   padding-left: 5px;
   padding-right: 5px;
-  padding-bottom:0 ;
-  background:#BEBEBEFF;
+  padding-bottom: 0;
+  background: #BEBEBEFF;
   border-radius: 0px 5px 5px 5px;
   color: black;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
   font-size: 14px;
 }
+
 .opponentChat {
-  position:relative;
+  position: relative;
   margin-left: 10px;
   padding-left: 5px;
   padding-right: 5px;
-  padding-bottom:0 ;
-  background:#BEBEBEFF;
+  padding-bottom: 0;
+  background: #BEBEBEFF;
   border-radius: 5px 5px 5px 5px;
   color: black;
   font-size: 14px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
 }
+
 .opponentChatFirst:after {
-  border-top:10px solid #bebebe;
+  border-top: 10px solid #bebebe;
   border-left: 10px solid transparent;
   border-right: 0px solid transparent;
   border-bottom: 0px solid transparent;
-  content:"";
-  position:absolute;
-  left:-10px;
+  content: "";
+  position: absolute;
+  left: -10px;
 }
+
 .userChatFirst {
-  position:relative;
+  position: relative;
   margin-right: 10px;
   padding-left: 5px;
   padding-right: 5px;
-  padding-bottom:0 ;
-  background:#3d94f8;
+  padding-bottom: 0;
+  background: #3d94f8;
   border-radius: 5px 0px 5px 5px;
   color: white;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
   font-size: 14px;
 }
+
 .userChat {
-  position:relative;
+  position: relative;
   margin-right: 10px;
   padding-left: 5px;
   padding-right: 5px;
-  padding-bottom:0 ;
-  background:#3d94f8;
+  padding-bottom: 0;
+  background: #3d94f8;
   border-radius: 5px 5px 5px 5px;
   color: white;
   font-size: 14px;
 
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
 }
+
 .userChatFirst:before {
-  border-top:10px solid #3d94f8;
+  border-top: 10px solid #3d94f8;
   border-left: 0px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 0px solid transparent;
-  content:"";
-  position:absolute;
-  right:-10px;
+  content: "";
+  position: absolute;
+  right: -10px;
 }
