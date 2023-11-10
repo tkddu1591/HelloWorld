@@ -63,7 +63,7 @@ function DmHeader({ isMain = false, title = '내 채팅' }: DmHeaderProps) {
 				<div>
 					{!isMain && (
 						<i
-							className="bi bi-house"
+							className="bi bi-arrow-left-square"
 							style={{
 								marginRight: '25px',
 								fontSize: '25px',
@@ -73,6 +73,17 @@ function DmHeader({ isMain = false, title = '내 채팅' }: DmHeaderProps) {
 								navigate('/dm');
 							}}></i>
 					)}
+
+					<i
+						className="bi bi-house"
+						style={{
+							marginRight: '25px',
+							fontSize: '25px',
+							cursor: 'pointer',
+						}}
+						onClick={() => {
+							navigate('/');
+						}}></i>
 					<i
 						onClick={() => {
 							setPopup('chat');

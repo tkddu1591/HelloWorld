@@ -200,7 +200,6 @@ function IndexNavbar() {
 											position: 'relative',
 										}}
 										id="upgrade-to-pro"
-										target="_blank"
 										rel="width= 200px ; height= 400px">
 										<i
 											className="bi bi-chat-left-dots"

@@ -15,32 +15,33 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import ReactDOM from "react-dom/client";
-import {BrowserRouter} from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
 // styles for this kit
-import "assets/css/bootstrap.min.css";
-import "assets/scss/now-ui-kit.scss?v=1.5.0";
-import "assets/demo/demo.css?v=1.5.0";
-import "assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
+import 'assets/css/bootstrap.min.css';
+import 'assets/scss/now-ui-kit.scss?v=1.5.0';
+import 'assets/demo/demo.css?v=1.5.0';
+import 'assets/demo/nucleo-icons-page-styles.css?v=1.5.0';
 // pages for this kit
-import App from "./App.js";
-import store from "./store";
-import {Provider} from "react-redux";
-import reportWebVitals from "./reportWebVitals";
+import App from './App.js';
+import store from './store';
+import { Provider } from 'react-redux';
+import reportWebVitals from './reportWebVitals';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
 root.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            {/*<BrowserRouter basename="/Html/HelloWorld">*/}
-            <BrowserRouter>
-                {/*<ScrollToTop/>*/}
-                <App/>
-            </BrowserRouter>
-        </Provider>
-    </React.StrictMode>
+   <React.StrictMode>
+      <Provider store={store}>
+         {/*<BrowserRouter basename='/Html/HelloWorld'>*/}
+         <BrowserRouter>
+            {/*<ScrollToTop/>*/}
+            <App />
+         </BrowserRouter>
+      </Provider>
+   </React.StrictMode>,
 );
 reportWebVitals();
