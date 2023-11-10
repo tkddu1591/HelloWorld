@@ -11,17 +11,18 @@
     background-position: 0 0
 }
 
-input, button{
+input, button {
     border: 0;
     border-radius: 0;
 }
 
-.list-table{
+.list-table {
     line-height: 9px;
     font-weight: 300;
     font-size: 13px;
 }
-a{
+
+a {
     color: indianred;
     cursor: pointer;
     /*text-decoration: none;*/
@@ -38,26 +39,27 @@ ul {
     padding-inline-start: 40px;
 }
 
-ul, li, ol, dl{
+ul, li, ol, dl {
     list-style: none;
 }
-body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
+
+.community body, .community p, .community h1, .community h2, .community h3, .community h4, .community h5, .community h6, .community ul, .community ol, .community li, .community dl, .community dt, .community dd, .community table, .community th, .community td, .community form, .community fieldset, .community legend, .community input, .community textarea, .community button, .community select {
     margin: 0;
     padding: 0;
     font-size: 13px;
 }
 
-table{
+table {
     border-collapse: collapse;
 }
 
-tbody{
+tbody {
     display: table-row-group;
     vertical-align: middle;
     border-color: inherit;
 }
 
-tr{
+tr {
     display: table-row;
     vertical-align: inherit;
     border-color: inherit;
@@ -67,9 +69,10 @@ script {
     display: none;
 }
 
-div{
+div {
     display: block;
 }
+
 .article strong:hover {
     text-decoration: underline;
 }
@@ -77,14 +80,15 @@ div{
 .article a.txt:hover {
     text-decoration: underline;
 }
+
 /*******************************************************/
-.list .nav-tabs{
+.list .nav-tabs {
     width: 1140px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.article li{
+.article li {
     display: block;
     padding: 16px 0;
     -webkit-box-sizing: border-box;
@@ -100,32 +104,33 @@ div{
     color: #666;
 }
 
-.article .card_area{
+.article .card_area {
     display: table;
     position: relative;
     width: 100%;
     table-layout: fixed;
 }
 
-.article .con{
+.article .con {
     display: table-cell;
     position: relative;
     color: #222;
 }
 
-.article .tit_area{
+.article .tit_area {
     display: table;
 }
 
-.article .tit_area .tit{
+.article .tit_area .tit {
     display: table-cell;
 }
-.article .tit_area .tit{
+
+.article .tit_area .tit {
     display: table;
     table-layout: fixed;
 }
 
-.article .tit_area .tit strong{
+.article .tit_area .tit strong {
     display: block;
     height: 22px;
     font-size: 16px;
@@ -142,7 +147,7 @@ div{
     word-break: break-word;
 }
 
-.article .tit_area .txt{
+.article .tit_area .txt {
     display: block;
     max-height: 44px;
     margin-top: 6px;
@@ -160,7 +165,7 @@ div{
     color: #666;
 }
 
-.article .con .con_bottom{
+.article .con .con_bottom {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -173,11 +178,11 @@ div{
     padding-top: 23px;
 }*/
 
-.article .user_info{
+.article .user_info {
     overflow: hidden;
 }
 
-.article .user_info .pers_nick_area{
+.article .user_info .pers_nick_area {
     float: left;
 }
 
@@ -185,26 +190,26 @@ div{
     width: auto;
 }
 
-.article .user_info .pers_nick_area .p-nick{
+.article .user_info .pers_nick_area .p-nick {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.m-tcol-c{
+.m-tcol-c {
     color: #333;
 }
 
-.article .user_info .m-tcol-c{
+.article .user_info .m-tcol-c {
     color: #222 !important;
 }
 
-.article .user_info .date_num{
+.article .user_info .date_num {
     float: left;
     color: #999;
 }
 
-.article .user_info .date_num:before{
+.article .user_info .date_num:before {
     content: '';
     display: inline-block;
     width: 2px;
@@ -214,17 +219,17 @@ div{
     background-color: #999;
 }
 
-.article .user_info .date{
+.article .user_info .date {
     margin-right: 16px;
 }
 
-.article .like_area{
+.article .like_area {
     display: inline-block;
     padding: 0 0 0 7px;
     vertical-align: top;
 }
 
-.article .like_area .comment_area{
+.article .like_area .comment_area {
     display: inline-block;
     margin-right: 9px;
     vertical-align: top;
@@ -241,15 +246,15 @@ div{
 }
 
 .article .like_area .comment_area .num {
-    color:#222;
+    color: #222;
 }
 
-.article .like_area .u_likeit_list_module{
+.article .like_area .u_likeit_list_module {
     display: inline-block;
     vertical-align: top;
 }
 
-.article .user_info .date_num{
+.article .user_info .date_num {
     float: left;
     color: #999;
 }
@@ -317,6 +322,7 @@ div{
 .article img {
     vertical-align: top;
 }
+
 /*img {
     max-width: 100%;
     border-radius: 1px;
@@ -328,21 +334,21 @@ div{
     height: 120px;
 }
 
-.article .comment_area .comment_ico{
+.article .comment_area .comment_ico {
     display: inline-block;
     background-image: url(https://ssl.pstatic.net/static/cafe/cafe_pc/sp/sp_icon_06952b76.svg);
     background-repeat: no-repeat;
     vertical-align: top;
 }
 
-.article .like_area .u_likeit_list_module .u_ico{
+.article .like_area .u_likeit_list_module .u_ico {
     display: inline-block;
     background-image: url(https://ssl.pstatic.net/static/cafe/cafe_pc/sp/sp_icon_06952b76.svg);
     background-repeat: no-repeat;
     vertical-align: top;
 }
 
-.list-search{
+.list-search {
     border-top-color: #ebebea;
     background-color: #f9f9f8;
 }

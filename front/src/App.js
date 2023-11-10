@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 
 // reactstrap components
 // import {
@@ -13,7 +13,6 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import LandingPage from './views/examples/LandingPage';
 import ProfilePage from './views/examples/ProfilePage';
 import LoginPage from './pages/member/LoginPage';
-import Home from './pages/home/Home';
 import LectureList from './pages/lecture/list/LectureList';
 
 import CodingtestView from './pages/codingtest/CodingtestView';
@@ -24,9 +23,6 @@ import CodingtestResult from './pages/codingtest/CodingtestResult';
 import FindByPass from './pages/member/FindByPass';
 import CompanyList from './pages/company/CompanyList';
 import CompanyView from './pages/company/CompanyView';
-import LectureView from './pages/lecture/view/LectureView';
-
-import LectureDetail from './pages/lecture/detail/LectureDetail';
 
 import CodingtestQna from './pages/codingtest/CodingtestQna';
 import CodingtestQnaView from './pages/codingtest/CodingtestQnaView';
@@ -43,14 +39,15 @@ import DmChat from './pages/dm/Chat/DmChat';
 import DmHide from './pages/dm/DmHide/DmHide';
 import DmBlock from './pages/dm/block/DmBlock';
 import DmMain from './pages/dm/main/DmMain';
+import Fallback from './pages/Fallback';
 
 const LectureHome = lazy(() => import('./pages/lecture/home/LectureHome'));
+const LectureDetail = lazy(() => import('./pages/lecture/detail/LectureDetail'));
+const LectureView = lazy(() => import('./pages/lecture/view/LectureView'));
+const Home = lazy(() => import('./pages/home/Home'));
+const LectureCart = lazy(() => import('./pages/lecture/cart/LectureCart'));
 
 function App() {
-	function fallback() {
-		return <i>loading....</i>;
-	}
-
 	React.useEffect(() => {
 		document.body.classList.add('index-page');
 		document.body.classList.add('sidebar-collapse');
@@ -62,10 +59,52 @@ function App() {
 			document.body.classList.remove('sidebar-collapse');
 		};
 	});
+	const [color, setColor] = React.useState('black');
+	const [display, setDisplay] = React.useState('flex');
+	const [pageChange, setPageChange] = React.useState(false);
+	useEffect(() => {
+		setColor(null);
+		setTimeout(() => {
+			setDisplay('none');
+		}, 1000);
+	}, [color]);
+
+	function pageLoading() {
+		setColor('black');
+		setDisplay('flex');
+		setPageChange(!pageChange);
+	}
+
+	function fallback() {
+		pageLoading();
+	}
+
 	return (
 		<>
+			<div
+				style={{
+					position: 'fixed',
+					opacity: color === 'black' ? '1' : '0',
+					width: '100%',
+					height: '100%',
+					top: '0',
+					zIndex: '99999',
+					display: display,
+					justifyContent: 'center',
+					alignItems: 'center',
+					transitionDuration: '1s',
+				}}>
+				<i className="now-ui-icons loader_gear spin" style={{ color: 'gray', fontSize: '65px' }}></i>
+			</div>
 			<Routes>
-				<Route path="/lecture/detail/:id" element={<LectureDetail />} />
+				<Route
+					path="/lecture/detail/:id"
+					element={
+						<Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
+							<LectureDetail />
+						</Suspense>
+					}
+				/>
 				<Route path="/dm" element={<DmMain></DmMain>}></Route>
 				<Route path="/dm/block" element={<DmBlock></DmBlock>}></Route>
 				<Route path="/dm/hide" element={<DmHide></DmHide>}></Route>
@@ -74,20 +113,28 @@ function App() {
 				<Route
 					path="/"
 					element={
-						<>
-							<IndexNavbar />
-							<div className="main">
-								<Outlet></Outlet>
-							</div>
-							<DarkFooter />
-						</>
+						<div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+							<Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
+								<IndexNavbar />
+								<div className="main" style={{ flex: 1 }}>
+									<Outlet></Outlet>
+								</div>
+								<DarkFooter />
+							</Suspense>
+						</div>
 					}>
-					<Route path="/" element={<Home />}></Route>
+					<Route
+						path="/"
+						element={
+							<Suspense fallback={<Fallback fallback={fallback} />}>
+								<Home />
+							</Suspense>
+						}></Route>
 
 					<Route
 						path="member"
 						element={
-							<Suspense fallback={fallback()}>
+							<Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
 								<Outlet />
 							</Suspense>
 						}>
@@ -101,8 +148,8 @@ function App() {
 					<Route
 						path="company"
 						element={
-							<Suspense fallback={fallback()}>
-								<Outlet />
+							<Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
+								<Outlet></Outlet>
 							</Suspense>
 						}>
 						<Route path="list" element={<CompanyList />}></Route>
@@ -123,7 +170,7 @@ function App() {
 						path="lecture"
 						element={
 							<>
-								<Suspense fallback={fallback()}>
+								<Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
 									<Outlet></Outlet>
 								</Suspense>
 							</>
@@ -131,53 +178,17 @@ function App() {
 						<Route path="list" element={<LectureList></LectureList>}></Route>
 						<Route path="index" element={<LectureHome></LectureHome>}></Route>
 						<Route path="view" element={<LectureView></LectureView>}></Route>
+						<Route path="cart" element={<LectureCart></LectureCart>}></Route>
 					</Route>
 					<Route path="/" element={<Home />}></Route>
 
 					<Route
-						path="member"
+						path="community"
 						element={
-							<Suspense fallback={fallback()}>
-								<Outlet />
-							</Suspense>
+							<div className="community">
+								<Outlet></Outlet>
+							</div>
 						}>
-						<Route path="login" element={<LoginPage />} />
-						<Route path="signup" element={<SignUp />} />
-						<Route path="findByPass" element={<FindByPass />} />
-					</Route>
-
-					<Route
-						path="company"
-						element={
-							<Suspense fallback={fallback()}>
-								<Outlet />
-							</Suspense>
-						}>
-						<Route path="list" element={<CompanyList />}></Route>
-						<Route path="view" element={<CompanyView />}></Route>
-					</Route>
-
-					<Route path="/codingTest/list" element={<CodingtestList />}></Route>
-					<Route path="/codingTest/Result" element={<CodingtestResult />}></Route>
-					<Route path="/codingTest/Qna" element={<CodingtestQna />}></Route>
-					<Route path="/codingTest/View" element={<CodingtestView />}></Route>
-					<Route path="/codingtest/Qna/View" element={<CodingtestQnaView />}></Route>
-					<Route path="/codingtest/Qna/write" element={<CodingtestQnaWrite />}></Route>
-					<Route path="/codingtest/Qna/best" element={<CodingtestBestCode />}></Route>
-					<Route
-						path="lecture"
-						element={
-							<>
-								<Suspense fallback={fallback()}>
-									<Outlet></Outlet>
-								</Suspense>
-							</>
-						}>
-						<Route path="list" element={<LectureList></LectureList>}></Route>
-						<Route path="index" element={<LectureHome></LectureHome>}></Route>
-						<Route path="view" element={<LectureView></LectureView>}></Route>
-					</Route>
-					<Route path="community">
 						<Route path={'list'} element={<CommunityList></CommunityList>} />
 						<Route path={'view'} element={<CommunityView></CommunityView>} />
 						<Route path={'write'} element={<CommunityWrite></CommunityWrite>} />

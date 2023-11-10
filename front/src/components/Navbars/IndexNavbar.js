@@ -46,7 +46,7 @@ function IndexNavbar() {
 							target="_blank"
 							id="navbar-brand"
 							style={{ cursor: 'pointer' }}>
-							<img src={`${process.env.PUBLIC_URL}/images/home/main_logo.png`} style={{ width: '20px' }} />{' '}
+							<img src={`${process.env.PUBLIC_URL}/images/home/main_logo.png`} style={{ width: '22px' }} />{' '}
 							<span style={{ fontSize: '19px' }}>Hello World</span>
 						</NavbarBrand>
 						<UncontrolledTooltip target="#navbar-brand">홈페이지로 이동합니다.</UncontrolledTooltip>
@@ -190,6 +190,53 @@ function IndexNavbar() {
 							<NavItem>
 								<div>
 									<Link
+										to={'/lecture/cart'}
+										className="nav-link btn-info"
+										style={{
+											backgroundColor: 'none',
+											width: '50px',
+											display: 'flex',
+											justifyContent: 'center',
+											position: 'relative',
+										}}
+										id="upgrade-to-pro"
+										rel="width= 200px ; height= 400px">
+										<i
+											className="bi bi-cart"
+											style={{
+												fontSize: '20px',
+												position: 'relative',
+											}}>
+											<div
+												style={{
+													position: 'absolute',
+													top: -15,
+													left: 15,
+													backgroundColor: 'rgb(64,196,4)',
+													paddingLeft: '5px',
+													paddingRight: '5px',
+													display: 'flex',
+													justifyContent: 'center',
+													borderRadius: '7px',
+													height: '20px',
+													alignItems: 'center',
+												}}>
+												<span
+													style={{
+														fontSize: '10px',
+														fontWeight: '555',
+														fontFamily: 'nanumsquare',
+													}}>
+													12
+												</span>
+											</div>
+										</i>
+									</Link>
+								</div>
+							</NavItem>
+							<NavItem>
+								<div>
+									<Link
 										to={'/dm'}
 										className="nav-link btn-info"
 										style={{
@@ -212,7 +259,7 @@ function IndexNavbar() {
 													position: 'absolute',
 													top: -15,
 													left: 15,
-													backgroundColor: 'rgba(255,0,0)',
+													backgroundColor: 'rgb(255,0,0)',
 													paddingLeft: '5px',
 													paddingRight: '5px',
 													display: 'flex',
