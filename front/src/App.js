@@ -107,7 +107,6 @@ function App() {
                <Route path="/codingTest/Result" element={<CodingtestResult />}></Route>
                <Route path="/codingTest/Qna" element={<CodingtestQna />}></Route>
                <Route path="/codingTest/View" element={<CodingtestView />}></Route>
-               <Route path="/codingTest/view" element={<CodingtestView />}></Route>
                <Route path="/codingtest/Qna/View" element={<CodingtestQnaView />}></Route>
                <Route path="/codingtest/Qna/write" element={<CodingtestQnaWrite />}></Route>
                <Route path="/codingtest/Qna/best" element={<CodingtestBestCode />}></Route>

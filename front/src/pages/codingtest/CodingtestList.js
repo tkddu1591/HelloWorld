@@ -9,11 +9,13 @@ import {
     Pagination, PaginationItem, PaginationLink,
     Row
 } from "reactstrap";
-import CodingTestHeader from "./CodingtestHeader";
+import CodingTestHeader from "./Header/CodingtestHeader";
 import Select from "react-select";
 import CardListCode from "./aside/CardListCode";
 import CodeAside from "./aside/CodeAside";
 import SelectBox from "../../components/Lecture/SelectBox";
+import PaginationSample from "./Pagination/PaginationSample";
+import CodeListTable from "./table/CodeListTable";
 
 
 
@@ -57,7 +59,6 @@ function CodingtestList(){
             <div className="main">
                 <CodingTestHeader></CodingTestHeader>
                 <CodeAside></CodeAside>
-
                 <Container >
                             <Row style={{display:'flex',justifyContent:'center'}}>
                                 <Col lg="8" sm="6" style={{marginTop:'-30px',display:'inline-block'}}>
@@ -68,7 +69,6 @@ function CodingtestList(){
                                             placeholder="문제제목을 입력하세요"
                                             type="text"
                                         >
-
                                         </Input>
                                             <FormGroup style={{marginTop:'5px'}}>
                                                 <SelectBox options={options} isMulti={sorts.isMulti}
@@ -77,211 +77,9 @@ function CodingtestList(){
                                     </FormGroup>
                                     </Form>
                                 </Col>
-
                             </Row>
-
-                    <table class="table" style={{textAlign:'center'}}>
-                        <thead>
-                            <th scope="col" style={{width:'80px'}} >난이도</th>
-                            <th scope="col">제목</th>
-                            <th scope="col" style={{width:'150px'}}>완료한 사람</th>
-                            <th scope="col" style={{width:'150px'}}>정답률</th>
-                        </thead>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>1</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'/codingtest/view'} style={{color:'black'}}>A+B를 구하세요!</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>4,0000명</a>
-                            </td>
-                            <td scope="row">
-                                <a href={'#'} style={{color:'black'}}>67.5%</a>
-                            </td>
-                        </tr>
-                    </table>
-                        <Pagination style={{display:'flex',justifyContent:'center',textAlign:'center', width:'100%'}}>
-                            <PaginationItem>
-                                <PaginationLink
-                                    aria-label="Previous"
-                                    href="#pablo"
-                                    onClick={(e) => e.preventDefault()}
-                                >
-                        <span aria-hidden={true}>
-                          <i
-                              aria-hidden={true}
-                              className="fa fa-angle-double-left"
-                          ></i>
-                        </span>
-                                </PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink
-                                    href="#pablo"
-                                    onClick={(e) => e.preventDefault()}
-                                >
-                                    1
-                                </PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem className="active">
-                                <PaginationLink
-                                    href="#pablo"
-                                    onClick={(e) => e.preventDefault()}
-                                >
-                                    2
-                                </PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink
-                                    href="#pablo"
-                                    onClick={(e) => e.preventDefault()}
-                                >
-                                    3
-                                </PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink
-                                    aria-label="Next"
-                                    href="#pablo"
-                                    onClick={(e) => e.preventDefault()}
-                                >
-                <span aria-hidden={true}>
-                  <i
-                      aria-hidden={true}
-                      className="fa fa-angle-double-right"
-                  ></i>
-                </span>
-                                </PaginationLink>
-                            </PaginationItem>
-                        </Pagination>
+                            <CodeListTable></CodeListTable>
+                    <PaginationSample></PaginationSample>
                     </Container>
                 {/*<Carousel />*/}
                 {/*<Pagination />*/}
