@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react";
 import ReactQuill, {Quill} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {Col, Container, FormGroup, Input, Row} from "reactstrap";
-import "./../../css/community/quillstyle.css";
+import "../../css/community/quillstyle.scss";
 
 
 
@@ -50,7 +50,8 @@ function MyComponent() {
             <Col lg="12">
         {/*<ReactQuill theme="snow" value={value} onChange={setValue}  style={{marginTop:"100px", marginBottom:"100px"}}/>*/}
                 <ReactQuill
-                    style={{ height: "800px", margin: "4px",marginTop:"100px", marginBottom:"100px"}}
+                    className={'quill'}
+                    style={{ height: "800px", margin: "4px", marginBottom:"100px", caretColor: "black"}}
                     ref={quillRef}
                     theme="snow"
                     value={value}

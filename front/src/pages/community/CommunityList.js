@@ -94,7 +94,7 @@ function SearchBar(props) {
                             value={props.selectedOption}
                             onChange={props.setSelectedOption}
                             options={props.options}
-                            placeholder={"태그를 검색해 주세요."}
+                            placeholder={"태그를 선택해 주세요."}
                             isMulti={true}
                             maxMenuHeight={"300px"}
                             length={3}
@@ -127,9 +127,8 @@ function PillsExample({listLoading, setListLoading, navigate}) {
                 <Button variant="primary" style={{background:"#2CA8FF"}} onClick={
                     ()=>{navigate("/community/write");}
                 }>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-keyboard" viewBox="0 0 16 16" style={{marginRight:"5px"}}>
-                        <path d="M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z"/>
-                        <path d="M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-fill" viewBox="0 0 16 16" style={{marginRight:"4px"}}>
+                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg>
                     글 작성하기
                 </Button>{' '}
@@ -140,6 +139,7 @@ function PillsExample({listLoading, setListLoading, navigate}) {
 }
 
 function TabContent() {
+    let navigate = useNavigate()
     return (<>
         <div className="main-area" style={{display: "flex", justifyContent: 'space-between'}} >
             <ul className={"article"}>
@@ -149,13 +149,17 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"} href={"view"}>
+                                    <a className={"tit"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"} href={"view"}>
+                                <a className={"txt"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -196,7 +200,9 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a href={"view"}>
+                            <a onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -210,13 +216,17 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"} href={"view"}>
+                                    <a className={"tit"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"} href={"view"}>
+                                <a className={"txt"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -257,7 +267,9 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a href={"view"}>
+                            <a onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -271,13 +283,17 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"} href={"view"}>
+                                    <a className={"tit"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"} href={"view"}>
+                                <a className={"txt"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -318,7 +334,9 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a href={"view"}>
+                            <a onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -332,13 +350,17 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"} href={"view"}>
+                                    <a className={"tit"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"} href={"view"}>
+                                <a className={"txt"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -379,7 +401,9 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a href={"view"}>
+                            <a onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -393,13 +417,17 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"} href={"view"}>
+                                    <a className={"tit"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"} href={"view"}>
+                                <a className={"txt"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -440,7 +468,9 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a href={"view"}>
+                            <a onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>
@@ -454,13 +484,17 @@ function TabContent() {
                         <div className={"con"}>
                             <div className={"con_top"}>
                                 <div className={"tit_area"}>
-                                    <a className={"tit"} href={"view"}>
+                                    <a className={"tit"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <span className={"inner"}>
                                     <strong>제목 0000000000000000000000000</strong>
                                 </span>
                                     </a>
                                 </div>
-                                <a className={"txt"} href={"view"}>
+                                <a className={"txt"} onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                     내용 0000000000000000000000000000000
                                 </a>
                             </div>
@@ -501,7 +535,9 @@ function TabContent() {
                             </div>
                         </div>
                         <div className={"movie-img"}>
-                            <a href={"view"}>
+                            <a onClick={() => {
+                                        navigate('/community/view');
+                                    }}>
                                 <img src={"./../../images/community/testimg.jpg"} width={"120px"} height={"120px"}
                                      alt={"썸네일"}>
                                 </img>

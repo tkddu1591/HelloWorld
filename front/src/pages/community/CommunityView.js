@@ -1,6 +1,8 @@
 import React from "react";
 import "./../../css/community/view.css";
 import {Col, Container, Row} from "reactstrap";
+import {useNavigate} from "react-router-dom";
+import UserPopup from "../../components/Lecture/UserPopup"
 
 function CommunityView() {
     return (<>
@@ -12,6 +14,7 @@ function CommunityView() {
 }
 
 function View(){
+    let navigate = useNavigate();
     return (<>
         <Row>
             <Col col={12}>
@@ -25,7 +28,10 @@ function View(){
                                 <div className="right_area">
                                     <a className="BaseButton btn_prev BaseButton--skinGray size_default"
                                        href={"#"}
-                                       role={"button"}>
+                                       role={"button"}
+                                       onClick={()=>{
+                                           navigate("/community/view");
+                                       }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor"
                                              className="bi bi-chevron-up" viewBox="0 0 16 16">
@@ -36,7 +42,10 @@ function View(){
                                     </a>
                                     <a className="BaseButton btn_next BaseButton--skinGray size_default"
                                        href={"#"}
-                                       role={"button"}>
+                                       role={"button"}
+                                       onClick={()=>{
+                                           navigate("/community/view");
+                                       }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor"
                                              class="bi bi-chevron-down" viewBox="0 0 16 16">
@@ -45,7 +54,9 @@ function View(){
                                         </svg>
                                         <span className="BaseButton_txt">다음글</span>
                                     </a>
-                                    <a className="BaseButton BaseButton--skinGray size_default" href={"#"}>
+                                    <a className="BaseButton BaseButton--skinGray size_default" href={"#"} onClick={()=>{
+                                        navigate("/community/list");
+                                    }}>
                                         {/**/}
                                         <span className={"BaseButton_txt"}>목록</span>
                                     </a>
@@ -288,10 +299,9 @@ function View(){
                                                 <span className={"box"}>
                                         <strong className={"user"}>닉네임임</strong>
                                         님의 게시글 더보기
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor" className="bi bi-caret-right" viewBox="0 0 16 16">
-                                            <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+</svg>
                                     </span>
                                             </a>
                                         </div>
@@ -602,6 +612,7 @@ function View(){
 
                         </div>
                     </div>
+
                 </div>
             </Col>
         </Row>
