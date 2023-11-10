@@ -41,6 +41,7 @@ import DmBlock from './pages/dm/block/DmBlock';
 import DmMain from './pages/dm/main/DmMain';
 import Fallback from './pages/Fallback';
 
+export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
 const LectureHome = lazy(() => import('./pages/lecture/home/LectureHome'));
 const LectureDetail = lazy(() => import('./pages/lecture/detail/LectureDetail'));
 const LectureView = lazy(() => import('./pages/lecture/view/LectureView'));
