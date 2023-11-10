@@ -1,5 +1,5 @@
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
-import React, {createRef, useState} from "react";
+import React, {createRef, useRef, useState} from "react";
 import CodingTestHeader from "./Header/CodingtestHeader";
 
 // reactstrap components
@@ -14,11 +14,9 @@ import UserPopup from "../../components/Lecture/UserPopup";
 import CodeAside from "./aside/CodeAside";
 import CodeArticleSuggest from "./suggest/CodeArticleSuggest";
 import CodeSuggest from "./suggest/CodeSuggest";
-import CodeMirror from "@uiw/react-codemirror";
-import ReactCodeMirror from "@uiw/react-codemirror";
-import SelectBox from "../../components/Lecture/SelectBox";
 import CodeMirrorSample from "./codemirror/CodeMirrorSample";
 import {Link} from "react-router-dom";
+import ReactQuill from "react-quill";
 
 
 
@@ -38,6 +36,45 @@ function CodingtestQnaView(){
         marginLeft: 0,
         marginRight: 50
     }
+
+    const [value, setValue] = useState('');
+    console.log(value);
+    const quillRef = useRef(null);
+    const modules = {
+        toolbar: [
+            [{ font: [] }],
+            [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [
+                { list: "ordered" },
+                { list: "bullet" },
+                { indent: "-1" },
+                { indent: "+1" },
+            ],
+            ["link", "image"],
+            ["clean"],
+        ],
+    };
+
+    const formats = [
+        "font",
+        "size",
+        "header",
+        "color",
+        "background",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "list",
+        "bullet",
+        "indent",
+        "link",
+        "image",
+    ];
 
 
     return<>
@@ -134,7 +171,16 @@ function CodingtestQnaView(){
                         <CardBody>
                             <CardTitle tag="h4" style={{marginTop:'-10px',borderBottom:'1px dashed #E6E6FA'}}>답변작성</CardTitle>
                             <form>
-                               <textarea cols="30" rows="20" style={{width:'100%',height:'auto',border:'1px solid #E6E6FA'}} placeholder=" 답변으로 등록할 내용을 입력하세요"></textarea>
+                                <ReactQuill
+                                    style={{ height: "300px", margin: "4px", marginBottom:"100px"}}
+                                    ref={quillRef}
+                                    theme="snow"
+                                    value={value}
+                                    modules={modules}
+                                    formats={formats}
+                                    onChange={setValue}
+                                    placeholder="내용을 입력하세요."
+                                />
                                 <div style={{display:'inline-block',marginTop:'30px',width:'100%'}}>
                                     <Link to={'#'} style={{float:'right',width:'100px',backgroundColor:'#2CA8FF',color:'white',border:'1px solid white',textAlign:'center'}}>등록</Link>    
                                 </div>
