@@ -1,13 +1,11 @@
-import React, {lazy, Suspense} from "react";
+import React, { lazy, Suspense } from 'react';
 
 // reactstrap components
 // import {
 // } from "reactstrap";
-
 // core components
-
-import IndexNavbar from "./components/Navbars/IndexNavbar.js";
-import DarkFooter from "./components/Footers/DarkFooter.js";
+import IndexNavbar from './components/Navbars/IndexNavbar.js';
+import DarkFooter from './components/Footers/DarkFooter.js';
 
 // sections for this page
 import NucleoIcons from "./views/index-sections/NucleoIcons.js";
@@ -120,35 +118,78 @@ function App() {
                     </Route>
                     <Route path="lecture" element={<><Suspense fallback={fallback()}>
                         <Outlet></Outlet>
-                    </Suspense>
-                    </>}>
-                        <Route path="list" element={<LectureList></LectureList>}></Route>
-                        <Route path="index" element={<LectureHome></LectureHome>}></Route>
-                        <Route path="view" element={<LectureView></LectureView>}></Route>
-                    </Route>
-                    <Route path="community">
-                        <Route path={"list"} element={<CommunityList></CommunityList>}/>
-                        <Route path={"view"} element={<CommunityView></CommunityView>}/>
-                        <Route path={"write"} element={<CommunityWrite></CommunityWrite>}/>
-                    </Route>
-                    <Route path="dm">
+                     </div>
+                     <DarkFooter />
+                  </>
+               }>
+               <Route path="/" element={<Home />}></Route>
 
-                    </Route>
-                    <Route path="my">
+               <Route
+                  path="member"
+                  element={
+                     <Suspense fallback={fallback()}>
+                        <Outlet />
+                     </Suspense>
+                  }>
+                  <Route path="login" element={<LoginPage />} />
+                  <Route path="signup" element={<SignUp />} />
+                  <Route path="findByPass" element={<FindByPass />} />
+               </Route>
 
-                    </Route>
+               <Route
+                  path="company"
+                  element={
+                     <Suspense fallback={fallback()}>
+                        <Outlet />
+                     </Suspense>
+                  }>
+                  <Route path="list" element={<CompanyList />}></Route>
+                  <Route path="view" element={<CompanyView />}></Route>
+               </Route>
 
-                </Route>
-                <Route path="/nucleo-icons" element={<NucleoIcons/>}/>
-                <Route path="/landing-page" element={<LandingPage/>}/>
-                <Route path="/profile-page" element={<ProfilePage/>}/>
-                <Route path="*" element={<>{/*<Navigate to="/" replace/>*/}
-                    <div>404Page</div>
-                </>}/>
-            </Routes>
-            {/*얘네가 인덱스*/}
-        </>
-    );
+               <Route path="/codingTest/list" element={<CodingtestList />}></Route>
+               <Route path="/codingTest/Result" element={<CodingtestResult />}></Route>
+               <Route path="/codingTest/Qna" element={<CodingtestQna />}></Route>
+               <Route path="/codingTest/View" element={<CodingtestView />}></Route>
+               <Route path="/codingtest/Qna/View" element={<CodingtestQnaView />}></Route>
+               <Route path="/codingtest/Qna/write" element={<CodingtestQnaWrite />}></Route>
+               <Route path="/codingtest/Qna/best" element={<CodingtestBestCode />}></Route>
+               <Route
+                  path="lecture"
+                  element={
+                     <>
+                        <Suspense fallback={fallback()}>
+                           <Outlet></Outlet>
+                        </Suspense>
+                     </>
+                  }>
+                  <Route path="list" element={<LectureList></LectureList>}></Route>
+                  <Route path="index" element={<LectureHome></LectureHome>}></Route>
+                  <Route path="view" element={<LectureView></LectureView>}></Route>
+               </Route>
+               <Route path="community">
+                  <Route path={'list'} element={<CommunityList></CommunityList>} />
+                  <Route path={'view'} element={<CommunityView></CommunityView>} />
+                  <Route path={'write'} element={<CommunityWrite></CommunityWrite>} />
+               </Route>
+               <Route path="my"></Route>
+            </Route>
+            <Route path="/nucleo-icons" element={<NucleoIcons />} />
+            <Route path="/landing-page" element={<LandingPage />} />
+            <Route path="/profile-page" element={<ProfilePage />} />
+            <Route
+               path="*"
+               element={
+                  <>
+                     {/*<Navigate to="/" replace/>*/}
+                     <div>404Page</div>
+                  </>
+               }
+            />
+         </Routes>
+         {/*얘네가 인덱스*/}
+      </>
+   );
 }
 
 export default App;

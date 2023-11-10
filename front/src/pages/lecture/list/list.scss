@@ -1,0 +1,19 @@
+.listTitle:hover {
+  color: red;
+  font-size: 200px;
+  animation-name: colorChange;
+  animation-duration: 200ms;
+}
+
+.listTitle {
+  color: #105796
+}
+
+@keyframes colorChange {
+  from {
+    color: #105796;
+  }
+  to {
+    color: red;
+  }
+}
