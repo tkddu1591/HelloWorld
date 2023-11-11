@@ -1,13 +1,8 @@
-* {
+* :not(.community, input, textarea){
   caret-color: transparent;
 }
 
 
-input {
+input, textarea, .ql-snow *{
   caret-color: black;
 }
-
-textarea {
-  caret-color: black;
-}
-

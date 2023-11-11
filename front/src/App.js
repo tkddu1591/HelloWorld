@@ -4,9 +4,9 @@ import React, { lazy, Suspense, useEffect } from 'react';
 // import {
 // } from "reactstrap";
 // core components
+import './scss/main.scss'
 import IndexNavbar from './components/Navbars/IndexNavbar.js';
 import DarkFooter from './components/Footers/DarkFooter.js';
-
 // sections for this page
 import NucleoIcons from './views/index-sections/NucleoIcons.js';
 import { Outlet, Route, Routes } from 'react-router-dom';
