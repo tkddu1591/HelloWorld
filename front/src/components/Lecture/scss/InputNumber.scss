@@ -1,0 +1,14 @@
+
+.LectureCartNumInput{
+  .upDownButton{
+    color: white;
+    i{
+      cursor: pointer;
+    }
+  }
+}
+.LectureCartNumInput:hover {
+  .upDownButton {
+    color: gray;
+  }
+}

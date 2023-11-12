@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import './aside.scss'
+import '../scss/lecture/detail/aside.scss'
 import LectureDetailAside from "./aside/LectureDetailAside";
 import LectureDetailPlayer from "./LectureDetailPlayer";
-import './detailContent.scss'
+import '../scss/lecture/detail/detailContent.scss'
 import Subhead from "../../../Subhead";
 
 function LectureDetail() {

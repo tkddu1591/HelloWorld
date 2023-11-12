@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SearchBar from '../../../components/Lecture/SearchBar';
-import './list.scss';
+import '../scss/lecture/list/list.scss';
 import ListTable from '../../../components/Lecture/ListTable';
 
 function LectureList() {

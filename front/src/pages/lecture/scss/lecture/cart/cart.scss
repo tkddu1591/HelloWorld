@@ -1,0 +1,59 @@
+.lectureCart {
+  user-select: auto;
+  cursor: auto;
+}
+
+.lectureCartTotalTable td, .lectureCartListTable td {
+  font-size: 16px;
+}
+
+.lectureCartTotalTable td:nth-child(2), .lectureCartListTable td:nth-child(3) {
+  color: #d61b1b;
+}
+
+.discount td:nth-child(2) {
+  color: #2CA8FF;
+}
+
+.lectureCartTotalTable tr:last-child td:nth-child(2) {
+  font-weight: bold;
+}
+
+.lectureCartListTable th {
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+}
+
+.lectureCartListTable td:first-child {
+
+  i {
+    color: #d61b1b;
+    transition-duration: 0.2s;
+  }
+
+  div {
+    border-radius: 20px;
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition-duration: 0.2s;
+  }
+}
+
+.lectureCartListTable td:first-child div:hover {
+  i {
+    color: white;
+  }
+
+  background-color: #d61b1b;
+}
+.lectureCartListTable{
+  border-bottom:1px solid lightgray;
+}

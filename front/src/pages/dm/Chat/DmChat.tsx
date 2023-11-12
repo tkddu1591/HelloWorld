@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DmHeader from '../DmHeader';
-import '../main/dm.scss';
+import '../../lecture/scss/dm/main/dm.scss';
 
 function DmChat() {
 	let [chatSize, setChatSize] = useState(50);
@@ -67,12 +67,12 @@ function DmChatMessages({ chatSize }) {
 								wordWrap: 'break-word',
 								position: 'relative',
 							}}>
-							<p style={{ maxWidth: 'calc(100%)' }}>
+							<span style={{ maxWidth: 'calc(100%)' }}>
 								너무 비싼것 같지 않아? ㅜㅜbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-							</p>
+							</span>
 						</div>
 						<div style={{ position: 'relative', width: '10px' }}>
-							<p style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</p>
+							<span style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</span>
 						</div>
 					</div>
 				</div>
@@ -102,7 +102,7 @@ function DmChatMessages({ chatSize }) {
 							justifyContent: 'right',
 						}}>
 						<div style={{ position: 'relative', width: '50px' }}>
-							<p style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</p>
+							<span style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</span>
 						</div>
 						<div
 							className={'userChat'}
@@ -113,9 +113,9 @@ function DmChatMessages({ chatSize }) {
 								wordWrap: 'break-word',
 								position: 'relative',
 							}}>
-							<p style={{ maxWidth: 'calc(100%)' }}>
+							<span style={{ maxWidth: 'calc(100%)' }}>
 								너무 비싼것 같지 않아? ㅜㅜbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-							</p>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -159,12 +159,12 @@ function DmChatMessages({ chatSize }) {
 								wordWrap: 'break-word',
 								position: 'relative',
 							}}>
-							<p style={{ maxWidth: 'calc(100%)' }}>
+							<span style={{ maxWidth: 'calc(100%)' }}>
 								너무 비싼것 같지 않아? ㅜㅜbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-							</p>
+							</span>
 						</div>
 						<div style={{ position: 'relative', width: '10px' }}>
-							<p style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</p>
+							<span style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</span>
 						</div>
 					</div>
 				</div>
@@ -207,12 +207,12 @@ function DmChatMessages({ chatSize }) {
 								wordWrap: 'break-word',
 								position: 'relative',
 							}}>
-							<p style={{ maxWidth: 'calc(100%)' }}>
+							<span style={{ maxWidth: 'calc(100%)' }}>
 								너무 비싼것 같지 않아? ㅜㅜbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-							</p>
+							</span>
 						</div>
 						<div style={{ position: 'relative', width: '10px' }}>
-							<p style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</p>
+							<span style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</span>
 						</div>
 					</div>
 				</div>
@@ -242,7 +242,7 @@ function DmChatMessages({ chatSize }) {
 							justifyContent: 'right',
 						}}>
 						<div style={{ position: 'relative', width: '50px' }}>
-							<p style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</p>
+							<span style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</span>
 						</div>
 						<div
 							className={'userChat'}
@@ -253,9 +253,9 @@ function DmChatMessages({ chatSize }) {
 								wordWrap: 'break-word',
 								position: 'relative',
 							}}>
-							<p style={{ maxWidth: 'calc(100%)' }}>
+							<span style={{ maxWidth: 'calc(100%)' }}>
 								너무 비싼것 같지 않아? ㅜㅜbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-							</p>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -299,12 +299,12 @@ function DmChatMessages({ chatSize }) {
 								wordWrap: 'break-word',
 								position: 'relative',
 							}}>
-							<p style={{ maxWidth: 'calc(100%)' }}>
+							<span style={{ maxWidth: 'calc(100%)' }}>
 								너무 비싼것 같지 않아? ㅜㅜbbbbbbbbb bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-							</p>
+							</span>
 						</div>
 						<div style={{ position: 'relative', width: '10px' }}>
-							<p style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</p>
+							<span style={{ position: 'absolute', paddingLeft: '5px', bottom: 0 }}>10:22</span>
 						</div>
 					</div>
 				</div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './dm.scss';
+import '../../lecture/scss/dm/main/dm.scss';
 import DmMainTable from './DmMainTable';
 import DmHeader from '../DmHeader';
 
