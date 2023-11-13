@@ -1,30 +1,22 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row
-} from "reactstrap";
-import IndexNavbar from "../../components/Navbars/IndexNavbar";
-import DarkFooter from "../../components/Footers/DarkFooter";
 import {faLock, faAt, faCircleCheck, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import InputField from "./componentsByMember/inputCmpnts/InputField";
-import SubmitButton from "./componentsByMember/buttonCmpnts/SubmitButton";
-import StatusText from "./componentsByMember/status/StatusText";
 import TermsModal from "./componentsByMember/TermsModal";
 import MemberHeader from "./componentsByMember/MemberHeader";
+import {API_BASE_URL} from "../../App";
+import axios from "axios";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Form,
+  Container,
+  Row
+} from "reactstrap";
 
 // core components
 
@@ -56,6 +48,16 @@ function SignUp() {
       setEmailIconColor("green");
     }
   }
+
+  const [terms, setTerms] = useState([]);
+  /*useEffect(() => {
+    axios.get(`${API_BASE_URL}/member/terms`).then(response => {
+      setTerms(response.data)
+    })
+  }, []);
+
+  console.log("terms!!!" + terms.terms);*/
+
 
   return (
     <>
@@ -119,7 +121,7 @@ function SignUp() {
         </Container>
       </div>
       {/*{isOpenModal && <TermsModal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}/>}*/}
-      <TermsModal isOpenModal={isOpenModal} onClickAgreeButton={onClickAgreeButton}/>
+      <TermsModal isOpenModal={isOpenModal} terms={terms.terms} onClickAgreeButton={onClickAgreeButton}/>
     </>
   );
 }
