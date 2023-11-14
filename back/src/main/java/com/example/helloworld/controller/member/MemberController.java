@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MemberController {
 
-    /*@Autowired
+    @Autowired
     private MemberService memberService;
 
-
-    @PostMapping("/findByEamil")
+    /*@PostMapping("/findByEamil")
     public String findByEamil() {
         return memberService.findByEmail();
     }*/
+
 
 
 }
