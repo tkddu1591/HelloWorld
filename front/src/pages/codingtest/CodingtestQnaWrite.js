@@ -1,20 +1,23 @@
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
-import React, {createRef, useRef, useState} from "react";
+import React, { useRef, useState} from "react";
 import CodingTestHeader from "./Header/CodingtestHeader";
 
 // reactstrap components
 import {
     Card,
     CardBody,
-    CardText,
+    CardText, Form,
     Input
 } from "reactstrap";
 import CodeAside from "./aside/CodeAside";
 import {Link} from "react-router-dom";
-import MyComponent from "../community/EditorComponent";
 import ReactQuill from "react-quill";
-import CodeMirrorSample from "./codemirror/CodeMirrorSample";
 import CodeMirror from "@uiw/react-codemirror";
+import axios from "axios";
+
+
+
+
 
 function CodingtestQnaView(){
     const [value, setValue] = useState('');
@@ -37,6 +40,7 @@ function CodingtestQnaView(){
             ["clean"],
         ],
     };
+
 
     const formats = [
         "font",
@@ -65,6 +69,41 @@ function CodingtestQnaView(){
         '\t\n' +
         '}';
 
+    const [content, setContent] = useState('');
+
+    const handleContentChange = (value) => {
+        setContent(value);
+    };
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // FormData 객체 생성
+        const formData = new FormData();
+        formData.append('content', content);
+        // 기타 다른 필드가 있다면 추가 가능
+        formData.append('title', e.target.title.value);
+        formData.append('codingTestNo', e.target.codingTestNo.value);
+        formData.append('uid', e.target.uid.value);
+
+        // FormData를 서버로 전송
+        try {
+            const response = await fetch('http://localhost:8080/codingTest/write', {
+                method: 'POST',
+                body: formData,
+            });
+
+            // 서버 응답 처리
+            const data = await response.json();
+            console.log('서버 응답:', data);
+            window.location.href('http://localhost:3000/codingTest/qna');
+
+        } catch (error) {
+            console.error('오류:', error);
+        }
+    };
 
     return<>
 
@@ -77,7 +116,7 @@ function CodingtestQnaView(){
                     <CodeAside></CodeAside>
                     <Card style={{ width: "60%",height:'auto',display:'block',margin:'0 auto' }}>
                         <CardBody>
-                            <form>
+                            <Form action="http://localhost:8080/codingTest/write" method="post" onSubmit={handleSubmit}>
                                <CardText style={{marginBottom:'5px'}}>
                                    제목
                                </CardText>
@@ -86,7 +125,8 @@ function CodingtestQnaView(){
                                 <CardText style={{marginBottom:'5px'}}>
                                     문제번호
                                 </CardText>
-                                <Input placeholder="문제번호를 입력하세요" type="number"></Input>
+                                <Input placeholder="문제번호를 입력하세요" type="number" name="codingTestNo"></Input>
+                                <Input  type="hidden" name="uid">1</Input>
                                 <div style={{height:'20px'}}></div>
                                 <CardText style={{marginBottom:'5px'}}>
                                     내용
@@ -95,10 +135,10 @@ function CodingtestQnaView(){
                                     style={{ height: "300px", margin: "4px", marginBottom:"100px"}}
                                     ref={quillRef}
                                     theme="snow"
-                                    value={value}
+                                    value={content}
                                     modules={modules}
                                     formats={formats}
-                                    onChange={setValue}
+                                    onChange={handleContentChange}
                                     placeholder="내용을 입력하세요."
                                 />
                                 <div style={{height:'10px'}}></div>
@@ -120,11 +160,9 @@ function CodingtestQnaView(){
                                     }}
                                 />
                                 <div style={{display:'inline-block',marginTop:'30px',width:'100%'}}>
-                                    <Link to={'#'} style={{float:'right',width:'100px',backgroundColor:'#2CA8FF',color:'white',border:'1px solid white',textAlign:'center'}}>
-                                        등록
-                                    </Link>
+                                    <Input type="submit" style={{float:'right',width:'100px',backgroundColor:'#2CA8FF',color:'white',border:'1px solid white',textAlign:'center'}} value="등록"/>
                                 </div>
-                            </form>
+                            </Form>
                         </CardBody>
                     </Card>
                     <div style={{height:'20px'}}></div>

@@ -1,7 +1,27 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import Axios from "axios";
 
 function CodeQnaTable(){
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // GET 요청을 보내는 부분
+        Axios.get('http://localhost:8080/codingTest/qna')
+            .then(response => {
+                setData(response.data);
+                console.log(data)
+                ;
+            })
+            .then(result => {
+
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
+
+
 
     return<>
             <table class="table" style={{textAlign:'center',width:'100%',justifyContent:'center'}}>
@@ -15,11 +35,12 @@ function CodeQnaTable(){
                     </tr>
                 </thead>
                     <tbody>
+                    { data.map((datas,index) => (
                         <tr>
                         <td scope="row">
                             <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
                                 <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
+                                    {datas.codeQnaNo}
                                 </div>
                             </Link>
                         </td>
@@ -27,204 +48,16 @@ function CodeQnaTable(){
                             <Link to={'#'} style={{color:'black'}}>1</Link>
                         </td>
                         <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
+                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>{datas.title}</Link>
                         </td>
                         <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
+                            <Link to={'#'} style={{color:'black'}}>{datas.hit}</Link>
                         </td>
                         <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
+                            <Link to={'#'} style={{color:'black'}}>{datas.regIp}</Link>
                         </td>
                     </tr>
-                    <tr>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
-                                <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
-                                </div>
-                            </Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>1</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
-                                <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
-                                </div>
-                            </Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>1</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
-                                <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
-                                </div>
-                            </Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>1</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
-                                <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
-                                </div>
-                            </Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>1</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
-                                <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
-                                </div>
-                            </Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>1</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
-                                <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
-                                </div>
-                            </Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>1</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
-                                <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
-                                </div>
-                            </Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>1</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
-                                <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
-                                </div>
-                            </Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>1</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black',justifyContent:'center',display:'flex'}}>
-                                <div style={{border:'1px solid #E6E6FA',width:'100%',textAlign:'center',height:'50px'}}>답변<br/>
-                                    0
-                                </div>
-                            </Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>1</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'/codingtest/qna/view'} style={{color:'black'}}>이거 푸는방법좀요...</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>3</Link>
-                        </td>
-                        <td scope="row">
-                            <Link to={'#'} style={{color:'black'}}>4</Link>
-                        </td>
-                    </tr>
+                    )) }
                 </tbody>
             </table>
 
