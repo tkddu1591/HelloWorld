@@ -4,7 +4,7 @@ import React, { lazy, Suspense, useEffect } from 'react';
 // import {
 // } from "reactstrap";
 // core components
-import './scss/main.scss'
+import './scss/main.scss';
 import IndexNavbar from './components/Navbars/IndexNavbar.js';
 import DarkFooter from './components/Footers/DarkFooter.js';
 // sections for this page
@@ -39,7 +39,7 @@ import DmChat from './pages/dm/Chat/DmChat';
 import DmHide from './pages/dm/DmHide/DmHide';
 import DmBlock from './pages/dm/block/DmBlock';
 import DmMain from './pages/dm/main/DmMain';
-import MyInfo from "./pages/my/MyInfo";
+import MyInfo from './pages/my/MyInfo';
 import Fallback from './pages/Fallback';
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
@@ -48,6 +48,8 @@ const LectureDetail = lazy(() => import('./pages/lecture/detail/LectureDetail'))
 const LectureView = lazy(() => import('./pages/lecture/view/LectureView'));
 const Home = lazy(() => import('./pages/home/Home'));
 const LectureCart = lazy(() => import('./pages/lecture/cart/LectureCart'));
+const LectureOrder = lazy(() => import('./pages/lecture/order/LectureOrder'));
+const LectureComplete = lazy(() => import('./pages/lecture/complete/LectureComplete'));
 
 function App() {
 	React.useEffect(() => {
@@ -181,6 +183,8 @@ function App() {
 						<Route path="index" element={<LectureHome></LectureHome>}></Route>
 						<Route path="view" element={<LectureView></LectureView>}></Route>
 						<Route path="cart" element={<LectureCart></LectureCart>}></Route>
+						<Route path="order" element={<LectureOrder></LectureOrder>}></Route>
+						<Route path="complete" element={<LectureComplete></LectureComplete>}></Route>
 					</Route>
 					<Route path="/" element={<Home />}></Route>
 

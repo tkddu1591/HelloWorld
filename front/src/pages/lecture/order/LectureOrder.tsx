@@ -1,9 +1,10 @@
 import '../scss/lecture/cart/cart.scss';
 import React, { useState } from 'react';
-import LectureOrderHeader from './LectureOrderHeader';
-import LectureCartItem from './LectureCartItem';
+import LectureOrderHeader from '../cart/LectureOrderHeader';
+import '../scss/lecture/order/order.scss';
+import LectureOrderMain from './LectureOrderMain';
 
-function LectureCart() {
+function LectureOrder() {
 	let [coupon, setCoupon] = useState({
 		list: [
 			{
@@ -21,13 +22,14 @@ function LectureCart() {
 		],
 		placeholder: '쿠폰 선택',
 	});
+
 	return (
 		<>
-			<LectureOrderHeader></LectureOrderHeader>
-			<LectureCartItem coupon={coupon}></LectureCartItem>
+			<LectureOrderHeader title={'주문하기'}></LectureOrderHeader>
+			<LectureOrderMain></LectureOrderMain>
 		</>
 	);
 }
 
 
-export default LectureCart;
+export default LectureOrder;
