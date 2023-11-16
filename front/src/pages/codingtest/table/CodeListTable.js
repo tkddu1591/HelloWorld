@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Axios from "axios";
 import Pagination from "react-js-pagination";
+import "../Pagination/PageStyle.css"
 
 
 function CodeListTable() {
