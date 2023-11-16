@@ -37,3 +37,6 @@ out/
 .vscode/
 /build.gradle
 /src/main/resources/application.yml
+
+*.yml
+*.gradle

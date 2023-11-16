@@ -79,7 +79,7 @@ function CodingtestList(){
                                 </Col>
                             </Row>
                             <CodeListTable></CodeListTable>
-                    <PaginationSample></PaginationSample>
+
                     </Container>
                 {/*<Carousel />*/}
                 {/*<Pagination />*/}

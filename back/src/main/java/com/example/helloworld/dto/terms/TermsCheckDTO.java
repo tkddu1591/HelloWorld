@@ -18,5 +18,4 @@ public class TermsCheckDTO {
     private String financeCheck;
     private String taxCheck;
     private LocalDateTime applyDate;
-
 }

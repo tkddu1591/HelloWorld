@@ -19,6 +19,8 @@ import SocialLoginButton from "./componentsByMember/buttonCmpnts/SocialLoginButt
 import LinkTo from "./componentsByMember/inputCmpnts/LinkTo";
 import AutoLoginButton from "./componentsByMember/buttonCmpnts/AutoLoginButton";
 import MemberHeader from "./componentsByMember/MemberHeader";
+import InputEmail from "./componentsByMember/inputCmpnts/InputEmail";
+import InputPass from "./componentsByMember/inputCmpnts/InputPass";
 
 
 
@@ -37,13 +39,9 @@ function LoginPage() {
                             <MemberHeader text={'로그인'}/>
 
                             <CardBody>
-                                <InputField
-                                    placeholder="이메일 입력"
-                                    type="text" icon={faAt}/>
+                                <InputEmail />
 
-                                <InputField
-                                    placeholder="비밀번호 입력"
-                                    type="password" icon={faLock}/>
+                                <InputPass />
 
                                 <AutoLoginButton />
 

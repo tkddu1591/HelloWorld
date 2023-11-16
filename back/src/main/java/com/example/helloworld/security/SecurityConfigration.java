@@ -52,7 +52,8 @@ public class SecurityConfigration {
                         /*.requestMatchers("/product/cart").authenticated()//인가설정*/
                         /*.requestMatchers("/product/cart").hasAnyRole("USER")//인가설정*/
                         .requestMatchers("/").permitAll()//인가설정
-                        .requestMatchers("/**").permitAll());
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("http://localhost:3000/**").permitAll());
                 //tokenProvider 적용
 
         // 인가 설정

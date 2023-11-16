@@ -118,7 +118,7 @@ now-ui-kit-react
         ├── NucleoIcons.js
         ├── examples
         │   ├── LandingPage.js
-        │   ├── LoginPage.js
+        │   ├── LoginPage.jsx
         │   └── ProfilePage.js
         └── index-sections
             ├── BasicElements.js
@@ -132,7 +132,7 @@ now-ui-kit-react
             ├── Notifications.js
             ├── NucleoIcons.js
             ├── Pagination.js
-            ├── SignUp.js
+            ├── SignUp.jsx
             ├── Tabs.js
             └── Typography.js
 ```
