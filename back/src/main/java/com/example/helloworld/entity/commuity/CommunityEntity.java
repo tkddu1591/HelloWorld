@@ -1,5 +1,6 @@
 package com.example.helloworld.entity.commuity;
 
+import com.example.helloworld.entity.member.MemberEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +30,9 @@ public class CommunityEntity {
     @ManyToOne
     @JoinColumn(name = "hasTagNo")
     private CommunityHasTagEntity hasTag;
+    @ManyToOne
+    @JoinColumn(name = "uid")
+    private MemberEntity member;
     private LocalDateTime regDate;
     private String regIp;
     private boolean isDelete;
@@ -36,4 +40,5 @@ public class CommunityEntity {
     private int dislike;
     private int comAmount;
     private String thumb;
+    private int hit;
 }

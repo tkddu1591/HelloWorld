@@ -473,30 +473,13 @@ function CardList({ colSize = 12 }) {
                                             fontSize: clientWidth <= 768 ? '25px' : '',
                                         }}
                                         onClick={handleClick}>
-                                        제목
+                                        자바 프로젝트 하실분000000000000000
                                     </span>
                                 </div>
-                                <p
-                                    className="category"
-                                    style={{
-                                        textDecoration: 'line-through',
-                                        marginBottom: 0,
-                                        fontSize: clientWidth <= 768 ? '20px' : '',
-                                    }}>
-                                    ￦35,000
-                                </p>
                                 <div style={{ justifyContent: 'space-between', display: 'flex' }}>
                                     <span style={{ display: 'inline-block', textAlign: 'left' }}>
                                         <p className="category" style={{ color: 'black' }}>
-                                            <span
-                                                style={{
-                                                    color: 'red',
-                                                    marginRight: '10px',
-                                                    fontSize: clientWidth <= 768 ? '20px' : '',
-                                                }}>
-                                                50%
-                                            </span>
-                                            <span style={{ fontSize: clientWidth <= 768 ? '20px' : '' }}>￦35,000</span>
+                                            <span style={{ fontSize: clientWidth <= 768 ? '20px' : '' }}>닉네임임</span>
                                         </p>
                                     </span>
 
@@ -513,7 +496,7 @@ function CardList({ colSize = 12 }) {
 
                                             fontSize: clientWidth <= 768 ? '15px' : '',
                                         }}>
-                                        1,200 sold
+                                        2023.10.10
                                     </span>
                                     <span
                                         style={{

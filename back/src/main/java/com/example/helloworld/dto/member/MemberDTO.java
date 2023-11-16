@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MemberDTO {
     private String uid;
+    private String nick;
     private String pass;
     private String name;
     private int gender;
@@ -31,6 +32,7 @@ public class MemberDTO {
     private LocalDateTime wdate;
     private LocalDateTime regDate;
     private int isCondition;
+    private String profileImg;
     private String etc1;
     private String etc2;
     private String etc3;

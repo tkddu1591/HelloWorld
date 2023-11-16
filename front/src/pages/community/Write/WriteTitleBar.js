@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Col, Container, FormGroup, Input, Row} from "reactstrap";
 import Select from "react-select";
-import "../../../css/community/write.css";
+import "../../../css/community/write.scss";
 
 function WriteTitleBar(props) {
     return (<>

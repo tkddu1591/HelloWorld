@@ -24,4 +24,9 @@ public class CommunityDTO {
     private int dislike;
     private int comAmount;
     private String thumb;
+    private String uid;
+    private int hit;
+
+    //추가정보
+    private String nick;
 }

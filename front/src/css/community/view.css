@@ -11250,7 +11250,7 @@ dl,ol,ul {
     list-style: none
 }
 
-address,em {
+address {
     font-style: normal
 }
 
