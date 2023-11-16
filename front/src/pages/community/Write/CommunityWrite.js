@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useMemo} from "react";
 import {Col, Container, FormGroup, Input, Row} from "reactstrap";
-import "../../../css/community/write.css";
+import "../../../css/community/write.scss";
 import MyComponent from "../EditorComponent";
 import {useNavigate} from "react-router-dom";
 import WriteHeader from "./WriteHeader";
@@ -40,7 +40,7 @@ function CommunityWrite() {
     let navigate = useNavigate();
     return (<>
             <Container>
-                <div className="write">
+                <div className="write" style={{marginTop:"90px"}}>
                     <WriteHeader></WriteHeader>
                     <WriteTitleBar selectedSearch={selectedSearch} setSelectedSearch={setSelectedSearch}
                                    searchSelect={searchSelect}

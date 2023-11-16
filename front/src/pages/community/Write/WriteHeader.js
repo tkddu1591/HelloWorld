@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../../../css/community/write.css";
+import "../../../css/community/write.scss";
 
 function WriteHeader(){
     return (<>

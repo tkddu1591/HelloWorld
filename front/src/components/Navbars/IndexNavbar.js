@@ -173,15 +173,15 @@ function IndexNavbar() {
 									<p>커뮤니티</p>
 								</DropdownToggle>
 								<DropdownMenu>
-									<DropdownItem to="/community/list" tag={Link}>
+									<DropdownItem to="/community/list?cateNo=1" tag={Link}>
 										<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 										개발자 라운지
 									</DropdownItem>
-									<DropdownItem to="/community/list" tag={Link}>
+									<DropdownItem to="/community/list?cateNo=2" tag={Link}>
 										<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 										스터디
 									</DropdownItem>
-									<DropdownItem to="/community/list" tag={Link}>
+									<DropdownItem to="/community/list?cateNo=3" tag={Link}>
 										<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 										Q&A
 									</DropdownItem>

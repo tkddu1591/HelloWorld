@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import '../../../css/community/list.css';
 import { Col, Container, FormGroup, Input, Row } from 'reactstrap';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import Paging from './Paging';
 import ContentList from './ContentList';
 import SearchBar from './SearchBar';
 import ViewOption from "./ViewOption";
 import ContentCard from "./ContentCard";
 import LecturePagination from "../../../components/Lecture/LecturePagination";
+import {API_BASE_URL} from "../../../App";
+import axios from "axios";
 
 const options = [
    { value: 'java', label: 'Java' },
@@ -36,13 +38,29 @@ const searchSelect = [
    { value: '4', label: '댓글작성자' },
 ];
 
-function CommunityList({
-                          colSize,
-                          sortType = undefined,
-                          isMore = false,
-                          title = '목록',
-                          isLoadingType = false,
-                       }) {
+function CommunityList() {
+   const location = useLocation();
+   const searchParams = new URLSearchParams(location.search);
+
+   const newSearch = searchParams.get('search');
+   const [search, setSearch] = useState(newSearch);
+   const newType = searchParams.get('newType');
+   const [type, setType] = useState(newType);
+   const [num1, setNum1] = useState(0);
+   const [num2, setNum2] = useState(0);
+   const [detailSearch, setDetailSearch] = useState(newSearch);
+   const newCate = searchParams.get('cateNo');
+   const [cateNo, setCateNo] = useState(newCate);
+   const [check, setCheck] = useState({
+      numCheck: false,
+   });
+
+   let [pageRequestDTO, setPageRequestDTO] = useState({
+      pg: 1, size: 10, cateNo: newCate
+   })
+   let [pageResponseDTO, setPageResponseDTO] = useState({
+      cateNo: parseInt(cateNo), communityList: [], end: 10, start: 1, next: true, prev: true, total: 10, size: 10
+   });
    const [selectedOption, setSelectedOption] = useState(null);
    const [selectedSearch, setSelectedSearch] = useState(null);
    const [listLoading, setListLoading] = useState({ loading: 'scroll', view: 'card' });
@@ -58,6 +76,23 @@ function CommunityList({
          window.removeEventListener(`resize`, windowResize);
       };
    }, []);
+
+
+   // LIST 불러 오기
+   useEffect(() => {
+      axios.get(`${API_BASE_URL}/community/list`,{
+         params: pageRequestDTO
+      })
+          .then(res=>{
+             console.log('GET success'+res.data);
+             console.log('cateNo : '+cateNo);
+             setPageResponseDTO(res.data);
+             console.log(pageResponseDTO);
+          })
+          .catch(err=>{
+             console.log(err);
+          })
+   }, [pageRequestDTO]);
 
 
    let navigate = useNavigate();

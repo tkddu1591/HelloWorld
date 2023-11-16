@@ -1,3 +1,80 @@
+@import url("https://webfontworld.github.io/amore/AritaBuri.css");
+
+@font-face {
+    font-family: "GangwonEduHyeonokT_OTFMediumA";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduHyeonokT_OTFMediumA.woff")
+    format("woff");
+}
+@font-face {
+    font-family: "Happiness-Sans-Title";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2")
+    format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'NPSfontBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'JalnanGothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+.ql-font-pretendard{
+    font-family: "Pretendard-Regular";
+}
+
+.ql-font-jalnanGothic{
+    font-family:"JalnanGothic";
+}
+
+.ql-font-npsFontBold{
+    font-family: "NPSfontBold";
+}
+
+.ql-font-happiness{
+    font-family: "Happiness-Sans-Title";
+}
+
+.ql-font-buri {
+    font-family: "AritaBuri";
+}
+
+.ql-font-gangwon{
+    font-family: "GangwonEduHyeonokT_OTFMediumA";
+}
+
+.ql-font-nanumsquare{
+    font-family: "nanumsquare";
+}
+
+.ql-font-courier-new{
+    font-family: "Courier New";
+}
+.ql-font-lucida{
+    font-family: "Lucida Console"
+}
+.ql-font-comic-sans{
+    font-family: "Comic Sans MS"
+}
+.ql-font-georgia{
+    font-family: "Georgia";
+}
+.ql-font-helvetica{
+    font-family: "Helvetica";
+}
+
 .WritingWrap {
     color: #000
 }
