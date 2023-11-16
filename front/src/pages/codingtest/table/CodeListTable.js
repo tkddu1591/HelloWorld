@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Axios from "axios";
-import {Pagination} from "reactstrap";
+import Pagination from "react-js-pagination";
+
 
 function CodeListTable() {
     const [data, setData] = useState([]);
@@ -23,12 +24,22 @@ function CodeListTable() {
     }, []);
 
 
-        const [page, setPage] = useState(1);
+    const [currentPost, setCurrentPost] = useState(data) // 페이지네이션을 통해 보여줄 게시글
+    const [page, setPage] = useState(1) // 현재 페이지 번호
 
-        const handlePageChange = (page) => {
-            setPage(page);
-        };
+    const postPerPage = 10 // 페이지 당 게시글 개수
+    const indexOfLastPost = page * postPerPage
+    const indexOfFirstPost = indexOfLastPost - postPerPage
 
+    const handlePageChange = (page) => {
+        setPage(page)
+    }
+
+
+
+    useEffect(() => {
+        setCurrentPost(data.slice(indexOfFirstPost, indexOfLastPost))
+    }, [data, page])
 
         return <>
             <table class="table" style={{textAlign: 'center'}}>
@@ -41,7 +52,7 @@ function CodeListTable() {
                 </tr>
                 </thead>
                 <tbody>
-                {data.map((datas, index) => (
+                {currentPost.map((datas, index) => (
                     <tr>
                         <td scope="row">
                             <Link to={'#'} style={{color: 'black'}}>{datas.level}</Link>
@@ -62,14 +73,14 @@ function CodeListTable() {
             </table>
 
             <Pagination
-                activePage={page} // 현재 페이지
-                itemsCountPerPage={10} // 한 페이지랑 보여줄 아이템 갯수
-                totalItemsCount={10} // 총 아이템 갯수
-                pageRangeDisplayed={10} // paginator의 페이지 범위
-                prevPageText={"‹"} // "이전"을 나타낼 텍스트
-                nextPageText={"›"} // "다음"을 나타낼 텍스트
-                onChange={handlePageChange} // 페이지 변경을 핸들링하는 함수
-            />
+                activePage={page}
+                itemsCountPerPage={postPerPage}
+                totalItemsCount={data.length}
+                pageRangeDisplayed={10}
+                prevPageText={"‹"}
+                nextPageText={"›"}
+                onChange={handlePageChange}/>
+
         </>
     }
 
