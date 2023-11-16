@@ -8,8 +8,9 @@ import {
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
+import {changeDTO} from "../../../../store/changeDTO";
 
-function InputField({setInputValue}) {
+function InputField({setInputValue, error}) {
     const [isFocus, setIsFocus] = useState(false);
     return (
         <>
@@ -22,12 +23,14 @@ function InputField({setInputValue}) {
                 <Input
                     placeholder='이메일 입력'
                     type='text'
+                    name='email'
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
                     onChange={(e) => {
-                        setInputValue(e.target.value);
+                        changeDTO(setInputValue, 'email', e.target.value);
                     }}
                 />
+
             </InputGroup>
         </>
     );
