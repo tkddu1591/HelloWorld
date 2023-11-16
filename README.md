@@ -22,8 +22,12 @@ HelloWorld 프로젝트
 - npm install react-player
 - quill : npm install react-quill
 - use-long-pressnpm : install use-long-press
+- firebase : npm i firebase
+- quill image resize : npm install quill-image-resize
+- quill image drop : npm i quill-image-drop-module
 - eslint : npm install -D eslint
 - prettier : npm i --save-dev prettier
+
 
 
  
