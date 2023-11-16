@@ -3,9 +3,8 @@ import SubmitButton from "./buttonCmpnts/SubmitButton";
 import {Button} from "reactstrap";
 
 function TermsModal({isOpenModal, onClickAgreeButton, terms}) {
+    let modalTerms = terms.map((userTerms)=>(userTerms.terms)).join('\n');
 
-    /*const [sss, setSss] = useState();
-    * react hooks은 조건부 랜더링 아래에서 사용 x */
     if(!isOpenModal)return null;
     return (
         <>
@@ -37,7 +36,9 @@ function TermsModal({isOpenModal, onClickAgreeButton, terms}) {
                         top: "42%",
                         left: "50%",
                         transform: "translate(-50%, -50%)"
-                    }}>{terms}</textarea>
+                    }}>
+                        {modalTerms}
+                    </textarea>
 
                     <Button color="default"
                             style={{

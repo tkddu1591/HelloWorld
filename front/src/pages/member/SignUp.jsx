@@ -3,11 +3,8 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import {faLock, faAt, faCircleCheck, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import InputField from "./componentsByMember/inputCmpnts/InputField";
 import TermsModal from "./componentsByMember/TermsModal";
 import MemberHeader from "./componentsByMember/MemberHeader";
-import {API_BASE_URL} from "../../App";
-import axios from "axios";
 import {
   Button,
   Card,
@@ -17,6 +14,11 @@ import {
   Container,
   Row
 } from "reactstrap";
+import InputEmail from "./componentsByMember/inputCmpnts/InputEmail";
+import InputPass from "./componentsByMember/inputCmpnts/InputPass";
+import InputPassChk from "./componentsByMember/inputCmpnts/InputPassChk";
+import InputEmailChk from "./componentsByMember/inputCmpnts/InputEmailChk";
+import axios from "axios";
 
 // core components
 
@@ -31,33 +33,58 @@ function SignUp() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenEmail, setIsOpenEmail] = useState(false);
 
+  let [inputValue, setInputValue] = useState("");
+
   function onClickAgreeButton() {
     setIsOpenModal(false);
     setAgree_terms('green');
   }
-
   function emailClick() {
     if(isOpenEmail === false){
-      setIsOpenEmail(true);
-      setEmailButton("warning");
+      requestEmail();
       setButtonText("인증번호 확인");
+      setEmailButton("warning");
+      setIsOpenEmail(true);
+
     }else if(isOpenEmail === true){
-      setEmailButton("success");
       setButtonText("인증 완료");
-      setEmailIcon(faCircleCheck);
+      setEmailButton("success");
       setEmailIconColor("green");
+      setEmailIcon(faCircleCheck);
     }
   }
 
+  const requestEmail= () => {
+      axios.get("http://localhost:8080/api/sendEmail",{
+          params:{
+              "email": inputValue
+          }/*,
+          headers:{
+              Authorization: 'Bearer sadsd'
+          }*/
+      })
+          .then((response)=> {
+              alert(JSON.stringify(response))
+          })
+          .catch(error => {
+              alert(JSON.stringify(error))
+          }
+      );
+  }
+
   const [terms, setTerms] = useState([]);
-  /*useEffect(() => {
-    axios.get(`${API_BASE_URL}/member/terms`).then(response => {
-      setTerms(response.data)
-    })
+  useEffect(() => {
+    const getTerms = async () => {
+      try {
+        const result =
+            await axios.get('http://localhost:8080/api/terms');
+        setTerms(result.data);
+      } catch (error) {
+        alert('요청 실패.');
+      }
+    };
+    getTerms();
   }, []);
-
-  console.log("terms!!!" + terms.terms);*/
-
 
   return (
     <>
@@ -69,22 +96,14 @@ function SignUp() {
                 <MemberHeader text={'회원가입'}/>
 
                 <CardBody>
-                  <InputField
-                      placeholder="이메일 입력"
-                      type="text" icon={faAt}/>
+                  <InputEmail setInputValue={setInputValue}/>
+                  <InputPass/>
+                  <InputPassChk/>
 
-                  <InputField
-                      placeholder="비밀번호 입력"
-                      type="password" icon={faLock}/>
-
-                  <InputField
-                      placeholder="비밀번호 확인"
-                      type="password" icon={faLock}/>
-
-                  {isOpenEmail && <InputField
-                      placeholder="이메일 인증번호 입력"
-                      type="text" icon={emailIcon} color={emailIconColor}/>}
-                  {/*완료되면 icon={faCircleCheck} style={{color: "#2bff0f",}} 날리기*/}
+                  {
+                    isOpenEmail &&
+                    <InputEmailChk emailIcon={emailIcon} emailIconColor={emailIconColor}/>
+                  }
 
                   <Button
                       onClick={emailClick}
@@ -121,7 +140,7 @@ function SignUp() {
         </Container>
       </div>
       {/*{isOpenModal && <TermsModal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}/>}*/}
-      <TermsModal isOpenModal={isOpenModal} terms={terms.terms} onClickAgreeButton={onClickAgreeButton}/>
+      <TermsModal isOpenModal={isOpenModal} terms={terms} onClickAgreeButton={onClickAgreeButton}/>
     </>
   );
 }
