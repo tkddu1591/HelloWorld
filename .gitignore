@@ -16,3 +16,4 @@
 *.yml
 *.gradle
 
+/log/

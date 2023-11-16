@@ -2,11 +2,9 @@ import React, {useState} from "react";
 import SubmitButton from "./buttonCmpnts/SubmitButton";
 import {Button} from "reactstrap";
 
-const TERMS = "The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a val id href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid";
-function TermsModal({isOpenModal, onClickAgreeButton}) {
+function TermsModal({isOpenModal, onClickAgreeButton, terms}) {
+    let modalTerms = terms.map((userTerms)=>(userTerms.terms)).join('\n');
 
-    /*const [sss, setSss] = useState();
-    * react hooks은 조건부 랜더링 아래에서 사용 x */
     if(!isOpenModal)return null;
     return (
         <>
@@ -38,7 +36,9 @@ function TermsModal({isOpenModal, onClickAgreeButton}) {
                         top: "42%",
                         left: "50%",
                         transform: "translate(-50%, -50%)"
-                    }}>{TERMS}</textarea>
+                    }}>
+                        {modalTerms}
+                    </textarea>
 
                     <Button color="default"
                             style={{
