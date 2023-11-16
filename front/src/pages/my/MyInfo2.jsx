@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Card, CardBody} from "reactstrap";
+import {Button} from "reactstrap";
 import '../../css/my/my.css';
 import GithubIcon from "../../components/Icon/GithubIcon";
 
