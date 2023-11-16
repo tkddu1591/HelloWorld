@@ -33,38 +33,57 @@ function SignUp() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenEmail, setIsOpenEmail] = useState(false);
 
+  let [inputValue, setInputValue] = useState("");
+
   function onClickAgreeButton() {
     setIsOpenModal(false);
     setAgree_terms('green');
   }
   function emailClick() {
     if(isOpenEmail === false){
-      setIsOpenEmail(true);
-      setEmailButton("warning");
+      requestEmail();
       setButtonText("인증번호 확인");
+      setEmailButton("warning");
+      setIsOpenEmail(true);
+
     }else if(isOpenEmail === true){
-      setEmailButton("success");
       setButtonText("인증 완료");
-      setEmailIcon(faCircleCheck);
+      setEmailButton("success");
       setEmailIconColor("green");
+      setEmailIcon(faCircleCheck);
     }
   }
-  const getTerms = () => {
-      axios.get('http://localhost:8080/api/terms')
-          .then((result) => {
-              setTerms(result.data);
+
+  const requestEmail= () => {
+      axios.get("http://localhost:8080/api/sendEmail",{
+          params:{
+              "email": inputValue
+          }/*,
+          headers:{
+              Authorization: 'Bearer sadsd'
+          }*/
+      })
+          .then((response)=> {
+              alert(JSON.stringify(response))
           })
-          .catch((error) => {
-              alert('요청 실패');
+          .catch(error => {
+              alert(JSON.stringify(error))
           }
       );
   }
 
-
   const [terms, setTerms] = useState([]);
   useEffect(() => {
-      getTerms();
-      console.log(terms);
+    const getTerms = async () => {
+      try {
+        const result =
+            await axios.get('http://localhost:8080/api/terms');
+        setTerms(result.data);
+      } catch (error) {
+        alert('요청 실패.');
+      }
+    };
+    getTerms();
   }, []);
 
   return (
@@ -77,7 +96,7 @@ function SignUp() {
                 <MemberHeader text={'회원가입'}/>
 
                 <CardBody>
-                  <InputEmail/>
+                  <InputEmail setInputValue={setInputValue}/>
                   <InputPass/>
                   <InputPassChk/>
 

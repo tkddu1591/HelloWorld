@@ -2,33 +2,28 @@ package com.example.helloworld.service.member;
 
 import com.example.helloworld.repository.member.MemberRepository;
 import jakarta.mail.*;
-import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.SecureRandom;
 import java.util.Properties;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Log4j2
+@RequiredArgsConstructor
 @Service
 public class EmailService {
 
-    @Autowired
-    private MemberRepository memberRepository;
-
-    @Value("${spring.mail.username}")
-    private String emailSender;
-    @Value("${spring.mail.password}")
-    private String senderPassword;
+    private final MemberRepository memberRepository;
+    private final JavaMailSender javaMailSender;
+    private final SpringTemplateEngine templateEngine;
     private static String randomCode;
 
     public boolean isEmailUnique(String email) {
@@ -47,98 +42,88 @@ public class EmailService {
         return properties;
     }
 
-    // Gmail SMTP Session 생성
-    public Session initEmailSession(Properties properties) {
-        log.info("logic 3");
-        return Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(emailSender, senderPassword);
-            }
-        });
+    public char toAsciiCode(double num) {
+        if(num < 10) return (char)(num+48);
+        if(num > 35) return (char)(num+61);
+        return (char)(num+55);
     }
 
     // 인증코드 생성하기
-    public String createAuthenticationCode() {
-        SecureRandom secureRandom = new SecureRandom();
-        randomCode = "";
+    public String createAuthCode() {
+        String authCode = "";
         for(int i=0; i<8; i++) {
-            randomCode += secureRandom.nextInt(10);
+            authCode += toAsciiCode((Math.random()*62));
         }
-        return randomCode;
+        return authCode;
     }
 
     // 이메일 발송
-    public boolean sendEmail(Message message, EmailData mail) {
-        log.info("logic 5");
+    public boolean sendEmail(EmailData mail) {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         log.info("EmailData : " + mail.toString());
+
         try {
-            log.info("logic 5-1 start");
-            message.setFrom(new InternetAddress(emailSender, mail.senderName, "UTF-8"));
-            log.info("logic 5-1-1");
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail.receiver));
-            log.info("logic 5-1-2");
-            message.setSubject(mail.title);
-            log.info("logic 5-1-3");
-            message.setContent(mail.content, "text/html; charset=UTF-8");
-            log.info("logic 5-1-4");
-            Transport.send(message);
-            //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            // Could not connect to SMTP host: smtp.gmail.com, port: 465 에러 발생.
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-            log.info("logic 5-1-5");
+            log.info("sendEmail try...");
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+            mimeMessageHelper.setFrom("HelloWorld <tkddu1591@gmail.com>");
+            mimeMessageHelper.setTo(mail.receiver);
+            mimeMessageHelper.setSubject(mail.title);
+            mimeMessageHelper.setText(mail.content, true);
+            javaMailSender.send(mimeMessage);
 
         } catch (MessagingException e) {
-            log.info("logic 5-2 fail");
+            log.info("sendEmail catch...");
             throw new RuntimeException("이메일 전송 중 오류가 발생했습니다.", e);
-
-        } catch (UnsupportedEncodingException e) {
-            log.info("logic 5-3 fail");
-            throw new RuntimeException("문자 인코딩이 지원되지 않습니다.", e);
         }
-
-        log.info("logic 5-4 success");
+        log.info("sendEmail end...");
         return true;
     }
 
     // 이메일 인증용 메서드.
-    public boolean sendEmail(String emailReceiver) {
-        log.info("logic 1");
-        Session emailSession = initEmailSession(initProperties());
-
-        Message message = new MimeMessage(emailSession);
-
-        String authCode = createAuthenticationCode();
-
-        log.info("logic 1-1");
+    public boolean sendAuthEmail(String emailReceiver) {
+        String authCode = createAuthCode();
         EmailData mail = EmailData.builder()
-                .sender(emailSender)
-                .title("이메일 테스트입니다.")
-                .content("이메일 테스트 내용 : " + authCode)
+                .title(EmailFormat.SIGNUP_TITLE.getMessage())
+                .content(EmailFormat.SIGNUP_CONTENT.getMessage() + authCode + EmailFormat.CLOSE.getMessage())
                 .receiver(emailReceiver)
                 .build();
-        log.info("logic 1-2");
-        boolean result = sendEmail(message, mail);
-        log.info("logic 1-3");
 
-        return result;
+        return sendEmail(mail);
     }
 
-
     @ToString
+    public enum EmailFormat {
+        FINDPASS_TITLE("HelloWorld 비밀번호 변경을 위한 인증 메일입니다."),
+        FINDPASS_CONTENT("<h1> 안녕하세요.</h1>" +
+                "<h1> 개발자를 위한 플랫폼 HelloWorld 입니다.</h1>" +
+                "<br>" +
+                "<p> 아래 코드를 회원가입 창으로 돌아가 입력해주세요.</p>" +
+                "<br>" +
+                "<div align='center' style='border:1px solid black; font-family:verdana;'>" +
+                "<h3 style='color:blue'> 회원가입 인증 코드 입니다. </h3>" +
+                "<div style='font-size:130%'>"),
+        SIGNUP_TITLE("HelloWorld 회원가입을 위한 인증 메일입니다."),
+        SIGNUP_CONTENT("<h1> 안녕하세요.</h1>" +
+                "<h1> 개발자를 위한 플랫폼 HelloWorld 입니다.</h1>" +
+                "<br>" +
+                "<p> 아래 코드를 비밀번호 변경 창으로 돌아가 입력해주세요.</p>" +
+                "<br>" +
+                "<div align='center' style='border:1px solid black; font-family:verdana;'>" +
+                "<h3 style='color:blue'> 비밀번호 변경 인증 코드 입니다. </h3>" +
+                "<div style='font-size:130%'>"),
+        CLOSE("</div></div><br/>");
+
+        private final String message;
+
+        EmailFormat(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
     @Getter
     @Builder
     public static class EmailData {
@@ -147,13 +132,8 @@ public class EmailService {
         private String sender;
         @Builder.Default
         private String senderName = "HelloWorld";
-
         private String title;
-
         private String content;
-
         private String receiver;
-
     }
 }
-

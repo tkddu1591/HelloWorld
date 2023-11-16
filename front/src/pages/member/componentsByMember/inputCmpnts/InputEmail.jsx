@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
 
-function InputField() {
+function InputField({setInputValue}) {
     const [isFocus, setIsFocus] = useState(false);
     return (
         <>
@@ -24,6 +24,9 @@ function InputField() {
                     type='text'
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
+                    onChange={(e) => {
+                        setInputValue(e.target.value);
+                    }}
                 />
             </InputGroup>
         </>
