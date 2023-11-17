@@ -80,6 +80,7 @@ function CommunityList() {
 
    useEffect(()=>{
       changeDTO(setPageRequestDTO, 'sort', sort)
+      /*searchParams.set(`${API_BASE_URL}/community/list?cate`)*/
    },[sort])
 
    // LIST 불러 오기
@@ -91,6 +92,7 @@ function CommunityList() {
       })
           .then(res=>{
              setPageResponseDTO(res.data);
+             setSort(res.data.sort);
           })
           .catch(err=>{
              console.log(err);
@@ -111,9 +113,9 @@ function CommunityList() {
                        selectedOption={selectedOption}
                        setSelectedOption={setSelectedOption}
                        options={options}></SearchBar>
-            <ViewOption sort={sort} setSort={setSort} listLoading={listLoading} setListLoading={setListLoading} navigate={navigate}></ViewOption>
+            <ViewOption cateNo={cateNo} sort={sort} setSort={setSort} listLoading={listLoading} setListLoading={setListLoading} navigate={navigate}></ViewOption>
             {listLoading && (clientWidth < 992 || listLoading.view === 'card') && <ContentCard data={pageResponseDTO}></ContentCard>}
-            {listLoading && clientWidth >= 992 && listLoading.view === 'list' && <ContentList data={pageResponseDTO}></ContentList>}
+            {listLoading && clientWidth >= 992 && listLoading.view === 'list' && <ContentList sort={sort} data={pageResponseDTO}></ContentList>}
             {listLoading && listLoading.loading === 'paging' && <LecturePagination></LecturePagination>}
          </div>
       </Container>

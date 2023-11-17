@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './../../../css/community/list.css';
 import { useNavigate } from 'react-router-dom';
 
-function ContentList({data}) {
+function ContentList({data, sort}) {
     let navigate = useNavigate();
     return (<>
         <div className='main-area' style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -34,7 +34,7 @@ function ContentList({data}) {
                                     <div className={'con_top'}>
                                         <div className={'tit_area'}>
                                             <a className={'tit'} onClick={() => {
-                                                navigate(`/community/view?cate=${a.cateNo}&no=${a.communityNo}`);
+                                                navigate(`/community/view?tab=${sort}&cate=${a.cateNo}&no=${a.communityNo}`);
                                             }}>
                                 <span className={'inner'}>
                                     <strong>{a.title}</strong>
@@ -42,7 +42,7 @@ function ContentList({data}) {
                                             </a>
                                         </div>
                                         <a className={'txt'} onClick={() => {
-                                            navigate(`/community/view?cate=${a.cateNo}&no=${a.communityNo}`);
+                                            navigate(`/community/view?tab=${sort}&cate=${a.cateNo}&no=${a.communityNo}`);
                                         }}>
                                             {a.content}
                                         </a>

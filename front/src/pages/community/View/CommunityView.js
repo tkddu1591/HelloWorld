@@ -22,6 +22,10 @@ function CommunityView() {
     const searchParams = new URLSearchParams(location.search);
     const newCommunityNo = searchParams.get('no');
     const [communityNo, setCommunityNo] = useState(newCommunityNo);
+    const newCateNo = searchParams.get('cate');
+    const [cateNo, setCateNo] = useState(newCateNo);
+    const [prevNo, setPrevNo] = useState(0);
+    const [nextNo, setNextNo] = useState(0);
     const [buttonStatus, setButtonStatus] = useState(true);
     const [sort, setSort] = useState("Asc");
     let [commentType, setCommentType] = useState("Asc");
@@ -31,17 +35,19 @@ function CommunityView() {
 
     useEffect(() => {
         axios.get(`${API_BASE_URL}/community/view`,{
-            params: {communityNo: communityNo}
+            params: {communityNo: communityNo, cateNo: cateNo}
         })
             .then(res=>{
                 setView(res.data.view);
                 setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
                 setTagsList(res.data.hasTagsList);
+                setPrevNo(res.data.prevNo);
+                setNextNo(res.data.nextNo);
             })
             .catch(err=>{
                 console.log(err);
             })
-    }, []);
+    }, [communityNo]);
 
     useEffect(()=>{
         console.log(view);
@@ -71,6 +77,10 @@ function CommunityView() {
     useEffect(() => {
     }, [buttonStatus]);
 
+    useEffect(() => {
+        console.log(communityNo)
+        console.log(view)
+    }, [communityNo]);
     return (
         <>
             <Container style={{userSelect: 'none'}} onClick={() => {
@@ -81,9 +91,9 @@ function CommunityView() {
                         <div className="view" style={{marginTop: '80px'}}>
                             <div className="Article layout_content">
                                 <div className="article_wrap">
-                                    <ArticleTopBtns view={view}></ArticleTopBtns>
+                                    <ArticleTopBtns  setCateNo={setCateNo} setCommunityNo={setCommunityNo} view={view} prevNo={prevNo} nextNo={nextNo}></ArticleTopBtns>
                                     <div className="ArticleContentBox" style={{marginBottom: '100px'}}>
-                                        <ArticleHeader view={view}></ArticleHeader>
+                                        <ArticleHeader navigate={navigate} view={view}></ArticleHeader>
                                         <div className="article_container">
                                             <ArticleContent view={view}></ArticleContent>
                                             <ArticleTagList tagsList={tagsList}></ArticleTagList>

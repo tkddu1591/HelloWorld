@@ -36,12 +36,12 @@ public class CommunityController {
     }
 
     @GetMapping("/view")
-    public PageResponseDTO view(int communityNo, PageRequestDTO pageRequestDTO){
+    public PageResponseDTO view(int communityNo, int cateNo, PageRequestDTO pageRequestDTO){
         log.info("View");
 
         log.info("view");
         log.info(communityNo);
-        PageResponseDTO result = communityService.findByCommunityNo(communityNo, pageRequestDTO);
+        PageResponseDTO result = communityService.findByCommunityNo(communityNo, cateNo, pageRequestDTO);
 
         return result;
     }

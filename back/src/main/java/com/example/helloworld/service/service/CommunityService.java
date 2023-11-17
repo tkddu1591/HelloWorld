@@ -52,6 +52,7 @@ public class CommunityService {
         //getPageableDesc 내림차순 getPageableAsc 오름차순 ("정렬할 컬럼명")
         //pg , size 가공해서 같이 ordet by랑 섞어줌
         Pageable pageable = pageRequestDTO.getPageableDesc(pageRequestDTO.getSort());
+        log.info("sort: "+pageRequestDTO.getSort());
 
         CommunityCategoryEntity categoryEntity = categoryRepository.findById(pageRequestDTO.getCateNo()).orElse(null);
 
@@ -77,17 +78,29 @@ public class CommunityService {
         return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)
                 .communityList(dtoList)
+                .sort(pageRequestDTO.getSort())
                 .total(totalElement)
                 .build();
     }
 
-    public PageResponseDTO findByCommunityNo(int communityNo, PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO findByCommunityNo(int communityNo, int cateNo, PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setSize(20);
         Pageable pageable = pageRequestDTO.getPageableAsc("commentNo");
 
         log.info("view Service...1");
         CommunityEntity viewEntity = communityRepository.findByCommunityNo(communityNo);
+        log.info("cateNo: "+ pageRequestDTO.getCateNo());
         log.info("view Service...1.1");
+
+        String  prevNo = communityRepository.findPrevNo(cateNo, communityNo);
+        String  nextNo = communityRepository.findNextNo(cateNo, communityNo);
+        if(prevNo == null){
+            prevNo="0";
+        }
+        if(nextNo == null){
+            nextNo="0";
+        }
+
         Page<CommunityCommentEntity> commentEntity = communityCommentRepository.findByCommunity_CommunityNo(communityNo, pageable);
         log.info("view : " + viewEntity);
         List<CommunityHasTagEntity> hasTagEntity = hasTagRepository.findByCommunity_CommunityNo(communityNo);
@@ -110,11 +123,14 @@ public class CommunityService {
 
         int totalElement = (int) commentEntity.getTotalElements();
         log.info("view Service...5");
+
         return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)
                 .commentsList(commentDTOList)
                 .view(viewDTO)
                 .hasTagsList(hasTagDTO)
+                .prevNo(Integer.parseInt(prevNo))
+                .nextNo(Integer.parseInt(nextNo))
                 .total(totalElement)
                 .build();
     }
