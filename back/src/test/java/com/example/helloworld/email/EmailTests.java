@@ -24,26 +24,7 @@ public class EmailTests {
 
     @Test
     public void Test() {
-        for(int i=1; i<11; i++) {
-            String authCode1 = createAuthCode();
-            String authCode2 = createAuthCode();
-            String authCode3 = createAuthCode();
-            String authCode4 = createAuthCode();
-            String authCode5 = createAuthCode();
-            String authCode6 = createAuthCode();
-            String authCode7 = createAuthCode();
-            String authCode8 = createAuthCode();
-            String authCode9 = createAuthCode();
-            System.out.println(i + "회차 출력");
-            System.out.println("authCode1 : " + authCode1);
-            System.out.println("authCode2 : " + authCode2);
-            System.out.println("authCode3 : " + authCode3);
-            System.out.println("authCode4 : " + authCode4);
-            System.out.println("authCode5 : " + authCode5);
-            System.out.println("authCode6 : " + authCode6);
-            System.out.println("authCode7 : " + authCode7);
-            System.out.println("authCode8 : " + authCode8);
-            System.out.println("authCode9 : " + authCode9);
-        }
+        String authCode = createAuthCode();
+        System.out.println("authCode : " + authCode);
     }
 }

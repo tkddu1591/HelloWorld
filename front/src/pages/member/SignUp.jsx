@@ -20,8 +20,8 @@ import InputPassChk from "./componentsByMember/inputCmpnts/InputPassChk";
 import InputEmailChk from "./componentsByMember/inputCmpnts/InputEmailChk";
 import axios from "axios";
 import {changeDTO} from "../../store/changeDTO";
+import {isValidEmail} from "../../utils/signupValidation";
 
-// core components
 
 function SignUp() {
     let [pageCondtion, setPageCondtion] = useState({
@@ -56,26 +56,37 @@ function SignUp() {
         changeDTO(setPageCondtion, 'terms_agree', 'green');
         changeDTO(setIsOk, 'terms', true);
     }
-
-    function emailClick() {
-        if (pageCondtion.isOpenEmail === false) {
+    function reqeustEmailBtnClick() {
+        // isValidEmail && inputEmail === "" --> 이메일 전송
+        // isValidEmail &&
+        if (isValidEmail(inputValue.email)) {
+            console.log("step 1...")
             requestEmail();
-            changeDTO(setPageCondtion, 'email_button_txt', "인증번호 확인");
-            changeDTO(setPageCondtion, 'email_button', "warning");
-            changeDTO(setPageCondtion, () => pageCondtion.isOpenEmail, true);
+
         } else if (pageCondtion.isOpenEmail === false) {
             // 인증번호 전송해서 체크................................
+            console.log("step 2...")
 
-        } else if (pageCondtion.isOpenEmail === true && isOk.terms === true) {
-            changeDTO(setPageCondtion, 'email_button_txt', "인증 완료");
-            changeDTO(setPageCondtion, 'email_button', "success");
-            changeDTO(setPageCondtion, 'email_iconColor', "green");
-            changeDTO(setPageCondtion, 'email_icon', faCircleCheck);
-            changeDTO(setPageCondtion, 'isOpenEmail', true);
+        } else if (pageCondtion.isOpenEmail === true && isOk.email === true) {
+            console.log("step 3...")
+            setEmailDisplay2();
         }
     }
+    function setEmailDisplay1() {
+        changeDTO(setPageCondtion, 'email_button_txt', "인증번호 확인");
+        changeDTO(setPageCondtion, 'email_button', "warning");
+        changeDTO(setPageCondtion, 'isOpenEmail', true);
 
-
+        changeDTO(setError, 'email', true);
+        changeDTO(setPageCondtion, 'isOpenEmail', true);
+    }
+    function setEmailDisplay2() {
+        changeDTO(setPageCondtion, 'email_button_txt', "인증 완료");
+        changeDTO(setPageCondtion, 'email_button', "success");
+        changeDTO(setPageCondtion, 'email_iconColor', "green");
+        changeDTO(setPageCondtion, 'email_icon', faCircleCheck);
+        changeDTO(setPageCondtion, 'isOpenEmail', true);
+    }
     const requestEmail = () => {
         console.log("inputValue.email : " + inputValue);
         axios.get("http://localhost:8080/api/sendEmail", {
@@ -87,38 +98,36 @@ function SignUp() {
           }*/
         })
             .then((response) => {
-                if (response.data !== "인증번호를 확인해주세요.")
-                    changeDTO(setError, 'email', false)
-                else {
-                    changeDTO(setError, 'email', true)
+                if (response.data === "인증번호를 확인해주세요.") {
+                    console.log((" - step1... "))
+                    setEmailDisplay1();
+
+                }else {
+                    console.log(" - step2... ");
+                    changeDTO(setError, 'email', false);
                 }
-                changeDTO(setError, 'message', response.data)
+                changeDTO(setError, 'message', response.data);
             })
             .catch(error => {
-                    console.log(error);
+                console.log(error);
             }
         );
     }
+    const getConsole = () => {
+        console.log("pageCondtion : " + JSON.stringify(pageCondtion));
+        console.log("isOk : " + JSON.stringify(isOk));
+        console.log("inputValue : " + JSON.stringify(inputValue));
+        console.log("error : " + JSON.stringify(error));
+    }
 
-    const [terms, setTerms] = useState([]);
-    useEffect(() => {
-        const getTerms = async () => {
-            try {
-                const result =
-                    await axios.get('http://localhost:8080/api/terms');
-                setTerms(result.data);
-            } catch (error) {
-                alert('요청 실패.');
-            }
-        };
-        getTerms();
-    }, []);
+
 
     return (
         <>
-            <div style={{minHeight: "700px", paddingTop: "130px"}}>
+            <div style={{minHeight: "800px", paddingTop: "130px"}}>
                 <Container>
                     <Row>
+                        <button onClick={getConsole}>콘솔보기</button>
                         <Card className="card-signup">
                             <Form action="" className="form" method="">
                                 <MemberHeader text={'회원가입'}/>
@@ -139,7 +148,7 @@ function SignUp() {
                                     }
 
                                     <Button
-                                        onClick={emailClick}
+                                        onClick={reqeustEmailBtnClick}
                                         color={pageCondtion.email_button}
                                         style={{marginLeft: "60%", width: "40%"}}>
                                         {pageCondtion.email_button_txt}
@@ -176,7 +185,7 @@ function SignUp() {
                 </Container>
             </div>
             {/*{isOpenModal && <TermsModal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}/>}*/}
-            <TermsModal isOpenModal={pageCondtion.isOpenModal} setIsOk={setIsOk} terms={terms} termsAgreeHandler={termsAgreeHandler}/>
+            <TermsModal isOpenModal={pageCondtion.isOpenModal} setIsOk={setIsOk} termsAgreeHandler={termsAgreeHandler}/>
         </>
     );
 }

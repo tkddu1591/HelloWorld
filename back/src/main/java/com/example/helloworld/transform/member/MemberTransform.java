@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface MemberTransform {
-    MemberEntity toEntity(MemberEntity entity);
+    MemberEntity toEntity(MemberDTO dto);
     MemberDTO toDTO(MemberEntity entity);
 }

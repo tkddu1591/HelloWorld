@@ -1,13 +1,25 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SubmitButton from "./buttonCmpnts/SubmitButton";
 import {Button} from "reactstrap";
+import axios from "axios";
 
-function TermsModal({isOpenModal, termsAgreeHandler, terms}) {
+function TermsModal({isOpenModal, termsAgreeHandler}) {
+    const [terms, setTerms] = useState([]);
+    useEffect(() => {
+        const getTerms = async () => {
+            try {
+                const result =
+                    await axios.get('http://localhost:8080/api/terms');
+                setTerms(result.data);
+            } catch (error) {
+                alert('요청 실패.');
+            }
+        };
+        getTerms();
+    }, []);
     let modalTerms = terms.map((userTerms) => (userTerms.terms)).join('\n');
 
-    console.log(isOpenModal)
     return (
-
         <>{isOpenModal &&
             <div
                 style={{

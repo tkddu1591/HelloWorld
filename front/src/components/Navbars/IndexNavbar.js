@@ -300,7 +300,7 @@ function IndexNavbar() {
 										<p>여덟글자입니다마</p>
 									</DropdownToggle>
 									<DropdownMenu>
-										<DropdownItem to="/profile-page" tag={Link}>
+										<DropdownItem to="/my/info" tag={Link}>
 											<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 											마이페이지
 										</DropdownItem>
