@@ -17,19 +17,16 @@ public class EmailController {
     private EmailService emailService;
 
     @GetMapping("/api/sendEmail")
-    public String sendEmail(@RequestBody HashMap<String, String> data) {
-        String email = data.get("email");
+    public String sendEmail(@RequestParam String email) {
         log.info("email : " + email);
-        log.info("controller 1");
         // 1. 이메일 중복 체크
         if(!emailService.isEmailUnique(email)) return "이미 사용중인 이메일입니다.";
 
-        log.info("controller 2");
         // 2. 결과에 따라 이메일 인증 전송
-        if(emailService.sendAuthEmail(email)) return "인증번호를 입력하세요.";
+        String result = emailService.sendAuthEmail(email);
 
-        log.info("controller 3");
-        return "이메일 요청 실패. 다시 시도해주세요.";
+        // 3. 결과 메시지 출력
+        if(!result.equals("SUCCESS")) return result;
+        return "인증번호를 확인해주세요.";
     }
-
 }
