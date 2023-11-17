@@ -26,16 +26,10 @@
 }
 
 .filebox label {
-  display: inline-block;
-  padding: 10px 20px;
   color: #fff;
-  vertical-align: middle;
-  background-color: #999999;
-  cursor: pointer;
   height: 40px;
-  margin-left: 10px;
-  margin-top: 10px;
-  width: 95px;
+  min-width: 100%;
+  border: 1px solid lightgray;
 }
 
 .filebox input[type="file"] {

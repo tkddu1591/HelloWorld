@@ -5,10 +5,17 @@ import React, {useState} from "react";
 import EditorToolbar, {formats, modules} from "../../../community/EditorToolBar";
 import ReactQuill from "react-quill";
 import {useNavigate} from "react-router-dom";
+import {FileUploader} from "react-drag-drop-files";
+
+const fileTypes = ["JPG", "PNG", "GIF"];
 
 function LectureWriteMain() {
 
     let navigate = useNavigate()
+    const [file, setFile] = useState(null);
+    const handleChangeFile = (file) => {
+        setFile(file);
+    };
     const [tagSort, setTagSort] = useState(
         {
             placeholder:  '태그 선택',
@@ -37,9 +44,9 @@ function LectureWriteMain() {
         }
     );
 
-    const [state, setState] = React.useState({ value: null });
+    const [state, setState] = React.useState({value: null});
     const handleChange = value => {
-        setState({ value });
+        setState({value});
     };
     return <Container style={{marginTop: '100px'}}>
         <Row>
@@ -60,23 +67,24 @@ function LectureWriteMain() {
             </Col>
         </Row>
         <Row>
-            <Col style={{marginTop: '20px'}}>
-                <div className={'filebox'}>
-                    <input className="upload-name" value="썸네일" placeholder="썸네일"/>
-                    <label htmlFor="file" style={{marginTop:'10px'}}>파일찾기</label>
-                    <input type="file" id="file"/>
-                </div>
+            <Col style={{marginTop: '20px'}} className={'filebox'}>{
+                /*                <div className={'filebox'}>
+                                    <input className="upload-name" value="썸네일" placeholder="썸네일"/>
+                                    <label htmlFor="file" style={{marginTop: '10px'}}>파일찾기</label>
+                                    <input type="file" id="file"/>
+                                </div>*/}
+                <FileUploader handleChange={handleChangeFile} name="file" types={fileTypes} label={'썸네일 이미지를 올려주세요'}/>
             </Col>
         </Row>
         <Row>
-            <Col style={{marginTop:'20px'}}>
+            <Col style={{marginTop: '20px'}}>
 
                 <div className="text-editor">
-                    <EditorToolbar />
+                    <EditorToolbar/>
                     <ReactQuill
-                        style={{height:"600px"}}
+                        style={{height: "600px"}}
                         theme="snow"
-                        value={state.value===null? "" : state.value}
+                        value={state.value === null ? "" : state.value}
                         onChange={handleChange}
                         placeholder={"내용을 입력해주세요."}
                         modules={modules}
@@ -86,10 +94,12 @@ function LectureWriteMain() {
             </Col>
         </Row>
         <Row>
-            <Col style={{display:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                <Button color={'info'} onClick={()=>{navigate(-1)
+            <Col style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
+                <Button color={'info'} onClick={() => {
+                    navigate(-1)
                 }}>이전</Button>
-                <Button color={'info'} onClick={()=>{navigate('/lecture/write/content')
+                <Button color={'info'} onClick={() => {
+                    navigate('/lecture/write/content')
                 }}>다음</Button>
             </Col>
         </Row>

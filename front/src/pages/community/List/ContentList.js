@@ -87,7 +87,7 @@ function ContentList({data}) {
                                     <a onClick={() => {
                                         navigate('/community/view');
                                     }}>
-                                        <img src={`${process.env.PUBLIC_URL}/images/community/testimg.jpg`} width={'120px'}
+                                        <img src={`/images/community/testimg.jpg`} width={'120px'}
                                              height={'120px'}
                                              alt={'썸네일'}>
                                         </img>
