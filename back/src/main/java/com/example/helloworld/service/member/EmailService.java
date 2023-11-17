@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -42,23 +43,23 @@ public class EmailService {
         return properties;
     }
 
-    public char toAsciiCode(double num) {
+    public char toAsciiCode(int num) {
         if(num < 10) return (char)(num+48);
         if(num > 35) return (char)(num+61);
-        return (char)(num+55);
+        return (char)(num+55); // 10~ 35
     }
 
     // 인증코드 생성하기
     public String createAuthCode() {
         String authCode = "";
         for(int i=0; i<8; i++) {
-            authCode += toAsciiCode((Math.random()*62));
+            authCode += toAsciiCode((int)(Math.random()*62));
         }
         return authCode;
     }
 
     // 이메일 발송
-    public boolean sendEmail(EmailData mail) {
+    public String sendEmail(EmailData mail) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         log.info("EmailData : " + mail.toString());
 
@@ -71,16 +72,20 @@ public class EmailService {
             mimeMessageHelper.setText(mail.content, true);
             javaMailSender.send(mimeMessage);
 
+        } catch (MailSendException e) {
+            log.error("sendEmail catch...MailSendException : " + e.getMessage());
+            return "유효한 이메일 양식이 아닙니다.";
+
         } catch (MessagingException e) {
-            log.info("sendEmail catch...");
-            throw new RuntimeException("이메일 전송 중 오류가 발생했습니다.", e);
+            log.error("sendEmail catch...MessagingException : " + e.getMessage());
+            return "이메일 전송 오류. 이메일을 확인해주세요.";
         }
         log.info("sendEmail end...");
-        return true;
+        return "SUCCESS";
     }
 
     // 이메일 인증용 메서드.
-    public boolean sendAuthEmail(String emailReceiver) {
+    public String sendAuthEmail(String emailReceiver) {
         String authCode = createAuthCode();
         EmailData mail = EmailData.builder()
                 .title(EmailFormat.SIGNUP_TITLE.getMessage())
@@ -94,22 +99,22 @@ public class EmailService {
     @ToString
     public enum EmailFormat {
         FINDPASS_TITLE("HelloWorld 비밀번호 변경을 위한 인증 메일입니다."),
-        FINDPASS_CONTENT("<h1> 안녕하세요.</h1>" +
-                "<h1> 개발자를 위한 플랫폼 HelloWorld 입니다.</h1>" +
+        FINDPASS_CONTENT("<h3> 안녕하세요.</h3>" +
+                "<h3> 개발자를 위한 플랫폼 HelloWorld 입니다.</h3>" +
                 "<br>" +
                 "<p> 아래 코드를 회원가입 창으로 돌아가 입력해주세요.</p>" +
                 "<br>" +
-                "<div align='center' style='border:1px solid black; font-family:verdana;'>" +
-                "<h3 style='color:blue'> 회원가입 인증 코드 입니다. </h3>" +
+                "<div align='center' style='border:1px solid black; font-family:verdana; padding: 30px 0;'>" +
+                "<h3 style='color:#0076ff'> 회원가입 인증 코드 입니다. </h3>" +
                 "<div style='font-size:130%'>"),
         SIGNUP_TITLE("HelloWorld 회원가입을 위한 인증 메일입니다."),
-        SIGNUP_CONTENT("<h1> 안녕하세요.</h1>" +
-                "<h1> 개발자를 위한 플랫폼 HelloWorld 입니다.</h1>" +
+        SIGNUP_CONTENT("<h3> 안녕하세요.</h3>" +
+                "<h3> 개발자를 위한 플랫폼 HelloWorld 입니다.</h3>" +
                 "<br>" +
                 "<p> 아래 코드를 비밀번호 변경 창으로 돌아가 입력해주세요.</p>" +
                 "<br>" +
-                "<div align='center' style='border:1px solid black; font-family:verdana;'>" +
-                "<h3 style='color:blue'> 비밀번호 변경 인증 코드 입니다. </h3>" +
+                "<div align='center' style='border:1px solid black; font-family:verdana; padding: 30px 0;'>" +
+                "<h3 style='color:#0076ff'> 비밀번호 변경 인증 코드 입니다. </h3>" +
                 "<div style='font-size:130%'>"),
         CLOSE("</div></div><br/>");
 
