@@ -84,7 +84,7 @@ function CardList({ colSize = 12 }: ListItem) {
                             <img
                                 style={{ width: '100%', cursor: 'pointer' }}
                                 alt="..."
-                                src={`${process.env.PUBLIC_URL}/images/lecture/thumb_Java.jpg`}
+                                src={`/images/lecture/thumb_Java.jpg`}
                                 onClick={handleClick}></img>
 
                             <div
@@ -208,7 +208,7 @@ function CardList({ colSize = 12 }: ListItem) {
                             <img
                                 style={{ width: '100%', cursor: 'pointer' }}
                                 alt="..."
-                                src={`${process.env.PUBLIC_URL}/images/lecture/thumb_Java.jpg`}
+                                src={`/images/lecture/thumb_Java.jpg`}
                                 onClick={handleClick}></img>
 
                             <div
@@ -311,7 +311,7 @@ function CardList({ colSize = 12 }: ListItem) {
                             <img
                                 style={{ width: '100%', cursor: 'pointer' }}
                                 alt="..."
-                                src={`${process.env.PUBLIC_URL}/images/lecture/thumb_Java.jpg`}
+                                src={`/images/lecture/thumb_Java.jpg`}
                                 onClick={handleClick}></img>
 
                             <div
@@ -435,7 +435,7 @@ function CardList({ colSize = 12 }: ListItem) {
                             <img
                                 style={{ width: '100%', cursor: 'pointer' }}
                                 alt="..."
-                                src={`${process.env.PUBLIC_URL}/images/lecture/thumb_Java.jpg`}
+                                src={`/images/lecture/thumb_Java.jpg`}
                                 onClick={handleClick}></img>
 
                             <div

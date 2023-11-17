@@ -7,27 +7,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class EmailTests {
 
-    public char toAsciiCode(double num) {
-        System.out.println("input number.. : " + (int) num + ",,,, " + num);
+    public char toAsciiCode(int num) {
         if(num < 10) return (char)(num+48);
         if(num > 35) return (char)(num+61);
-        return (char)(num+55);
+        return (char)(num+55); // 10~ 35
     }
 
     // 인증코드 생성하기
-    public String createAuthenticationCode() {
+    public String createAuthCode() {
         String authCode = "";
         for(int i=0; i<8; i++) {
-            authCode += toAsciiCode((Math.random()*62));
-            System.out.println(" - step " + i+1 + " : " + authCode);
+            authCode += toAsciiCode((int)(Math.random()*62));
         }
-
         return authCode;
     }
 
     @Test
     public void Test() {
-        String authCode = createAuthenticationCode();
+        String authCode = createAuthCode();
         System.out.println("authCode : " + authCode);
     }
 }

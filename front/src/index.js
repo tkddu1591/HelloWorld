@@ -29,6 +29,7 @@ import App from './App.js';
 import store from './store';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
+import ScrollToTop from "./components/ScrollToTop";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -36,9 +37,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
    <React.StrictMode>
       <Provider store={store}>
-         {/*<BrowserRouter basename='/Html/HelloWorld'>*/}
+         {/*<BrowserRouter basename='/User/java3/IdeaProjects/HelloWorld/back/src/main/resources/templates'>*/}
          <BrowserRouter>
-            {/*<ScrollToTop/>*/}
+            <ScrollToTop/>
             <App />
          </BrowserRouter>
       </Provider>

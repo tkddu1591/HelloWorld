@@ -23,7 +23,7 @@ function ListList() {
                                 borderRadius: '10px',
                             }}
                             alt="..."
-                            src={`${process.env.PUBLIC_URL}/images/lecture/thumb_Java.jpg`}
+                            src={`/images/lecture/thumb_Java.jpg`}
                             onClick={handleClick}></img>
                     </Col>
                     <Col lg={8} md={8} style={{ position: 'relative' }}>

@@ -8,8 +8,9 @@ import {
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faAt, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
+import {changeDTO} from "../../../../store/changeDTO";
 
-function InputField({ emailIcon, emailIconColor }) {
+function InputField({ emailIcon, emailIconColor, setInputValue }) {
     const [isFocus, setIsFocus] = useState(false);
     return (
         <>
@@ -22,8 +23,12 @@ function InputField({ emailIcon, emailIconColor }) {
                 <Input
                     placeholder='이메일 인증번호 입력'
                     type='text'
+                    name='emailChk'
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
+                    onChange={(e) => {
+                        changeDTO(setInputValue, 'emailChk', e.target.value);
+                    }}
                 />
             </InputGroup>
         </>

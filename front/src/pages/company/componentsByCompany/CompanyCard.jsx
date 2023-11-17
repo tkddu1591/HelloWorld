@@ -25,7 +25,7 @@ function CompanyCard(props) {
 
                 <div className="cardHeader" style={{width:"20%", height:"auto", margin: "5%", float:"left", textAlign:"center"}}>
                     <img
-                        src={`${process.env.PUBLIC_URL}${image}`}
+                        src={`${image}`}
                     ></img>
                 </div>
 
