@@ -138,7 +138,7 @@ function MyInfo() {
                                         <Col style={{minWidth:'100vh'}} className={'profileContent'}>
                                             <ListTable isMore={true} title={'나의 강의'}></ListTable>
                                             <div style={{display:'flex', justifyContent:'right'}}>
-                                            <Button color={'info'} style={{marginRight:'20px'}} onClick={()=>{navigate('/lecture/write')}}>강의 작성</Button>
+                                            <Button color={'info'} style={{marginRight:'20px'}} onClick={()=>{navigate('/lecture/write/main')}}>강의 작성</Button>
                                             </div>
                                         </Col>
                                     </Row>

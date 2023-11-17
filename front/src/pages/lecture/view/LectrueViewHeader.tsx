@@ -20,7 +20,7 @@ function LectrueViewHeader(){
                 <img
                     style={{borderRadius: '15px'}}
                     alt="..."
-                    src={`${process.env.PUBLIC_URL}/images/lecture/thumb_Java.jpg`}
+                    src={`/images/lecture/thumb_Java.jpg`}
                 ></img>
             </Col>
             <Col lg='3' style={{marginTop: '10px'}}>

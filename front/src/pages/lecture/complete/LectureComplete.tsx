@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import LectureOrderHeader from '../cart/LectureOrderHeader';
 import '../scss/lecture/order/order.scss';
 import { Button, Col, Container, Row, Table } from 'reactstrap';
+import {useNavigate} from "react-router-dom";
 
 function LectureComplete() {
 	let [coupon, setCoupon] = useState({
@@ -23,6 +24,7 @@ function LectureComplete() {
 		placeholder: '쿠폰 선택',
 	});
 
+	let navigate = useNavigate();
 	return (
 		<>
 			<LectureOrderHeader title={'주문완료'}></LectureOrderHeader>
@@ -132,7 +134,7 @@ function LectureComplete() {
 								justifyContent: 'center',
 								marginBottom: '50px',
 							}}>
-							<Button className={'payment'} color={'danger'}>
+							<Button className={'payment'} color={'danger'} onClick={()=>{navigate('/lecture/list')}}>
 								게시판 돌아가기
 							</Button>
 						</div>
