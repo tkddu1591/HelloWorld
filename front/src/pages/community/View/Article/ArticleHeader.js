@@ -3,12 +3,27 @@ import '../../../../css/community/view.css';
 
 
 
-function ArticleHeader(){
+function ArticleHeader({view}){
+    const date = new Date(view.regDate);
+
+
+    const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false, // 오후/오전 표시 제거
+    }
+
+    // 형식화된 날짜 및 시간 문자열 생성
+    const formattedDate = date.toLocaleDateString('ko-KR', options).replace(/\//g, '.').replace(',', '');
+
     return (<>
         <div className="article_header">
             <div className="ArticleTitle">
                 <a href={'#'} className="link_board">
-                    자유게시판
+                    {view.boardName}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -23,14 +38,14 @@ function ArticleHeader(){
                     </svg>
                 </a>
                 <div className="title_area">
-                    <h3 className="title_text"> 글 제목000000000000000000 </h3>
+                    <h3 className="title_text"> {view.title} </h3>
                 </div>
             </div>
             <div className="WriterInfo">
                 <div className="thumb_area">
                     <a href="#" className="thumb">
                         <img
-                            src={`${process.env.PUBLIC_URL}/images/community/testimg.jpg`}
+                            src={view.profileImg}
                             alt="프로필 사진"
                             width="36"
                             height="36"
@@ -45,7 +60,7 @@ function ArticleHeader(){
                         <div className="nick_box">
                             <button id="writerInfokws4514" className="nickname">
                                 {' '}
-                                닉네임임
+                                {view.nick}
                             </button>
                             {/*빈공간*/}
                         </div>
@@ -83,8 +98,8 @@ function ArticleHeader(){
                         </a>
                     </div>
                     <div className="article_info">
-                        <span className="date">2023.11.06. 22:32</span>
-                        <span className="count">조회 929</span>
+                        <span className="date">{formattedDate}</span>
+                        <span className="count">조회 {view.hit}</span>
                     </div>
                 </div>
             </div>
@@ -101,7 +116,7 @@ function ArticleHeader(){
                         <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
                     </svg>
                     댓글
-                    <strong className="num">5</strong>
+                    <strong className="num">{view.comAmount}</strong>
                 </a>
                 <a href="#" role="button" className="button_url">
                     URL 복사

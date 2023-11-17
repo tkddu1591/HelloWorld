@@ -3,7 +3,7 @@ import '../../../../css/community/view.css';
 import UserPopup from "../../../../components/Lecture/UserPopup";
 
 
-function CommentList({popup,setPopup}){
+function CommentList({popup,setPopup,commentsList}){
     let popupSetting = {
         top: 20,
         right:-60,
@@ -27,80 +27,105 @@ function CommentList({popup,setPopup}){
 
     return (<>
         <ul className={'comment_list'}>
-            <li id={'97564257'} className="CommentItem">
-                <div className="comment_area">
-                    <a href={'#'} className={'comment_thumb'}>
-                        <img
-                            src={`${process.env.PUBLIC_URL}/images/community/testimg.jpg`}
-                            alt={'프로필 사진'}
-                            style={{ width: '36px', height: '36px' }}
-                        />
-                    </a>
-                    <div className={'comment_box'}>
-                        <div data-v-cb91c2e8="" className="comment_nick_box">
-                            <div data-v-cb91c2e8="" className="comment_nick_info">
-                                <a
-                                    data-v-cb91c2e8=""
-                                    id="cih97564257"
-                                    href="#"
-                                    role="button"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    className="comment_nickname">
-                                    {' '}
-                                    거루캥{' '}
-                                </a>
-                                {/*<!---->*/}
+
+            {commentsList.map(function(a, i){
+
+                const date = new Date(a.regDate);
+
+                if (isNaN(date)) {
+                    throw new Error('Invalid Date');
+                }
+                const options = {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false, // 오후/오전 표시 제거
+                }
+
+                // 형식화된 날짜 및 시간 문자열 생성
+                const formattedDate = date.toLocaleDateString('ko-KR', options).replace(/\//g, '.').replace(',', '');
+
+                return (<>
+                    <li id={'97564257'} className="CommentItem">
+                        <div className="comment_area">
+                            <a href={'#'} className={'comment_thumb'}>
+                                <img
+                                    src={a.profileImg}
+                                    alt={'프로필 사진'}
+                                    style={{ width: '36px', height: '36px' }}
+                                />
+                            </a>
+                            <div className={'comment_box'}>
+                                <div data-v-cb91c2e8="" className="comment_nick_box">
+                                    <div data-v-cb91c2e8="" className="comment_nick_info">
+                                        <a
+                                            data-v-cb91c2e8=""
+                                            id="cih97564257"
+                                            href="#"
+                                            role="button"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                            className="comment_nickname">
+                                            {' '}
+                                            {a.nick}{' '}
+                                        </a>
+                                        {/*<!---->*/}
+                                    </div>
+                                    <i
+                                        data-v-83d84c4a=""
+                                        data-v-cb91c2e8=""
+                                        className="LevelIcon icon_level"
+                                        style={{
+                                            backgroundImage:
+                                                'url(&quot;https://ca-fe.pstatic.net/web-pc/static/img/sprite_levelicon_9dbde2.svg#1_110-usage&quot;)',
+                                        }}></i>
+                                    {/*<!---->*/}
+                                </div>
+                                <div className="comment_text_box">
+                                    <p className="comment_text_view">
+                                        {/*<!---->*/}
+                                        <span className="text_comment">{a.content}</span>
+                                    </p>
+                                    {/*<!---->*/}
+                                </div>
+                                <div className="comment_info_box">
+                                    <span className="comment_info_date">{formattedDate}</span>
+                                    <a href="#" role="button" className="comment_info_button">
+                                        {' '}
+                                        답글쓰기{' '}
+                                    </a>
+                                </div>
+                                <div data-v-0330f652="" className="comment_tool">
+                                    <a
+                                        data-v-0330f652=""
+                                        id="commentItem97566624"
+                                        role="button"
+                                        title="더보기"
+                                        className="comment_tool_button"
+                                        onClick={() => {
+                                            setPopup('user');}}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            className="bi bi-three-dots-vertical"
+                                            viewBox="0 0 16 16">
+                                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                        </svg>
+                                        {popup === 'user' && <UserPopup popupSetting={popupSetting}></UserPopup>}
+                                    </a>
+                                    {/*<!---->*/}
+                                </div>
                             </div>
-                            <i
-                                data-v-83d84c4a=""
-                                data-v-cb91c2e8=""
-                                className="LevelIcon icon_level"
-                                style={{
-                                    backgroundImage:
-                                        'url(&quot;https://ca-fe.pstatic.net/web-pc/static/img/sprite_levelicon_9dbde2.svg#1_110-usage&quot;)',
-                                }}></i>
-                            {/*<!---->*/}
                         </div>
-                        <div className="comment_text_box">
-                            <p className="comment_text_view">
-                                {/*<!---->*/}
-                                <span className="text_comment">사무실에서 간접 여행한 기분이 드네요~!</span>
-                            </p>
-                            {/*<!---->*/}
-                        </div>
-                        <div className="comment_info_box">
-                            <span className="comment_info_date">2023.11.07. 23:36</span>
-                            <a href="#" role="button" className="comment_info_button">
-                                {' '}
-                                답글쓰기{' '}
-                            </a>
-                        </div>
-                        <div data-v-0330f652="" className="comment_tool">
-                            <a
-                                data-v-0330f652=""
-                                id="commentItem97566624"
-                                role="button"
-                                title="더보기"
-                                className="comment_tool_button"
-                                onClick={() => {
-                                    setPopup('user');}}>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    fill="currentColor"
-                                    className="bi bi-three-dots-vertical"
-                                    viewBox="0 0 16 16">
-                                    <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                                </svg>
-                                {popup === 'user' && <UserPopup popupSetting={popupSetting}></UserPopup>}
-                            </a>
-                            {/*<!---->*/}
-                        </div>
-                    </div>
-                </div>
-            </li>
+                    </li>
+                </>)
+            })}
+
+
             <li id="97566728" className="CommentItem CommentItem--reply">
                 <div className="comment_area">
                     <a href="#" className="comment_thumb">

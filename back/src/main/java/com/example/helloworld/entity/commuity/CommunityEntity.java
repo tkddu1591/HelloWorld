@@ -3,6 +3,7 @@ package com.example.helloworld.entity.commuity;
 import com.example.helloworld.entity.member.MemberEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jdk.jfr.Category;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -20,16 +21,15 @@ public class CommunityEntity {
     private int communityNo;
     private String title;
     private String content;
-    private int cateNo;
+    @ManyToOne
+    @JoinColumn(name = "cateNo")
+    private CommunityCategoryEntity cate;
     @ManyToOne
     @JoinColumn(name = "studyNo")
     private CommunityStudyEntity study;
     @ManyToOne
     @JoinColumn(name = "fileNo")
     private CommunityFileEntity file;
-    @ManyToOne
-    @JoinColumn(name = "hasTagNo")
-    private CommunityHasTagEntity hasTag;
     @ManyToOne
     @JoinColumn(name = "uid")
     private MemberEntity member;

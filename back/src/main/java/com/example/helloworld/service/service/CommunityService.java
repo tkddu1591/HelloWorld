@@ -2,11 +2,22 @@ package com.example.helloworld.service.service;
 
 import com.example.helloworld.dto.PageRequestDTO;
 import com.example.helloworld.dto.PageResponseDTO;
+import com.example.helloworld.dto.commuity.CommunityCommentDTO;
 import com.example.helloworld.dto.commuity.CommunityDTO;
+import com.example.helloworld.dto.commuity.CommunityHasTagDTO;
+import com.example.helloworld.entity.commuity.CommunityCategoryEntity;
+import com.example.helloworld.entity.commuity.CommunityCommentEntity;
 import com.example.helloworld.entity.commuity.CommunityEntity;
+import com.example.helloworld.entity.commuity.CommunityHasTagEntity;
 import com.example.helloworld.mapper.commuity.CommunityMapper;
+import com.example.helloworld.repository.commuity.CommunityCategoryRepository;
+import com.example.helloworld.repository.commuity.CommunityCommentRepository;
+import com.example.helloworld.repository.commuity.CommunityHasTagRepository;
 import com.example.helloworld.repository.commuity.CommunityRepository;
+import com.example.helloworld.transform.commuity.CommunityCommentTransform;
+import com.example.helloworld.transform.commuity.CommunityHasTagTransform;
 import com.example.helloworld.transform.commuity.CommunityTransform;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,13 +27,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Log4j2
+@RequiredArgsConstructor
 @Service
 public class CommunityService {
 
-    @Autowired
-    private CommunityRepository communityRepository;
-    @Autowired
-    private CommunityTransform communityTransform;
+    private final CommunityRepository communityRepository;
+    private final CommunityCommentRepository communityCommentRepository;
+    private final CommunityCategoryRepository categoryRepository;
+    private final CommunityHasTagRepository hasTagRepository;
+    private final CommunityTransform communityTransform;
+    private final CommunityCommentTransform communityCommentTransform;
+    private final CommunityHasTagTransform hasTagTransform;
 
     Pageable pageable;
 
@@ -36,15 +51,18 @@ public class CommunityService {
         //Order By 정렬할 컬럼명 Desc
         //getPageableDesc 내림차순 getPageableAsc 오름차순 ("정렬할 컬럼명")
         //pg , size 가공해서 같이 ordet by랑 섞어줌
-        Pageable pageable = pageRequestDTO.getPageableDesc("communityNo");
+        Pageable pageable = pageRequestDTO.getPageableDesc(pageRequestDTO.getSort());
+
+        CommunityCategoryEntity categoryEntity = categoryRepository.findById(pageRequestDTO.getCateNo()).orElse(null);
 
 
         //Page
         Page<CommunityEntity> result = null;
         //dtoList
         //findBy머시기 by뒤가 where절이라고 보면 됨니다.
-        if (pageRequestDTO.getCateNo() != 0)
-            result = communityRepository.findByCateNo(pageRequestDTO.getCateNo(), pageable);
+        if (pageRequestDTO.getCateNo() != 0) {
+            result = communityRepository.findByCate_CateNo(pageRequestDTO.getCateNo(), pageable);
+        }
 
 
         // content를 dto로 변환 해주는 역할
@@ -62,4 +80,46 @@ public class CommunityService {
                 .total(totalElement)
                 .build();
     }
+
+    public PageResponseDTO findByCommunityNo(int communityNo, PageRequestDTO pageRequestDTO) {
+        pageRequestDTO.setSize(20);
+        Pageable pageable = pageRequestDTO.getPageableAsc("commentNo");
+
+        log.info("view Service...1");
+        CommunityEntity viewEntity = communityRepository.findByCommunityNo(communityNo);
+        log.info("view Service...1.1");
+        Page<CommunityCommentEntity> commentEntity = communityCommentRepository.findByCommunity_CommunityNo(communityNo, pageable);
+        log.info("view : " + viewEntity);
+        List<CommunityHasTagEntity> hasTagEntity = hasTagRepository.findByCommunity_CommunityNo(communityNo);
+        log.info("view Service...2");
+
+        //Page
+        //dtoList
+        //findBy머시기 by뒤가 where절이라고 보면 됨니다.
+
+        // content를 dto로 변환 해주는 역할
+        List<CommunityCommentDTO> commentDTOList = commentEntity.getContent()
+                .stream()
+                .map(communityCommentTransform::toDTO)
+                .toList();
+        log.info("view Service...3");
+        CommunityDTO viewDTO = communityTransform.toDTO(viewEntity);
+        log.info("view Service...4");
+        List<CommunityHasTagDTO> hasTagDTO = hasTagEntity.stream().map(hasTagTransform::toDTO).toList();
+        log.info(hasTagDTO.toString());
+
+        int totalElement = (int) commentEntity.getTotalElements();
+        log.info("view Service...5");
+        return PageResponseDTO.builder()
+                .pageRequestDTO(pageRequestDTO)
+                .commentsList(commentDTOList)
+                .view(viewDTO)
+                .hasTagsList(hasTagDTO)
+                .total(totalElement)
+                .build();
+    }
+
+    /*public PageResponseDTO findCommentsByCommunityNo(){
+
+    }*/
 }

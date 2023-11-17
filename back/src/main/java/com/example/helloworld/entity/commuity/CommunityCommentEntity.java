@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.lang.Nullable;
 
+import java.time.LocalDateTime;
+
 @Getter
 @ToString
 @AllArgsConstructor
@@ -23,6 +25,8 @@ public class CommunityCommentEntity {
     @JoinColumn(name = "memberUid")
     private MemberEntity member;
     @Nullable
-    private int parentNo;
+    private Integer parentNo;
     private String content;
+    private LocalDateTime regDate;
+    private int isDeleted;
 }
