@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../css/community/view.css';
 
-function ReplyBox(){
+function ReplyBox({view}){
     return(<>
         <div className={'ReplyBox'}>
             <div className={'box_left'}>
@@ -50,7 +50,7 @@ function ReplyBox(){
 														</svg>
 													</span>
                     댓글
-                    <strong className={'num'}>18</strong>
+                    <strong className={'num'}>{view.comAmount}</strong>
                 </a>
             </div>
             <div className={'box_right'}>

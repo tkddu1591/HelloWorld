@@ -1,7 +1,8 @@
 package com.example.helloworld.dto;
 
+import com.example.helloworld.dto.commuity.CommunityCommentDTO;
 import com.example.helloworld.dto.commuity.CommunityDTO;
-import com.example.helloworld.entity.commuity.CommunityEntity;
+import com.example.helloworld.dto.commuity.CommunityHasTagDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +12,9 @@ import java.util.List;
 public class PageResponseDTO {
 
     private List<CommunityDTO> communityList;
+    private CommunityDTO view;
+    private List<CommunityCommentDTO> commentsList;
+    private List<CommunityHasTagDTO> hasTagsList;
 
 
     private int pg;
@@ -26,10 +30,16 @@ public class PageResponseDTO {
     @Builder
     public PageResponseDTO(PageRequestDTO pageRequestDTO,
                            List<CommunityDTO> communityList,
+                           CommunityDTO view,
+                           List<CommunityCommentDTO> commentsList,
+                           List<CommunityHasTagDTO> hasTagsList,
                            int total) {
         this.pg = pageRequestDTO.getPg();
         this.size = pageRequestDTO.getSize();
         this.communityList = communityList;
+        this.view = view;
+        this.commentsList = commentsList;
+        this.hasTagsList = hasTagsList;
 
         this.end = (int) (Math.ceil(this.pg / (float)pageSize)) * pageSize;
         this.start = this.end - pageSize+1;

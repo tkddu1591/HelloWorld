@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommunityRepository extends JpaRepository<CommunityEntity, Integer> {
 
-    public Page<CommunityEntity> findByCateNo(int i, Pageable pageable);
+    public CommunityEntity findByCommunityNo(int i);
+
+    public Page<CommunityEntity> findByCate_CateNo(int cateNo, Pageable pageable);
 
 }

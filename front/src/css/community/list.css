@@ -147,7 +147,7 @@ div {
     word-break: break-word;
 }
 
-.article .tit_area .txt {
+.article  .txt {
     display: block;
     max-height: 44px;
     margin-top: 6px;

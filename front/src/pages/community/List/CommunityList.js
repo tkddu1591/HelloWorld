@@ -10,6 +10,7 @@ import ContentCard from "./ContentCard";
 import LecturePagination from "../../../components/Lecture/LecturePagination";
 import {API_BASE_URL} from "../../../App";
 import axios from "axios";
+import {changeDTO} from "../../../store/changeDTO";
 
 const options = [
    { value: 'java', label: 'Java' },
@@ -44,8 +45,8 @@ function CommunityList() {
 
    const newSearch = searchParams.get('search');
    const [search, setSearch] = useState(newSearch);
-   const newType = searchParams.get('newType');
-   const [type, setType] = useState(newType);
+   const newSort = searchParams.get('sort');
+   const [sort, setSort] = useState(newSort);
    const [num1, setNum1] = useState(0);
    const [num2, setNum2] = useState(0);
    const [detailSearch, setDetailSearch] = useState(newSearch);
@@ -56,14 +57,14 @@ function CommunityList() {
    });
 
    let [pageRequestDTO, setPageRequestDTO] = useState({
-      pg: 1, size: 10, cateNo: newCate
+      pg: 1, size: 10, cateNo: newCate, sort: "communityNo"
    })
    let [pageResponseDTO, setPageResponseDTO] = useState({
-      cateNo: parseInt(cateNo), communityList: [], end: 10, start: 1, next: true, prev: true, total: 10, size: 10
+      cateNo: parseInt(cateNo), communityList: [], end: 10, start: 1, next: true, prev: true, total: 10, size: 10, sort: "communityNo"
    });
    const [selectedOption, setSelectedOption] = useState(null);
    const [selectedSearch, setSelectedSearch] = useState(null);
-   const [listLoading, setListLoading] = useState({ loading: 'scroll', view: 'card' });
+   const [listLoading, setListLoading] = useState({ loading: 'paging', view: 'list' });
    const [clientWidth, setClientWidth] = useState(document.body.clientWidth);
    useEffect(() => {
       const windowResize = () => {
@@ -77,25 +78,31 @@ function CommunityList() {
       };
    }, []);
 
+   useEffect(()=>{
+      changeDTO(setPageRequestDTO, 'sort', sort)
+   },[sort])
 
    // LIST 불러 오기
    useEffect(() => {
+      console.log(sort);
+
       axios.get(`${API_BASE_URL}/community/list`,{
          params: pageRequestDTO
       })
           .then(res=>{
-             console.log('GET success'+res.data);
-             console.log('cateNo : '+cateNo);
              setPageResponseDTO(res.data);
-             console.log(pageResponseDTO);
           })
           .catch(err=>{
              console.log(err);
           })
    }, [pageRequestDTO]);
 
-
+   useEffect(() => {
+      console.log(pageResponseDTO)
+      console.log(pageRequestDTO)
+   }, [pageResponseDTO]);
    let navigate = useNavigate();
+   if(pageResponseDTO.communityList.length!==0)
    return (<>
       <Container style={{ userSelect: 'none' }}>
          <div className='list'>
@@ -104,9 +111,9 @@ function CommunityList() {
                        selectedOption={selectedOption}
                        setSelectedOption={setSelectedOption}
                        options={options}></SearchBar>
-            <ViewOption listLoading={listLoading} setListLoading={setListLoading} navigate={navigate}></ViewOption>
-            {listLoading && (clientWidth < 992 || listLoading.view === 'card') && <ContentCard></ContentCard>}
-            {listLoading && clientWidth >= 992 && listLoading.view === 'list' && <ContentList></ContentList>}
+            <ViewOption sort={sort} setSort={setSort} listLoading={listLoading} setListLoading={setListLoading} navigate={navigate}></ViewOption>
+            {listLoading && (clientWidth < 992 || listLoading.view === 'card') && <ContentCard data={pageResponseDTO}></ContentCard>}
+            {listLoading && clientWidth >= 992 && listLoading.view === 'list' && <ContentList data={pageResponseDTO}></ContentList>}
             {listLoading && listLoading.loading === 'paging' && <LecturePagination></LecturePagination>}
          </div>
       </Container>

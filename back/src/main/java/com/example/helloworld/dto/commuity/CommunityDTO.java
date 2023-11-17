@@ -16,11 +16,10 @@ public class CommunityDTO {
     private int cateNo;
     private int studyNo;
     private int fileNo;
-    private int hasTagNo;
     private LocalDateTime regDate;
     private String regIp;
     private boolean isDelete;
-    private int like;
+    private int likes;
     private int dislike;
     private int comAmount;
     private String thumb;
@@ -29,4 +28,6 @@ public class CommunityDTO {
 
     //추가정보
     private String nick;
+    private String profileImg;
+    private String boardName;
 }

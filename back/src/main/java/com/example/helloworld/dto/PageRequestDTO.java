@@ -20,6 +20,8 @@ public class PageRequestDTO {
     private int size = 10;
     @Builder.Default
     private int cateNo = 0;
+    @Builder.Default
+    private String sort = "communityNo";
 
     public Pageable getPageableDesc(String sort){
         return  PageRequest.of(this.pg - 1, this.size, Sort.by(sort).descending());

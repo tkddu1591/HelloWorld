@@ -9,15 +9,19 @@ import org.mapstruct.Mapping;
 public interface CommunityTransform {
     @Mapping(source = "study.studyNo", target = "studyNo")
     @Mapping(source = "file.fileNo", target = "fileNo")
-    @Mapping(source = "hasTag.hasTagNo", target = "hasTagNo")
+    @Mapping(source = "cate.cateNo", target = "cateNo")
     @Mapping(source = "member.uid", target = "uid")
     @Mapping(source = "member.nick", target = "nick")
+    @Mapping(source = "member.profileImg", target = "profileImg")
+    @Mapping(source = "cate.boardName", target = "boardName")
     CommunityDTO toDTO(CommunityEntity community);
 
     @Mapping(target = "study.studyNo", source = "studyNo")
     @Mapping(target = "file.fileNo", source = "fileNo")
-    @Mapping(target = "hasTag.hasTagNo", source = "hasTagNo")
+    @Mapping(target = "cate.cateNo", source = "cateNo")
     @Mapping(target= "member.uid", source = "uid")
     @Mapping(target= "member.nick", source = "nick")
+    @Mapping(target = "member.profileImg", source = "profileImg")
+    @Mapping(target = "cate.boardName", source = "boardName")
     CommunityEntity toEntity(CommunityDTO communityDTO);
 }

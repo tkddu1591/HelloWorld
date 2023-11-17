@@ -3,20 +3,20 @@ import '../../../../css/community/view.css';
 
 
 
-function ArticleBottomBtns(){
+function ArticleBottomBtns({view}){
     return (<>
         <div className="ArticleBottomBtns">
             <div className="ArticleWriterProfile" style={{ marginTop: '36px', marginBottom: '36px' }}>
                 <a href="#" className="more_area">
 													<span className="thumb">
 														<img
-                                                            src={`${process.env.PUBLIC_URL}/images/community/testimg.jpg`}
+                                                            src={view.profileImg}
                                                             alt={'프로필'}
                                                             style={{ width: '36px', height: '36px' }}
                                                         />
 													</span>
                     <span className={'box'}>
-														<strong className={'user'}>닉네임임</strong>
+														<strong className={'user'}>{view.nick}</strong>
 														님의 게시글 더보기
 														<svg
                                                             xmlns="http://www.w3.org/2000/svg"

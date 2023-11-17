@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../../css/community/view.css';
 import { useNavigate } from 'react-router-dom';
 
-function ArticleTopBtns (){
+function ArticleTopBtns ({view}){
     let navigate = useNavigate();
     return(<>
         <div className="ArticleTopBtns">
@@ -54,7 +54,7 @@ function ArticleTopBtns (){
                     className="BaseButton BaseButton--skinGray size_default"
                     href={'#'}
                     onClick={() => {
-                        navigate('/community/list');
+                        navigate(`/community/list?cateNo=${view.cateNo}`);
                     }}>
                     {/**/}
                     <span className={'BaseButton_txt'}>목록</span>
