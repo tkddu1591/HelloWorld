@@ -47,12 +47,16 @@ public class CommunityController {
     }
 
 
-    /*@GetMapping("/comments")
-    public List<CommunityCommentDTO> comments(PageRequestDTO pageRequest){
+    @GetMapping("/comment")
+    public PageResponseDTO comments(@ModelAttribute PageRequestDTO pageRequest, int communityNo, String commentType){
 
-        PageRequestDTO result = communityService.
+        log.info("Comments");
+        log.info(communityNo);
 
-    }*/
+        PageResponseDTO result = communityService.commentRefresh(pageRequest, communityNo, commentType);
+
+        return result;
+    }
 
 
 }

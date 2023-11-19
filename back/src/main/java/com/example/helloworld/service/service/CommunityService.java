@@ -138,4 +138,32 @@ public class CommunityService {
     /*public PageResponseDTO findCommentsByCommunityNo(){
 
     }*/
+
+    public PageResponseDTO commentRefresh(PageRequestDTO pageRequestDTO, int communityNo, String commentType){
+
+        Pageable pageable = null;
+        if(commentType.equals("Desc")){
+            pageable = pageRequestDTO.getPageableDesc("commentNo");
+        }else if(commentType.equals("Asc")){
+            pageable = pageRequestDTO.getPageableAsc("commentNo");
+        }
+
+        Page<CommunityCommentEntity> commentEntity = communityCommentRepository.findByCommunity_CommunityNo(communityNo, pageable);
+
+        // content를 dto로 변환 해주는 역할
+        List<CommunityCommentDTO> commentDTOList = commentEntity.getContent()
+                .stream()
+                .map(communityCommentTransform::toDTO)
+                .toList();
+
+        int totalElement = (int) commentEntity.getTotalElements();
+
+
+
+        return PageResponseDTO.builder()
+                .pageRequestDTO(pageRequestDTO)
+                .commentsList(commentDTOList)
+                .total(totalElement)
+                .build();
+    }
 }

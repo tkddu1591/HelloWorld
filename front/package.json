@@ -40,7 +40,7 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "compile-sass": "sass src/assets/scss/now-ui-kit.scss src/assets/css/now-ui-kit.css",
     "minify-sass": "sass src/assets/scss/now-ui-kit.scss src/assets/css/now-ui-kit.min.css --style compressed",
-    "install": "npm install npm install @tanstack/react-query npm install react-router-dom@6 npm install axios npm install @reduxjs/toolkit react-redux npm install react-daum-postcode npm i react-hook-form npm install env-cmd npm i codemirror @codemirror/lang-javascript npm install react-select npm install react-bootstrap npm install @fortawesome/react-fontawesome npm install @fortawesome/fontawesome-svg-core npm i @fortawesome/free-brands-svg-icons npm i @fortawesome/free-solid-svg-icons npm i @fortawesome/free-regular-svg-icons npm install react-player npm i --save-dev prettier npm install -D eslint npm install react-quill install use-long-press npm i firebase npm install quill-image-resize npm i quill-image-drop-module npm install cross-env --save-dev"
+    "install": "npm install npm install @tanstack/react-query npm install react-router-dom@6 npm install axios npm install @reduxjs/toolkit react-redux npm install react-daum-postcode npm i react-hook-form npm install env-cmd npm i codemirror @codemirror/lang-javascript npm install react-select npm install react-bootstrap npm install @fortawesome/react-fontawesome npm install @fortawesome/fontawesome-svg-core npm i @fortawesome/free-brands-svg-icons npm i @fortawesome/free-solid-svg-icons npm i @fortawesome/free-regular-svg-icons npm install react-player npm i --save-dev prettier npm install -D eslint npm install react-quill install use-long-press npm i firebase npm install quill-image-resize npm i quill-image-drop-module npm install cross-env --save-dev npm i --save react-drag-drop-files"
   },
   "eslintConfig": {
     "extends": [
@@ -88,7 +88,7 @@
     "codemirror": "^6.0.1",
     "cross-env": "^7.0.3",
     "env-cmd": "^10.1.0",
-    "eslint": "^8.53.0",
+    "eslint": "^8.54.0",
     "firebase": "^10.6.0",
     "i": "^0.3.7",
     "install": "^0.13.0",
@@ -98,6 +98,7 @@
     "quill-image-resize": "^3.0.9",
     "react-bootstrap": "^2.9.1",
     "react-daum-postcode": "^3.1.3",
+    "react-drag-drop-files": "^2.3.10",
     "react-hook-form": "^7.48.2",
     "react-player": "^2.13.0",
     "react-quill": "^2.0.0",

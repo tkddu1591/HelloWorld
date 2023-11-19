@@ -1,7 +1,9 @@
 import React from 'react';
 import '../../../../css/community/view.css';
+import axios from "axios";
+import {API_BASE_URL} from "../../../../App";
 
-function CommentOption({buttonStatus, setButtonStatus, setCommentType}) {
+function CommentOption({buttonStatus, setButtonStatus, setCommentType, setCommentsList, communityNo, commentType}) {
 
     const btnClick = (isOldestTab) => {
         if (isOldestTab !== buttonStatus) {
@@ -10,6 +12,23 @@ function CommentOption({buttonStatus, setButtonStatus, setCommentType}) {
             setCommentType(isOldestTab ? 'Asc': 'Desc');
         }
     };
+
+    const commentRefresh = () => {
+        console.log('communityNo : '+communityNo);
+        axios.get(`${API_BASE_URL}/community/comment`,{
+        params: {
+            communityNo : communityNo,
+            commentType : commentType
+        }
+        })
+            .then(res => {
+                console.log('refresh success');
+                setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+    }
 
     return (
         <div className={'comment_option'}>
@@ -41,7 +60,9 @@ function CommentOption({buttonStatus, setButtonStatus, setCommentType}) {
                         </a>
                     </li>
                 </ul>
-                <button type="button" className="comment_refresh_button">
+                <button type="button" className="comment_refresh_button" onClick={()=>{
+                    commentRefresh();
+                }}>
                     <span className="blind">새로고침</span>
                 </button>
             </div>

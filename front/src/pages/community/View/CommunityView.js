@@ -33,6 +33,7 @@ function CommunityView() {
     let [commentsList, setCommentsList] = useState([]);
     let [tagsList, setTagsList] = useState([]);
 
+    // VIEW GET
     useEffect(() => {
         axios.get(`${API_BASE_URL}/community/view`,{
             params: {communityNo: communityNo, cateNo: cateNo}
@@ -58,6 +59,9 @@ function CommunityView() {
     useEffect(()=>{
         console.log(tagsList);
     },[tagsList]);
+
+
+    // COMMENT SORTING
     useEffect(()=>{
         console.log(commentType);
         // commentsList 배열 복사
@@ -100,7 +104,7 @@ function CommunityView() {
                                             <ArticleBottomBtns view={view}></ArticleBottomBtns>
                                             <ReplyBox view={view}></ReplyBox>
                                             <div className={'CommentBox'}>
-                                                <CommentOption buttonStatus={buttonStatus} setButtonStatus={setButtonStatus} setCommentType={setCommentType}></CommentOption>
+                                                <CommentOption commentType={commentType} communityNo={communityNo} setCommentsList={setCommentsList} buttonStatus={buttonStatus} setButtonStatus={setButtonStatus} setCommentType={setCommentType}></CommentOption>
                                                 <CommentList popup={popup} setPopup={setPopup} commentsList={commentsList}></CommentList>
                                                 <CommentWriter></CommentWriter>
                                             </div>
