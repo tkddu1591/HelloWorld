@@ -38,4 +38,6 @@ public class MemberDTO {
     private String etc3;
     private String etc4;
     private String etc5;
+
+    private String passChk;
 }

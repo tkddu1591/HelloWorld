@@ -3,6 +3,7 @@ package com.example.helloworld.service.member;
 import com.example.helloworld.repository.member.MemberRepository;
 import jakarta.mail.*;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpSession;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,6 @@ import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.util.Properties;
 
@@ -24,8 +24,6 @@ public class EmailService {
 
     private final MemberRepository memberRepository;
     private final JavaMailSender javaMailSender;
-    private final SpringTemplateEngine templateEngine;
-    private static String randomCode;
 
     public boolean isEmailUnique(String email) {
         return memberRepository.countByEmail(email) == 0;
@@ -33,7 +31,6 @@ public class EmailService {
 
     // Gmail SMTP 서버 설정
     public Properties initProperties() {
-        log.info("logic 2");
         Properties properties = new Properties();
         properties.put("mail.smtp.host",       "smtp.gmail.com");
         properties.put("mail.smtp.port",       "465");
@@ -49,7 +46,6 @@ public class EmailService {
         return (char)(num+55); // 10~ 35
     }
 
-    // 인증코드 생성하기
     public String createAuthCode() {
         String authCode = "";
         for(int i=0; i<8; i++) {
@@ -59,38 +55,30 @@ public class EmailService {
     }
 
     // 이메일 발송
-    public String sendEmail(EmailData mail) {
+    public String sendEmail(EmailData mail) throws MessagingException {
+        log.info(" - sendEmail > start...");
+        log.info(" - sendEmail > EmailData : " + mail.toString());
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        log.info("EmailData : " + mail.toString());
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+        mimeMessageHelper.setFrom("HelloWorld <tkddu1591@gmail.com>");
+        mimeMessageHelper.setTo(mail.receiver);
+        mimeMessageHelper.setSubject(mail.title);
+        mimeMessageHelper.setText(mail.content, true);
+        javaMailSender.send(mimeMessage);
 
-        try {
-            log.info("sendEmail try...");
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-            mimeMessageHelper.setFrom("HelloWorld <tkddu1591@gmail.com>");
-            mimeMessageHelper.setTo(mail.receiver);
-            mimeMessageHelper.setSubject(mail.title);
-            mimeMessageHelper.setText(mail.content, true);
-            javaMailSender.send(mimeMessage);
-
-        } catch (MailSendException e) {
-            log.error("sendEmail catch...MailSendException : " + e.getMessage());
-            return "유효한 이메일 양식이 아닙니다.";
-
-        } catch (MessagingException e) {
-            log.error("sendEmail catch...MessagingException : " + e.getMessage());
-            return "이메일 전송 오류. 이메일을 확인해주세요.";
-        }
-        log.info("sendEmail end...");
-        return "SUCCESS";
+        log.info(" - sendEmail > end...");
+        return mail.authCode;
     }
 
     // 이메일 인증용 메서드.
-    public String sendAuthEmail(String emailReceiver) {
+    public String sendAuthEmail(String emailReceiver) throws MessagingException {
         String authCode = createAuthCode();
+        log.info(" - sendAuthEmail > authCode : " + authCode);
         EmailData mail = EmailData.builder()
                 .title(EmailFormat.SIGNUP_TITLE.getMessage())
                 .content(EmailFormat.SIGNUP_CONTENT.getMessage() + authCode + EmailFormat.CLOSE.getMessage())
                 .receiver(emailReceiver)
+                .authCode(authCode)
                 .build();
 
         return sendEmail(mail);
@@ -130,7 +118,6 @@ public class EmailService {
     @ToString
     @Builder
     public static class EmailData {
-
         @Value("${spring.mail.username}")
         private String sender;
         @Builder.Default
@@ -138,5 +125,7 @@ public class EmailService {
         private String title;
         private String content;
         private String receiver;
+
+        private String authCode;
     }
 }
