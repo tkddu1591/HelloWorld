@@ -19,6 +19,5 @@ public class LecturePartEntity {
     @ManyToOne
     @JoinColumn(name = "lectureNo")
     private LectureEntity lecture;
-    private int orderNo;
     private String title;
 }

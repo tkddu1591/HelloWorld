@@ -22,7 +22,6 @@ public class LectureContentEntity {
     @ManyToOne
     @JoinColumn(name = "lectureNo")
     private LectureEntity lecture;
-    private int orderNo;
     private String content;
 }
 

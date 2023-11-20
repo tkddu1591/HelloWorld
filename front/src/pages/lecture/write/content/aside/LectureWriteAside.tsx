@@ -3,25 +3,26 @@ import LectureWriteAsideHeader from './LectureWriteAsideHeader';
 import LectureWriteAsideTable from './LectureWriteAsideTable';
 import LectureWriteAsideFooter from './LectureWriteAsideFooter';
 
-function LectureWriteAside() {
+function LectureWriteAside({lectureNo}) {
     let [aside, setAside] = useState(false);
-    let [partNum, setPartNum] = useState<{ orderNo: number, title: string }[]>([])
-    let [contentNum, setContentNum] = useState<{ orderNo: number, title: string }[]>([])
+    let [part, setPart] = useState<{ orderNo: number, title: string }[]>([])
+    const updateTitle = (index, title, set) => {
+        // orderNo가 1인 객체를 찾아 해당 객체를 복사한 후 title을 수정합니다.
+        set(prevData => {
+            return prevData.map(item =>
+                item.orderNo === index ? {...item, title: title} : item
+            );
+        });
+    };
+    const deleteByPart = (item) => {
+        setPart((oldValues) => {
+            return oldValues.filter((value) => {
+                return value !== item
+            })
+        })
+    }
 
-    const deleteByContentNum = (num: number) => {
-        setContentNum((oldValues) => {
-            return oldValues.filter((value) => {
-                return value.orderNo !== num
-            })
-        })
-    }
-    const deleteByPartNum = (num: number) => {
-        setPartNum((oldValues) => {
-            return oldValues.filter((value) => {
-                return value.orderNo !== num
-            })
-        })
-    }
+
     return (<div
             className={'aside'}
             style={{
@@ -33,16 +34,15 @@ function LectureWriteAside() {
                 translate:          aside ? '0' : '-350px',
                 transitionDuration: '0.5s',
             }}>
-            <LectureWriteAsideHeader partNum={partNum} setPartNum={setPartNum} aside={aside}
+            <LectureWriteAsideHeader partNum={part} setPartNum={setPart} aside={aside}
                                      setAside={setAside}></LectureWriteAsideHeader>
 
 
             <div style={{height: 'calc(100vh - 280px)', width: '100%', overflowY: 'scroll'}}>
-                {partNum.map((value, index) => {
-                    return <LectureWriteAsideTable deleteByPartNum={deleteByPartNum} key={value.orderNo}
-                                                   deleteByContentNum={deleteByContentNum} setContentNum={setContentNum}
-                                                   contentNum={contentNum}
-                                                   partNum={value}></LectureWriteAsideTable>
+                {part.map((value, index) => {
+                    return <LectureWriteAsideTable deleteByPart={deleteByPart} key={value.orderNo}
+                                                   updateTitle={updateTitle} setPart={setPart}
+                                                   part={value}></LectureWriteAsideTable>
                 })}
             </div>
             <LectureWriteAsideFooter></LectureWriteAsideFooter>

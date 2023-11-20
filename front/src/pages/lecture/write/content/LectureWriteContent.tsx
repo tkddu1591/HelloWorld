@@ -7,9 +7,15 @@ import '../../scss/lecture/write/write.scss'
 import EditorToolbar, {formats, modules} from "../../../community/EditorToolBar";
 import ReactQuill from "react-quill";
 import {Button, Container, Row} from "reactstrap";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 function LectureWriteContent() {
+
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const lectureNo = searchParams.get('lectureNo');
+
     let [timeCheck, setTimeCheck] = useState([{
         time:  240,
         title: " 설치 (맥/윈도우)"
@@ -25,11 +31,14 @@ function LectureWriteContent() {
 
     let navigate = useNavigate()
 
-
+    const [post, setPost] = useState<{
+        partTitle: string,
+        contentTitle: string
+    }[]>();
 
 
     return <>
-        <LectureWriteAside></LectureWriteAside>
+        <LectureWriteAside lectureNo={lectureNo}></LectureWriteAside>
         <div style={{width: '100%', height: '100%', zIndex: 0, position: 'relative'}} className={'detailContent'}>
             <div style={{
                 position: 'absolute', padding: '80px', paddingTop: 0, width: '100%', height: '100%', marginTop: '100px'

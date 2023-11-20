@@ -13,5 +13,4 @@ public class LecturePartDTO {
     private int partNo;
     private int lectureNo;
     private String title;
-    private int orderNo;
 }

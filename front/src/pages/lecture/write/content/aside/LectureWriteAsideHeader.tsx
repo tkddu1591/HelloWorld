@@ -36,7 +36,7 @@ function LectureWriteAsideHeader({partNum, aside, setAside, setPartNum}) {
                 <div style={{marginTop: '50px'}}>
                     <Button color={'success'} style={{fontSize: '15px', fontFamily: 'nanumsquare', width: '200px'}}
                      onClick={()=>{
-                         setPartNum([...partNum, newNum])
+                         setPartNum([...partNum, {orderNo: newNum, title: ''}])
                          setNewNum(newNum+1)
                      }}>파트
                         추가</Button>

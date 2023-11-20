@@ -15,5 +15,4 @@ public class LectureContentDTO {
     private int partNo;
     private int contentNo;
     private String content;
-    private int orderNo;
 }
