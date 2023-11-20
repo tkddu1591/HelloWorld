@@ -54,14 +54,14 @@ function TermsModal({isOpenModal, termsAgreeHandler}) {
                     </textarea>
 
                     <Button color="default"
-                            style={{
-                                position: "absolute",
-                                left: "50%",
-                                bottom: "15px",
-                                width: "30%",
-                                transform: "translate(-50%, -50%)"
-                            }}
-                            onClick={termsAgreeHandler}
+                        style={{
+                            position: "absolute",
+                            left: "50%",
+                            bottom: "15px",
+                            width: "30%",
+                            transform: "translate(-50%, -50%)"
+                        }}
+                        onClick={termsAgreeHandler}
                     >
                         동의합니다.
                     </Button>

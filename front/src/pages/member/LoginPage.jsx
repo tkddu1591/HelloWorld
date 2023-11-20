@@ -1,30 +1,45 @@
-import React from "react";
+import React, {useState} from "react";
 
 // reactstrap components
-import {
-    Button,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup, Container, Row, Card, Form, CardBody, CardTitle, CardHeader, CardFooter,
-} from "reactstrap";
+import { Button,Container, Row, Card, Form, CardBody } from "reactstrap";
 
 // core components
-import IndexNavbar from "../../components/Navbars/IndexNavbar";
-import DarkFooter from "../../components/Footers/DarkFooter";
-import Switch from "react-bootstrap-switch";
-import {faComment, faLock, faAt} from "@fortawesome/free-solid-svg-icons";
-import InputField from "./componentsByMember/inputCmpnts/InputField";
 import SocialLoginButton from "./componentsByMember/buttonCmpnts/SocialLoginButton";
 import LinkTo from "./componentsByMember/inputCmpnts/LinkTo";
 import AutoLoginButton from "./componentsByMember/buttonCmpnts/AutoLoginButton";
 import MemberHeader from "./componentsByMember/MemberHeader";
 import InputEmail from "./componentsByMember/inputCmpnts/InputEmail";
 import InputPass from "./componentsByMember/inputCmpnts/InputPass";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {API_BASE_URL} from "../../App";
 
 
 
 function LoginPage() {
+    const nav = useNavigate();
+    let [isOk, setIsOk] = useState({
+        terms: false,
+        email: false,
+        pass: false
+    })
+    let [inputValue, setInputValue] = useState({
+        email: "",
+        pass: "",
+        passChk: "",
+        emailChk: ""
+    });
+
+    const default_login = () => {
+        axios.post(`${API_BASE_URL}/member/login`, {
+            "email": inputValue.email,
+            "pass": inputValue.pass
+        }).then((response) => {
+            alert(response.data.toString());
+            alert(JSON.stringify(response.data));
+        })
+    }
+
     return (<>
 
         <div
@@ -39,9 +54,9 @@ function LoginPage() {
                             <MemberHeader text={'로그인'}/>
 
                             <CardBody>
-                                <InputEmail />
+                                <InputEmail setInputValue={setInputValue} />
 
-                                <InputPass />
+                                <InputPass  setIsOk={setIsOk} inputValue={inputValue} setInputValue={setInputValue} />
 
                                 <AutoLoginButton />
 
@@ -50,7 +65,8 @@ function LoginPage() {
 
                             <CardBody className="text-center" style={{marginBottom: "70px"}}>
 
-                                <Button className="btn-round" color="info" type="button" style={{width:"100%"}}>
+                                <Button className="btn-round" color="info" type="button" style={{width:"100%"}}
+                                        onClick={default_login}>
                                     로그인
                                 </Button>
 
