@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "lecture_cart")
 public class LectureCartEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartNo;
     @ManyToOne
     @JoinColumn(name = "uid")
