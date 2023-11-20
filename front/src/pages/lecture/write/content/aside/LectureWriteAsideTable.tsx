@@ -1,8 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {Button, Table} from "reactstrap";
 
-function LectureWriteAsideTable({deleteByPartNum, partNum, contentNum, setContentNum, deleteByContentNum}) {
+function LectureWriteAsideTable({deleteByPartNum, partNum}) {
+    let [num, setNum] = useState<number[]>([])
     let [newNum, setNewNum] = useState(0);
+    const deleteByNum = (num: number) => {
+        setNum((oldValues) => {
+            return oldValues.filter((value) => {
+                return value !== num
+            })
+        })
+    }
     return <Table style={{marginBottom: '5px'}}>
         <tbody style={{boxSizing: 'border-box'}}>
             <tr>
@@ -16,7 +24,7 @@ function LectureWriteAsideTable({deleteByPartNum, partNum, contentNum, setConten
                     }}></i>
                 </th>
             </tr>
-            {contentNum.map((value, index) => {
+            {num.map((value, index) => {
                 return <tr style={{
                 }} key={value}>
                     <td style={{
@@ -32,14 +40,14 @@ function LectureWriteAsideTable({deleteByPartNum, partNum, contentNum, setConten
                         }}></input>
                         <span style={{cursor:'pointer', color:'blue'}}>작성</span>
                         <i className="bi bi-x-circle" style={{fontSize: '20px', cursor: "pointer"}} onClick={() => {
-                            deleteByContentNum(value)
+                            deleteByNum(value)
                         }}></i>
                     </td>
                 </tr>
             })}
             <tr className={'plusBox'}
                 onClick={() => {
-                    setContentNum([...contentNum, newNum])
+                    setNum([...num, newNum])
                     setNewNum(newNum + 1)
                 }}>
                 <td>

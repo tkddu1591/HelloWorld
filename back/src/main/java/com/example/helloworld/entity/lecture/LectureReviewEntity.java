@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Table(name = "lecture_review")
 public class LectureReviewEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reviewNo;
     @ManyToOne
     @JoinColumn(name = "lectureNo")

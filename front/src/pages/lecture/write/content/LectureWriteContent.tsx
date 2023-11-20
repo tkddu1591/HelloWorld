@@ -25,24 +25,18 @@ function LectureWriteContent() {
 
     let navigate = useNavigate()
 
-
-
-
     return <>
         <LectureWriteAside></LectureWriteAside>
         <div style={{width: '100%', height: '100%', zIndex: 0, position: 'relative'}} className={'detailContent'}>
-            <div style={{
-                position: 'absolute', padding: '80px', paddingTop: 0, width: '100%', height: '100%', marginTop: '100px'
-            }}>
+            <div style={{position: 'absolute', padding: '80px', paddingTop:0, width: '100%', height: '100%', marginTop:'100px'}}>
                 <h3>강의 등록</h3>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <p>② 컨텐츠</p>
-                    <span>파트명 &gt; 컨텐츠 명</span>
-                </div>
-                <div className="text-editor" style={{marginTop: '30px'}}>
+                <p>② 컨텐츠</p>
+
+
+                <div className="text-editor" style={{marginTop:'30px'}}>
                     <EditorToolbar/>
                     <ReactQuill
-                        style={{maxHeight: "auto", height: 'auto'}}
+                        style={{maxHeight: "auto",height:'auto'}}
                         theme="snow"
                         value={state.value === null ? "" : state.value}
                         onChange={handleChange}
@@ -51,10 +45,9 @@ function LectureWriteContent() {
                         formats={formats}
                     /></div>
 
-                <div style={{display: "flex", justifyContent: "right"}}>
-                    <Button color={'info'} onClick={() => {
-                        navigate('/lecture/write/content')
-                    }}>저장</Button>
+                <div style={{display:"flex", justifyContent:"right"}}>
+                <Button color={'info'} onClick={()=>{navigate('/lecture/write/content')
+                }}>저장</Button>
                 </div>
             </div>
         </div>

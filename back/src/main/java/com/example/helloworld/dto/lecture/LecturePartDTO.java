@@ -10,8 +10,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class LecturePartDTO {
+    private int pkNo;
     private int partNo;
     private int lectureNo;
     private String title;
-    private int orderNo;
 }
