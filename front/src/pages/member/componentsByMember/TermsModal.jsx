@@ -2,17 +2,19 @@ import React, {useEffect, useState} from "react";
 import SubmitButton from "./buttonCmpnts/SubmitButton";
 import {Button} from "reactstrap";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function TermsModal({isOpenModal, termsAgreeHandler}) {
+    const nav = useNavigate();
     const [terms, setTerms] = useState([]);
     useEffect(() => {
         const getTerms = async () => {
             try {
-                const result =
-                    await axios.get('http://localhost:8080/api/terms');
+                const result = await axios.get('http://localhost:8080/api/terms');
                 setTerms(result.data);
             } catch (error) {
-                alert('요청 실패.');
+                alert("이용약관을 불러올 수 없습니다. 다시 시도해주세요.")
+                nav('/member/login');
             }
         };
         getTerms();
@@ -20,7 +22,8 @@ function TermsModal({isOpenModal, termsAgreeHandler}) {
     let modalTerms = terms.map((userTerms) => (userTerms.terms)).join('\n');
 
     return (
-        <>{isOpenModal &&
+        <>
+        {isOpenModal &&
             <div
                 style={{
                     display: 'flex',
@@ -66,8 +69,8 @@ function TermsModal({isOpenModal, termsAgreeHandler}) {
                         동의합니다.
                     </Button>
                 </div>
-
-            </div>}
+            </div>
+        }
         </>
     );
 }

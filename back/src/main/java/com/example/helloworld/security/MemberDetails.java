@@ -1,9 +1,7 @@
 package com.example.helloworld.security;
 
 import com.example.helloworld.entity.member.MemberEntity;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,13 +12,12 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @ToString
-public class MyUserDetails implements UserDetails {
-    private final MemberEntity memberEntity;
+public class MemberDetails implements UserDetails {
 
-    public MyUserDetails(MemberEntity memberEntity) {
-        this.memberEntity = memberEntity;
-    }
+    private MemberEntity memberEntity;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

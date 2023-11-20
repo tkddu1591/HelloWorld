@@ -7,7 +7,7 @@ import {
     InputGroup,
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faAt, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
+import {faAt} from "@fortawesome/free-solid-svg-icons";
 import {changeDTO} from "../../../../store/changeDTO";
 
 function InputField({ setInputValue }) {

@@ -1,9 +1,6 @@
 import React, {useState} from "react";
 
 // core components
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGithub, faGoogle, faLine} from '@fortawesome/free-brands-svg-icons';
-import {faComment} from "@fortawesome/free-solid-svg-icons";
 import {Button} from "reactstrap";
 
 /*default, warning, success*/

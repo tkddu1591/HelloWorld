@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faAt, faLock} from "@fortawesome/free-solid-svg-icons";
 import {changeDTO} from "../../../../store/changeDTO";
-import {isOkPasswordHandler, isValidPass} from "../../../../utils/signupValidation";
+import {isOkPasswordHandler} from "../../../../utils/signupValidation";
 
 function InputPass({ setIsOk, inputValue, setInputValue }) {
     const [isFocus, setIsFocus] = useState(false);

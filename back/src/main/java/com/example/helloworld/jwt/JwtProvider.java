@@ -7,12 +7,14 @@ import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -25,7 +27,6 @@ import java.util.List;
 @Log4j2
 @Component
 public class JwtProvider {
-
     private String issuer;
     private SecretKey secretKey;
 
@@ -85,29 +86,22 @@ public class JwtProvider {
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
-    public boolean validateToken(String token, HttpServletResponse response) {
+    public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
-                    .build()
-                    .parseClaimsJws(token);
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token);
             return true;
 
-        }  catch (SecurityException | MalformedJwtException e) {
-            log.debug("잘못된 JWT 서명 입니다.");
-            throw new MalformedJwtException("MalformedJwtException", e);
-
+        } catch (SecurityException | MalformedJwtException e) {
+            throw new JwtCustomException(JwtCustomException.JWT_ERROR.MALFORM);
         } catch (ExpiredJwtException e) {
-            log.debug("만료된 JWT 서명 입니다.");
-            throw new ExpiredJwtException(null, null, "ExpiredJwtException", e);
-
+            throw new JwtCustomException(JwtCustomException.JWT_ERROR.EXPIRED);
         } catch (UnsupportedJwtException e) {
-            log.debug("지원되지 않는 JWT 서명 입니다.");
-            throw new UnsupportedJwtException("UnsupportedJwtException", e);
-
+            throw new JwtCustomException(JwtCustomException.JWT_ERROR.BADTYPE);
         } catch (IllegalArgumentException e) {
-            log.debug("JWT 토큰이 잘 못 되었습니다.");
-            throw new IllegalArgumentException("IllegalArgumentException", e);
+            throw new JwtCustomException(JwtCustomException.JWT_ERROR.BADSIGN);
         }
     }
 }

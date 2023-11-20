@@ -31,13 +31,15 @@ function LoginPage() {
     });
 
     const default_login = () => {
-        axios.post(`${API_BASE_URL}/member/login`, {
+        axios.post(`${API_BASE_URL}/login`, {
             "email": inputValue.email,
             "pass": inputValue.pass
         }).then((response) => {
-            alert(response.data.toString());
-            alert(JSON.stringify(response.data));
-        })
+
+        }).catch((error) => {
+
+
+        });
     }
 
     return (<>
