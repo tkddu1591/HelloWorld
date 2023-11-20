@@ -9,36 +9,52 @@
   }
 }
 
-.filebox {
+/*.filebox {
   display: flex;
   justify-content: left;
   align-items: center;
-}
+}*/
+.lectureMainWrite{
 
+  .lectureTitle{
+    width: 100%;
+
+    input{
+
+      height: 40px;
+      padding: 0 10px;
+      vertical-align: middle;
+      border: 1px solid #dddddd;
+      border-radius: 0;
+      width: 100%;
+      font-size: 15px;
+      font-family: nanumsquare;
+    }
+  }
+  .red{
+    color: red;
+  }
+}
 .filebox .upload-name {
   display: inline-block;
   height: 40px;
   padding: 0 10px;
   vertical-align: middle;
   border: 1px solid #dddddd;
-  width: calc(100% - 95px);
+  width: calc(100% - 103px);
   color: #999999;
+  cursor: pointer;
 }
-
-.filebox label {
+.fileFind{
+  display: inline-block;
+  padding: 10px 20px;
   color: #fff;
+  vertical-align: middle;
+  background-color: #999999;
+  cursor: pointer;
   height: 40px;
-  min-width: 100%;
-  border: 1px solid lightgray;
-}
-
-.filebox input[type="file"] {
-  position: absolute;
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
+  margin-left: 10px;
+  width: 93px;
 }
 
 .plusBox {
