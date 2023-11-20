@@ -1,27 +1,58 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../../../../css/community/view.css';
+import axios from "axios";
+import {API_BASE_URL} from "../../../../App";
 
-function CommentWriter(){
+function CommentWriter({communityNo}){
+
+    const [commentWrite, setCommentWrite] = useState('');
+    const [height, setHeight] = useState(17);
+    const [row, setRow] = useState(1);
+
+    const handleChange = (e) => {
+        let inputText = e.target.value;
+
+        // 줄바꿈이 일어나면 row 1 증가
+        if (inputText.includes('\n')) {
+            console.log('\n');
+            setRow((prevRow) => prevRow + 1);
+        }
+        // 최대 3000자로 제한
+        if (inputText.length <= 3000) {
+            setCommentWrite(inputText);
+        }
+    };
+
+    const insertComment = () =>{
+        axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo})
+            .then(res => {
+                console.log('success');
+            })
+    }
+
     return(<>
         <div data-v-afadf0bc className={'CommentWriter'}>
             <div className="comment_inbox">
                 <strong className="blind">댓글을 입력하세요</strong>
                 <em className={'comment_inbox_name'}>닉네임임</em>
                 <textarea
+                    value={commentWrite}
+                    onChange={handleChange}
                     placeholder={'댓글을 남겨보세요'}
-                    rows={1}
+                    rows={row} //commentWrite.split('\n').length
                     className={'comment_inbox_text'}
                     style={{
                         overflow: 'hidden',
                         overflowWrap: 'break-word',
-                        height: '17px',
+                        whiteSpace: 'pre-wrap',
+                        height: `${height*row}px`,
                     }}></textarea>
                 <div data-v-afadf0bc="" className="comment_inbox_number">
 														<span data-v-afadf0bc="" className="blind">
 															현재 입력한 글자수
 														</span>
                     <strong data-v-afadf0bc="" className="inbox_count">
-                        194
+                        {commentWrite.length}
                     </strong>
                     <span data-v-afadf0bc="" className="blind">
 															전체 입력 가능한 글자수
@@ -57,7 +88,7 @@ function CommentWriter(){
                 </div>
                 <div data-v-afadf0bc="" className="register_box">
                     {/*<!---->*/}
-                    <a data-v-afadf0bc="" href="#" role="button" className="button btn_register is_active">
+                    <a data-v-afadf0bc="" role="button" className="button btn_register is_active" onClick={()=>{insertComment()}}>
                         등록
                     </a>
                 </div>

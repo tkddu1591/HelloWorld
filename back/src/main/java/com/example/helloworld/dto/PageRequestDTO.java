@@ -22,6 +22,11 @@ public class PageRequestDTO {
     private int cateNo = 0;
     @Builder.Default
     private String sort = "communityNo";
+    @Builder.Default
+    private String commentWrite = "";
+    @Builder.Default
+    private int communityNo = 0;
+
 
     public Pageable getPageableDesc(String sort){
         return  PageRequest.of(this.pg - 1, this.size, Sort.by(sort).descending());

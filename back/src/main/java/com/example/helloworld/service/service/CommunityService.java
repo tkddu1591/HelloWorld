@@ -166,4 +166,11 @@ public class CommunityService {
                 .total(totalElement)
                 .build();
     }
+
+    public PageResponseDTO insertComment(PageRequestDTO pageRequestDTO){
+
+        /*communityCommentRepository.save(pageRequestDTO.getCommunityNo(), pageRequestDTO.getCommentWrite());*/
+
+        return null;
+    }
 }

@@ -3,7 +3,7 @@ import '../../../../css/community/view.css';
 
 
 
-function ArticleHeader({view, navigate}){
+function ArticleHeader({view, navigate, scrollToCommentOption}){
     const date = new Date(view.regDate);
 
 
@@ -106,7 +106,7 @@ function ArticleHeader({view, navigate}){
                 </div>
             </div>
             <div className="ArticleTool">
-                <a href="#" role="button" className="button_comment">
+                <a role="button" className="button_comment" onClick={scrollToCommentOption}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"

@@ -33,36 +33,48 @@ function CommunityView() {
     let [commentsList, setCommentsList] = useState([]);
     let [tagsList, setTagsList] = useState([]);
 
+    // CommentOption의 ref를 생성합니다.
+    const commentRef = React.createRef();
+
+    // CommentOption으로 스크롤 이동하는 함수를 만듭니다.
+    const scrollToCommentOption = () => {
+        console.log('success');
+        if (commentRef.current) {
+            console.log('click');
+            commentRef.current.scrollIntoView({behavior: 'smooth'});
+        }
+    };
+
     // VIEW GET
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/community/view`,{
+        axios.get(`${API_BASE_URL}/community/view`, {
             params: {communityNo: communityNo, cateNo: cateNo}
         })
-            .then(res=>{
+            .then(res => {
                 setView(res.data.view);
                 setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
                 setTagsList(res.data.hasTagsList);
                 setPrevNo(res.data.prevNo);
                 setNextNo(res.data.nextNo);
             })
-            .catch(err=>{
+            .catch(err => {
                 console.log(err);
             })
     }, [communityNo]);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(view);
-    },[view]);
-    useEffect(()=>{
+    }, [view]);
+    useEffect(() => {
         console.log(commentsList);
-    },[commentsList]);
-    useEffect(()=>{
+    }, [commentsList]);
+    useEffect(() => {
         console.log(tagsList);
-    },[tagsList]);
+    }, [tagsList]);
 
 
     // COMMENT SORTING
-    useEffect(()=>{
+    useEffect(() => {
         console.log(commentType);
         // commentsList 배열 복사
         const clonedList = [...commentsList];
@@ -77,7 +89,7 @@ function CommunityView() {
         }
 
         setCommentsList(clonedList);
-    },[commentType]);
+    }, [commentType]);
     useEffect(() => {
     }, [buttonStatus]);
 
@@ -95,18 +107,28 @@ function CommunityView() {
                         <div className="view" style={{marginTop: '80px'}}>
                             <div className="Article layout_content">
                                 <div className="article_wrap">
-                                    <ArticleTopBtns  setCateNo={setCateNo} setCommunityNo={setCommunityNo} view={view} prevNo={prevNo} nextNo={nextNo}></ArticleTopBtns>
+                                    <ArticleTopBtns setCateNo={setCateNo} setCommunityNo={setCommunityNo} view={view}
+                                                    prevNo={prevNo} nextNo={nextNo}></ArticleTopBtns>
                                     <div className="ArticleContentBox" style={{marginBottom: '100px'}}>
-                                        <ArticleHeader navigate={navigate} view={view}></ArticleHeader>
+                                        <ArticleHeader scrollToCommentOption={scrollToCommentOption} navigate={navigate}
+                                                       view={view}></ArticleHeader>
                                         <div className="article_container">
                                             <ArticleContent view={view}></ArticleContent>
                                             <ArticleTagList tagsList={tagsList}></ArticleTagList>
-                                            <ArticleBottomBtns view={view}></ArticleBottomBtns>
+                                            <ArticleBottomBtns commentRef={commentRef} view={view}></ArticleBottomBtns>
                                             <ReplyBox view={view}></ReplyBox>
                                             <div className={'CommentBox'}>
-                                                <CommentOption commentType={commentType} communityNo={communityNo} setCommentsList={setCommentsList} buttonStatus={buttonStatus} setButtonStatus={setButtonStatus} setCommentType={setCommentType}></CommentOption>
-                                                <CommentList popup={popup} setPopup={setPopup} commentsList={commentsList}></CommentList>
-                                                <CommentWriter></CommentWriter>
+                                                <CommentOption scrollToCommentOption={scrollToCommentOption}
+                                                               commentType={commentType}
+                                                               communityNo={communityNo}
+                                                               setCommentsList={setCommentsList}
+                                                               buttonStatus={buttonStatus}
+                                                               setButtonStatus={setButtonStatus}
+                                                               setCommentType={setCommentType}>
+                                                </CommentOption>
+                                                <CommentList popup={popup} setPopup={setPopup}
+                                                             commentsList={commentsList}></CommentList>
+                                                <CommentWriter communityNo={communityNo}></CommentWriter>
                                             </div>
                                             {/*<div className="RelatedArticles"></div>
 											<div className="PopularArticles"></div>
