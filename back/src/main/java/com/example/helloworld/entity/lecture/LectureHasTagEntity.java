@@ -1,18 +1,17 @@
 package com.example.helloworld.entity.lecture;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
+@Builder
 @Table(name = "lecture_hasTag")
 public class LectureHasTagEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int hasTagNo;
     @ManyToOne

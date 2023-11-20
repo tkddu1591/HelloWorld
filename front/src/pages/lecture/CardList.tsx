@@ -64,7 +64,6 @@ function CardList({ colSize = 12 }: ListItem) {
     }
 
     return (
-        <>
             <Container>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}></div>
                 <Row style={{ padding: '10px' }}>
@@ -524,7 +523,6 @@ function CardList({ colSize = 12 }: ListItem) {
                     </Col>
                 </Row>
             </Container>
-        </>
     );
 }
 
