@@ -35,8 +35,7 @@ function LoginPage() {
             "email": inputValue.email,
             "pass": inputValue.pass
         }).then((response) => {
-            alert(response.data.toString());
-            alert(JSON.stringify(response.data));
+            alert('완료');
         })
     }
 
@@ -65,8 +64,7 @@ function LoginPage() {
 
                             <CardBody className="text-center" style={{marginBottom: "70px"}}>
 
-                                <Button className="btn-round" color="info" type="button" style={{width:"100%"}}
-                                        onClick={default_login}>
+                                <Button className="btn-round" color="info" type="button" style={{width:"100%"}}>
                                     로그인
                                 </Button>
 
