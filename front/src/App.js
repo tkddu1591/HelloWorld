@@ -50,7 +50,7 @@ import LectureWriteMain from "./pages/lecture/write/main/LectureWriteMain";
 import Home from "./pages/home/Home";
 import LectureDetail from "./pages/lecture/detail/LectureDetail";
 import LectureWriteContent from "./pages/lecture/write/content/LectureWriteContent";
-import axios from "axios";
+import MemberRoutes from "./pages/member/MemberRoutes";
 import {useDispatch} from "react-redux";
 import {insertMyIp} from "./slice/myIpSlice";
 
@@ -156,11 +156,7 @@ function App() {
 
             <Route
                 path="member"
-                element={
-                    <Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
-                        <Outlet/>
-                    </Suspense>
-                }>
+                element={<MemberRoutes fallback={fallback} />}>
                 <Route path="login" element={<LoginPage/>}/>
                 <Route path="signup" element={<SignUp/>}/>
                 <Route path="finishSignup" element={<FinishSignup/>}/>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 // reactstrap components
 import { Button,Container, Row, Card, Form, CardBody } from "reactstrap";
@@ -13,11 +13,14 @@ import InputPass from "./componentsByMember/inputCmpnts/InputPass";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {API_BASE_URL} from "../../App";
+import {useDispatch} from "react-redux";
 
 
 
 function LoginPage() {
     const nav = useNavigate();
+    const dispatch = useDispatch();
+
     let [isOk, setIsOk] = useState({
         terms: false,
         email: false,
@@ -30,15 +33,21 @@ function LoginPage() {
         emailChk: ""
     });
 
+
     const default_login = () => {
         axios.post(`${API_BASE_URL}/login`, {
             "email": inputValue.email,
             "pass": inputValue.pass
         }).then((response) => {
-
+            if(response.data.accessToken) {
+                localStorage.setItem('helloWorld_ACCESS_TOKEN', response.data.accessToken);
+                localStorage.setItem('helloWorld_WELCOME_GREETING_HELLO', response.data.myInfo);
+                nav('/');
+            }else
+                alert('로그인에 실패했습니다. \n아이디, 비밀번호를 다시 확인해주세요.');
         }).catch((error) => {
-
-
+            alert('로그인에 실패했습니다. 잠시 후 다시 시도해주세요.');
+            throw error.message;
         });
     }
 

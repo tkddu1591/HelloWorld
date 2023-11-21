@@ -30,8 +30,10 @@ import store from './store';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import ScrollToTop from "./components/ScrollToTop";
+import axios from "axios";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+axios.defaults.withCredentials = true;
 
 
 root.render(

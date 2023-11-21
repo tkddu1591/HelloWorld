@@ -18,6 +18,6 @@ public class MemberController {
 
     @PostMapping("/member/signup")
     public boolean submitSignup(@RequestBody MemberDTO memberDTO, HttpServletRequest request) {
-        return memberService.signUp(memberDTO,request);
+        return memberService.signUp(memberDTO, request);
     }
 }
