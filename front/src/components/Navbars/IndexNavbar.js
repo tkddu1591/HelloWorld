@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // reactstrap components
 import {
@@ -16,15 +16,32 @@ import {
 	UncontrolledTooltip,
 } from 'reactstrap';
 import '../../scss/font.scss';
+import {deleteCookie} from "../../utils/deleteCookie";
+import {useSelector} from "react-redux";
 
 function IndexNavbar() {
+	let navigate = useNavigate();
+
+	let user = useSelector((state) => {return state.user} )
+
 	const [navbarColor, setNavbarColor] = React.useState('navbar-info');
 	const [collapseOpen, setCollapseOpen] = React.useState(false);
+
+	const getMyInfo = () => {
+		let temp = localStorage.getItem("helloWorld_WELCOME_GREETING_HELLO");
+		let tempArr = temp.split(',');
+		setMyInfo({ prop1: tempArr[0], prop2: tempArr[1], prop3: tempArr[2]});
+	}
+	const [myInfo, setMyInfo] = React.useState({ prop1: '', prop2: '', prop3: '' });
+	const logout = async () => {
+		localStorage.removeItem('helloWorld_ACCESS_TOKEN');
+		localStorage.removeItem('helloWorld_WELCOME_GREETING_HELLO');
+		await deleteCookie('helloWorld_REFRESH_TOKEN');
+	}
 
 	const handleOpenNewTab = url => {
 		window.open(url, '_blank', 'width=400,height=600');
 	};
-	let navigate = useNavigate();
 	return (
 		<>
 			{collapseOpen ? (
@@ -297,14 +314,14 @@ function IndexNavbar() {
 								<UncontrolledDropdown nav>
 									<DropdownToggle className="nav-link btn-neutral" color="info" id="upgrade-to-pro" target="_blank">
 										<i className="now-ui-icons users_single-02 mr-1"></i>
-										<p>여덟글자입니다마</p>
+										<p>닉네임입니다.</p>
 									</DropdownToggle>
 									<DropdownMenu>
 										<DropdownItem to="/my/info" tag={Link}>
 											<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 											마이페이지
 										</DropdownItem>
-										<DropdownItem to="/index" tag={Link}>
+										<DropdownItem onClick={logout}>
 											<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 											로그아웃
 										</DropdownItem>

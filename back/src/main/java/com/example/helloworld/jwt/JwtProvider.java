@@ -5,16 +5,14 @@ import com.example.helloworld.dto.member.MemberDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -40,13 +38,10 @@ public class JwtProvider {
         Claims claims = Jwts.claims();
         claims.put("email", memberDTO.getEmail());
         claims.put("nick", memberDTO.getNick());
-        claims.put("name", memberDTO.getName());
-        claims.put("gender", memberDTO.getGender());
         claims.put("type", memberDTO.getType());
-        claims.put("isCondition", memberDTO.getIsCondition());
-
         return claims;
     }
+
     public String createToken(MemberDTO memberDTO, int min) {
         Date issuedDate = new Date();
         Date expireDate = new Date(issuedDate.getTime() + Duration.ofMinutes(min).toMillis());
@@ -61,9 +56,18 @@ public class JwtProvider {
                 .addClaims(claims)
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
-
         return token;
     }
+
+    public Cookie createCookie(String key, String token, int min) {
+        Cookie cookie = new Cookie(key, token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(min*60);
+        return cookie;
+    }
+
     public Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 // 서명 확인을 위해 secretKey set(jwt.secret)
@@ -75,6 +79,7 @@ public class JwtProvider {
                 // JWS 객체에서 payload(claims) 추출.
                 .getBody();
     } // JSON Web Token에서 claims 추출.
+
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
         String email = (String) claims.get("email");

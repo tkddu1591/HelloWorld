@@ -79,13 +79,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public String renewAccessToken(String token) {
         Claims claims = jwtProvider.getClaims(token);
         String email = (String) claims.get("email");
-        String type = (String) claims.get("type");
+        String nick = (String) claims.get("nick");
+        int type = Integer.parseInt((String) claims.get("type"));
 
         MemberDTO member = MemberDTO.builder()
-                .email("")
-                .type(0)
+                .email(email)
+                .nick(nick)
+                .type(type)
                 .build();
-
         return jwtProvider.createToken(member, 3);
     }
 }
