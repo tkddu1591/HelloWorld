@@ -1,6 +1,5 @@
 package com.example.helloworld.security;
 
-import com.example.helloworld.jwt.JwtAuthenticationFilter;
 import com.example.helloworld.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +39,8 @@ public class SecurityConfiguration {
             .httpBasic(HttpBasicConfigurer::disable)
             .formLogin(FormLoginConfigurer::disable)
             .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilter(corsFilter())
-            .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
+            /*.addFilter(corsFilter())
+            .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)*/
             .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
                 .requestMatchers("/").permitAll()//인가설정
                 .requestMatchers("/**").permitAll()

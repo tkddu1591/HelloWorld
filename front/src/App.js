@@ -51,10 +51,20 @@ import Home from "./pages/home/Home";
 import LectureDetail from "./pages/lecture/detail/LectureDetail";
 import LectureWriteContent from "./pages/lecture/write/content/LectureWriteContent";
 import MemberRoutes from "./pages/member/MemberRoutes";
+import {useDispatch} from "react-redux";
+import {insertMyIp} from "./slice/myIpSlice";
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
 
 function App() {
+    let dispatch = useDispatch();
+    useEffect(() => {
+        axios.get('https://geolocation-db.com/json/')
+            .then((res) => {
+                dispatch(insertMyIp(res.data.IPv4))
+            })
+    }, [])
+
     React.useEffect(() => {
         document.body.classList.add('index-page');
         document.body.classList.add('sidebar-collapse');

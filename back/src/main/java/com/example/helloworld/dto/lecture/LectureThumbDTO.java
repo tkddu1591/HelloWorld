@@ -9,10 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LectureContentDTO {
-    private int lectureNo;
-    private int partNo;
-    private int contentNo;
-    private String content;
-    private String title;
+public class LectureThumbDTO {
+    private String thumbURL;
+    private String thumbName;
 }

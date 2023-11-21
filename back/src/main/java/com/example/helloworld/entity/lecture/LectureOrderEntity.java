@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "lecture_order")
 public class LectureOrderEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ordNo;
     @ManyToOne
     @JoinColumn(name = "uid")
