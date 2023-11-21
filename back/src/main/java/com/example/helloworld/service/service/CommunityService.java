@@ -167,10 +167,13 @@ public class CommunityService {
                 .build();
     }
 
-    public PageResponseDTO insertComment(PageRequestDTO pageRequestDTO){
+    public void insertComment(PageRequestDTO pageRequestDTO){
 
-        /*communityCommentRepository.save(pageRequestDTO.getCommunityNo(), pageRequestDTO.getCommentWrite());*/
+        CommunityCommentEntity entity = new CommunityCommentEntity();
+        entity.setContent(pageRequestDTO.getCommentWrite());
+        CommunityEntity community = communityRepository.findByCommunityNo(pageRequestDTO.getCommunityNo());
+        entity.setCommunity(community);
+        communityCommentRepository.save(entity);
 
-        return null;
     }
 }
