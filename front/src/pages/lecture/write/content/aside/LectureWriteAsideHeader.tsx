@@ -3,9 +3,7 @@ import {Button} from 'reactstrap';
 import {ProgressBar} from 'react-bootstrap';
 import success from "../../../../codingtest/view/Success";
 
-function LectureWriteAsideHeader({partNum, aside, setAside, setPartNum}) {
-    let [now, setNow] = useState(60);
-    let [newNum, setNewNum] = useState(0);
+function LectureWriteAsideHeader({partNum: part, aside, setAside, setPartNum, generateOrderNo, lectureNo, contentList}) {
     return (
         <>
             <Button
@@ -36,10 +34,11 @@ function LectureWriteAsideHeader({partNum, aside, setAside, setPartNum}) {
                 <div style={{marginTop: '50px'}}>
                     <Button color={'success'} style={{fontSize: '15px', fontFamily: 'nanumsquare', width: '200px'}}
                      onClick={()=>{
-                         setPartNum([...partNum, {orderNo: newNum, title: ''}])
-                         setNewNum(newNum+1)
+                         setPartNum([...part, {orderNo: generateOrderNo(lectureNo, part.length+1), title: '', lectureNo:lectureNo}])
+                         contentList.sort((a, b) => a.orderNo - b.orderNo);
                      }}>파트
                         추가</Button>
+
                 </div>
 
             </div>

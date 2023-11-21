@@ -15,6 +15,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/*
 @Log4j2
 @RequiredArgsConstructor
 @Component
@@ -88,4 +89,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         return jwtProvider.createToken(member, 3);
     }
-}
+}*/

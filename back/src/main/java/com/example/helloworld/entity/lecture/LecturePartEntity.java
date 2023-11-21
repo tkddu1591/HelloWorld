@@ -14,7 +14,6 @@ import lombok.ToString;
 @Table(name = "lecture_part")
 public class LecturePartEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int partNo;
     @ManyToOne
     @JoinColumn(name = "lectureNo")
