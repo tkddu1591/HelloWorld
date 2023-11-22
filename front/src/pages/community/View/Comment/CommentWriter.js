@@ -3,9 +3,9 @@ import '../../../../css/community/view.css';
 import axios from "axios";
 import {API_BASE_URL} from "../../../../App";
 
-function CommentWriter({communityNo}){
+function CommentWriter({communityNo, insertComment, commentWrite, setCommentWrite, setParentNo, setReplyToComment, replyToComment}){
 
-    const [commentWrite, setCommentWrite] = useState('');
+
     const [height, setHeight] = useState(17);
     const [row, setRow] = useState(1);
 
@@ -23,12 +23,7 @@ function CommentWriter({communityNo}){
         }
     };
 
-    const insertComment = () =>{
-        axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo})
-            .then(res => {
-                console.log('success');
-            })
-    }
+
 
     return(<>
         <div data-v-afadf0bc className={'CommentWriter'}>
@@ -47,7 +42,7 @@ function CommentWriter({communityNo}){
                         whiteSpace: 'pre-wrap',
                         height: `${height*row}px`,
                     }}></textarea>
-                <div data-v-afadf0bc="" className="comment_inbox_number">
+                {commentWrite.length > 0 && (<div data-v-afadf0bc="" className="comment_inbox_number">
 														<span data-v-afadf0bc="" className="blind">
 															현재 입력한 글자수
 														</span>
@@ -60,7 +55,7 @@ function CommentWriter({communityNo}){
                     <span data-v-afadf0bc="" className="inbox_total">
 															3000
 														</span>
-                </div>
+                </div>)}
             </div>
             <div data-v-afadf0bc="" className="comment_attach">
                 <div data-v-afadf0bc="" className="attach_box">
@@ -88,7 +83,12 @@ function CommentWriter({communityNo}){
                 </div>
                 <div data-v-afadf0bc="" className="register_box">
                     {/*<!---->*/}
-                    <a data-v-afadf0bc="" role="button" className="button btn_register is_active" onClick={()=>{insertComment()}}>
+                    {(<a data-v-afadf0bc="" role="button" className="button btn_cancle" onClick={() => {
+                        setReplyToComment(null)
+                    }}>
+                        취소
+                    </a>)}
+                    <a data-v-afadf0bc="" role="button" className="button btn_register is_active" onClick={()=>{setParentNo(0); insertComment()}}>
                         등록
                     </a>
                 </div>

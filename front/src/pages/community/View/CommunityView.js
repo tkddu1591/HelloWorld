@@ -31,6 +31,10 @@ function CommunityView() {
     let [commentType, setCommentType] = useState("Asc");
     let [view, setView] = useState({});
     let [commentsList, setCommentsList] = useState([]);
+    let [commentReply, setCommentReply] = useState([]);
+    const [commentWrite, setCommentWrite] = useState('');
+    const [replyToComment, setReplyToComment] = useState(null);
+    let [parentNo, setParentNo] = useState(0);
     let [tagsList, setTagsList] = useState([]);
 
     // CommentOption의 ref를 생성합니다.
@@ -53,6 +57,7 @@ function CommunityView() {
             .then(res => {
                 setView(res.data.view);
                 setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
+                setCommentReply(res.data.commentsList.filter(comment => comment.parentNo != 0));
                 setTagsList(res.data.hasTagsList);
                 setPrevNo(res.data.prevNo);
                 setNextNo(res.data.nextNo);
@@ -97,6 +102,14 @@ function CommunityView() {
         console.log(communityNo)
         console.log(view)
     }, [communityNo]);
+
+
+    const insertComment = () =>{
+        axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo})
+            .then(res => {
+                console.log('success');
+            })
+    }
     return (
         <>
             <Container style={{userSelect: 'none'}} onClick={() => {
@@ -126,9 +139,24 @@ function CommunityView() {
                                                                setButtonStatus={setButtonStatus}
                                                                setCommentType={setCommentType}>
                                                 </CommentOption>
-                                                <CommentList popup={popup} setPopup={setPopup}
-                                                             commentsList={commentsList}></CommentList>
-                                                <CommentWriter communityNo={communityNo}></CommentWriter>
+                                                <CommentList popup={popup}
+                                                             setPopup={setPopup}
+                                                             commentsList={commentsList}
+                                                             commentReply={commentReply}
+                                                             setParentNo={setParentNo}
+                                                             insertComment={insertComment}
+                                                             commentWrite={commentWrite}
+                                                             setCommentWrite={setCommentWrite}
+                                                             replyToComment={replyToComment}
+                                                             setReplyToComment={setReplyToComment}>
+                                                </CommentList>
+                                                <CommentWriter commentWrite={commentWrite}
+                                                               setCommentWrite={setCommentWrite}
+                                                               insertComment={insertComment}
+                                                               communityNo={communityNo}
+                                                               setParentNo={setParentNo}
+                                                               replyToComment={replyToComment}>
+                                                </CommentWriter>
                                             </div>
                                             {/*<div className="RelatedArticles"></div>
 											<div className="PopularArticles"></div>
