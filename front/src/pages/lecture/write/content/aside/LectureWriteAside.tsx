@@ -4,7 +4,7 @@ import LectureWriteAsideTable from './LectureWriteAsideTable';
 import LectureWriteAsideFooter from './LectureWriteAsideFooter';
 import axios from "axios";
 
-function LectureWriteAside({lectureNo, setPost, part, contentList,setPart,setContentList, contentListSave,partSave}) {
+function LectureWriteAside({lectureNo, setPost, part, contentList,setPart,setContentList, contentListSave,partSave, post}) {
     let [aside, setAside] = useState(false);
     const updateTitle = (index, title, set) => {
         // orderNo가 1인 객체를 찾아 해당 객체를 복사한 후 title을 수정합니다.
@@ -42,7 +42,6 @@ function LectureWriteAside({lectureNo, setPost, part, contentList,setPart,setCon
     };
 
     useEffect(() => {
-        console.log(contentList)
 
     }, [contentList]);
 
@@ -85,8 +84,7 @@ function LectureWriteAside({lectureNo, setPost, part, contentList,setPart,setCon
                     return <LectureWriteAsideTable setPost={setPost} deleteBySet={deleteBySet} key={value.orderNo}
                                                    updateTitle={updateTitle} setPart={setPart} lectureNo={lectureNo}
                                                    part={value} setContentList={setContentList}
-                                                   contentList={contentList} contentListSave={contentListSave}
-                                                   partSave={partSave}
+                                                   contentList={contentList} post={post}
                                                    generateOrderNo={generateOrderNo}></LectureWriteAsideTable>
                 })}
             </div>

@@ -1,6 +1,7 @@
 package com.example.helloworld.dto;
 
 
+import com.example.helloworld.dto.lecture.LectureDTO;
 import lombok.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,11 +23,11 @@ public class PageRequestDTO {
     private int cateNo = 0;
     @Builder.Default
     private String sort = "communityNo";
-
-    public Pageable getPageableDesc(String sort){
-        return  PageRequest.of(this.pg - 1, this.size, Sort.by(sort).descending());
+    private LectureDTO lecture;
+    public Pageable getPageableDesc(){
+        return  PageRequest.of(this.pg - 1, this.size, Sort.by(this.sort).descending());
     }
-    public Pageable getPageableAsc(String sort){
-        return PageRequest.of(this.pg - 1, this.size, Sort.by(sort));
+    public Pageable getPageableAsc(){
+        return PageRequest.of(this.pg - 1, this.size, Sort.by(this.sort));
     }
 }

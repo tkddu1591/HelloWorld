@@ -23,7 +23,7 @@ function LecturePagination() {
             <PaginationItem>
                 <PaginationLink onClick={e => e.preventDefault()}>1</PaginationLink>
             </PaginationItem>
-            <PaginationItem className="active">
+            <PaginationItem className="active" >
                 <PaginationLink onClick={e => e.preventDefault()}>2</PaginationLink>
             </PaginationItem>
             <PaginationItem>

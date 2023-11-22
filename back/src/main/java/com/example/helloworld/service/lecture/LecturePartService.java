@@ -35,4 +35,8 @@ public class LecturePartService {
         }
     }
 
+    @Transactional
+    public List<LecturePartDTO> selectByLectureNo(int lectureNo) {
+        return lecturePartRepository.findByLecture_LectureNo(lectureNo).stream().map(lecturePartTransform::toDTO).toList();
+    }
 }

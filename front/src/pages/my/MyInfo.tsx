@@ -131,8 +131,8 @@ function MyInfo() {
                                 </Nav>
                             </div>
                         </Col>
-                        <TabContent className="gallery" activeTab={"pills" + pills}>
-                            <TabPane tabId="pills1">
+                        <TabContent className="gallery" activeTab={"pills" + pills} style={{width:'100%'}}>
+                            <TabPane tabId="pills1" >
                                 <Col className="ml-auto mr-auto" md="12">
                                     <Row className="collections">
                                         <Col style={{minWidth:'100vh'}} className={'profileContent'}>

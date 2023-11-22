@@ -59,7 +59,6 @@ const MyDropzone = ({ isObject, setFileName, fileName, setFileURL, fileURL, setM
 function FileUpload({setModal, modal, setFileName, setFileURL, isObject = false, fileName, fileURL, value}) {
 
 
-    console.log(value)
     const MyUploadedFiles = ({files}) => files.map(file => {
         // Save 'filePath' to your DB, and construct URLs using UrlBuilder:
         const {filePath, accountId} = file;

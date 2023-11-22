@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.relational.core.sql.In;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
-@ToString
+@ToString(exclude = "hasTags") // 순환 참조를 방지하기 위해 hasTags는 toString에서 제외
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -21,7 +23,7 @@ public class LectureEntity {
     private String seller;
     private String title;
     @Column(columnDefinition = "int default 0")
-    private int score ;
+    private int score;
     @ManyToOne
     @JoinColumn(name = "levelNo")
     private LectureLevelEntity level;
@@ -30,16 +32,24 @@ public class LectureEntity {
     private LectureThumbEntity thumb;
     private int price;
     @Column(columnDefinition = "int default 0")
-    private int studyDate ;
+    private int studyDate;
     @Column(columnDefinition = "int default 0")
-    private int discount ;
+    private int discount;
 
     @CreationTimestamp
     private LocalDateTime regDate;
     private String regIp;
     @Column(columnDefinition = "boolean default false")
     private Boolean isDelete;
-
+    private String content;
+    @Column(columnDefinition = "int default 0")
+    private int hit;
+    @Column(columnDefinition = "int default 0")
+    private int review;
+    @Column(columnDefinition = "int default 0")
+    private int sold;
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<LectureHasTagEntity> hasTags;
     @PrePersist
     public void prePersist() {
         // null인 필드에 대해 디폴트 값을 설정

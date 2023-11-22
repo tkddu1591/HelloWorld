@@ -54,7 +54,7 @@ import MemberRoutes from "./pages/member/MemberRoutes";
 import {useDispatch} from "react-redux";
 import {insertMyIp} from "./slice/myIpSlice";
 import axios from "axios";
-import {sendRefreshToken} from "./utils/member/sendRefreshToken";
+
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
 
