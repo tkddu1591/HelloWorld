@@ -4,7 +4,7 @@ import SelectBox from "../../../../components/Lecture/SelectBox";
 import React, {useEffect, useState} from "react";
 import EditorToolbar, {formats, modules} from "../../../community/EditorToolBar";
 import ReactQuill from "react-quill";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import FileUpload from "./FileUpload";
 import axios from "axios";
 import {API_BASE_URL} from "../../../../App";
@@ -14,6 +14,9 @@ import {useSelector} from "react-redux";
 
 function LectureWriteMain() {
     let ip = useSelector((state: { myIp: string }) => state.myIp)
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const lectureNo = searchParams.get('lectureNo');
     const [lecture, setLecture] = useState<{
         tagList: number[],
         seller: string,
@@ -28,6 +31,15 @@ function LectureWriteMain() {
         studyDate: number
     }>()
 
+    const [isModify, setIsModify] = useState(false)
+    useEffect(() => {
+        axios.get(API_BASE_URL + `/lecture/write/main?lectureNo=${lectureNo}`).then(res => {
+            setLecture(res.data)
+            setIsModify(true)
+        }).catch(error => {
+            setIsModify(false);
+        })
+    }, []);
     const [tagSort, setTagSort] = useState(
         {
             placeholder:  '태그 선택',
@@ -44,20 +56,20 @@ function LectureWriteMain() {
             isMulti:      false,
         }
     );
-    const [tags, setTags] = useState<{
-        value: number | string,
-        label: string
-    }[]>([])
-    const [levels, setLevels] = useState<{
-        value: number | string,
-        label: string
-    }[]>([])
 
-    const [state, setState] = React.useState({value: null});
     const handleChange = value => {
         changeDTO(setLecture, 'content', value);
     };
     const [modal1, setModal1] = React.useState(false);
+    const [tags, setTags] = useState<{
+        value: number,
+        label: string
+    }[]>([])
+    const [levels, setLevels] = useState<{
+        value: number ,
+        label: string
+    }[]>([])
+
 
     useEffect(() => {
         //태그
@@ -109,21 +121,32 @@ function LectureWriteMain() {
         }
     }, [lecture])
 
+    const [selectLevel, setSelectLevel] = useState(levels.filter(level => level.value === lecture?.levelNo)[0])
+    useEffect(() => {
+        if (levels.filter(level => level.value === lecture?.levelNo)[0] !== undefined)
+            setSelectLevel(levels.filter(level => level.value === lecture?.levelNo)[0])
+    },[levels])
+    const [selectTag, setSelectTag] = useState(
+        tags.filter(tag => lecture?.tagList?.includes(Number(tag.value)))
+    );
+    useEffect(() => {
+        if (levels.filter(level => level.value === lecture?.levelNo).length !== 0)
+            setSelectTag(tags.filter(tag => lecture?.tagList.includes(tag.value)))
+        console.log(selectTag)
+    },[tags])
     let navigate = useNavigate()
-
     return <Container style={{marginTop: '100px'}} className={'lectureMainWrite'}>
         <Row>
             <Col className={'lectureWrite'}>
                 <h3>강의 등록</h3>
                 <p>① 메인</p>
-
             </Col>
         </Row>
         <Row style={{marginTop: '20px'}}>
             <Col className={'lectureTitle'} md={6}>
                 <div>
                     <h5><span className={'red'}>*</span> 타이틀</h5>
-                    <Input type="text" placeholder="타이틀 입력" minLength={2} onChange={(e) => {
+                    <Input type="text" placeholder="타이틀 입력" value={lecture?.title} minLength={2} onChange={(e) => {
                         changeDTO(setLecture, 'title', e.target.value)
                     }}></Input>
                 </div>
@@ -131,16 +154,17 @@ function LectureWriteMain() {
             <Col className={'lectureTitle'} md={2}>
                 <div>
                     <h5><span className={'red'}>*</span> 가격</h5>
-                    <Input type="number" placeholder="가격 입력" onChange={(e) => {
-                        changeDTO(setLecture, 'price', e.target.value)
-                    }}></Input>
+                    <Input type="text" placeholder="가격 입력" value={lecture?.price ? lecture.price.toLocaleString() : ''}
+                           onChange={(e) => {
+                               changeDTO(setLecture, 'price', e.target.value)
+                           }}></Input>
                 </div>
             </Col>
             <Col className={'lectureTitle'} md={2}>
 
                 <div>
-                    <h5>할인율</h5>
-                    <Input type="number" placeholder="할인율 입력" max={100} onChange={(e) => {
+                    <h5>할인율 <span style={{fontSize: '14px'}}>( % )</span></h5>
+                    <Input type="number" placeholder="할인율 입력" value={lecture?.discount} max={100} onChange={(e) => {
                         changeDTO(setLecture, 'discount', e.target.value)
                     }}></Input>
                 </div>
@@ -149,7 +173,7 @@ function LectureWriteMain() {
             <Col className={'lectureTitle'} md={2}>
                 <div>
                     <h5>수강가능기간</h5>
-                    <Input type="number" placeholder="개월수 입력" max={36} onChange={(e) => {
+                    <Input type="number" placeholder="개월수 입력" value={lecture?.studyDate} max={36} onChange={(e) => {
                         changeDTO(setLecture, 'studyDate', e.target.value)
                     }}></Input>
                 </div>
@@ -161,7 +185,7 @@ function LectureWriteMain() {
                 <div>
                     <h5><span className={'red'}>*</span> 태그</h5>
                     <SelectBox options={tagSort.list} isMulti={tagSort.isMulti} setSelect={setLecture}
-                               selectName={'tagList'}
+                               selectName={'tagList'} value={selectTag}
                                placeholder={tagSort.placeholder} isSearchable={tagSort.isSearchable}></SelectBox>
                 </div>
             </Col>
@@ -171,6 +195,7 @@ function LectureWriteMain() {
                     <h5><span className={'red'}>*</span> 레벨</h5>
                     <SelectBox options={levelSort.list} setSelect={setLecture} selectName={'levelNo'}
                                placeholder={levelSort.placeholder}
+                               value={selectLevel}
                                isSearchable={levelSort.isSearchable}></SelectBox>
                 </div>
             </Col>

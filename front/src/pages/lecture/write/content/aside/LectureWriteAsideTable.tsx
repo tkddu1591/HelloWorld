@@ -12,7 +12,7 @@ interface LectureWriteAsideTableProps {
     setPart: React.Dispatch<React.SetStateAction<{ title: string, orderNo: number, lectureNo: number }>>;
 }
 
-function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPart, generateOrderNo, lectureNo, setContentList, contentList, partSave, contentListSave}) {
+function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPart, generateOrderNo, lectureNo, setContentList, contentList, post}) {
 
     let [content, setContent] = useState<{ orderNo: number, title: string, lectureNo: number, partNo: number }[]>([])
 
@@ -59,6 +59,10 @@ function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPar
                             setContent((prevContent) => {
                                 return prevContent;
                             });
+
+                            if (post.partNo&&(post.partNo === part.orderNo)) {
+                                setPost(undefined)
+                            }
                         } catch (error) {
                             console.error('Error in onClick:', error);
                         }
@@ -68,7 +72,7 @@ function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPar
             </tr>
 
             <ContentList setContentList={setContentList} contentList={contentList} lectureNo={lectureNo}
-                         setPost={setPost} contentListSave={contentListSave} partSave={partSave}
+                         setPost={setPost} post={post}
                          generateOrderNo={generateOrderNo} part={part} content={content}
             ></ContentList>
 
@@ -79,7 +83,7 @@ function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPar
 }
 
 
-function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, setContentList, content, partSave, contentListSave}) {
+function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, setContentList, content, post}) {
     const deleteContent = (orderNoToDelete: number, contentNoToDelete: number) => {
         // contentList 배열을 복사하여 새로운 배열을 생성
         const updatedContentList = contentList.map(item => ({...item}));
@@ -94,7 +98,7 @@ function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, se
             // 찾은 객체의 contents를 갱신하고 contentNo를 0부터 순차적으로 변경
             updatedContentList[targetContentIndex].contents = targetContents.map((content, index) => ({
                 ...content,
-                contentNo: generateOrderNo(orderNoToDelete, index)
+                contentNo: generateOrderNo(orderNoToDelete, index + 1)
             }));
 
             // contentList 상태 업데이트
@@ -193,11 +197,15 @@ function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, se
                                               partNo:    value.orderNo,
                                               lectureNo: lectureNo,
                                           })
+
                                       }}>작성</span>
 
 
                                 <i className="bi bi-x-circle" style={{fontSize: '20px', cursor: "pointer"}}
                                    onClick={() => {
+                                       if (post.contentNo&&(post.contentNo === item.contentNo)) {
+                                           setPost(undefined)
+                                       }
                                        deleteContent(value.orderNo, item.contentNo)
                                    }}></i>
                             </td>

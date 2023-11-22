@@ -40,6 +40,7 @@ function LectureWriteAsideFooter({partSave, part, contentListSave, contentList})
                                 .then(() => contentListSave())
                                 .then(() => {
                                     console.log('세이브 완료');
+                                    alert('세이브 완료')
                                 })
                                 .catch(error => {
                                     console.error(error);

@@ -6,7 +6,7 @@ interface SelectBoxProps {
     options: any[];
     placeholder?: string;
     isMulti?: boolean; // isMulti를 선택적으로 설정
-    value?: { value: number | string; label: string };
+    value?: { value: number | string; label: string } | { value: number | string; label: string; }[];
     isSearchable?: boolean;
     setSelect?: (value: any) => void;
     selectName?: string
@@ -15,25 +15,33 @@ interface SelectBoxProps {
 function SelectBox({
                        options, placeholder, isMulti = false, value, isSearchable = true, setSelect, selectName
                    }: SelectBoxProps) {
-    const [selectedOption, setSelectedOption] = useState(value);
+    const [selectedOption, setSelectedOption] = useState<any>(value);
     useEffect(() => {
-        if (selectName && selectedOption) {
-            if (Array.isArray(selectedOption) && selectedOption.length > 0) {
-                let list: (string | number)[] = []
-                selectedOption.map((option) => {
-                    list.push(option.value)
-                })
-
-                changeDTO(setSelect, selectName, list);
+        if (selectedOption !== null && selectedOption !== undefined) {
+            if (selectName && selectedOption) {
+                if (Array.isArray(selectedOption) && selectedOption.length > 0) {
+                    let list: (string | number)[] = []
+                    selectedOption.map((option) => {
+                        list.push(option.value)
+                    })
+                    changeDTO(setSelect, selectName, list);
+                } else
+                    changeDTO(setSelect, selectName, selectedOption?.value);
             } else
-                changeDTO(setSelect, selectName, selectedOption?.value);
-        } else
-            setSelect?.(selectedOption?.value);
+                setSelect?.(selectedOption?.value);
+        }
+        console.log(selectedOption)
     }, [selectedOption]);
+    useEffect(() => {
+        if (value !== undefined) {
+            console.log(value)
+            setSelectedOption(value)
+        }
+    }, [value]);
     return (
         <div className="App">
             <Select
-                defaultValue={selectedOption}
+                value={selectedOption}
                 onChange={setSelectedOption}
                 options={options}
                 placeholder={placeholder}

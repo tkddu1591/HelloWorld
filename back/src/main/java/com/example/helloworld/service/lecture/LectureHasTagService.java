@@ -26,4 +26,8 @@ public class LectureHasTagService {
             lectureHasTagRepository.save(lectureHasTagTransform.toEntity(lectureHasTagDTO));
         }
     }
+    public List<LectureHasTagDTO> findByLectureNo(int lectureNo) {
+        return lectureHasTagRepository.findByLecture_LectureNo(lectureNo).stream().map(lectureHasTagTransform::toDTO).toList();
+    }
+
 }

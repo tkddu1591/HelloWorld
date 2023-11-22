@@ -1,8 +1,6 @@
 package com.example.helloworld.transform.lecture;
 
-import com.example.helloworld.dto.lecture.LectureDTO;
 import com.example.helloworld.dto.lecture.LectureOrderItemDTO;
-import com.example.helloworld.entity.lecture.LectureEntity;
 import com.example.helloworld.entity.lecture.LectureOrderItemEntity;
 import org.mapstruct.Mapper;
 

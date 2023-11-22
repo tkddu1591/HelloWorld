@@ -33,7 +33,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import axios from "axios";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-axios.defaults.withCredentials = true;
 
 
 root.render(

@@ -1,6 +1,5 @@
 package com.example.helloworld.email;
 
-import groovy.util.logging.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

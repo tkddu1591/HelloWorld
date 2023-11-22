@@ -53,6 +53,7 @@ import LectureWriteContent from "./pages/lecture/write/content/LectureWriteConte
 import MemberRoutes from "./pages/member/MemberRoutes";
 import {useDispatch} from "react-redux";
 import {insertMyIp} from "./slice/myIpSlice";
+import axios from "axios";
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
 
