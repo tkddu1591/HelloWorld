@@ -31,19 +31,22 @@ import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import ScrollToTop from "./components/ScrollToTop";
 import axios from "axios";
+import {CookiesProvider} from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
 root.render(
    <React.StrictMode>
-      <Provider store={store}>
-         {/*<BrowserRouter basename='/User/java3/IdeaProjects/HelloWorld/back/src/main/resources/templates'>*/}
-         <BrowserRouter>
-            <ScrollToTop/>
-            <App />
-         </BrowserRouter>
-      </Provider>
+       <CookiesProvider>
+          <Provider store={store}>
+             {/*<BrowserRouter basename='/User/java3/IdeaProjects/HelloWorld/back/src/main/resources/templates'>*/}
+             <BrowserRouter>
+                <ScrollToTop/>
+                <App />
+             </BrowserRouter>
+          </Provider>
+       </CookiesProvider>
    </React.StrictMode>,
 );
 

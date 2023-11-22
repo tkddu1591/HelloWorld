@@ -11,5 +11,6 @@ public class LoginDTO {
     private String email;
     private String pass;
     private String nick;
+    private boolean isAutoLogin;
     private String cookieName;
 }

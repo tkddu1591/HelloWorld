@@ -16,28 +16,21 @@ import {
 	UncontrolledTooltip,
 } from 'reactstrap';
 import '../../scss/font.scss';
-import {deleteCookie} from "../../utils/deleteCookie";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../../utils/member/logout";
+import {myInfo} from "../../slice/UserSlice";
+import {getMyInfo} from "../../utils/member/getMyInfo";
+import {sendRefreshToken} from "../../utils/member/sendRefreshToken";
 
 function IndexNavbar() {
 	let navigate = useNavigate();
+	let dispatch = useDispatch();
 
-	let user = useSelector((state) => {return state.user} )
+	let myInfo = useSelector((state) => {return state.myInfo} )
+	getMyInfo(dispatch);
 
 	const [navbarColor, setNavbarColor] = React.useState('navbar-info');
 	const [collapseOpen, setCollapseOpen] = React.useState(false);
-
-	const getMyInfo = () => {
-		let temp = localStorage.getItem("helloWorld_WELCOME_GREETING_HELLO");
-		let tempArr = temp.split(',');
-		setMyInfo({ prop1: tempArr[0], prop2: tempArr[1], prop3: tempArr[2]});
-	}
-	const [myInfo, setMyInfo] = React.useState({ prop1: '', prop2: '', prop3: '' });
-	const logout = async () => {
-		localStorage.removeItem('helloWorld_ACCESS_TOKEN');
-		localStorage.removeItem('helloWorld_WELCOME_GREETING_HELLO');
-		await deleteCookie('helloWorld_REFRESH_TOKEN');
-	}
 
 	const handleOpenNewTab = url => {
 		window.open(url, '_blank', 'width=400,height=600');
@@ -298,6 +291,7 @@ function IndexNavbar() {
 									</Link>
 								</div>
 							</NavItem>
+							{myInfo.email === '비회원' ?
 							<NavItem>
 								<Button
 									className="nav-link btn-neutral"
@@ -309,25 +303,25 @@ function IndexNavbar() {
 									target="_blank">
 									<p>로그인</p>
 								</Button>
-							</NavItem>
+							</NavItem> :
 							<NavItem>
 								<UncontrolledDropdown nav>
 									<DropdownToggle className="nav-link btn-neutral" color="info" id="upgrade-to-pro" target="_blank">
 										<i className="now-ui-icons users_single-02 mr-1"></i>
-										<p>닉네임입니다.</p>
+										<p>{myInfo.nick}</p>
 									</DropdownToggle>
 									<DropdownMenu>
 										<DropdownItem to="/my/info" tag={Link}>
 											<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 											마이페이지
 										</DropdownItem>
-										<DropdownItem onClick={logout}>
+										<DropdownItem onClick={() => logout(navigate, dispatch)}>
 											<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 											로그아웃
 										</DropdownItem>
 									</DropdownMenu>
 								</UncontrolledDropdown>
-							</NavItem>
+							</NavItem>}
 							{/*  <NavItem>
 
                                 <NavLink

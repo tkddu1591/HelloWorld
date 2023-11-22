@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 
 // reactstrap components
 import { Button,Container, Row, Card, Form, CardBody } from "reactstrap";
@@ -14,6 +14,10 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {API_BASE_URL} from "../../App";
 import {useDispatch} from "react-redux";
+import {setCookie} from "../../utils/member/cookieHandler";
+import {insertMyInfo} from "../../slice/UserSlice";
+import {getMyInfo} from "../../utils/member/getMyInfo";
+import {changeDTO} from "../../store/changeDTO";
 
 
 
@@ -30,18 +34,28 @@ function LoginPage() {
         email: "",
         pass: "",
         passChk: "",
-        emailChk: ""
+        emailChk: "",
+        isAutoLogin: false,
     });
 
 
     const default_login = () => {
         axios.post(`${API_BASE_URL}/login`, {
             "email": inputValue.email,
-            "pass": inputValue.pass
+            "pass": inputValue.pass,
+            "isAutoLogin": inputValue.isAutoLogin,
         }).then((response) => {
             if(response.data.accessToken) {
                 localStorage.setItem('helloWorld_ACCESS_TOKEN', response.data.accessToken);
                 localStorage.setItem('helloWorld_WELCOME_GREETING_HELLO', response.data.myInfo);
+
+                const maxAge = (inputValue.isAutoLogin) ? (7 * 24 * 60 * 60) : (3 * 60 * 60);
+                setCookie('helloWorld_REFRESH_TOKEN', response.data.refreshToken, {
+                    path: '/',
+                    secure: true,
+                    maxAge: maxAge,
+                });
+                getMyInfo(dispatch);
                 nav('/');
             }else
                 alert('로그인에 실패했습니다. \n아이디, 비밀번호를 다시 확인해주세요.');
@@ -69,7 +83,7 @@ function LoginPage() {
 
                                 <InputPass  setIsOk={setIsOk} inputValue={inputValue} setInputValue={setInputValue} />
 
-                                <AutoLoginButton />
+                                <AutoLoginButton inputValue={inputValue} setInputValue={setInputValue}/>
 
                                 <SocialLoginButton />
                             </CardBody>

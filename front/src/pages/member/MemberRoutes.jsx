@@ -9,7 +9,6 @@ function MemberRoutes({fallback}) {
     useEffect(() => {
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN");
         if(accessToken) nav('/');
-
     }, [nav]);
     return (
         <Suspense fallback={<Fallback fallback={fallback}></Fallback>}>

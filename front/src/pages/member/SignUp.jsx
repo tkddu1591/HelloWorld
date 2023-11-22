@@ -19,7 +19,7 @@ import InputPassChk from "./componentsByMember/inputCmpnts/InputPassChk";
 import InputEmailChk from "./componentsByMember/inputCmpnts/InputEmailChk";
 import axios from "axios";
 import {changeDTO} from "../../store/changeDTO";
-import {isValidEmail, isValidPass} from "../../utils/signupValidation";
+import {isValidEmail, isValidPass} from "../../utils/member/signupValidation";
 import {API_BASE_URL} from "../../App";
 import {useNavigate} from "react-router-dom";
 

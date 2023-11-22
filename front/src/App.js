@@ -9,7 +9,7 @@ import IndexNavbar from './components/Navbars/IndexNavbar.js';
 import DarkFooter from './components/Footers/DarkFooter.js';
 // sections for this page
 import NucleoIcons from './views/index-sections/NucleoIcons.js';
-import {Outlet, Route, Routes} from 'react-router-dom';
+import {Outlet, Route, Routes, useNavigate} from 'react-router-dom';
 import LandingPage from './views/examples/LandingPage';
 import ProfilePage from './views/examples/ProfilePage';
 import LoginPage from './pages/member/LoginPage';
@@ -55,10 +55,13 @@ import {useDispatch} from "react-redux";
 import {insertMyIp} from "./slice/myIpSlice";
 import axios from "axios";
 
+
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
 
 function App() {
     let dispatch = useDispatch();
+    let navigate = useNavigate();
+
     useEffect(() => {
         axios.get('https://geolocation-db.com/json/')
             .then((res) => {

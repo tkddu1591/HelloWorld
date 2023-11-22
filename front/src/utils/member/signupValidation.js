@@ -1,4 +1,4 @@
-import {changeDTO} from "../store/changeDTO";
+import {changeDTO} from "../../store/changeDTO";
 
 /**
  * 데이터 유효성 검사
@@ -39,5 +39,13 @@ export function isOkPasswordHandler( setIsOk, inputValue ) {
         setIsOk,
         'pass',
         isValidPass(inputValue.pass, inputValue.passChk)
+    );
+}
+
+export function isAutoLoginHandler(inputValue, setInputValue) {
+    changeDTO(
+        setInputValue,
+        'isAutoLogin',
+        !inputValue.isAutoLogin
     );
 }
