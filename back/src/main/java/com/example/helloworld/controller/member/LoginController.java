@@ -21,12 +21,12 @@ public class LoginController {
 
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody LoginDTO login, HttpServletResponse response) {
-        return loginService.defaultLogin(login.getEmail(), login.getPass(), response);
+        return loginService.defaultLogin(login);
     }
 
     @PostMapping("/logoutCookie")
     public String logoutCookie(@RequestBody LoginDTO cookieName, HttpServletResponse response) {
-        response.addCookie(loginService.logoutCookie(cookieName.getCookieName()));
+        response.addCookie(loginService.deleteCookie(cookieName.getCookieName()));
         return "SUCCESS";
     }
 }

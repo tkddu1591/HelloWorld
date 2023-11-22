@@ -2,6 +2,8 @@ package com.example.helloworld.security;
 
 import com.example.helloworld.jwt.JwtAuthenticationFilter;
 import com.example.helloworld.jwt.JwtProvider;
+import com.example.helloworld.service.member.LoginService;
+import com.example.helloworld.service.member.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,8 +31,8 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @Component
 public class SecurityConfiguration {
-
     private final JwtProvider jwtProvider;
+    private final TokenService tokenService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -41,10 +43,11 @@ public class SecurityConfiguration {
                 .formLogin(FormLoginConfigurer::disable)
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilter(corsFilter())
-                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, tokenService), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
                         .requestMatchers("/").permitAll()//인가설정
                         .requestMatchers("/**").permitAll()
+                        .requestMatchers("/oauth/**").permitAll()
                         .requestMatchers("http://localhost:3000/**").permitAll());
         return httpSecurity.build();
     }

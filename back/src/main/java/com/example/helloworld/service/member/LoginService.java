@@ -2,11 +2,15 @@ package com.example.helloworld.service.member;
 
 import com.example.helloworld.dto.member.LoginDTO;
 import com.example.helloworld.dto.member.MemberDTO;
+import com.example.helloworld.dto.member.TokenDTO;
+import com.example.helloworld.entity.member.TokenEntity;
 import com.example.helloworld.jwt.JwtProvider;
+import com.example.helloworld.repository.member.MemberRepository;
+import com.example.helloworld.repository.member.TokenRepository;
 import com.example.helloworld.security.MemberDetails;
 import com.example.helloworld.transform.member.MemberTransform;
+import com.example.helloworld.transform.member.TokenTransform;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,21 +29,38 @@ public class LoginService {
     private final AuthenticationManager authenticationManager;
     private final MemberTransform       memberTransform;
     private final JwtProvider           jwtProvider;
+    private final TokenService          tokenService;
 
-    public Map<String, Object> defaultLogin(String email, String pass, HttpServletResponse response) {
+    public Map<String, Object> defaultLogin(LoginDTO loginDTO) {
         log.info(" - defaultLogin > start!...");
+
+        String email = loginDTO.getEmail();
+        String pass = loginDTO.getPass();
+        boolean isAutoLogin = loginDTO.isAutoLogin();
+        log.info(" - defaultLogin > email       : " + email);
+        log.info(" - defaultLogin > isAutoLogin : " + isAutoLogin);
+
+
+
         try {
             MemberDTO member = getMember(email, pass);
             member.setPass("YOU CANT'T SEE ME");
             log.info(" - defaultLogin > email : " + member.getEmail());
 
-            String accessToken  = jwtProvider.createToken(member, 3);
-            String refreshToken = jwtProvider.createToken(member, 10);
-            String myInfo = getSimplyMember(member);
+            int exp_refreshToken = jwtProvider.getRefreshToken_expMin();
+            if(isAutoLogin) exp_refreshToken = 7*24*60;
 
-            response.addCookie(jwtProvider.createCookie("helloWorld_REFRESH_TOKEN", refreshToken, 30));
+            String accessToken  = jwtProvider.createToken(member, jwtProvider.getAccessToken_expMin());
+            String refreshToken = jwtProvider.createToken(member, exp_refreshToken);
+            String myInfo = member.getEmail()+","+member.getNick();
+
+            if(tokenService.saveRefreshToken(email, refreshToken) != null) {
+                log.info(" - defaultLogin > refreshToken SAVED!!!!");
+            };
+
             return Map.of("grantType", "Bearer",
                           "accessToken", accessToken,
+                          "refreshToken", refreshToken,
                           "myInfo", myInfo);
 
         } catch (Exception e) {
@@ -47,7 +68,7 @@ public class LoginService {
                           "message", e.getMessage());
         }
     }
-    public Cookie logoutCookie(String cookieName) {
+    public Cookie deleteCookie(String cookieName) {
         return jwtProvider.createCookie(cookieName, null, 0);
     }
     public MemberDTO getMember(String unique, String pass) {
@@ -60,10 +81,8 @@ public class LoginService {
 
         return memberTransform.toDTO(memberDetails.getMemberEntity());
     }
-    public String getSimplyMember(MemberDTO memberDTO) {
-        return memberDTO.getEmail()+","+memberDTO.getNick()+","+currentTime();
-    }
     public LocalDateTime currentTime() {
         return LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime();
     }
+
 }

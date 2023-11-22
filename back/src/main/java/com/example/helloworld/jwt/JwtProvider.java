@@ -2,11 +2,14 @@ package com.example.helloworld.jwt;
 
 
 import com.example.helloworld.dto.member.MemberDTO;
+import com.example.helloworld.service.member.LoginService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
 import jakarta.servlet.http.Cookie;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,12 +31,16 @@ public class JwtProvider {
     private String issuer;
     private SecretKey secretKey;
 
+    @Getter
+    public int accessToken_expMin = 1; // 단위는 minutes
+    @Getter
+    public int refreshToken_expMin = 3; // 단위는 minutes
+
     public JwtProvider(@Value("${jwt.secret}") String secret) {
         String secretKey_toBase64Encoded = Base64.getEncoder().encodeToString(secret.getBytes());
         this.issuer = "5Team-Project_HelloWorld.com";
         this.secretKey = Keys.hmacShaKeyFor(secretKey_toBase64Encoded.getBytes());
     }
-
     public Claims setClaims(MemberDTO memberDTO) {
         Claims claims = Jwts.claims();
         claims.put("email", memberDTO.getEmail());
@@ -41,22 +48,25 @@ public class JwtProvider {
         claims.put("type", memberDTO.getType());
         return claims;
     }
-
     public String createToken(MemberDTO memberDTO, int min) {
         Date issuedDate = new Date();
         Date expireDate = new Date(issuedDate.getTime() + Duration.ofMinutes(min).toMillis());
 
-        Claims claims = setClaims(memberDTO);
-
-        String token = Jwts.builder()
+        return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(issuer)
                 .setIssuedAt(issuedDate)
                 .setExpiration(expireDate)
-                .addClaims(claims)
+                .addClaims(setClaims(memberDTO))
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
-        return token;
+    }
+    public String getEmailFromToken(String token) {
+        return (String) Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .get("email");
     }
 
     public Cookie createCookie(String key, String token, int min) {
@@ -70,15 +80,11 @@ public class JwtProvider {
 
     public Claims getClaims(String token) {
         return Jwts.parserBuilder()
-                // 서명 확인을 위해 secretKey set(jwt.secret)
                 .setSigningKey(secretKey)
-                // parser 객체 생성 완료.
                 .build()
-                // token을 parsing 및 서명 확인 후 JWS(JSON Web Signature) 객체 반환
                 .parseClaimsJws(token)
-                // JWS 객체에서 payload(claims) 추출.
                 .getBody();
-    } // JSON Web Token에서 claims 추출.
+    }
 
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
