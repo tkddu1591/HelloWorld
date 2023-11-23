@@ -31,7 +31,6 @@ public class LectureService {
 
     public LectureDTO findByLectureNo(int lectureNo) {
         LectureEntity lecture = lectureRepository.findByLectureNo(lectureNo);
-        log.info(lecture.getHasTags().toString());
         return lectureTransform.toDTO(lecture);
     }
 
@@ -51,7 +50,9 @@ public class LectureService {
             result = lectureRepository.findBySearch(pageRequestDTO.getLecture().getLevelNo()
                     , pageRequestDTO.getLecture().getStudyDate()
                     , pageRequestDTO.getLecture().getTitle()
-                    , pageRequestDTO.getLecture().getTagList(), pageable);
+                    , pageRequestDTO.getLecture().getTagList()
+                    , pageRequestDTO.getSort(),
+                    pageable);
         else {
             result = lectureRepository.findByIsDelete(false, pageable);
         }

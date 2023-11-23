@@ -27,6 +27,7 @@ interface LectureListTableProps {
     setSort?: (value: string) => void;
     setPageRequest?: (value: any) => void;
     pageResponse?: any;
+    tags?: {value: number, label:string}[];
 }
 
 function ListTable({
@@ -37,7 +38,8 @@ function ListTable({
     title = '목록',
     isLoadingType = false,
     setPageRequest,
-    pageResponse
+    pageResponse,
+    tags
 }: LectureListTableProps) {
     const [clientWidth, setClientWidth] = useState(document.body.clientWidth);
     useEffect(() => {
@@ -68,8 +70,8 @@ function ListTable({
                     title={title}
                     setSort={setSort}
                     more={isMore}></ListHeader>
-                {listLoading && (clientWidth < 992 || listLoading.view === 'card') && <CardList></CardList>}
-                {listLoading && clientWidth >= 992 && listLoading.view === 'list' && <ListList></ListList>}
+                {listLoading && (clientWidth < 992 || listLoading.view === 'card') && <CardList tags={tags} pageResponse={pageResponse}></CardList>}
+                {listLoading && clientWidth >= 992 && listLoading.view === 'list' && <ListList tags={tags} pageResponse={pageResponse}></ListList>}
             </div>
             <div style={{ marginTop: '20px', marginBottom: '20px' }}>
                 {listLoading && listLoading.loading === 'paging' && <LecturePagination setPageRequest={setPageRequest} pageResponse={pageResponse}></LecturePagination>}

@@ -45,7 +45,7 @@
         &,
         &:focus,
         &:hover{
-            background-color: $default-color;
+            background-color:transparent;
             border-color: $default-color;
             color: $white-color;
         }

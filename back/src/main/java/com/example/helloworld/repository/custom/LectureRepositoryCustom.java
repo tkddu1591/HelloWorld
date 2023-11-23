@@ -12,6 +12,8 @@ public interface LectureRepositoryCustom {
                                      Integer studyDate,
                                      String lectureTitle,
                                      List<Integer> tagList,
-                                     Pageable pageable);
+                                     String sortType,
+                                     Pageable pageable
+    );
 
 }

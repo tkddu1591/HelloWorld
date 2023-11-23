@@ -58,7 +58,7 @@ function LectureWriteMain() {
         label: string
     }[]>([])
     const [levels, setLevels] = useState<{
-        value: number ,
+        value: number,
         label: string
     }[]>([])
 
@@ -67,9 +67,11 @@ function LectureWriteMain() {
         const fetchData = async () => {
             try {
                 // 첫 번째 요청
-                const lectureResponse = await axios.get(API_BASE_URL + `/lecture/write/main?lectureNo=${lectureNo}`);
-                setLecture(lectureResponse.data);
-                setIsModify(true);
+                if (lectureNo !== null) {
+                    const lectureResponse = await axios.get(API_BASE_URL + `/lecture/view?lectureNo=${lectureNo}`);
+                    setLecture(lectureResponse.data);
+                    setIsModify(true);
+                }
 
                 // 두 번째 요청 (태그)
                 const tagsResponse = await axios.get(`${API_BASE_URL}/lecture/tags`);
@@ -123,19 +125,19 @@ function LectureWriteMain() {
     useEffect(() => {
         if (levels.filter(level => level.value === lecture?.levelNo)[0] !== undefined)
             setSelectLevel(levels.filter(level => level.value === lecture?.levelNo)[0])
-    },[levels])
+    }, [levels])
     const [selectTag, setSelectTag] = useState(
         tags.filter(tag => lecture?.tagList?.includes(Number(tag.value)))
     );
     useEffect(() => {
         if (levels.filter(level => level.value === lecture?.levelNo).length !== 0)
             setSelectTag(tags.filter(tag => lecture?.tagList.includes(tag.value)))
-    },[tags])
+    }, [tags])
     let navigate = useNavigate()
     return <Container style={{marginTop: '100px'}} className={'lectureMainWrite'}>
         <Row>
             <Col className={'lectureWrite'}>
-                {isModify?<h3>강의 수정</h3>:<h3>강의 등록</h3>}
+                {isModify ? <h3>강의 수정</h3> : <h3>강의 등록</h3>}
                 <p>① 메인</p>
             </Col>
         </Row>
@@ -234,17 +236,20 @@ function LectureWriteMain() {
                     navigate(-1)
                 }}>이전</Button>
                 <Button color={'info'} type={'submit'} onClick={async () => {
-                    let lectureNo: number = 0
-                    await axios.post(`${API_BASE_URL}/lecture/write/main`, lecture).then(
-                        (res) => {
-                            if (res.status === 200 && typeof lectureNo === 'number') {
-                                lectureNo = res.data;
+                    let newLectureNo: number = 0
+                    if (lectureNo === null)
+                        await axios.post(`${API_BASE_URL}/lecture/write/main`, lecture).then(
+                            (res) => {
+                                if (res.status === 200 && typeof newLectureNo === 'number') {
+                                    newLectureNo = res.data;
+                                }
                             }
-                        }
-                    ).catch(err => {
-                        console.log(err)
-                    })
-                    await navigate('/lecture/write/content?lectureNo=' + lectureNo)
+                        ).catch(err => {
+                            console.log(err)
+                        })
+                    else
+                        newLectureNo = Number(lectureNo)
+                    await navigate('/lecture/write/content?lectureNo=' + newLectureNo)
                 }}>다음</Button>
             </Col>
         </Row>

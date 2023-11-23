@@ -102,6 +102,7 @@ function LectureList() {
         setSorts((prevSorts) => {
             const updatedSorts = [...prevSorts];
             updatedSorts[0].list = levels.map(tag => ({value: tag.value, label: tag.label}));
+            updatedSorts[0].list = [...updatedSorts[0].list, {value: 4, label: '전체'}];
             return updatedSorts;
         });
     }, [levels]);
@@ -119,12 +120,9 @@ function LectureList() {
         sort?: string
         lecture?: LectureType
     }>({
-        sort: 'regDate'
+        sort: 'regDate',
+        size: 12
     });
-    useEffect(() => {
-        console.log(lecture)
-        console.log(pageRequest)
-    }, [lecture]);
 
     function setLectureTitle(value: string): void {
         changeDTO(setLecture, 'title', value)
@@ -142,7 +140,7 @@ function LectureList() {
     const [isSearch, setIsSearch] = useState(false);
     const [pageResponse, setPageResponses] = useState();
 
-    useEffect(() => {
+    const handleSearch = () => {
         changeDTO(setPageRequest, 'lecture', lecture)
             .then(r =>
                 axios.get(`${API_BASE_URL}/lecture/list`, {
@@ -159,7 +157,16 @@ function LectureList() {
                     setPageResponses(res.data);
                 }))
             .catch(err => console.log(err));
-    }, [isSearch, pageRequest.pg, pageRequest.sort]);
+
+    }
+    useEffect(() => {
+        changeDTO(setPageRequest, 'pg', 1).then(res => {
+            handleSearch()
+        })
+    }, [isSearch, pageRequest.sort]);
+    useEffect(() => {
+        handleSearch()
+    }, [pageRequest.pg]);
     useEffect(() => {
         console.log(pageResponse)
     }, [pageResponse]);
@@ -168,7 +175,7 @@ function LectureList() {
             <div style={{marginTop: '100px'}}></div>
             <SearchBar sorts={sorts} setTitle={setLectureTitle} setSearch={setIsSearch} search={isSearch}
                        setSorts={setLecture}></SearchBar>
-            <ListTable sorts={sorts} sortType={sortType} setSort={setSort} isLoadingType={true}
+            <ListTable sorts={sorts} sortType={sortType} setSort={setSort} tags={tags} isLoadingType={true}
                        title={'강의 목록'} setPageRequest={setPageRequest} pageResponse={pageResponse}></ListTable>
         </>
     );

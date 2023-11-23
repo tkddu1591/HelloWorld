@@ -3,7 +3,11 @@ import { Col, Container, Row } from 'reactstrap';
 import Star from './Star';
 import React from 'react';
 
-function ListList() {
+interface ListListProps {
+    pageResponse?:any
+    tags?: {value: number, label:string}[];
+}
+function ListList({pageResponse}: ListListProps) {
     let navigate = useNavigate();
 
     function handleClick(e) {

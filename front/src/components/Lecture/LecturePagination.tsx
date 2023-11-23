@@ -8,8 +8,11 @@ interface LectureListPaginationProps {
 }
 
 function LecturePagination({setPageRequest, pageResponse}: LectureListPaginationProps) {
-    if (pageResponse) {
 
+    if (pageResponse) {
+        let pageNum: number[] = [];
+        for (let num = pageResponse.start; num <= pageResponse.end; num++)
+            pageNum.push(num);
         return (
             <Pagination
                 style={{
@@ -18,6 +21,7 @@ function LecturePagination({setPageRequest, pageResponse}: LectureListPagination
                     textAlign:      'center',
                     width:          '100%',
                 }}>
+                {pageResponse.prev&&<>
                 <PaginationItem>
                     <PaginationLink aria-label="Previous" onClick={e => changeDTO(setPageRequest, 'pg', 1)}>
                         <i className="fa fa-angle-double-left"></i>
@@ -28,30 +32,36 @@ function LecturePagination({setPageRequest, pageResponse}: LectureListPagination
                                     onClick={e => changeDTO(setPageRequest, 'pg', pageResponse.start - 1)}>
                         <i className="fa fa-angle-left"></i>
                     </PaginationLink>
-                </PaginationItem>
-                {pageResponse.lectureList?.map((lecture, index) => {
+                </PaginationItem></>}
+                {pageNum?.map((number, index) => {
                     return (
-                        <PaginationItem className={pageResponse.pg===index+pageResponse.start?"active":''} key={lecture.lectureNo}>
-                            <PaginationLink onClick={e => changeDTO(setPageRequest, 'pg', index+pageResponse.start)}>{index+pageResponse.start}</PaginationLink>
+                        <PaginationItem className={pageResponse.pg === index + pageResponse.start ? "active" : ''}
+                                        key={number}>
+                            <PaginationLink
+                                onClick={e => changeDTO(setPageRequest, 'pg', index + pageResponse.start)}>{index + pageResponse.start}</PaginationLink>
                         </PaginationItem>
                     );
                 })}
-                <PaginationItem>
-                    <PaginationLink aria-label="Next"
-                                    onClick={e => changeDTO(setPageRequest, 'pg', pageResponse.end + 1)}>
+                {pageResponse.next && <>
+                    <PaginationItem>
+                        <PaginationLink aria-label="Next"
+                                        onClick={e => changeDTO(setPageRequest, 'pg', pageResponse.end + 1)}>
                     <span aria-hidden={true}>
                         <i aria-hidden={true} className="fa fa-angle-right"></i>
                     </span>
-                    </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationLink aria-label="Next"
-                                    onClick={e => changeDTO(setPageRequest, 'pg', pageResponse.last)}>
+                        </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink aria-label="Next"
+                                        onClick={e => changeDTO(setPageRequest, 'pg', pageResponse.last)}>
                     <span aria-hidden={true}>
                         <i aria-hidden={true} className="fa fa-angle-double-right"></i>
                     </span>
-                    </PaginationLink>
-                </PaginationItem>
+                        </PaginationLink>
+                    </PaginationItem>
+                </>
+                }
+
             </Pagination>
         );
     } else {

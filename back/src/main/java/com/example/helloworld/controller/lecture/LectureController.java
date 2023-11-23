@@ -39,7 +39,7 @@ public class LectureController {
     }
 
     @Transactional
-    @GetMapping("/write/main")
+    @GetMapping("/view")
     public LectureDTO findByLectureNo(@RequestParam int lectureNo) {
         LectureDTO lectureDTO = lectureService.findByLectureNo(lectureNo);
         lectureDTO.setTagList(lectureHasTagService.findByLectureNo(lectureNo).stream().map(LectureHasTagDTO::getTagNo).toList());
