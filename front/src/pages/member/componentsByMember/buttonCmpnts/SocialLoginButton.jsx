@@ -10,16 +10,16 @@ function SocialLoginButton() {
     return (
         <>
             <div style={{float: "right"}}>
-                <Link to={"/oauth/github"}>
+                <Link to={"/oauth2/authorization/github"}>
                     <GithubIcon />
                 </Link>&nbsp;
-                <Link to={"/oauth/google"}>
+                <Link to={"/oauth2/authorization/google"}>
                     <GoogleIcon />
                 </Link>&nbsp;
-                <Link to={"/oauth/kakao"}>
+                <Link to={"/oauth2/authorization/kakao"}>
                     <KakaoIcon />
                 </Link>&nbsp;
-                <Link to={"/oauth/naver"}>
+                <Link to={"/oauth2/authorization/naver"}>
                     <NaverIcon />
                 </Link>
             </div>

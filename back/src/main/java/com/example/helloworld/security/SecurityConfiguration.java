@@ -52,7 +52,6 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
                         .requestMatchers("/").permitAll()//인가설정
                         .requestMatchers("/**").permitAll()
-                        .requestMatchers("/oauth/**").permitAll()
                         .requestMatchers("http://localhost:3000/**").permitAll()
                 );
         return httpSecurity.build();

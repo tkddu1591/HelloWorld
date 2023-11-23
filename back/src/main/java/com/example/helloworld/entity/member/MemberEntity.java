@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -42,8 +43,9 @@ public class MemberEntity implements Serializable, OAuth2User {
     private String tel;
     private String fax;
     private String regIp;
-    private LocalDateTime wdate;
+    @CreationTimestamp
     private LocalDateTime regDate;
+    private LocalDateTime wdate;
     private int    isCondition;
     private String profileImg;
     private String etc1;
