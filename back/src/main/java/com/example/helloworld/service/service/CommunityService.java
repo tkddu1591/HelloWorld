@@ -17,6 +17,7 @@ import com.example.helloworld.repository.commuity.CommunityRepository;
 import com.example.helloworld.transform.commuity.CommunityCommentTransform;
 import com.example.helloworld.transform.commuity.CommunityHasTagTransform;
 import com.example.helloworld.transform.commuity.CommunityTransform;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,7 +141,7 @@ public class CommunityService {
     }*/
 
     public PageResponseDTO commentRefresh(PageRequestDTO pageRequestDTO, int communityNo, String commentType){
-
+        pageRequestDTO.setSize(20);
         Pageable pageable = null;
         if(commentType.equals("Desc")){
             pageable = pageRequestDTO.getPageableDesc("commentNo");
@@ -167,13 +168,17 @@ public class CommunityService {
                 .build();
     }
 
+    @Transactional
     public void insertComment(PageRequestDTO pageRequestDTO){
 
         CommunityCommentEntity entity = new CommunityCommentEntity();
         entity.setContent(pageRequestDTO.getCommentWrite());
         CommunityEntity community = communityRepository.findByCommunityNo(pageRequestDTO.getCommunityNo());
         entity.setCommunity(community);
+        entity.setParentNo(pageRequestDTO.getParentNo());
         communityCommentRepository.save(entity);
+        log.info(pageRequestDTO.getCommunityNo());
+        communityRepository.updateComAmountByCommunityNo(pageRequestDTO.getCommunityNo());
 
     }
 }

@@ -31,7 +31,6 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
         <ul className={'comment_list'}>
 
             {commentsList.map(function(a, i){
-
                 const date = new Date(a.regDate);
 
                 if (isNaN(date)) {
@@ -98,6 +97,7 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
                                     <a role="button" className="comment_info_button"
                                     onClick={()=>{
                                         setReplyToComment(a.commentNo);
+                                        setParentNo(a.commentNo);
                                     }}>
                                         {' '}
                                         답글쓰기{' '}
@@ -111,7 +111,7 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
                                         title="더보기"
                                         className="comment_tool_button"
                                         onClick={() => {
-                                            setPopup('user');}}>
+                                            setPopup('user'+i);}}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="16"
@@ -121,7 +121,7 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
                                             viewBox="0 0 16 16">
                                             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                                         </svg>
-                                        {popup === 'user' && <UserPopup popupSetting={popupSetting}></UserPopup>}
+                                        {popup === 'user'+i && <UserPopup popupSetting={popupSetting}></UserPopup>}
                                     </a>
                                     {/*<!---->*/}
                                 </div>
@@ -129,7 +129,7 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
                         </div>
                     </li>
                     {replyToComment === a.commentNo && (
-                        <li>
+                        <li className={"CommentItem CommentItem--reply"}>
                             <CommentWriter insertComment={insertComment} commentWrite={commentWrite} setCommentWrite={setCommentWrite} setParentNo={setParentNo} setReplyToComment={setReplyToComment}></CommentWriter>
                         </li>
                     )}
@@ -183,6 +183,7 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
                                             <a role="button" className="comment_info_button"
                                             onClick={()=>{
                                                 setReplyToComment(reply.commentNo);
+                                                setParentNo(reply.parentNo);
                                             }}>
                                                 {' '}
                                                 답글쓰기{' '}
@@ -196,7 +197,7 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
                                                 title="더보기"
                                                 className="comment_tool_button"
                                                 onClick={() => {
-                                                    setPopup('user');}}>
+                                                    setPopup('comment'+j);}}>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     width="16"
@@ -206,7 +207,7 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
                                                     viewBox="0 0 16 16">
                                                     <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                                                 </svg>
-                                                {popup === 'user' && <UserPopup popupSetting={popupSetting}></UserPopup>}
+                                                {popup === 'comment'+j && <UserPopup popupSetting={popupSetting}></UserPopup>}
                                             </a>
                                             {/*<!---->*/}
                                         </div>
@@ -214,7 +215,7 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
                                 </div>
                             </li>
                             {replyToComment === reply.commentNo && (
-                                <li>
+                                <li className={"CommentItem CommentItem--reply"}>
                                     <CommentWriter insertComment={insertComment} commentWrite={commentWrite} setCommentWrite={setCommentWrite} setParentNo={setParentNo} setReplyToComment={setReplyToComment}></CommentWriter>
                                 </li>
                             )}
@@ -234,6 +235,11 @@ function CommentList({popup,setPopup,commentsList, commentReply, setParentNo, in
                                         </div>
                                     </div>
                                 </li>
+                                {/*{replyToComment === reply.commentNo && (
+                                    <li className={"CommentItem CommentItem--reply"}>
+                                        <CommentWriter insertComment={insertComment} commentWrite={commentWrite} setCommentWrite={setCommentWrite} setParentNo={setParentNo} setReplyToComment={setReplyToComment}></CommentWriter>
+                                    </li>
+                                )}*/}
                             </>)
                     })}
                 </>)

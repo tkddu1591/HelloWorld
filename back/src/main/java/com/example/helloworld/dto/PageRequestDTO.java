@@ -26,6 +26,10 @@ public class PageRequestDTO {
     private String commentWrite = "";
     @Builder.Default
     private int communityNo = 0;
+    @Builder.Default
+    private int parentNo = 0;
+    @Builder.Default
+    private String commentType = "Desc";
 
 
     public Pageable getPageableDesc(String sort){

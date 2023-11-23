@@ -76,6 +76,9 @@ function CommunityView() {
     useEffect(() => {
         console.log(tagsList);
     }, [tagsList]);
+    useEffect(() => {
+        console.log(parentNo);
+    }, [parentNo]);
 
 
     // COMMENT SORTING
@@ -105,9 +108,17 @@ function CommunityView() {
 
 
     const insertComment = () =>{
-        axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo})
+        axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo, parentNo, commentType})
             .then(res => {
                 console.log('success');
+                setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
+                setCommentReply(res.data.commentsList.filter(comment => comment.parentNo != 0));
+                const updatedView = {...view};
+
+                updatedView.comAmount = updatedView.comAmount + 1;
+
+                setView(updatedView);
+
             })
     }
     return (
@@ -155,7 +166,8 @@ function CommunityView() {
                                                                insertComment={insertComment}
                                                                communityNo={communityNo}
                                                                setParentNo={setParentNo}
-                                                               replyToComment={replyToComment}>
+                                                               replyToComment={replyToComment}
+                                                               setReplyToComment={setReplyToComment}>
                                                 </CommentWriter>
                                             </div>
                                             {/*<div className="RelatedArticles"></div>

@@ -54,20 +54,24 @@ public class CommunityController {
         log.info(communityNo);
 
         PageResponseDTO result = communityService.commentRefresh(pageRequest, communityNo, commentType);
+        log.info(result);
+        log.info(result.getCommentsList());
 
         return result;
     }
 
 
     @PostMapping("/insertComment")
-    public void insertComment(@RequestBody PageRequestDTO pageRequestDTO){
+    public PageResponseDTO insertComment(@RequestBody PageRequestDTO pageRequestDTO){
         log.info("Insert Comment");
 
         log.info(pageRequestDTO.getCommunityNo());
         log.info(pageRequestDTO.getCommentWrite());
+        log.info(pageRequestDTO.getParentNo());
 
         communityService.insertComment(pageRequestDTO);
 
+        return communityService.commentRefresh(pageRequestDTO, pageRequestDTO.getCommunityNo(), pageRequestDTO.getCommentType());
     }
 
 
