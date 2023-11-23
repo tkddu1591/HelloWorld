@@ -87,7 +87,7 @@ public class CommunityService {
 
     public PageResponseDTO findByCommunityNo(int communityNo, int cateNo, PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setSize(20);
-        pageRequestDTO.setSort("communityNo");
+        pageRequestDTO.setSort("commentNo");
         Pageable pageable = pageRequestDTO.getPageableAsc();
 
         log.info("view Service...1");
@@ -103,7 +103,7 @@ public class CommunityService {
         if(nextNo == null){
             nextNo="0";
         }
-
+        log.info(pageable);
         Page<CommunityCommentEntity> commentEntity = communityCommentRepository.findByCommunity_CommunityNo(communityNo, pageable);
         log.info("view : " + viewEntity);
         List<CommunityHasTagEntity> hasTagEntity = hasTagRepository.findByCommunity_CommunityNo(communityNo);
@@ -144,6 +144,7 @@ public class CommunityService {
 
     public PageResponseDTO commentRefresh(PageRequestDTO pageRequestDTO, int communityNo, String commentType){
         pageRequestDTO.setSize(20);
+        pageRequestDTO.setSort("commentNo");
         Pageable pageable = null;
         if(commentType.equals("Desc")){
             pageable = pageRequestDTO.getPageableDesc();
@@ -181,6 +182,12 @@ public class CommunityService {
         communityCommentRepository.save(entity);
         log.info(pageRequestDTO.getCommunityNo());
         communityRepository.updateComAmountByCommunityNo(pageRequestDTO.getCommunityNo());
+
+    }
+
+    public void deleteComment(PageRequestDTO pageRequestDTO){
+
+        communityCommentRepository.deleteById(pageRequestDTO.getCommentNo());
 
     }
 }

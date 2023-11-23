@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { MouseEventHandler } from 'react';
+import axios from "axios";
+import {API_BASE_URL} from "../../App";
 
 interface UserPopupProps {
 	popupSetting: {
@@ -13,10 +15,13 @@ interface UserPopupProps {
 		right?: number;
 		bottom?: number;
 		isPopup?: boolean;
+		axiosData?:any;
 		condition: {
 			data: string;
+			axiosData?: any,
 			action: string;
 			newWindow?: boolean;
+			type?:string
 		}[];
 	};
 }
@@ -31,6 +36,13 @@ function UserPopup({ popupSetting }: UserPopupProps) {
 			if (item.newWindow) window.open(item.action, '_blank', 'width=400,height=600');
 			else navigate(item.action);
 		};
+	}
+	function handleClickAxios(item) {
+		axios.post(API_BASE_URL+item.action,popupSetting.axiosData).then(() => {
+			console.log('action 성공')
+		}).catch((error)=>{
+			console.log(error);
+		})
 	}
 
 	return (
@@ -55,10 +67,11 @@ function UserPopup({ popupSetting }: UserPopupProps) {
 					color: 'black',
 				}}>
 				{popupSetting.condition.map((item, index) => {
+					console.log(item)
 					return (
 						<span
 							key={item.data}
-							onClick={handleClick(item)}
+							onClick={()=>item?.type==='axios'&&popupSetting.axiosData?handleClickAxios(item):handleClick(item)}
 							style={{
 								paddingLeft: '5px',
 								cursor: 'pointer',
