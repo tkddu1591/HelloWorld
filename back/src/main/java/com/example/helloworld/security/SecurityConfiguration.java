@@ -41,14 +41,20 @@ public class SecurityConfiguration {
                 .csrf(CsrfConfigurer::disable)
                 .httpBasic(HttpBasicConfigurer::disable)
                 .formLogin(FormLoginConfigurer::disable)
-                .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(config -> config
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .addFilter(corsFilter())
-                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, tokenService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(
+                        new JwtAuthenticationFilter(jwtProvider, tokenService),
+                        UsernamePasswordAuthenticationFilter.class
+                )
                 .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
                         .requestMatchers("/").permitAll()//인가설정
                         .requestMatchers("/**").permitAll()
                         .requestMatchers("/oauth/**").permitAll()
-                        .requestMatchers("http://localhost:3000/**").permitAll());
+                        .requestMatchers("http://localhost:3000/**").permitAll()
+                );
         return httpSecurity.build();
     }
 
