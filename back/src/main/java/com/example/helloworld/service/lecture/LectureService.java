@@ -46,21 +46,26 @@ public class LectureService {
         Page<LectureEntity> result = null;
         //dtoList
         //findBy머시기 by뒤가 where절이라고 보면 됨니다.
-        result = lectureRepository.findBySearch(pageRequestDTO.getLecture().getLevelNo()
-                , pageRequestDTO.getLecture().getStudyDate()
-                , pageRequestDTO.getLecture().getTitle()
-                , pageRequestDTO.getLecture().getTagList(), pageable);
+        log.info(pageRequestDTO.toString());
+        if (pageRequestDTO.getLecture() != null)
+            result = lectureRepository.findBySearch(pageRequestDTO.getLecture().getLevelNo()
+                    , pageRequestDTO.getLecture().getStudyDate()
+                    , pageRequestDTO.getLecture().getTitle()
+                    , pageRequestDTO.getLecture().getTagList(), pageable);
+        else {
+            result = lectureRepository.findByIsDelete(false, pageable);
+        }
 
         result.getContent(); // Entity
         result.getTotalElements(); // 숫자 형이 double -> int변경해줘야함
 
         // content를 dto로 변환 해주는 역할
-        List<LectureDTO> dtoList = result.getContent()
-                .stream()
-                .map(lectureTransform::toDTO)
-                .toList();
+        List<LectureDTO> dtoList = (lectureTransform.toDTOList(result.getContent()));
+
 
         int totalElement = (int) result.getTotalElements();
+        log.info(totalElement+"");
+        log.info(result.getTotalElements()+"");
 
         return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)

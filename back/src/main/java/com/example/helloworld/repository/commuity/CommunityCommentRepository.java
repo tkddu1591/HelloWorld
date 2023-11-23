@@ -14,4 +14,6 @@ import java.util.List;
 public interface CommunityCommentRepository extends JpaRepository<CommunityCommentEntity, Integer> {
 
     public Page<CommunityCommentEntity> findByCommunity_CommunityNo(int communityNo, Pageable pageable);
+
+    /*public void save(int communityNo, String content);*/
 }

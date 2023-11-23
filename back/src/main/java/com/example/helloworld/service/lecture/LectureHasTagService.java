@@ -27,6 +27,7 @@ public class LectureHasTagService {
         }
     }
     public List<LectureHasTagDTO> findByLectureNo(int lectureNo) {
+        lectureHasTagRepository.deleteByLecture_LectureNo(lectureNo);
         return lectureHasTagRepository.findByLecture_LectureNo(lectureNo).stream().map(lectureHasTagTransform::toDTO).toList();
     }
 

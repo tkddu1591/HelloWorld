@@ -27,14 +27,14 @@ function SelectBox({
                     changeDTO(setSelect, selectName, list);
                 } else
                     changeDTO(setSelect, selectName, selectedOption?.value);
+            } else if (Array.isArray(selectedOption) && selectedOption.length > 0) {
+                setSelect?.(selectedOption.map(item => item.value));
             } else
                 setSelect?.(selectedOption?.value);
         }
-        console.log(selectedOption)
     }, [selectedOption]);
     useEffect(() => {
         if (value !== undefined) {
-            console.log(value)
             setSelectedOption(value)
         }
     }, [value]);

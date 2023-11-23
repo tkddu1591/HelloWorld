@@ -22,37 +22,67 @@ function CommunityView() {
     const searchParams = new URLSearchParams(location.search);
     const newCommunityNo = searchParams.get('no');
     const [communityNo, setCommunityNo] = useState(newCommunityNo);
+    const newCateNo = searchParams.get('cate');
+    const [cateNo, setCateNo] = useState(newCateNo);
+    const [prevNo, setPrevNo] = useState(0);
+    const [nextNo, setNextNo] = useState(0);
     const [buttonStatus, setButtonStatus] = useState(true);
     const [sort, setSort] = useState("Asc");
     let [commentType, setCommentType] = useState("Asc");
     let [view, setView] = useState({});
     let [commentsList, setCommentsList] = useState([]);
+    let [commentReply, setCommentReply] = useState([]);
+    const [commentWrite, setCommentWrite] = useState('');
+    const [replyToComment, setReplyToComment] = useState(null);
+    let [parentNo, setParentNo] = useState(0);
     let [tagsList, setTagsList] = useState([]);
 
+    // CommentOption의 ref를 생성합니다.
+    const commentRef = React.createRef();
+
+    // CommentOption으로 스크롤 이동하는 함수를 만듭니다.
+    const scrollToCommentOption = () => {
+        console.log('success');
+        if (commentRef.current) {
+            console.log('click');
+            commentRef.current.scrollIntoView({behavior: 'smooth'});
+        }
+    };
+
+    // VIEW GET
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/community/view`,{
-            params: {communityNo: communityNo}
+        axios.get(`${API_BASE_URL}/community/view`, {
+            params: {communityNo: communityNo, cateNo: cateNo}
         })
-            .then(res=>{
+            .then(res => {
                 setView(res.data.view);
                 setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
+                setCommentReply(res.data.commentsList.filter(comment => comment.parentNo != 0));
                 setTagsList(res.data.hasTagsList);
+                setPrevNo(res.data.prevNo);
+                setNextNo(res.data.nextNo);
             })
-            .catch(err=>{
+            .catch(err => {
                 console.log(err);
             })
-    }, []);
+    }, [communityNo]);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(view);
-    },[view]);
-    useEffect(()=>{
+    }, [view]);
+    useEffect(() => {
         console.log(commentsList);
-    },[commentsList]);
-    useEffect(()=>{
+    }, [commentsList]);
+    useEffect(() => {
         console.log(tagsList);
-    },[tagsList]);
-    useEffect(()=>{
+    }, [tagsList]);
+    useEffect(() => {
+        console.log(parentNo);
+    }, [parentNo]);
+
+
+    // COMMENT SORTING
+    useEffect(() => {
         console.log(commentType);
         // commentsList 배열 복사
         const clonedList = [...commentsList];
@@ -67,10 +97,30 @@ function CommunityView() {
         }
 
         setCommentsList(clonedList);
-    },[commentType]);
+    }, [commentType]);
     useEffect(() => {
     }, [buttonStatus]);
 
+    useEffect(() => {
+        console.log(communityNo)
+        console.log(view)
+    }, [communityNo]);
+
+
+    const insertComment = () =>{
+        axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo, parentNo, commentType})
+            .then(res => {
+                console.log('success');
+                setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
+                setCommentReply(res.data.commentsList.filter(comment => comment.parentNo != 0));
+                const updatedView = {...view};
+
+                updatedView.comAmount = updatedView.comAmount + 1;
+
+                setView(updatedView);
+
+            })
+    }
     return (
         <>
             <Container style={{userSelect: 'none'}} onClick={() => {
@@ -81,18 +131,44 @@ function CommunityView() {
                         <div className="view" style={{marginTop: '80px'}}>
                             <div className="Article layout_content">
                                 <div className="article_wrap">
-                                    <ArticleTopBtns view={view}></ArticleTopBtns>
+                                    <ArticleTopBtns setCateNo={setCateNo} setCommunityNo={setCommunityNo} view={view}
+                                                    prevNo={prevNo} nextNo={nextNo}></ArticleTopBtns>
                                     <div className="ArticleContentBox" style={{marginBottom: '100px'}}>
-                                        <ArticleHeader view={view}></ArticleHeader>
+                                        <ArticleHeader scrollToCommentOption={scrollToCommentOption} navigate={navigate}
+                                                       view={view}></ArticleHeader>
                                         <div className="article_container">
                                             <ArticleContent view={view}></ArticleContent>
                                             <ArticleTagList tagsList={tagsList}></ArticleTagList>
-                                            <ArticleBottomBtns view={view}></ArticleBottomBtns>
+                                            <ArticleBottomBtns commentRef={commentRef} view={view}></ArticleBottomBtns>
                                             <ReplyBox view={view}></ReplyBox>
                                             <div className={'CommentBox'}>
-                                                <CommentOption buttonStatus={buttonStatus} setButtonStatus={setButtonStatus} setCommentType={setCommentType}></CommentOption>
-                                                <CommentList popup={popup} setPopup={setPopup} commentsList={commentsList}></CommentList>
-                                                <CommentWriter></CommentWriter>
+                                                <CommentOption scrollToCommentOption={scrollToCommentOption}
+                                                               commentType={commentType}
+                                                               communityNo={communityNo}
+                                                               setCommentsList={setCommentsList}
+                                                               buttonStatus={buttonStatus}
+                                                               setButtonStatus={setButtonStatus}
+                                                               setCommentType={setCommentType}>
+                                                </CommentOption>
+                                                <CommentList popup={popup}
+                                                             setPopup={setPopup}
+                                                             commentsList={commentsList}
+                                                             commentReply={commentReply}
+                                                             setParentNo={setParentNo}
+                                                             insertComment={insertComment}
+                                                             commentWrite={commentWrite}
+                                                             setCommentWrite={setCommentWrite}
+                                                             replyToComment={replyToComment}
+                                                             setReplyToComment={setReplyToComment}>
+                                                </CommentList>
+                                                <CommentWriter commentWrite={commentWrite}
+                                                               setCommentWrite={setCommentWrite}
+                                                               insertComment={insertComment}
+                                                               communityNo={communityNo}
+                                                               setParentNo={setParentNo}
+                                                               replyToComment={replyToComment}
+                                                               setReplyToComment={setReplyToComment}>
+                                                </CommentWriter>
                                             </div>
                                             {/*<div className="RelatedArticles"></div>
 											<div className="PopularArticles"></div>

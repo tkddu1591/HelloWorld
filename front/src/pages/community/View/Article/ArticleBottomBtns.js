@@ -3,9 +3,9 @@ import '../../../../css/community/view.css';
 
 
 
-function ArticleBottomBtns({view}){
+function ArticleBottomBtns({view, commentRef}){
     return (<>
-        <div className="ArticleBottomBtns">
+        <div className="ArticleBottomBtns" ref={commentRef}>
             <div className="ArticleWriterProfile" style={{ marginTop: '36px', marginBottom: '36px' }}>
                 <a href="#" className="more_area">
 													<span className="thumb">

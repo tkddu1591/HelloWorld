@@ -36,11 +36,12 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
             builder.and(lectureEntity.studyDate.goe(studyDate));
         }
         if (lectureTitle != null) {
-            builder.and(lectureEntity.title.contains(lectureTitle));
+            builder.and(lectureEntity.title.like("%"+lectureTitle+"%"));
         }
         if (tagList != null && !tagList.isEmpty()) {
-            builder.and(lectureEntity.hasTags.any().hasTagNo.in(tagList));
+            builder.and(lectureEntity.hasTags.any().tag.tagNo.in(tagList));
         }
+        builder.and(lectureEntity.isDelete.eq(false));
 
         QueryResults<LectureEntity> results = queryFactory
                 .selectFrom(lectureEntity)

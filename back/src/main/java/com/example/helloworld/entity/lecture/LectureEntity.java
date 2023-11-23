@@ -48,7 +48,7 @@ public class LectureEntity {
     private int review;
     @Column(columnDefinition = "int default 0")
     private int sold;
-    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lecture", cascade = CascadeType.ALL)
     private List<LectureHasTagEntity> hasTags;
     @PrePersist
     public void prePersist() {

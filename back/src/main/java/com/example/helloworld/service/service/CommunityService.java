@@ -17,6 +17,7 @@ import com.example.helloworld.repository.commuity.CommunityRepository;
 import com.example.helloworld.transform.commuity.CommunityCommentTransform;
 import com.example.helloworld.transform.commuity.CommunityHasTagTransform;
 import com.example.helloworld.transform.commuity.CommunityTransform;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,9 @@ public class CommunityService {
         //Order By 정렬할 컬럼명 Desc
         //getPageableDesc 내림차순 getPageableAsc 오름차순 ("정렬할 컬럼명")
         //pg , size 가공해서 같이 ordet by랑 섞어줌
+
         Pageable pageable = pageRequestDTO.getPageableDesc();
+
 
         CommunityCategoryEntity categoryEntity = categoryRepository.findById(pageRequestDTO.getCateNo()).orElse(null);
 
@@ -77,18 +80,30 @@ public class CommunityService {
         return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)
                 .communityList(dtoList)
+                .sort(pageRequestDTO.getSort())
                 .total(totalElement)
                 .build();
     }
 
-    public PageResponseDTO findByCommunityNo(int communityNo, PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO findByCommunityNo(int communityNo, int cateNo, PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setSize(20);
         pageRequestDTO.setSort("communityNo");
         Pageable pageable = pageRequestDTO.getPageableAsc();
 
         log.info("view Service...1");
         CommunityEntity viewEntity = communityRepository.findByCommunityNo(communityNo);
+        log.info("cateNo: "+ pageRequestDTO.getCateNo());
         log.info("view Service...1.1");
+
+        String  prevNo = communityRepository.findPrevNo(cateNo, communityNo);
+        String  nextNo = communityRepository.findNextNo(cateNo, communityNo);
+        if(prevNo == null){
+            prevNo="0";
+        }
+        if(nextNo == null){
+            nextNo="0";
+        }
+
         Page<CommunityCommentEntity> commentEntity = communityCommentRepository.findByCommunity_CommunityNo(communityNo, pageable);
         log.info("view : " + viewEntity);
         List<CommunityHasTagEntity> hasTagEntity = hasTagRepository.findByCommunity_CommunityNo(communityNo);
@@ -111,11 +126,14 @@ public class CommunityService {
 
         int totalElement = (int) commentEntity.getTotalElements();
         log.info("view Service...5");
+
         return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)
                 .commentsList(commentDTOList)
                 .view(viewDTO)
                 .hasTagsList(hasTagDTO)
+                .prevNo(Integer.parseInt(prevNo))
+                .nextNo(Integer.parseInt(nextNo))
                 .total(totalElement)
                 .build();
     }
@@ -123,4 +141,46 @@ public class CommunityService {
     /*public PageResponseDTO findCommentsByCommunityNo(){
 
     }*/
+
+    public PageResponseDTO commentRefresh(PageRequestDTO pageRequestDTO, int communityNo, String commentType){
+        pageRequestDTO.setSize(20);
+        Pageable pageable = null;
+        if(commentType.equals("Desc")){
+            pageable = pageRequestDTO.getPageableDesc();
+        }else if(commentType.equals("Asc")){
+            pageable = pageRequestDTO.getPageableAsc();
+        }
+
+        Page<CommunityCommentEntity> commentEntity = communityCommentRepository.findByCommunity_CommunityNo(communityNo, pageable);
+
+        // content를 dto로 변환 해주는 역할
+        List<CommunityCommentDTO> commentDTOList = commentEntity.getContent()
+                .stream()
+                .map(communityCommentTransform::toDTO)
+                .toList();
+
+        int totalElement = (int) commentEntity.getTotalElements();
+
+
+
+        return PageResponseDTO.builder()
+                .pageRequestDTO(pageRequestDTO)
+                .commentsList(commentDTOList)
+                .total(totalElement)
+                .build();
+    }
+
+    @Transactional
+    public void insertComment(PageRequestDTO pageRequestDTO){
+
+        CommunityCommentEntity entity = new CommunityCommentEntity();
+        entity.setContent(pageRequestDTO.getCommentWrite());
+        CommunityEntity community = communityRepository.findByCommunityNo(pageRequestDTO.getCommunityNo());
+        entity.setCommunity(community);
+        entity.setParentNo(pageRequestDTO.getParentNo());
+        communityCommentRepository.save(entity);
+        log.info(pageRequestDTO.getCommunityNo());
+        communityRepository.updateComAmountByCommunityNo(pageRequestDTO.getCommunityNo());
+
+    }
 }

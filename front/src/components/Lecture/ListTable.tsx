@@ -24,14 +24,20 @@ interface LectureListTableProps {
     isLoadingType?: boolean;
     LoadingType?: string;
     title?: string;
+    setSort?: (value: string) => void;
+    setPageRequest?: (value: any) => void;
+    pageResponse?: any;
 }
 
 function ListTable({
     colSize,
+    setSort,
     sortType = undefined,
     isMore = false,
     title = '목록',
     isLoadingType = false,
+    setPageRequest,
+    pageResponse
 }: LectureListTableProps) {
     const [clientWidth, setClientWidth] = useState(document.body.clientWidth);
     useEffect(() => {
@@ -60,12 +66,13 @@ function ListTable({
                     listLoading={listLoading}
                     sortType={sortType}
                     title={title}
+                    setSort={setSort}
                     more={isMore}></ListHeader>
                 {listLoading && (clientWidth < 992 || listLoading.view === 'card') && <CardList></CardList>}
                 {listLoading && clientWidth >= 992 && listLoading.view === 'list' && <ListList></ListList>}
             </div>
             <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-                {listLoading && listLoading.loading === 'paging' && <LecturePagination></LecturePagination>}
+                {listLoading && listLoading.loading === 'paging' && <LecturePagination setPageRequest={setPageRequest} pageResponse={pageResponse}></LecturePagination>}
             </div>
         </>
     );
