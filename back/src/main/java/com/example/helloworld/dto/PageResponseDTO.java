@@ -47,7 +47,7 @@ public class PageResponseDTO {
 
         this.end = (int) (Math.ceil(this.pg / (float)pageSize)) * pageSize;
         this.start = this.end - pageSize+1;
-
+        this.total =total;
 
         this.last = (int) (Math.ceil(total / (double) size));
         this.end = end > last ? last : end;

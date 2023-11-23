@@ -15,7 +15,7 @@ public class LectureDTO {
     private String seller;
     private String title;
     private int score;
-    private int levelNo;
+    private Integer levelNo;
     private int price;
     private int studyDate;
     private int discount;
@@ -29,6 +29,7 @@ public class LectureDTO {
 
     //추가데이터
     private List<Integer> tagList;
+    private List<String> hasTagNames;
     private String thumbName;
     private String thumbURL;
 }

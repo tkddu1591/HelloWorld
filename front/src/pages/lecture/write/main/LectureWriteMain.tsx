@@ -32,14 +32,6 @@ function LectureWriteMain() {
     }>()
 
     const [isModify, setIsModify] = useState(false)
-    useEffect(() => {
-        axios.get(API_BASE_URL + `/lecture/write/main?lectureNo=${lectureNo}`).then(res => {
-            setLecture(res.data)
-            setIsModify(true)
-        }).catch(error => {
-            setIsModify(false);
-        })
-    }, []);
     const [tagSort, setTagSort] = useState(
         {
             placeholder:  '태그 선택',
@@ -72,38 +64,45 @@ function LectureWriteMain() {
 
 
     useEffect(() => {
-        //태그
-        axios.get(`${API_BASE_URL}/lecture/tags`).then((res) => {
-            const newTags = res.data.map((tag) => ({
-                value: tag.tagNo,
-                label: tag.tagName,
-            }));
+        const fetchData = async () => {
+            try {
+                // 첫 번째 요청
+                const lectureResponse = await axios.get(API_BASE_URL + `/lecture/write/main?lectureNo=${lectureNo}`);
+                setLecture(lectureResponse.data);
+                setIsModify(true);
 
-            // 중복된 값을 필터링하여 추가
-            setTags((prevTags) => {
-                const uniqueTags = newTags.filter(newTag => !prevTags.some(prevTag => prevTag.value === newTag.value));
-                return [...(prevTags || []), ...uniqueTags];
-            });
-        }).catch((err) => {
-            console.log(err);
-        });
-        //레벨
-        axios.get(`${API_BASE_URL}/lecture/levels`).then((res) => {
-            const newLevel = res.data.map((level) => ({
-                value: level.levelNo,
-                label: level.levelName,
-            }));
+                // 두 번째 요청 (태그)
+                const tagsResponse = await axios.get(`${API_BASE_URL}/lecture/tags`);
+                const newTags = tagsResponse.data.map((tag) => ({
+                    value: tag.tagNo,
+                    label: tag.tagName,
+                }));
+                setTags((prevTags) => {
+                    const uniqueTags = newTags.filter(newTag => !prevTags.some(prevTag => prevTag.value === newTag.value));
+                    return [...(prevTags || []), ...uniqueTags];
+                });
 
-            // 중복된 값을 필터링하여 추가
-            setLevels((prevLevels) => {
-                const uniqueLevels = newLevel.filter(newTag => !prevLevels.some(prevTag => prevTag.value === newTag.value));
-                return [...(prevLevels || []), ...uniqueLevels];
-            });
-        }).catch((err) => {
-            console.log(err);
-        });
-        changeDTO(setLecture, 'regIp', ip);
-        changeDTO(setLecture, 'seller', 'comTest');
+                // 세 번째 요청 (레벨)
+                const levelsResponse = await axios.get(`${API_BASE_URL}/lecture/levels`);
+                const newLevel = levelsResponse.data.map((level) => ({
+                    value: level.levelNo,
+                    label: level.levelName,
+                }));
+                setLevels((prevLevels) => {
+                    const uniqueLevels = newLevel.filter(newTag => !prevLevels.some(prevTag => prevTag.value === newTag.value));
+                    return [...(prevLevels || []), ...uniqueLevels];
+                });
+
+                // 마지막으로 동기적으로 실행되어야 하는 작업
+                changeDTO(setLecture, 'regIp', ip);
+                changeDTO(setLecture, 'seller', 'comTest');
+            } catch (error) {
+                console.error(error);
+                setIsModify(false);
+            }
+        };
+
+        fetchData();
     }, []);
 
     useEffect(() => {
@@ -114,7 +113,6 @@ function LectureWriteMain() {
     }, [levels]);
 
     useEffect(() => {
-        console.log(lecture)
         if (Array.isArray(lecture?.thumbName)) {
             changeDTO(setLecture, 'thumbName', lecture?.thumbName[0])
             changeDTO(setLecture, 'thumbURL', lecture?.thumbURL[0])
@@ -132,13 +130,12 @@ function LectureWriteMain() {
     useEffect(() => {
         if (levels.filter(level => level.value === lecture?.levelNo).length !== 0)
             setSelectTag(tags.filter(tag => lecture?.tagList.includes(tag.value)))
-        console.log(selectTag)
     },[tags])
     let navigate = useNavigate()
     return <Container style={{marginTop: '100px'}} className={'lectureMainWrite'}>
         <Row>
             <Col className={'lectureWrite'}>
-                <h3>강의 등록</h3>
+                {isModify?<h3>강의 수정</h3>:<h3>강의 등록</h3>}
                 <p>① 메인</p>
             </Col>
         </Row>

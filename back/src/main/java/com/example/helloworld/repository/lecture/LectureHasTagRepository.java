@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface LectureHasTagRepository extends JpaRepository<LectureHasTagEntity, Integer> {
     List<LectureHasTagEntity> findByLecture_LectureNo(int lectureNo);
+
+    void deleteByLecture_LectureNo(int lectureNo);
 }

@@ -16,6 +16,7 @@ interface ListHeaderProps {
     listLoading?: { loading?: string; view?: string };
     setListLoading?: (state: { loading?: string; view?: string }) => void;
     isLoadingType?: boolean;
+    setSort?: (value: string) => void;
 }
 
 function ListHeader({
@@ -24,6 +25,7 @@ function ListHeader({
     setListLoading,
     listLoading,
     more = false,
+    setSort,
     sortType,
 }: ListHeaderProps) {
     return (
@@ -73,6 +75,7 @@ function ListHeader({
                             <SelectBox
                                 options={sortType.list}
                                 value={sortType.list[0]}
+                                setSelect={setSort}
                                 isSearchable={sortType.isSearchable}></SelectBox>
                         </div>
                     )}
