@@ -23,7 +23,16 @@ public class PageRequestDTO {
     private int cateNo = 0;
     @Builder.Default
     private String sort = "communityNo";
-    private LectureDTO lecture;
+
+    @Builder.Default
+    private String commentWrite = "";
+    @Builder.Default
+    private int communityNo = 0;
+    @Builder.Default
+    private int parentNo = 0;
+    @Builder.Default
+    private String commentType = "Desc";
+
     public Pageable getPageableDesc(){
         return  PageRequest.of(this.pg - 1, this.size, Sort.by(this.sort).descending());
     }
