@@ -2,18 +2,19 @@ import React from 'react';
 import '../../../../css/community/view.css';
 import { useNavigate } from 'react-router-dom';
 
-function ArticleTopBtns ({view}){
+function ArticleTopBtns ({view, prevNo, nextNo, setCateNo, setCommunityNo}){
     let navigate = useNavigate();
     return(<>
         <div className="ArticleTopBtns">
             <div className="left_area">{/*빈 공간*/}</div>
             <div className="right_area">
-                <a
+                { prevNo != 0 &&
+                    <a
                     className="BaseButton btn_prev BaseButton--skinGray size_default"
-                    href={'#'}
                     role={'button'}
                     onClick={() => {
-                        navigate('/community/view');
+                        setCommunityNo(prevNo)
+                        navigate(`/community/view?cate=${view.cateNo}&no=${prevNo}`);
                     }}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -29,12 +30,14 @@ function ArticleTopBtns ({view}){
                     </svg>
                     <span className="BaseButton_txt">이전글</span>
                 </a>
-                <a
+                }
+                { nextNo != 0 &&
+                    <a
                     className="BaseButton btn_next BaseButton--skinGray size_default"
-                    href={'#'}
                     role={'button'}
                     onClick={() => {
-                        navigate('/community/view');
+                        setCommunityNo(nextNo)
+                        navigate(`/community/view?cate=${view.cateNo}&no=${nextNo}`);
                     }}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -50,9 +53,9 @@ function ArticleTopBtns ({view}){
                     </svg>
                     <span className="BaseButton_txt">다음글</span>
                 </a>
+                }
                 <a
                     className="BaseButton BaseButton--skinGray size_default"
-                    href={'#'}
                     onClick={() => {
                         navigate(`/community/list?cateNo=${view.cateNo}`);
                     }}>

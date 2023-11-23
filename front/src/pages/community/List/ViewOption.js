@@ -4,25 +4,28 @@ import './../../../css/community/list.css';
 import PageListViewType from '../../../components/Lecture/PageListType';
 import Button from 'react-bootstrap/Button';
 
-function ViewOption({sort, setSort, listLoading, setListLoading, navigate }) {
+function ViewOption({sort, setSort, listLoading, setListLoading, navigate, cateNo}) {
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
             <Nav variant='pills' defaultActiveKey='link-0'
                  style={{ width: 'auto' }}>
                 <Nav.Item>
-                    <Nav.Link eventKey='link-0' onClick={()=>{
+                    <Nav.Link eventKey='link-0' active={sort==="communityNo"} onClick={()=>{
                         setSort("communityNo");
+                        navigate(`/community/list?tab=communityNo&cateNo=${cateNo}`);
                     }}>최신순</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey='link-1' onClick={()=>{
+                    <Nav.Link eventKey='link-1' active={sort==="comAmount"} onClick={()=>{
                         setSort("comAmount");
+                        navigate(`/community/list?tab=comAmount&cateNo=${cateNo}`);
                     }}>댓글 TOP</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey='link-2' onClick={()=>{
+                    <Nav.Link eventKey='link-2' active={sort==="likes"} onClick={()=>{
                         setSort("likes");
+                        navigate(`/community/list?tab=likes&cateNo=${cateNo}`);
                     }}>좋아요 TOP</Nav.Link>
                 </Nav.Item>
             </Nav>
