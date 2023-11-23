@@ -5,26 +5,26 @@ import lombok.AllArgsConstructor;
 import java.util.Map;
 
 @AllArgsConstructor
-public class KakaoInfo implements OAuth2MemberInfo {
+public class GithubInfo implements OAuth2MemberInfo {
     private Map<String, Object> attributes;
 
     @Override
     public String getProviderId() {
-        return attributes.get("id").toString();
+        return (String) attributes.get("sub");
     }
 
     @Override
     public String getProvider() {
-        return Provider.KAKAO.getName();
+        return Provider.NAVER.getName();
     }
 
     @Override
     public String getEmail() {
-        return (String) ((Map<?, ?>) attributes.get("kakao_account")).get("email");
+        return (String) attributes.get("email");
     }
 
     @Override
     public String getNickname() {
-        return attributes.get("nickname").toString();
+        return null;
     }
 }

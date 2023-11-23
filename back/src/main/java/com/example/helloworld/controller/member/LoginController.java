@@ -29,4 +29,9 @@ public class LoginController {
         response.addCookie(loginService.deleteCookie(cookieName.getCookieName()));
         return "SUCCESS";
     }
+
+    // REST API로 부여하는
+    // AccessToken 만료 시간 : 6시간 /
+    // ID_Token : 6시간 /
+    // RefreshToken : 2달, 만료 시간 1달 남은 시점부터 갱신 가능 /
 }

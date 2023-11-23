@@ -34,7 +34,6 @@ public class MemberService {
 
         memberDTO.setUid(UUID.randomUUID().toString());
         memberDTO.setRegIp(request.getRemoteAddr());
-        memberDTO.setRegDate(LocalDateTime.now());
         memberDTO.setPass(passwordEncoder.encode(memberDTO.getPass()));
 
         try {
