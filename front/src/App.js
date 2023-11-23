@@ -9,7 +9,7 @@ import IndexNavbar from './components/Navbars/IndexNavbar.js';
 import DarkFooter from './components/Footers/DarkFooter.js';
 // sections for this page
 import NucleoIcons from './views/index-sections/NucleoIcons.js';
-import {Outlet, Route, Routes} from 'react-router-dom';
+import {Outlet, Route, Routes, useNavigate} from 'react-router-dom';
 import LandingPage from './views/examples/LandingPage';
 import ProfilePage from './views/examples/ProfilePage';
 import LoginPage from './pages/member/LoginPage';
@@ -50,10 +50,25 @@ import LectureWriteMain from "./pages/lecture/write/main/LectureWriteMain";
 import Home from "./pages/home/Home";
 import LectureDetail from "./pages/lecture/detail/LectureDetail";
 import LectureWriteContent from "./pages/lecture/write/content/LectureWriteContent";
+import MemberRoutes from "./pages/member/MemberRoutes";
+import {useDispatch} from "react-redux";
+import {insertMyIp} from "./slice/myIpSlice";
+import axios from "axios";
+
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
 
 function App() {
+    let dispatch = useDispatch();
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get('https://geolocation-db.com/json/')
+            .then((res) => {
+                dispatch(insertMyIp(res.data.IPv4))
+            })
+    }, [])
+
     React.useEffect(() => {
         document.body.classList.add('index-page');
         document.body.classList.add('sidebar-collapse');
@@ -145,11 +160,7 @@ function App() {
 
             <Route
                 path="member"
-                element={
-                    <Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
-                        <Outlet/>
-                    </Suspense>
-                }>
+                element={<MemberRoutes fallback={fallback} />}>
                 <Route path="login" element={<LoginPage/>}/>
                 <Route path="signup" element={<SignUp/>}/>
                 <Route path="finishSignup" element={<FinishSignup/>}/>

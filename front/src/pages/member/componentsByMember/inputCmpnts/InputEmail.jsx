@@ -7,11 +7,12 @@ import {
     InputGroup,
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAt } from "@fortawesome/free-solid-svg-icons";
+import {faAt} from "@fortawesome/free-solid-svg-icons";
 import {changeDTO} from "../../../../store/changeDTO";
 
-function InputField({setInputValue, error}) {
+function InputField({ setInputValue }) {
     const [isFocus, setIsFocus] = useState(false);
+
     return (
         <>
             <InputGroup className={isFocus ? "input-group-focus" : ""}>

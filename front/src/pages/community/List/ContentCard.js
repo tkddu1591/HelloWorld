@@ -82,7 +82,7 @@ function CardList({ colSize = 12 }) {
                             <img
                                 style={{ width: '100%',transform:'50%,50%',cursor: 'pointer' }}
                                 alt="..."
-                                src={`${process.env.PUBLIC_URL}/images/community/computer.jpg`}
+                                src={`/images/community/computer.jpg`}
                                 onClick={handleClick}></img>
                             </div>
                             <div
@@ -207,7 +207,7 @@ function CardList({ colSize = 12 }) {
                                 <img
                                     style={{ width: '100%',transform:'50%,50%',cursor: 'pointer' }}
                                     alt="..."
-                                    src={`${process.env.PUBLIC_URL}/images/community/computer.jpg`}
+                                    src={`/images/community/computer.jpg`}
                                     onClick={handleClick}></img>
                             </div>
                             <div
@@ -332,7 +332,7 @@ function CardList({ colSize = 12 }) {
                                 <img
                                     style={{ width: '100%',transform:'50%,50%',cursor: 'pointer' }}
                                     alt="..."
-                                    src={`${process.env.PUBLIC_URL}/images/community/computer.jpg`}
+                                    src={`/images/community/computer.jpg`}
                                     onClick={handleClick}></img>
                             </div>
                             <div
@@ -457,7 +457,7 @@ function CardList({ colSize = 12 }) {
                             <img
                                 style={{ width: '100%', cursor: 'pointer' }}
                                 alt="..."
-                                src={`${process.env.PUBLIC_URL}/images/lecture/thumb_Java.jpg`}
+                                src={`/images/lecture/thumb_Java.jpg`}
                                 onClick={handleClick}></img>
 
                             <div

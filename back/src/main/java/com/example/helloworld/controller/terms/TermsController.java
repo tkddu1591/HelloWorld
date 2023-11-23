@@ -24,5 +24,4 @@ public class TermsController {
         log.info("terms start!");
         return termsService.getTerms();
     }
-
 }

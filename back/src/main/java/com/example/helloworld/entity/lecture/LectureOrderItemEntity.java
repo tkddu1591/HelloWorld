@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Many;
 @Table(name = "lecture_order_item")
 public class LectureOrderItemEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderItemNo;
     @ManyToOne
     @JoinColumn(name = "ordNo")

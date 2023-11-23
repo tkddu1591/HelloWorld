@@ -52,8 +52,9 @@ public class CommunityService {
         //Order By 정렬할 컬럼명 Desc
         //getPageableDesc 내림차순 getPageableAsc 오름차순 ("정렬할 컬럼명")
         //pg , size 가공해서 같이 ordet by랑 섞어줌
-        Pageable pageable = pageRequestDTO.getPageableDesc(pageRequestDTO.getSort());
-        log.info("sort: "+pageRequestDTO.getSort());
+
+        Pageable pageable = pageRequestDTO.getPageableDesc();
+
 
         CommunityCategoryEntity categoryEntity = categoryRepository.findById(pageRequestDTO.getCateNo()).orElse(null);
 
@@ -86,7 +87,8 @@ public class CommunityService {
 
     public PageResponseDTO findByCommunityNo(int communityNo, int cateNo, PageRequestDTO pageRequestDTO) {
         pageRequestDTO.setSize(20);
-        Pageable pageable = pageRequestDTO.getPageableAsc("commentNo");
+        pageRequestDTO.setSort("communityNo");
+        Pageable pageable = pageRequestDTO.getPageableAsc();
 
         log.info("view Service...1");
         CommunityEntity viewEntity = communityRepository.findByCommunityNo(communityNo);

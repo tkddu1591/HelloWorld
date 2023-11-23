@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 // reactstrap components
 import {faLock, faAt, faCircleCheck, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -20,10 +19,13 @@ import InputPassChk from "./componentsByMember/inputCmpnts/InputPassChk";
 import InputEmailChk from "./componentsByMember/inputCmpnts/InputEmailChk";
 import axios from "axios";
 import {changeDTO} from "../../store/changeDTO";
-import {isValidEmail} from "../../utils/signupValidation";
+import {isValidEmail, isValidPass} from "../../utils/member/signupValidation";
+import {API_BASE_URL} from "../../App";
+import {useNavigate} from "react-router-dom";
 
 
 function SignUp() {
+    const nav = useNavigate();
     let [pageCondtion, setPageCondtion] = useState({
         terms_agree: 'grey',
 
@@ -51,26 +53,27 @@ function SignUp() {
         message: "",
     });
 
+    ////////////////////////////////////////////////////////////////////////
+    let [auth, setAuth] = useState("");
+    ////////////////////////////////////////////////////////////////////////
+
+    // 팡션
+    function reqeustEmailBtnClick() {
+        if (isValidEmail(inputValue.email) && !error.email && !isOk.email) {
+            console.log("step 1... 이메일 전송")
+            requestEmailAuthCode();
+
+        } else if (pageCondtion.isOpenEmail && error.email && !isOk.email) {
+            console.log("step 2... 인증코드 입력 후 비교")
+            responseEmailAuthCode();
+        }
+    }
+
+    // useState
     function termsAgreeHandler() {
         changeDTO(setPageCondtion, 'isOpenModal', false);
         changeDTO(setPageCondtion, 'terms_agree', 'green');
-        changeDTO(setIsOk, 'terms', true);
-    }
-    function reqeustEmailBtnClick() {
-        // isValidEmail && inputEmail === "" --> 이메일 전송
-        // isValidEmail &&
-        if (isValidEmail(inputValue.email)) {
-            console.log("step 1...")
-            requestEmail();
-
-        } else if (pageCondtion.isOpenEmail === false) {
-            // 인증번호 전송해서 체크................................
-            console.log("step 2...")
-
-        } else if (pageCondtion.isOpenEmail === true && isOk.email === true) {
-            console.log("step 3...")
-            setEmailDisplay2();
-        }
+        changeDTO(setIsOk,         'terms',       true);
     }
     function setEmailDisplay1() {
         changeDTO(setPageCondtion, 'email_button_txt', "인증번호 확인");
@@ -81,53 +84,96 @@ function SignUp() {
         changeDTO(setPageCondtion, 'isOpenEmail', true);
     }
     function setEmailDisplay2() {
+        changeDTO(setError, 'message', "");
         changeDTO(setPageCondtion, 'email_button_txt', "인증 완료");
         changeDTO(setPageCondtion, 'email_button', "success");
         changeDTO(setPageCondtion, 'email_iconColor', "green");
         changeDTO(setPageCondtion, 'email_icon', faCircleCheck);
         changeDTO(setPageCondtion, 'isOpenEmail', true);
     }
-    const requestEmail = () => {
-        console.log("inputValue.email : " + inputValue);
-        axios.get("http://localhost:8080/api/sendEmail", {
+    function resetForm() {
+        changeDTO(setInputValue, 'emailChk', "");
+        setAuth("");
+        changeDTO(setError, 'email', false);
+        changeDTO(setError, 'message', "");
+        changeDTO(setIsOk, 'email', false);
+        changeDTO(setPageCondtion, 'email_button', 'default');
+        changeDTO(setPageCondtion, 'email_button_txt', '인증번호 요청');
+        changeDTO(setPageCondtion, 'email_icon', faCircleQuestion);
+        changeDTO(setPageCondtion, 'email_iconColor', "");
+        changeDTO(setPageCondtion, 'isOpenEmail', false);
+    }
+    useEffect(() => {
+        resetForm();
+    }, [inputValue.email]);
+
+    // axios
+    const requestEmailAuthCode = () => {
+        changeDTO(setError, 'message', '이메일 전송 중입니다.')
+        axios.get(`${API_BASE_URL}/api/reqeustEmail`, {
             params: {
                 "email": inputValue.email
-            }/*,
-          headers:{
-              Authorization: 'Bearer sadsd'
-          }*/
-        })
-            .then((response) => {
-                if (response.data === "인증번호를 확인해주세요.") {
-                    console.log((" - step1... "))
-                    setEmailDisplay1();
+            }/*, headers:{Authorization: 'Bearer 어쩌구저쩌구'}*/
+        }).then((response) => {
+            changeDTO(setError, 'email', false);
+            if(response.data.message === "인증번호를 확인해주세요.") setEmailDisplay1();
+            changeDTO(setError, 'message', response.data.message);
 
-                }else {
-                    console.log(" - step2... ");
-                    changeDTO(setError, 'email', false);
-                }
-                changeDTO(setError, 'message', response.data);
-            })
-            .catch(error => {
-                console.log(error);
+            ////////////////////////////////////////////////////////////////////////
+            // nosql 처리할 것.
+            setAuth(response.data.auth);
+            ////////////////////////////////////////////////////////////////////////
+
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+    const responseEmailAuthCode = () => {
+        axios.get(`${API_BASE_URL}/api/responseEmail`, {
+            params: {
+                "email": inputValue.email,
+                "inputCode": inputValue.emailChk,
+                "authCode": auth
             }
-        );
-    }
-    const getConsole = () => {
-        console.log("pageCondtion : " + JSON.stringify(pageCondtion));
-        console.log("isOk : " + JSON.stringify(isOk));
-        console.log("inputValue : " + JSON.stringify(inputValue));
-        console.log("error : " + JSON.stringify(error));
-    }
+        }).then((response) => {
+            response.data ? setEmailDisplay2() : alert("인증번호가 일치하지 않습니다.");
+            changeDTO(setIsOk, 'email', response.data);
 
+        }).catch(error => {
+            console.log(error);
+        });
 
+    }
+    const submitSignup = () => {
+        console.log("회원가입");
+        if(!isOk.terms) {
+            alert("이용약관을 읽고 동의해주세요.");
+            return;
+        }
+        if(!isOk.pass) {
+            alert("비밀번호를 다시 확인 해주세요.");
+            return;
+        }
+        if(!isOk.email) {
+            alert("이메일 인증을 해주세요.");
+            return;
+        }
+        axios.post(`${API_BASE_URL}/member/signup`, {
+            "email": inputValue.email,
+            "pass": inputValue.pass,
+            "passChk": inputValue.passChk,
+        }).then((response) => {
+            if(!response.data) alert("회원가입에 실패했습니다. \n 다시 시도해주세요.");
+            alert("회원가입 완료");
+            nav('/member/login');
+        })
+    }
 
     return (
         <>
             <div style={{minHeight: "800px", paddingTop: "130px"}}>
                 <Container>
                     <Row>
-                        <button onClick={getConsole}>콘솔보기</button>
                         <Card className="card-signup">
                             <Form action="" className="form" method="">
                                 <MemberHeader text={'회원가입'}/>
@@ -136,16 +182,18 @@ function SignUp() {
                                     <div style={{height:"42px"}}>
                                         {error.message}
                                     </div>
-                                    <InputEmail setInputValue={setInputValue} error={error}/>
-                                    <InputPass setInputValue={setInputValue}/>
-                                    <InputPassChk setInputValue={setInputValue}/>
+                                    <InputEmail setInputValue={setInputValue} />
+                                    <InputPass  setIsOk={setIsOk} inputValue={inputValue} setInputValue={setInputValue} />
+                                    <InputPassChk setIsOk={setIsOk} inputValue={inputValue} setInputValue={setInputValue} />
 
+                                    <div style={{height:"48px"}}>
                                     {
                                         pageCondtion.isOpenEmail &&
                                         <InputEmailChk  setInputValue={setInputValue}
                                                         emailIcon={pageCondtion.email_icon}
                                                         emailIconColor={pageCondtion.email_iconColor}/>
                                     }
+                                    </div>
 
                                     <Button
                                         onClick={reqeustEmailBtnClick}
@@ -172,10 +220,10 @@ function SignUp() {
                                     <Button
                                         className="btn-neutral"
                                         color="info"
-                                        onClick={(e) => e.preventDefault()}
+                                        onClick={submitSignup}
                                         size="lg"
                                     >
-                                        <Link to="/member/finishSignup">회원가입</Link>
+                                        회원가입
                                     </Button>
                                 </CardFooter>
 

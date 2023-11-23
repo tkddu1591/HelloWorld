@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // reactstrap components
 import {
@@ -16,15 +16,25 @@ import {
 	UncontrolledTooltip,
 } from 'reactstrap';
 import '../../scss/font.scss';
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../../utils/member/logout";
+import {myInfo} from "../../slice/UserSlice";
+import {getMyInfo} from "../../utils/member/getMyInfo";
+import {sendRefreshToken} from "../../utils/member/sendRefreshToken";
 
 function IndexNavbar() {
+	let navigate = useNavigate();
+	let dispatch = useDispatch();
+
+	let myInfo = useSelector((state) => {return state.myInfo} )
+	getMyInfo(dispatch);
+
 	const [navbarColor, setNavbarColor] = React.useState('navbar-info');
 	const [collapseOpen, setCollapseOpen] = React.useState(false);
 
 	const handleOpenNewTab = url => {
 		window.open(url, '_blank', 'width=400,height=600');
 	};
-	let navigate = useNavigate();
 	return (
 		<>
 			{collapseOpen ? (
@@ -281,6 +291,7 @@ function IndexNavbar() {
 									</Link>
 								</div>
 							</NavItem>
+							{myInfo.email === '비회원' ?
 							<NavItem>
 								<Button
 									className="nav-link btn-neutral"
@@ -292,25 +303,25 @@ function IndexNavbar() {
 									target="_blank">
 									<p>로그인</p>
 								</Button>
-							</NavItem>
+							</NavItem> :
 							<NavItem>
 								<UncontrolledDropdown nav>
 									<DropdownToggle className="nav-link btn-neutral" color="info" id="upgrade-to-pro" target="_blank">
 										<i className="now-ui-icons users_single-02 mr-1"></i>
-										<p>여덟글자입니다마</p>
+										<p>{myInfo.nick}</p>
 									</DropdownToggle>
 									<DropdownMenu>
 										<DropdownItem to="/my/info" tag={Link}>
 											<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 											마이페이지
 										</DropdownItem>
-										<DropdownItem to="/index" tag={Link}>
+										<DropdownItem onClick={() => logout(navigate, dispatch)}>
 											<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 											로그아웃
 										</DropdownItem>
 									</DropdownMenu>
 								</UncontrolledDropdown>
-							</NavItem>
+							</NavItem>}
 							{/*  <NavItem>
 
                                 <NavLink

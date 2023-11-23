@@ -8,7 +8,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+
 public class LectureHasTagDTO {
     private int hasTagNo;
     private int tagNo;

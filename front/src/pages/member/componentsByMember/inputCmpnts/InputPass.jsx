@@ -1,5 +1,5 @@
 // InputField.jsx
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Input,
     InputGroupAddon,
@@ -9,9 +9,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faAt, faLock} from "@fortawesome/free-solid-svg-icons";
 import {changeDTO} from "../../../../store/changeDTO";
+import {isOkPasswordHandler} from "../../../../utils/member/signupValidation";
 
-function InputField({setInputValue}) {
+function InputPass({ setIsOk, inputValue, setInputValue }) {
     const [isFocus, setIsFocus] = useState(false);
+    useEffect(() => {
+        isOkPasswordHandler(setIsOk, inputValue);
+    }, [inputValue.pass, inputValue.passChk]);
+
     return (
         <>
             <InputGroup className={isFocus ? "input-group-focus" : ""}>
@@ -28,6 +33,7 @@ function InputField({setInputValue}) {
                     onBlur={() => setIsFocus(false)}
                     onChange={(e) => {
                         changeDTO(setInputValue, 'pass', e.target.value);
+                        isOkPasswordHandler(setIsOk, inputValue);
                     }}
                 />
             </InputGroup>
@@ -35,4 +41,4 @@ function InputField({setInputValue}) {
     );
 }
 
-export default InputField;
+export default InputPass;

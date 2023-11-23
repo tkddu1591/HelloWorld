@@ -1,3 +1,5 @@
+import {changeDTO} from "../../store/changeDTO";
+
 /**
  * 데이터 유효성 검사
  */
@@ -15,10 +17,35 @@ const reCompany = /^\(주\)[a-zA-Z가-힣]{2,}$/;
 const reBiz = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/;
 
 export function isValidEmail(email) {
-    return email.match(reEmail);
+    console.log(" - email : " + email)
+    if(email == null || email === "") {
+        alert("이메일을 입력해주세요.");
+        return false;
+    }
+    if(email.match(reEmail)) {
+        return true;
+    }
+    alert("유효하지 않은 이메일")
+    return false;
 }
 
 export function isValidPass(pass1, pass2) {
     if(!pass1.match(rePass)) return false;
     return pass1 === pass2;
+}
+
+export function isOkPasswordHandler( setIsOk, inputValue ) {
+    changeDTO(
+        setIsOk,
+        'pass',
+        isValidPass(inputValue.pass, inputValue.passChk)
+    );
+}
+
+export function isAutoLoginHandler(inputValue, setInputValue) {
+    changeDTO(
+        setInputValue,
+        'isAutoLogin',
+        !inputValue.isAutoLogin
+    );
 }

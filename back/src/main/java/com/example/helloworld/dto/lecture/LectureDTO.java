@@ -1,11 +1,10 @@
 package com.example.helloworld.dto.lecture;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.example.helloworld.entity.lecture.LectureHasTagEntity;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,10 +17,18 @@ public class LectureDTO {
     private int score;
     private int levelNo;
     private int price;
-    private String language;
     private int studyDate;
     private int discount;
-    private LocalDateTime regDate;
+    private LocalDateTime regDate ;
     private String regIp;
-    private Boolean isDelete;
+    private Boolean isDelete ;
+    private String content;
+    private int hit;
+    private int review;
+    private int sold;
+
+    //추가데이터
+    private List<Integer> tagList;
+    private String thumbName;
+    private String thumbURL;
 }
