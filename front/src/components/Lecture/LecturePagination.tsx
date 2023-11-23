@@ -9,7 +9,6 @@ interface LectureListPaginationProps {
 
 function LecturePagination({setPageRequest, pageResponse}: LectureListPaginationProps) {
     if (pageResponse) {
-        const[pageNumber, setPageNumber] = useState([]);
 
         return (
             <Pagination

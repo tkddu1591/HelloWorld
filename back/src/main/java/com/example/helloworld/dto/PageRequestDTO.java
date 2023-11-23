@@ -9,9 +9,7 @@ import org.springframework.data.domain.Sort;
 
 
 @Data
-@Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
 public class PageRequestDTO {
 
@@ -32,6 +30,8 @@ public class PageRequestDTO {
     private int parentNo = 0;
     @Builder.Default
     private String commentType = "Desc";
+    @Builder.Default
+    private LectureDTO lecture;
 
     public Pageable getPageableDesc(){
         return  PageRequest.of(this.pg - 1, this.size, Sort.by(this.sort).descending());

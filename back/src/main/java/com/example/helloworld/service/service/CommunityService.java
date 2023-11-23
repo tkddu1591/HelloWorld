@@ -146,9 +146,9 @@ public class CommunityService {
         pageRequestDTO.setSize(20);
         Pageable pageable = null;
         if(commentType.equals("Desc")){
-            pageable = pageRequestDTO.getPageableDesc("commentNo");
+            pageable = pageRequestDTO.getPageableDesc();
         }else if(commentType.equals("Asc")){
-            pageable = pageRequestDTO.getPageableAsc("commentNo");
+            pageable = pageRequestDTO.getPageableAsc();
         }
 
         Page<CommunityCommentEntity> commentEntity = communityCommentRepository.findByCommunity_CommunityNo(communityNo, pageable);
