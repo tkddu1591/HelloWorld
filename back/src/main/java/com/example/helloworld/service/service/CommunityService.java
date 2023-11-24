@@ -15,6 +15,7 @@ import com.example.helloworld.repository.commuity.CommunityCategoryRepository;
 import com.example.helloworld.repository.commuity.CommunityCommentRepository;
 import com.example.helloworld.repository.commuity.CommunityHasTagRepository;
 import com.example.helloworld.repository.commuity.CommunityRepository;
+import com.example.helloworld.repository.member.MemberRepository;
 import com.example.helloworld.transform.commuity.CommunityCommentTransform;
 import com.example.helloworld.transform.commuity.CommunityHasTagTransform;
 import com.example.helloworld.transform.commuity.CommunityTransform;
@@ -36,6 +37,7 @@ public class CommunityService {
     private final CommunityRepository communityRepository;
     private final CommunityCommentRepository communityCommentRepository;
     private final CommunityCategoryRepository categoryRepository;
+    private final MemberRepository memberRepository;
     private final CommunityHasTagRepository hasTagRepository;
     private final CommunityTransform communityTransform;
     private final CommunityCommentTransform communityCommentTransform;
@@ -176,12 +178,13 @@ public class CommunityService {
     public void insertComment(PageRequestDTO pageRequestDTO){
 
         CommunityCommentEntity entity = new CommunityCommentEntity();
+        // 글 내용 입력
         entity.setContent(pageRequestDTO.getCommentWrite());
+        // COMMUNITY
         CommunityEntity community = communityRepository.findByCommunityNo(pageRequestDTO.getCommunityNo());
+        MemberEntity member = memberRepository.findById(pageRequestDTO.getUid()).orElse(null);
         entity.setCommunity(community);
         entity.setParentNo(pageRequestDTO.getParentNo());
-        MemberEntity member = new MemberEntity();
-        member.setUid(pageRequestDTO.getUid());
         entity.setMember(member);
         communityCommentRepository.save(entity);
         log.info(pageRequestDTO.getCommunityNo());
@@ -193,7 +196,7 @@ public class CommunityService {
 
         log.info("delete service...1");
         log.info("commentNo: " + commentNo);
-        communityCommentRepository.updateByCommentNo(commentNo);
+        communityCommentRepository.updateIsDeletedByCommentNo(commentNo);
         log.info("delete service...2");
     }
 }

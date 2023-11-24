@@ -7,6 +7,7 @@ import com.example.helloworld.dto.commuity.CommunityCommentDTO;
 import com.example.helloworld.dto.commuity.CommunityDTO;
 import com.example.helloworld.entity.commuity.CommunityEntity;
 import com.example.helloworld.service.service.CommunityService;
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class CommunityController {
     }
 
 
+    @Transactional
     @PostMapping("/insertComment")
     public PageResponseDTO insertComment(@RequestBody PageRequestDTO pageRequestDTO){
 
@@ -59,7 +61,11 @@ public class CommunityController {
 
         communityService.insertComment(pageRequestDTO);
 
-        return communityService.commentRefresh(pageRequestDTO, pageRequestDTO.getCommunityNo(), pageRequestDTO.getCommentType());
+        PageResponseDTO result = communityService.commentRefresh(pageRequestDTO, pageRequestDTO.getCommunityNo(), pageRequestDTO.getCommentType());
+
+        log.info(result.getCommentsList());
+
+        return result;
     }
 
     @PostMapping("/deleteComment")

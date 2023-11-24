@@ -20,7 +20,9 @@ function CommentList({
                          communityNo,
                          commentType,
                          setCommentsList,
-                         setCommentReply
+                         setCommentReply,
+                         commentRefresh,
+                         setRefreshTrigger
                      }) {
 
     let [popupSetting, setPopupSetting] = useState({
@@ -156,7 +158,9 @@ function CommentList({
                                                            communityNo={communityNo}
                                                            commentType={commentType}
                                                            setCommentsList={setCommentsList}
-                                                           setCommentReply={setCommentReply}>
+                                                           setCommentReply={setCommentReply}
+                                                           commentRefresh={commentRefresh}
+                                                           setRefreshTrigger={setRefreshTrigger}>
                                                 </UserPopup>}
                                         </a>
                                         {/*<!---->*/}
@@ -252,7 +256,14 @@ function CommentList({
                                                                 d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                                                         </svg>
                                                         {popup === 'comment' + j &&
-                                                            <UserPopup popupSetting={popupSetting}></UserPopup>}
+                                                            <UserPopup popupSetting={popupSetting}
+                                                                       communityNo={communityNo}
+                                                                       commentType={commentType}
+                                                                       setCommentsList={setCommentsList}
+                                                                       setCommentReply={setCommentReply}
+                                                                       commentRefresh={commentRefresh}
+                                                                       setRefreshTrigger={setRefreshTrigger}>
+                                                            </UserPopup>}
                                                     </a>
                                                     {/*<!---->*/}
                                                 </div>
@@ -261,9 +272,13 @@ function CommentList({
                                     </li>
                                     {replyToComment === reply.commentNo && (
                                         <li className={"CommentItem CommentItem--reply"}>
-                                            <CommentWriter insertComment={insertComment} commentWrite={commentWrite}
-                                                           setCommentWrite={setCommentWrite} setParentNo={setParentNo}
-                                                           setReplyToComment={setReplyToComment}></CommentWriter>
+                                            <CommentWriter insertComment={insertComment}
+                                                           commentWrite={commentWrite}
+                                                           setCommentWrite={setCommentWrite}
+                                                           setParentNo={setParentNo}
+                                                           setReplyToComment={setReplyToComment}
+                                                           myInfo={myInfo}>
+                                            </CommentWriter>
                                         </li>
                                     )}
                                 </>)
@@ -305,6 +320,131 @@ function CommentList({
                                 </div>
                             </div>
                         </li>
+                        {commentReply.map(function (reply, j) {
+                            if (reply.parentNo === a.commentNo && reply.isDeleted != -1)
+                                return (<>
+                                    <li id={reply.commentNo} className="CommentItem CommentItem--reply">
+                                        <div className="comment_area">
+                                            <a href={'#'} className={'comment_thumb'}>
+                                                <img
+                                                    src={reply.profileImg}
+                                                    alt={'프로필 사진'}
+                                                    style={{width: '36px', height: '36px'}}
+                                                />
+                                            </a>
+                                            <div className={'comment_box'}>
+                                                <div data-v-cb91c2e8="" className="comment_nick_box">
+                                                    <div data-v-cb91c2e8="" className="comment_nick_info">
+                                                        <a
+                                                            data-v-cb91c2e8=""
+                                                            id={reply.memberUid}
+                                                            href="#"
+                                                            role="button"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                            className="comment_nickname">
+                                                            {' '}
+                                                            {reply.nick}{' '}
+                                                        </a>
+                                                        {/*<!---->*/}
+                                                    </div>
+                                                    <i
+                                                        data-v-83d84c4a=""
+                                                        data-v-cb91c2e8=""
+                                                        className="LevelIcon icon_level"
+                                                        style={{
+                                                            backgroundImage:
+                                                                'url(&quot;https://ca-fe.pstatic.net/web-pc/static/img/sprite_levelicon_9dbde2.svg#1_110-usage&quot;)',
+                                                        }}></i>
+                                                    {/*<!---->*/}
+                                                </div>
+                                                <div className="comment_text_box">
+                                                    <p className="comment_text_view">
+                                                        {/*<!---->*/}
+                                                        <span className="text_comment">{reply.content}</span>
+                                                    </p>
+                                                    {/*<!---->*/}
+                                                </div>
+                                                <div className="comment_info_box">
+                                                    <span className="comment_info_date">{formattedDate}</span>
+                                                    <a role="button" className="comment_info_button"
+                                                       onClick={() => {
+                                                           setReplyToComment(reply.commentNo);
+                                                           setParentNo(reply.parentNo);
+                                                       }}>
+                                                        {' '}
+                                                        답글쓰기{' '}
+                                                    </a>
+                                                </div>
+                                                <div data-v-0330f652="" className="comment_tool">
+                                                    <a
+                                                        data-v-0330f652=""
+                                                        id="commentItem97566624"
+                                                        role="button"
+                                                        title="더보기"
+                                                        className="comment_tool_button"
+                                                        onClick={() => {
+                                                            setPopup('comment' + j);
+                                                        }}>
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="16"
+                                                            height="16"
+                                                            fill="currentColor"
+                                                            className="bi bi-three-dots-vertical"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                                        </svg>
+                                                        {popup === 'comment' + j &&
+                                                            <UserPopup popupSetting={popupSetting}
+                                                                       communityNo={communityNo}
+                                                                       commentType={commentType}
+                                                                       setCommentsList={setCommentsList}
+                                                                       setCommentReply={setCommentReply}
+                                                                       commentRefresh={commentRefresh}
+                                                                       setRefreshTrigger={setRefreshTrigger}>
+                                                            </UserPopup>}
+                                                    </a>
+                                                    {/*<!---->*/}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {replyToComment === reply.commentNo && (
+                                        <li className={"CommentItem CommentItem--reply"}>
+                                            <CommentWriter insertComment={insertComment}
+                                                           commentWrite={commentWrite}
+                                                           setCommentWrite={setCommentWrite}
+                                                           setParentNo={setParentNo}
+                                                           setReplyToComment={setReplyToComment}
+                                                           myInfo={myInfo}>
+                                            </CommentWriter>
+                                        </li>
+                                    )}
+                                </>)
+                            if (reply.parentNo === a.commentNo && reply.isDeleted === -1)
+                                return (<>
+                                    <li id={reply.commentNo} className="CommentItem CommentItem--reply">
+                                        <div className="comment_area">
+                                            <div className={'comment_box'}>
+                                                <div className="comment_text_box">
+                                                    <p className="comment_text_view">
+                                                        {/*<!---->*/}
+                                                        <span className="text_comment">삭제된 댓글입니다.</span>
+                                                    </p>
+                                                    {/*<!---->*/}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {/*{replyToComment === reply.commentNo && (
+                                    <li className={"CommentItem CommentItem--reply"}>
+                                        <CommentWriter insertComment={insertComment} commentWrite={commentWrite} setCommentWrite={setCommentWrite} setParentNo={setParentNo} setReplyToComment={setReplyToComment}></CommentWriter>
+                                    </li>
+                                )}*/}
+                                </>)
+                        })}
                     </>)
             })}
 

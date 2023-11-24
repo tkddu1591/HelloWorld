@@ -26,12 +26,13 @@ interface UserPopupProps {
     }
     setCommentsList?: (data: any) => void;
     setCommentReply?: (data: any) => void;
+    setRefreshTrigger?: (data: any) => void;
     communityNo?: any,
     commentType?: any
 
 }
 
-function UserPopup({popupSetting, setCommentsList, setCommentReply, communityNo, commentType}: UserPopupProps, {}) {
+function UserPopup({popupSetting, setCommentsList, setCommentReply, communityNo, commentType, setRefreshTrigger}: UserPopupProps, {}) {
     let navigate = useNavigate();
 
     console.log(popupSetting);
@@ -49,6 +50,7 @@ function UserPopup({popupSetting, setCommentsList, setCommentReply, communityNo,
         axios.post(API_BASE_URL + item.action, {commentNo: popupSetting.axiosData, communityNo: communityNo, commentType: commentType})
             .then((res) => {
                 console.log('action 성공')
+                setRefreshTrigger?.(true);
                 setCommentsList?.(res.data.commentsList.filter(comment => comment.parentNo === 0));
                 setCommentReply?.(res.data.commentsList.filter(comment => comment.parentNo != 0));
             }).catch((error) => {
