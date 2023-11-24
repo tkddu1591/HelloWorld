@@ -44,7 +44,7 @@ public class MemberDetails implements OAuth2User, UserDetails {
     @Override
     public String getUsername() {
         // 계정이 갖는 아이디
-        return memberEntity.getUid();
+        return memberEntity.getEmail();
     }
     @Override
     public String getName() {

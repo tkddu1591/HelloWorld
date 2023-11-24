@@ -15,11 +15,7 @@ import {useNavigate} from "react-router-dom";
 import {API_BASE_URL} from "../../App";
 import {useDispatch} from "react-redux";
 import {setCookie} from "../../utils/member/cookieHandler";
-import {insertMyInfo} from "../../slice/UserSlice";
 import {getMyInfo} from "../../utils/member/getMyInfo";
-import {changeDTO} from "../../store/changeDTO";
-
-
 
 function LoginPage() {
     const nav = useNavigate();
@@ -52,8 +48,9 @@ function LoginPage() {
                 const maxAge = (inputValue.isAutoLogin) ? (7 * 24 * 60 * 60) : (3 * 60 * 60);
                 setCookie('helloWorld_REFRESH_TOKEN', response.data.refreshToken, {
                     path: '/',
-                    secure: true,
+                    secure: false,
                     maxAge: maxAge,
+                    sameSite: 'None'
                 });
                 getMyInfo(dispatch);
                 nav('/');

@@ -35,17 +35,14 @@ public class LoginController {
     // AccessToken 만료 시간 : 6시간 /
     // ID_Token : 6시간 /
     // RefreshToken : 2달, 만료 시간 1달 남은 시점부터 갱신 가능 /
-    @GetMapping("/login/oauth2/{provider}")
-    public Map<String, String> socialLogin_01_getCode(@PathVariable String provider,
-                                                      @RequestParam String code) {
-        log.info(" - socialLogin_01_getCode > Start!");
-        log.info(" - socialLogin_01_getCode > provider : " + provider);
-        log.info(" - socialLogin_01_getCode > code : " + code);
-        Map<String, String> accessTokenRequestCode = new HashMap<>();
-        accessTokenRequestCode.put("provider", provider);
-        accessTokenRequestCode.put("code", code);
-
-        log.info(" - socialLogin_01_getCode > end...");
-        return accessTokenRequestCode;
+    @GetMapping("/login/oauth2/token/{provider}")
+    public Map<String, String> socialLogin(@PathVariable String provider) {
+        log.info("return 왔어요");
+        return null;
     }
+
+    /*@PostMapping("/social/login/oauth/{provider}")
+    public void socialLogin(@PathVariable String provider) {
+
+    }*/
 }
