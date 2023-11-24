@@ -5,18 +5,29 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
 @Builder
 @ToString
-public class MemberDetails implements UserDetails {
-
+public class MemberDetails implements OAuth2User, UserDetails {
     private MemberEntity memberEntity;
+    private Map<String, Object> attributes;
+
+    public MemberDetails(MemberEntity memberEntity) {
+        this.memberEntity = memberEntity;
+    }
+
+    public MemberDetails(MemberEntity memberEntity, Map<String, Object> attributes) {
+        this.memberEntity = memberEntity;
+        this.attributes   = attributes;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,11 +41,14 @@ public class MemberDetails implements UserDetails {
         // 계정이 갖는 비밀번호
         return memberEntity.getPass();
     }
-
     @Override
     public String getUsername() {
         // 계정이 갖는 아이디
-        return memberEntity.getUid();
+        return memberEntity.getEmail();
+    }
+    @Override
+    public String getName() {
+        return "name";
     }
 
     @Override
@@ -56,4 +70,5 @@ public class MemberDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     } // 계정 활성화 여부(true:활성화, false:비활성화)
+
 }

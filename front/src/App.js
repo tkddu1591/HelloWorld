@@ -54,9 +54,11 @@ import MemberRoutes from "./pages/member/MemberRoutes";
 import {useDispatch} from "react-redux";
 import {insertMyIp} from "./slice/myIpSlice";
 import axios from "axios";
+import OAuth2RedirectHandler from "./pages/member/OAuth2RedirectHandler";
 
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
+export const API_FRONT_URL = process.env.REACT_APP_API_FRONT;
 
 function App() {
     let dispatch = useDispatch();
@@ -66,6 +68,14 @@ function App() {
         axios.get('https://geolocation-db.com/json/')
             .then((res) => {
                 dispatch(insertMyIp(res.data.IPv4))
+            })
+    }, [])
+    useEffect(() => {
+        axios.get(`${API_BASE_URL}/me`)
+            .then((res) => {
+                console.log("data : " + JSON.stringify(res));
+                console.log("data : " + JSON.stringify(res.data));
+                console.log("data : " + res.data);
             })
     }, [])
 
@@ -167,6 +177,7 @@ function App() {
                 <Route path="findByPass" element={<FindByPass/>}/>
                 <Route path="findByEmail" element={<FindByEmail/>}/>
             </Route>
+            <Route path="/login/oauth2/:provider" element={<OAuth2RedirectHandler/>}></Route>
 
             <Route
                 path="company"
@@ -208,6 +219,7 @@ function App() {
 
             </Route>
             <Route path="/" element={<Home/>}></Route>
+
 
             <Route
                 path="community"

@@ -37,25 +37,16 @@ public class CommunityController {
 
     @GetMapping("/view")
     public PageResponseDTO view(int communityNo, int cateNo, PageRequestDTO pageRequestDTO){
-        log.info("View");
 
-        log.info("view");
-        log.info(communityNo);
-        PageResponseDTO result = communityService.findByCommunityNo(communityNo, cateNo, pageRequestDTO);
-
-        return result;
+        return communityService.findByCommunityNo(communityNo, cateNo, pageRequestDTO);
     }
 
 
     @GetMapping("/comment")
     public PageResponseDTO comments(@ModelAttribute PageRequestDTO pageRequest, int communityNo, String commentType){
 
-        log.info("Comments");
-        log.info(communityNo);
-
         PageResponseDTO result = communityService.commentRefresh(pageRequest, communityNo, commentType);
-        log.info(result);
-        log.info(result.getCommentsList());
+        log.info("CommentRefresh");
 
         return result;
     }
@@ -63,14 +54,21 @@ public class CommunityController {
 
     @PostMapping("/insertComment")
     public PageResponseDTO insertComment(@RequestBody PageRequestDTO pageRequestDTO){
-        log.info("Insert Comment");
 
-        log.info(pageRequestDTO.getCommunityNo());
-        log.info(pageRequestDTO.getCommentWrite());
-        log.info(pageRequestDTO.getParentNo());
+        log.info("uid: "+ pageRequestDTO.getUid());
 
         communityService.insertComment(pageRequestDTO);
 
+        return communityService.commentRefresh(pageRequestDTO, pageRequestDTO.getCommunityNo(), pageRequestDTO.getCommentType());
+    }
+
+    @PostMapping("/deleteComment")
+    public PageResponseDTO deleteComment(@RequestBody PageRequestDTO pageRequestDTO){
+
+        log.info("delete");
+        communityService.deleteComment(pageRequestDTO.getCommentNo());
+
+        log.info("delete completed");
         return communityService.commentRefresh(pageRequestDTO, pageRequestDTO.getCommunityNo(), pageRequestDTO.getCommentType());
     }
 

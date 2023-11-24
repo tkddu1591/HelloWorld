@@ -10,7 +10,8 @@ function CommentWriter({
                            setCommentWrite,
                            setParentNo,
                            setReplyToComment,
-                           replyToComment
+                           replyToComment,
+                           myInfo
                        }) {
 
 
@@ -42,7 +43,7 @@ function CommentWriter({
         <div data-v-afadf0bc className={'CommentWriter'}>
             <div className="comment_inbox">
                 <strong className="blind">댓글을 입력하세요</strong>
-                <em className={'comment_inbox_name'}>닉네임임</em>
+                <em className={'comment_inbox_name'}>{myInfo.nick}</em>
                 <textarea
                     value={text}
                     onChange={handleChange}

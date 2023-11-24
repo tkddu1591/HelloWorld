@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -21,7 +22,7 @@ import java.util.Map;
 @Builder
 @Entity
 @Table(name = "member")
-public class MemberEntity implements Serializable, OAuth2User {
+public class MemberEntity implements Serializable {
     @Id
     private String uid;
     private String nick;
@@ -42,8 +43,9 @@ public class MemberEntity implements Serializable, OAuth2User {
     private String tel;
     private String fax;
     private String regIp;
-    private LocalDateTime wdate;
+    @CreationTimestamp
     private LocalDateTime regDate;
+    private LocalDateTime wdate;
     private int    isCondition;
     private String profileImg;
     private String etc1;
@@ -52,7 +54,8 @@ public class MemberEntity implements Serializable, OAuth2User {
     private String etc4;
     private String etc5;
 
-    @Override
+
+/*    @Override
     public Map<String, Object> getAttributes() {
         Map<String, Object> member = new HashMap<>();
         member.put("uid",         uid);
@@ -89,5 +92,5 @@ public class MemberEntity implements Serializable, OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-    }
+    }*/
 }

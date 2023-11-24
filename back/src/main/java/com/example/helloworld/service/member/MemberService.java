@@ -2,6 +2,7 @@ package com.example.helloworld.service.member;
 
 import com.example.helloworld.dto.member.MemberDTO;
 import com.example.helloworld.repository.member.MemberRepository;
+import com.example.helloworld.security.SecurityUtils;
 import com.example.helloworld.transform.member.MemberTransform;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,6 @@ public class MemberService {
 
         memberDTO.setUid(UUID.randomUUID().toString());
         memberDTO.setRegIp(request.getRemoteAddr());
-        memberDTO.setRegDate(LocalDateTime.now());
         memberDTO.setPass(passwordEncoder.encode(memberDTO.getPass()));
 
         try {
@@ -45,5 +45,9 @@ public class MemberService {
             log.error(" - signUp > save failed... DataAccessException : " + e.getMessage());
             return false;
         }
+    }
+
+    public MemberDTO getMyInfo() {
+        return memberTransform.toDTO(memberRepository.findByEmail(SecurityUtils.getMyEmail()));
     }
 }
