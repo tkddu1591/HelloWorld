@@ -22,7 +22,7 @@ import java.util.Map;
 @Builder
 @Entity
 @Table(name = "member")
-public class MemberEntity implements Serializable, OAuth2User {
+public class MemberEntity implements Serializable {
     @Id
     private String uid;
     private String nick;
@@ -54,7 +54,8 @@ public class MemberEntity implements Serializable, OAuth2User {
     private String etc4;
     private String etc5;
 
-    @Override
+
+/*    @Override
     public Map<String, Object> getAttributes() {
         Map<String, Object> member = new HashMap<>();
         member.put("uid",         uid);
@@ -91,5 +92,5 @@ public class MemberEntity implements Serializable, OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
-    }
+    }*/
 }

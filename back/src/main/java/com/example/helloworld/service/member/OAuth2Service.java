@@ -3,6 +3,7 @@ package com.example.helloworld.service.member;
 import com.example.helloworld.dto.member.oauth2.*;
 import com.example.helloworld.entity.member.MemberEntity;
 import com.example.helloworld.repository.member.MemberRepository;
+import com.example.helloworld.security.MemberDetails;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,51 +25,34 @@ public class OAuth2Service extends DefaultOAuth2UserService {
 
     private final MemberRepository memberRepository;
 
-    /* 카카오 유저 정보 반환 형태.
-    {
-        id=2803163587,
-        connected_at=2023-05-23T22:59:40Z,
-        properties={nickname=별명},
-        kakao_account={
-            profile_nickname_needs_agreement=false,
-            profile={nickname=별명},
-            has_email=true,
-            email_needs_agreement=false,
-            is_email_valid=true,
-            is_email_verified=true,
-            email=email@naver.com
-        }
-    }
-     */
-
-
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         // social 발행 된 jwt accessToken (그림의 4번 과정)
         String accessToken = userRequest.getAccessToken().getTokenValue();
-        log.info("OAuth2UserService...1 : " + accessToken);
+        log.info(" - loadUser > accessToken : " + accessToken);
 
         String provider = userRequest.getClientRegistration().getRegistrationId();
-        log.info("OAuth2UserService...2 : " + provider);
+        log.info(" - loadUser > provider : " + provider);
 
         Map<String, Object> attributes = super.loadUser(userRequest).getAttributes();
-        log.info("OAuth2UserService...3 : " + attributes);
+        log.info(" - loadUser > attributes : " + attributes);
 
         OAuth2MemberInfo memberInfo = generateMemberInfo(provider, attributes);
         /*if(memberInfo == null) return null;*////////////////////////////////////////////////////
-        log.info("OAuth2UserService...4 : " + memberInfo);
+        log.info(" - loadUser > memberInfo : " + memberInfo);
 
         // 회원가입 처리(여기서 id는 카카오에 있는 고유 식별번호.)
         String id    = memberInfo.getProviderId();
         String email = memberInfo.getEmail();
         String nick  = memberInfo.getNickname();
 
-        Optional<MemberEntity> result = memberRepository.findById(provider+"_"+id);
-        log.info("result : " + result);
+        Optional<MemberEntity> findMember = memberRepository.findById(provider+"_"+id);
+        log.info(" - loadUser > findMember : " + findMember);
 
         MemberEntity user = null;
 
-        if(result.isEmpty()) { // 최초  소셜 로그인 동의 후 가입
+        if(findMember.isEmpty()) { // 최초  소셜 로그인 동의 후 가입
+            log.info(" - loadUser > findMember is Empty");
             user = MemberEntity.builder()
                     .uid(provider+"_"+id)
                     .email(email)
@@ -77,10 +61,12 @@ public class OAuth2Service extends DefaultOAuth2UserService {
             memberRepository.save(user);
 
         }else { // 회원가입이 된 사용자 조회
-            user = result.get();
+            log.info(" - loadUser > findMember is Ok");
+            user = findMember.get();
         }
         // 세션으로 저장.
-        return user;
+        log.info(" - loadUser > end...");
+        return new MemberDetails(user, attributes);
     }
 
     private OAuth2MemberInfo generateMemberInfo(String provider, Map<String, Object> attributes) {

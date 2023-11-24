@@ -5,23 +5,24 @@ import GithubIcon from "../../../../components/Icon/GithubIcon";
 import GoogleIcon from "../../../../components/Icon/GoogleIcon";
 import KakaoIcon from "../../../../components/Icon/KakaoIcon";
 import NaverIcon from "../../../../components/Icon/NaverIcon";
+import {openKakaoLogin} from "../../../../service/authenticationService";
 
 function SocialLoginButton() {
     return (
         <>
             <div style={{float: "right"}}>
-                <Link to={"/oauth2/authorization/github"}>
+                <a href={"#"}>
                     <GithubIcon />
-                </Link>&nbsp;
-                <Link to={"/oauth2/authorization/google"}>
+                </a>&nbsp;
+                <a href={"#"}>
                     <GoogleIcon />
-                </Link>&nbsp;
-                <Link to={"/oauth2/authorization/kakao"}>
+                </a>&nbsp;
+                <a onClick={openKakaoLogin}>
                     <KakaoIcon />
-                </Link>&nbsp;
-                <Link to={"/oauth2/authorization/naver"}>
+                </a>&nbsp;
+                <a href={"#"}>
                     <NaverIcon />
-                </Link>
+                </a>
             </div>
         </>
     );

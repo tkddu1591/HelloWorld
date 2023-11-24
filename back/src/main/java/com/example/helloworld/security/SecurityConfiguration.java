@@ -1,8 +1,10 @@
 package com.example.helloworld.security;
 
+import com.example.helloworld.handler.OAuth2SuccessHandler;
 import com.example.helloworld.jwt.JwtAuthenticationFilter;
 import com.example.helloworld.jwt.JwtProvider;
 import com.example.helloworld.service.member.LoginService;
+import com.example.helloworld.service.member.OAuth2Service;
 import com.example.helloworld.service.member.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,27 +35,33 @@ import org.springframework.web.filter.CorsFilter;
 public class SecurityConfiguration {
     private final JwtProvider jwtProvider;
     private final TokenService tokenService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    private final OAuth2Service oAuth2Service;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-                .csrf(CsrfConfigurer::disable)
-                .httpBasic(HttpBasicConfigurer::disable)
-                .formLogin(FormLoginConfigurer::disable)
-                .sessionManagement(config -> config
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .addFilter(corsFilter())
-                .addFilterBefore(
-                        new JwtAuthenticationFilter(jwtProvider, tokenService),
-                        UsernamePasswordAuthenticationFilter.class
-                )
-                .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
-                        .requestMatchers("/").permitAll()//인가설정
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("http://localhost:3000/**").permitAll()
-                );
+            .csrf(CsrfConfigurer::disable)
+            .httpBasic(HttpBasicConfigurer::disable)
+            .formLogin(FormLoginConfigurer::disable)
+            .sessionManagement(config -> config
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .addFilter(corsFilter())
+            .addFilterBefore(
+                    new JwtAuthenticationFilter(jwtProvider, tokenService),
+                    UsernamePasswordAuthenticationFilter.class
+            )
+            /*.oauth2Login(config -> config.loginPage("/member/login")
+                    .defaultSuccessUrl("/")
+            )*/
+            .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
+                    .requestMatchers("/").permitAll()
+                    .requestMatchers("/**").permitAll()
+                    .requestMatchers("http://localhost:3000/**").permitAll()
+            );
+
         return httpSecurity.build();
     }
 
