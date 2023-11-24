@@ -52,7 +52,7 @@ public class LoginService {
 
             String accessToken  = jwtProvider.createToken(member, jwtProvider.getAccessToken_expMin());
             String refreshToken = jwtProvider.createToken(member, exp_refreshToken);
-            String myInfo = member.getEmail()+","+member.getNick();
+            String myInfo = member.getUid()+","+member.getEmail()+","+member.getNick();
 
             if(tokenService.saveRefreshToken(email, refreshToken) != null) {
                 log.info(" - defaultLogin > refreshToken SAVED!!!!");

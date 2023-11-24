@@ -32,7 +32,11 @@ public class PageRequestDTO {
     @Builder.Default
     private Integer parentNo = 0;
     @Builder.Default
+    private Integer commentNo = 0;
+    @Builder.Default
     private String commentType = "Desc";
+    @Builder.Default
+    private String uid = "";
     private LectureDTO lecture;
 
     public Pageable getPageableDesc(){

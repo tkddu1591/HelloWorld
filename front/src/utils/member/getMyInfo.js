@@ -7,8 +7,9 @@ export const getMyInfo = (dispatch) => {
     if(local !== null) {
         const infoArr = local.split(',');
         const newInfo = {
-            email: infoArr[0],
-            nick: infoArr[1],
+            email: infoArr[1],
+            nick: infoArr[2],
+            uid: infoArr[0],
             isLogin: true,
         }
         dispatch(insertMyInfo(newInfo));

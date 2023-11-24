@@ -13,6 +13,7 @@ import CommentList from "./Comment/CommentList";
 import CommentOption from "./Comment/CommentOption";
 import {API_BASE_URL} from "../../../App";
 import axios from "axios";
+import {useSelector} from "react-redux";
 
 function CommunityView() {
     let navigate = useNavigate();
@@ -32,10 +33,12 @@ function CommunityView() {
     let [view, setView] = useState({});
     let [commentsList, setCommentsList] = useState([]);
     let [commentReply, setCommentReply] = useState([]);
+    let [uid, setUid] = useState('');
     const [commentWrite, setCommentWrite] = useState('');
     const [replyToComment, setReplyToComment] = useState(null);
     let [parentNo, setParentNo] = useState(0);
     let [tagsList, setTagsList] = useState([]);
+    let myInfo = useSelector((state) => {return state.myInfo} )
 
     // CommentOption의 ref를 생성합니다.
     const commentRef = React.createRef();
@@ -49,6 +52,23 @@ function CommunityView() {
         }
     };
 
+    const commentRefresh = () => {
+        console.log('communityNo : '+communityNo);
+        axios.get(`${API_BASE_URL}/community/comment`,{
+            params: {
+                communityNo : communityNo,
+                commentType : commentType
+            }
+        })
+            .then(res => {
+                console.log('refresh success');
+                setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+    }
+
     // VIEW GET
     useEffect(() => {
         axios.get(`${API_BASE_URL}/community/view`, {
@@ -61,6 +81,7 @@ function CommunityView() {
                 setTagsList(res.data.hasTagsList);
                 setPrevNo(res.data.prevNo);
                 setNextNo(res.data.nextNo);
+                setUid(myInfo.uid);
             })
             .catch(err => {
                 console.log(err);
@@ -72,6 +93,7 @@ function CommunityView() {
     }, [view]);
     useEffect(() => {
         console.log(commentsList);
+        console.log(commentReply);
     }, [commentsList]);
     useEffect(() => {
         console.log(tagsList);
@@ -107,8 +129,9 @@ function CommunityView() {
     }, [communityNo]);
 
 
+    console.log(myInfo);
     const insertComment = () =>{
-        axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo, parentNo, commentType})
+        axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo, parentNo, commentType, uid})
             .then(res => {
                 console.log('success');
                 setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
@@ -118,9 +141,12 @@ function CommunityView() {
                 updatedView.comAmount = updatedView.comAmount + 1;
 
                 setView(updatedView);
-
             })
     }
+    useEffect(()=>{
+        commentRefresh();
+    },[commentsList])
+
     return (
         <>
             <Container style={{userSelect: 'none'}} onClick={() => {
@@ -148,7 +174,8 @@ function CommunityView() {
                                                                setCommentsList={setCommentsList}
                                                                buttonStatus={buttonStatus}
                                                                setButtonStatus={setButtonStatus}
-                                                               setCommentType={setCommentType}>
+                                                               setCommentType={setCommentType}
+                                                               commentRefresh={commentRefresh}>
                                                 </CommentOption>
                                                 <CommentList popup={popup}
                                                              setPopup={setPopup}
@@ -159,7 +186,11 @@ function CommunityView() {
                                                              commentWrite={commentWrite}
                                                              setCommentWrite={setCommentWrite}
                                                              replyToComment={replyToComment}
-                                                             setReplyToComment={setReplyToComment}>
+                                                             setReplyToComment={setReplyToComment}
+                                                             myInfo={myInfo}
+                                                             communityNo={communityNo}
+                                                             commentType={commentType}
+                                                             commentRefresh={commentRefresh}>
                                                 </CommentList>
                                                 <CommentWriter commentWrite={commentWrite}
                                                                setCommentWrite={setCommentWrite}
@@ -167,7 +198,8 @@ function CommunityView() {
                                                                communityNo={communityNo}
                                                                setParentNo={setParentNo}
                                                                replyToComment={replyToComment}
-                                                               setReplyToComment={setReplyToComment}>
+                                                               setReplyToComment={setReplyToComment}
+                                                               myInfo={myInfo}>
                                                 </CommentWriter>
                                             </div>
                                             {/*<div className="RelatedArticles"></div>
