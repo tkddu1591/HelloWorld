@@ -16,9 +16,18 @@ import java.util.Map;
 @Setter
 @Builder
 @ToString
-public class MemberDetails implements UserDetails {
-
+public class MemberDetails implements OAuth2User, UserDetails {
     private MemberEntity memberEntity;
+    private Map<String, Object> attributes;
+
+    public MemberDetails(MemberEntity memberEntity) {
+        this.memberEntity = memberEntity;
+    }
+
+    public MemberDetails(MemberEntity memberEntity, Map<String, Object> attributes) {
+        this.memberEntity = memberEntity;
+        this.attributes   = attributes;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -32,11 +41,14 @@ public class MemberDetails implements UserDetails {
         // 계정이 갖는 비밀번호
         return memberEntity.getPass();
     }
-
     @Override
     public String getUsername() {
         // 계정이 갖는 아이디
         return memberEntity.getUid();
+    }
+    @Override
+    public String getName() {
+        return "name";
     }
 
     @Override
@@ -58,4 +70,5 @@ public class MemberDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     } // 계정 활성화 여부(true:활성화, false:비활성화)
+
 }
