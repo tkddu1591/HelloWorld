@@ -3,7 +3,7 @@ import '../../../../css/community/view.css';
 import axios from "axios";
 import {API_BASE_URL} from "../../../../App";
 
-function CommentOption({buttonStatus, setButtonStatus, setCommentType, setCommentsList, communityNo, commentType}) {
+function CommentOption({buttonStatus, setButtonStatus, setCommentType, setCommentsList, communityNo, commentType, commentRefresh}) {
 
     const btnClick = (isOldestTab) => {
         if (isOldestTab !== buttonStatus) {
@@ -13,22 +13,7 @@ function CommentOption({buttonStatus, setButtonStatus, setCommentType, setCommen
         }
     };
 
-    const commentRefresh = () => {
-        console.log('communityNo : '+communityNo);
-        axios.get(`${API_BASE_URL}/community/comment`,{
-        params: {
-            communityNo : communityNo,
-            commentType : commentType
-        }
-        })
-            .then(res => {
-                console.log('refresh success');
-                setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
-            })
-            .catch(err=>{
-                console.log(err);
-            })
-    }
+
 
     return (
         <div className={'comment_option'}>

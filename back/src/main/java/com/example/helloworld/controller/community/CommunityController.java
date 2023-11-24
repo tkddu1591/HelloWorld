@@ -46,6 +46,7 @@ public class CommunityController {
     public PageResponseDTO comments(@ModelAttribute PageRequestDTO pageRequest, int communityNo, String commentType){
 
         PageResponseDTO result = communityService.commentRefresh(pageRequest, communityNo, commentType);
+        log.info("CommentRefresh");
 
         return result;
     }
@@ -64,8 +65,10 @@ public class CommunityController {
     @PostMapping("/deleteComment")
     public PageResponseDTO deleteComment(@RequestBody PageRequestDTO pageRequestDTO){
 
-        communityService.deleteComment(pageRequestDTO);
+        log.info("delete");
+        communityService.deleteComment(pageRequestDTO.getCommentNo());
 
+        log.info("delete completed");
         return communityService.commentRefresh(pageRequestDTO, pageRequestDTO.getCommunityNo(), pageRequestDTO.getCommentType());
     }
 

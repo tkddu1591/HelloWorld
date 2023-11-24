@@ -9,6 +9,7 @@ import com.example.helloworld.entity.commuity.CommunityCategoryEntity;
 import com.example.helloworld.entity.commuity.CommunityCommentEntity;
 import com.example.helloworld.entity.commuity.CommunityEntity;
 import com.example.helloworld.entity.commuity.CommunityHasTagEntity;
+import com.example.helloworld.entity.member.MemberEntity;
 import com.example.helloworld.mapper.commuity.CommunityMapper;
 import com.example.helloworld.repository.commuity.CommunityCategoryRepository;
 import com.example.helloworld.repository.commuity.CommunityCommentRepository;
@@ -179,15 +180,20 @@ public class CommunityService {
         CommunityEntity community = communityRepository.findByCommunityNo(pageRequestDTO.getCommunityNo());
         entity.setCommunity(community);
         entity.setParentNo(pageRequestDTO.getParentNo());
+        MemberEntity member = new MemberEntity();
+        member.setUid(pageRequestDTO.getUid());
+        entity.setMember(member);
         communityCommentRepository.save(entity);
         log.info(pageRequestDTO.getCommunityNo());
         communityRepository.updateComAmountByCommunityNo(pageRequestDTO.getCommunityNo());
 
     }
 
-    public void deleteComment(PageRequestDTO pageRequestDTO){
+    public void deleteComment(int commentNo){
 
-        communityCommentRepository.deleteById(pageRequestDTO.getCommentNo());
-
+        log.info("delete service...1");
+        log.info("commentNo: " + commentNo);
+        communityCommentRepository.updateByCommentNo(commentNo);
+        log.info("delete service...2");
     }
 }

@@ -52,6 +52,23 @@ function CommunityView() {
         }
     };
 
+    const commentRefresh = () => {
+        console.log('communityNo : '+communityNo);
+        axios.get(`${API_BASE_URL}/community/comment`,{
+            params: {
+                communityNo : communityNo,
+                commentType : commentType
+            }
+        })
+            .then(res => {
+                console.log('refresh success');
+                setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+    }
+
     // VIEW GET
     useEffect(() => {
         axios.get(`${API_BASE_URL}/community/view`, {
@@ -76,6 +93,7 @@ function CommunityView() {
     }, [view]);
     useEffect(() => {
         console.log(commentsList);
+        console.log(commentReply);
     }, [commentsList]);
     useEffect(() => {
         console.log(tagsList);
@@ -123,9 +141,12 @@ function CommunityView() {
                 updatedView.comAmount = updatedView.comAmount + 1;
 
                 setView(updatedView);
-
             })
     }
+    useEffect(()=>{
+        commentRefresh();
+    },[commentsList])
+
     return (
         <>
             <Container style={{userSelect: 'none'}} onClick={() => {
@@ -153,7 +174,8 @@ function CommunityView() {
                                                                setCommentsList={setCommentsList}
                                                                buttonStatus={buttonStatus}
                                                                setButtonStatus={setButtonStatus}
-                                                               setCommentType={setCommentType}>
+                                                               setCommentType={setCommentType}
+                                                               commentRefresh={commentRefresh}>
                                                 </CommentOption>
                                                 <CommentList popup={popup}
                                                              setPopup={setPopup}
@@ -165,7 +187,10 @@ function CommunityView() {
                                                              setCommentWrite={setCommentWrite}
                                                              replyToComment={replyToComment}
                                                              setReplyToComment={setReplyToComment}
-                                                             myInfo={myInfo}>
+                                                             myInfo={myInfo}
+                                                             communityNo={communityNo}
+                                                             commentType={commentType}
+                                                             commentRefresh={commentRefresh}>
                                                 </CommentList>
                                                 <CommentWriter commentWrite={commentWrite}
                                                                setCommentWrite={setCommentWrite}
