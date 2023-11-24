@@ -6,6 +6,7 @@ import {API_BASE_URL} from "../../../App";
 import axios from "axios";
 import {Type} from "react-bootstrap-icons";
 import {changeDTO} from "../../../store/changeDTO";
+import {useLocation} from "react-router-dom";
 
 
 function LectureList() {
@@ -18,6 +19,9 @@ function LectureList() {
         label: string
     }[]>([])
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const sort = searchParams.get('sort');
 
     useEffect(() => {
         //태그
@@ -54,7 +58,7 @@ function LectureList() {
         });
     }, []);
 
-    const [sortType, setSortType] = useState({
+    const [sortType] = useState({
         title:        'sort',
         list:         [
             {value: 'regDate', label: '최신순'},
@@ -120,7 +124,7 @@ function LectureList() {
         sort?: string
         lecture?: LectureType
     }>({
-        sort: 'regDate',
+        sort: sort || 'regDate',
         size: 12
     });
 
@@ -139,6 +143,7 @@ function LectureList() {
 
     const [isSearch, setIsSearch] = useState(false);
     const [pageResponse, setPageResponses] = useState();
+
 
     const handleSearch = () => {
         changeDTO(setPageRequest, 'lecture', lecture)
@@ -167,15 +172,16 @@ function LectureList() {
     useEffect(() => {
         handleSearch()
     }, [pageRequest.pg]);
-    useEffect(() => {
-        console.log(pageResponse)
-    }, [pageResponse]);
+
+
+
     return (
         <>
             <div style={{marginTop: '100px'}}></div>
             <SearchBar sorts={sorts} setTitle={setLectureTitle} setSearch={setIsSearch} search={isSearch}
                        setSorts={setLecture}></SearchBar>
-            <ListTable sorts={sorts} sortType={sortType} setSort={setSort} tags={tags} isLoadingType={true}
+            <ListTable pageRequest={pageRequest}
+                       sorts={sorts} sortType={sortType} setSort={setSort} tags={tags} isLoadingType={true}
                        title={'강의 목록'} setPageRequest={setPageRequest} pageResponse={pageResponse}></ListTable>
         </>
     );

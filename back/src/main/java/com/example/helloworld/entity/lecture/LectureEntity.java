@@ -22,8 +22,8 @@ public class LectureEntity {
     private int lectureNo;
     private String seller;
     private String title;
-    @Column(columnDefinition = "int default 0")
-    private int score;
+    @Builder.Default
+    private float score= 0;
     @ManyToOne
     @JoinColumn(name = "levelNo")
     private LectureLevelEntity level;
@@ -39,7 +39,6 @@ public class LectureEntity {
     @CreationTimestamp
     private LocalDateTime regDate;
     private String regIp;
-    @Column(columnDefinition = "boolean default false")
     private Boolean isDelete;
     private String content;
     @Column(columnDefinition = "int default 0")

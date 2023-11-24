@@ -4,7 +4,6 @@ import com.example.helloworld.dto.PageRequestDTO;
 import com.example.helloworld.dto.PageResponseDTO;
 import com.example.helloworld.dto.lecture.LectureDTO;
 import com.example.helloworld.dto.lecture.LectureHasTagDTO;
-import com.example.helloworld.repository.lecture.LectureRepository;
 import com.example.helloworld.service.lecture.LectureHasTagService;
 import com.example.helloworld.service.lecture.LectureService;
 import com.example.helloworld.service.lecture.LectureThumbService;
@@ -12,8 +11,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/lecture")
@@ -43,6 +40,7 @@ public class LectureController {
     public LectureDTO findByLectureNo(@RequestParam int lectureNo) {
         LectureDTO lectureDTO = lectureService.findByLectureNo(lectureNo);
         lectureDTO.setTagList(lectureHasTagService.findByLectureNo(lectureNo).stream().map(LectureHasTagDTO::getTagNo).toList());
+        lectureService.updateByLectureNoOnHit(lectureDTO);
         return lectureDTO;
     }
 

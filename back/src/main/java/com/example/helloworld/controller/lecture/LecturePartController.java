@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lecture/write/content")
+@RequestMapping("/lecture/part")
 @RequiredArgsConstructor
 @Slf4j
 public class LecturePartController {
     private final LecturePartService lecturePartService;
-    @PostMapping("/part")
+    @PostMapping(value = {"","/"})
     public void part(@RequestBody List<LecturePartDTO> lecturePartDTOList) {
         log.info(lecturePartDTOList.toString());
         lecturePartService.changeLectureParts(lecturePartDTOList);
     }
-    @GetMapping("/partList")
+    @GetMapping("/list")
     public List<LecturePartDTO> list(@RequestParam int lectureNo) {
         return lecturePartService.selectByLectureNo(lectureNo);
     }

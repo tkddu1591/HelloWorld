@@ -84,7 +84,7 @@ function LectureWriteAside({lectureNo, setPost, part, contentList,setPart,setCon
                     return <LectureWriteAsideTable setPost={setPost} deleteBySet={deleteBySet} key={value.orderNo}
                                                    updateTitle={updateTitle} setPart={setPart} lectureNo={lectureNo}
                                                    part={value} setContentList={setContentList}
-                                                   contentList={contentList} post={post}
+                                                   contentList={contentList} post={post} setAside={setAside}
                                                    generateOrderNo={generateOrderNo}></LectureWriteAsideTable>
                 })}
             </div>

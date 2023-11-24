@@ -34,6 +34,7 @@ public class PageRequestDTO {
     @Builder.Default
     private String commentType = "Desc";
     private LectureDTO lecture;
+    private int lectureNo;
 
     public Pageable getPageableDesc(){
         return  PageRequest.of(this.pg - 1, this.size, Sort.by(this.sort).descending());

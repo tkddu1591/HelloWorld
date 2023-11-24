@@ -5,7 +5,7 @@ import Star from "../../../components/Lecture/Star";
 import {useNavigate} from "react-router-dom";
 import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
 
-function LectrueViewHeader({lecture}) {
+function LectrueViewHeader({lecture, tagColor}) {
     let navigate = useNavigate();
     let [arrayList, setArrayList] = useState<string[]>([]);
     return <>
@@ -13,7 +13,7 @@ function LectrueViewHeader({lecture}) {
 
         <div>
             {lecture.score !== 0 && <>
-                <Star size={20} score={5}></Star>
+                <Star size={20} score={lecture.score}></Star>
                 <span style={{marginLeft: '5px', marginRight: '20px'}}>( {lecture.review?.toLocaleString()} 리뷰 )</span></>}
 
             {lecture?.sold!==0&&lecture.sold && <span style={{marginRight: '10px'}}><i className="bi bi-people-fill"
@@ -23,7 +23,9 @@ function LectrueViewHeader({lecture}) {
                 arrayList.push(getRandomValueFromArray())
                 return <Button
                     className="btn-round"
-                    color={arrayList[index]}
+                    color={(tagColor?.find(item => item.value === tag) as {
+                        value: string; color: string
+                    } | undefined)?.color || 'defaultColor'}
                     type="button"
                     onClick={e => {
                         e.preventDefault();

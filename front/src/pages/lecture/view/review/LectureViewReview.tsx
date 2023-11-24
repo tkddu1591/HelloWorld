@@ -1,20 +1,52 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Col, Progress} from "reactstrap";
 import Subhead from "../../../../Subhead";
 import LectureReviewStart from "./LectureViewReviewStar";
 import LectureViewReviewList from "./LectureViewReviewList";
 import LectureViewReviewWrite from "./LectureViewReviewWrite";
+import reviewList from "../../../../components/Lecture/ReviewList";
+import LecturePagination from "../../../../components/Lecture/LecturePagination";
+import {useLocation} from "react-router-dom";
+import axios from "axios";
+import {API_BASE_URL} from "../../../../App";
 
-function LectureViewReview({popup, setPopup}) {
+function LectureViewReview({popup, setPopup, lecture, setIsReviewWrite, isReviewWrite}) {
     let total = 44;
-    return <>
-        <Col lg='9'>
-            <Subhead title={'수강생 리뷰'}></Subhead>
-            <LectureReviewStart total={total}></LectureReviewStart>
-            <LectureViewReviewList popup={popup} setPopup={setPopup}></LectureViewReviewList>
-            <LectureViewReviewWrite></LectureViewReviewWrite>
-        </Col>
-    </>
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const lectureNo = searchParams.get('lectureNo');
+    const [pageRequest, setPageRequest] = useState({
+        pg: 1,
+        size : 5,
+        lectureNo: lectureNo,
+        sort: 'reviewNo'
+    });
+    const [pageResponse, setPageResponse] = useState();
+    useEffect(() => {
+        axios.get(`${API_BASE_URL}/lecture/review/list`, { params: pageRequest })
+            .then(response => {
+                // lectureReviewList의 이름을 list로 변경
+                const modifiedResponse = { ...response.data, list: response.data.lectureReviewList };
+                // 변경된 response를 state에 저장
+                setPageResponse(modifiedResponse);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, [isReviewWrite, pageRequest]);
+
+    useEffect(() => {
+        console.log(pageResponse)
+    }, [pageResponse]);
+    return <Col lg='9'>
+        <Subhead title={'수강생 리뷰'}></Subhead>
+        <LectureReviewStart pageResponse={pageResponse} lecture={lecture} isReviewWrite={isReviewWrite}></LectureReviewStart>
+        <LectureViewReviewList  popup={popup} setPopup={setPopup} pageResponse={pageResponse} setPageRequest={setPageRequest}></LectureViewReviewList>
+
+        <LectureViewReviewWrite setIsReviewWrite={setIsReviewWrite}
+                                isReviewWrite={isReviewWrite}></LectureViewReviewWrite>
+    </Col>
 }
 
 
