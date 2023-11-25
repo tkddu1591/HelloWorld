@@ -55,6 +55,8 @@ import {useDispatch} from "react-redux";
 import {insertMyIp} from "./slice/myIpSlice";
 import axios from "axios";
 import OAuth2RedirectHandler from "./pages/member/OAuth2RedirectHandler";
+import {sendRefreshToken} from "./utils/member/sendRefreshToken";
+import {sendAccessToken} from "./utils/member/sendAccessToken";
 
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
@@ -68,14 +70,6 @@ function App() {
         axios.get('https://geolocation-db.com/json/')
             .then((res) => {
                 dispatch(insertMyIp(res.data.IPv4))
-            })
-    }, [])
-    useEffect(() => {
-        axios.get(`${API_BASE_URL}/me`)
-            .then((res) => {
-                console.log("data : " + JSON.stringify(res));
-                console.log("data : " + JSON.stringify(res.data));
-                console.log("data : " + res.data);
             })
     }, [])
 

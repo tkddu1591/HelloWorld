@@ -16,6 +16,7 @@ import {API_BASE_URL} from "../../App";
 import {useDispatch} from "react-redux";
 import {setCookie} from "../../utils/member/cookieHandler";
 import {getMyInfo} from "../../utils/member/getMyInfo";
+import {sendAccessToken} from "../../utils/member/sendAccessToken";
 
 function LoginPage() {
     const nav = useNavigate();
@@ -50,7 +51,6 @@ function LoginPage() {
                     path: '/',
                     secure: false,
                     maxAge: maxAge,
-                    sameSite: 'None'
                 });
                 getMyInfo(dispatch);
                 nav('/');

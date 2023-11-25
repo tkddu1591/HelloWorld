@@ -17,11 +17,15 @@ import ListTable from "../../components/Lecture/ListTable";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {API_BASE_URL} from "../../App";
+import {getMyDetailInfo} from "../../utils/member/getMyDetailInfo";
+import {useDispatch} from "react-redux";
 
 
 function MyInfo() {
 
     let navigate = useNavigate();
+    let dispatch = useDispatch();
+    getMyDetailInfo(navigate, dispatch);
     const [pills, setPills] = React.useState("1");
     React.useEffect(() => {
         document.body.classList.add("profile-page");
