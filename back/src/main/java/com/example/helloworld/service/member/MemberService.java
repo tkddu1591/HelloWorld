@@ -48,6 +48,8 @@ public class MemberService {
     }
 
     public MemberDTO getMyInfo() {
-        return memberTransform.toDTO(memberRepository.findByEmail(SecurityUtils.getMyEmail()));
+        MemberDTO myInfpo = memberTransform.toDTO(memberRepository.findByEmail(SecurityUtils.getMyEmail()));
+        myInfpo.setPass("*");
+        return myInfpo;
     }
 }

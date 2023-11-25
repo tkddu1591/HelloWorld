@@ -11,19 +11,6 @@ public class SecurityUtils {
     public static String getMyEmail() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("isLogin? : " + authentication.isAuthenticated());
-
-        if (authentication == null || !authentication.isAuthenticated()) {
-            log.info("인증 안 됨");
-            throw new RuntimeException("member is null");
-        }
-
-        String email = authentication.getName();
-        log.info(" - email       : " + email);
-        log.info(" - authro      : " + authentication.getAuthorities());
-        log.info(" - principa;   : " + authentication.getPrincipal());
-        log.info(" - details     : " + authentication.getDetails());
-        log.info(" - credentials : " + authentication.getCredentials());
-        log.info(" - class       : " + authentication.getClass());
-        return email;
+        return authentication.getName();
     }
 }

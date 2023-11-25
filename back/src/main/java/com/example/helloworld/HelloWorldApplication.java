@@ -25,6 +25,7 @@ public class HelloWorldApplication {
 								"http://52.79.236.227:8080",
 								"http://52.79.236.227:8080")
 						.allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE");
+						/*.allowedHeaders("Authorization", "Content-Type");*/
 
 			}
 		};

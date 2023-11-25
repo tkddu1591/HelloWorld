@@ -8,7 +8,7 @@ export const sendRefreshToken = async (navigate, dispatch) => {
         const response = await axios.get(
             '/refreshToken',
             {
-                headers: {"Authorization": `Bearer${refreshToken}`},
+                headers: {"Authorization": `Bearer ${refreshToken}`},
             }
         );
 
