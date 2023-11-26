@@ -22,12 +22,10 @@ public class TokenService {
 
     public TokenDTO saveRefreshToken(String email, String token) {
         TokenEntity tokenEntity = TokenEntity.builder().email(email).refreshToken(token).build();
-        return tokenTransform.toDTO(tokenRepository
-                .save(tokenEntity));
+        return tokenTransform.toDTO(tokenRepository.save(tokenEntity));
     }
     public TokenDTO saveRefreshToken(TokenDTO tokenDTO) {
-        return tokenTransform.toDTO(tokenRepository
-                .save(tokenTransform.toEntity(tokenDTO)));
+        return tokenTransform.toDTO(tokenRepository.save(tokenTransform.toEntity(tokenDTO)));
     }
     public String getToken(String email) {
         TokenEntity tokenEntity = tokenRepository.findById(email).orElse(null);

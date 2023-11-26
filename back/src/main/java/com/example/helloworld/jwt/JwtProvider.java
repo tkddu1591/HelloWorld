@@ -32,9 +32,11 @@ public class JwtProvider {
     private SecretKey secretKey;
 
     @Getter
-    public int accessToken_expMin = 30; // 단위는 minutes
+    @Value("${jwt.accessToken_exp}")
+    public int accessToken_expMin; // 단위는 minutes
     @Getter
-    public int refreshToken_expMin = 60; // 단위는 minutes
+    @Value("${jwt.refreshToken_exp}")
+    public int refreshToken_expMin; // 단위는 minutes
 
     public JwtProvider(@Value("${jwt.secret}") String secret) {
         String secretKey_toBase64Encoded = Base64.getEncoder().encodeToString(secret.getBytes());

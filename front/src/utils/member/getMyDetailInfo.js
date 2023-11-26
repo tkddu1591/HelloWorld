@@ -4,15 +4,14 @@ import {sendRefreshToken} from "./sendRefreshToken";
 import {API_BASE_URL} from "../../App";
 export const getMyDetailInfo = (navigate, dispatch) => {
     const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
-    try {
-        axios.get(`${API_BASE_URL}/me`, {
-            headers: { "Authorization": `Bearer ${accessToken}` }
-        })
-            .then((res) => {
-                console.log("data : " + JSON.stringify(res.data));
-            })
-    } catch (err) {
-        console.log(JSON.stringify(err));
+    axios.get(`${API_BASE_URL}/me`, {
+        headers: { "Authorization": `Bearer ${accessToken}` }
+    })
+    .then((res) => {
+        console.log("성공? : " + JSON.stringify(res.data));
+    })
+    .catch ((err) => {
+        console.log("실패? : " + JSON.stringify(err));
         sendRefreshToken(navigate, dispatch);
-    }
+    });
 }
