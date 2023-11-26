@@ -3,6 +3,7 @@ package com.example.helloworld.service.member;
 import com.example.helloworld.dto.member.LoginDTO;
 import com.example.helloworld.dto.member.MemberDTO;
 import com.example.helloworld.dto.member.TokenDTO;
+import com.example.helloworld.entity.member.MemberEntity;
 import com.example.helloworld.entity.member.TokenEntity;
 import com.example.helloworld.jwt.JwtProvider;
 import com.example.helloworld.repository.member.MemberRepository;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -27,9 +29,10 @@ import java.util.Map;
 public class LoginService {
 
     private final AuthenticationManager authenticationManager;
+    private final MemberRepository      memberRepository;
     private final MemberTransform       memberTransform;
-    private final JwtProvider           jwtProvider;
     private final TokenService          tokenService;
+    private final JwtProvider           jwtProvider;
 
     public Map<String, Object> defaultLogin(LoginDTO loginDTO) {
         log.info(" - defaultLogin > start!...");
@@ -39,8 +42,6 @@ public class LoginService {
         boolean isAutoLogin = loginDTO.isAutoLogin();
         log.info(" - defaultLogin > email       : " + email);
         log.info(" - defaultLogin > isAutoLogin : " + isAutoLogin);
-
-
 
         try {
             MemberDTO member = getMember(email, pass);
@@ -68,8 +69,39 @@ public class LoginService {
                           "message", e.getMessage());
         }
     }
-    public Cookie deleteCookie(String cookieName) {
-        return jwtProvider.createCookie(cookieName, null, 0);
+    public Map<String, Object> socialLogin(LoginDTO login) {
+        String[] myInfoArr = login.getMyInfo().split(",");
+        String uid = login.getProvider()+"_"+login.getProvider_id();
+
+        try {
+            MemberDTO member = MemberDTO.builder()
+                    .uid(uid)
+                    .pass(login.getProvider())
+                    .email(login.getEmail())
+                    .nick(login.getNick())
+                    .type(1)
+                    .regIp(login.getRegip())
+                    .build();
+
+            if(memberRepository.countByUid(uid) == 0)
+                memberRepository.save(memberTransform.toEntity(member));
+
+            String accessToken  = jwtProvider.createToken(member, jwtProvider.accessToken_expMin);
+            String refreshToken = jwtProvider.createToken(member, jwtProvider.refreshToken_expMin);
+
+            if(tokenService.saveRefreshToken(login.getEmail(), refreshToken) != null) {
+                log.info(" - defaultLogin > refreshToken SAVED!!!!");
+            };
+
+            return Map.of("grantType", "Bearer",
+                    "accessToken", accessToken,
+                    "refreshToken", refreshToken,
+                    "myInfo", login.getMyInfo());
+
+        } catch (Exception e) {
+            return Map.of("grantType", "None",
+                    "message", e.getMessage());
+        }
     }
     public MemberDTO getMember(String unique, String pass) {
         UsernamePasswordAuthenticationToken authenticationToken
@@ -81,8 +113,11 @@ public class LoginService {
 
         return memberTransform.toDTO(memberDetails.getMemberEntity());
     }
-    public LocalDateTime currentTime() {
-        return LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime();
-    }
 
+    /*public Cookie deleteCookie(String cookieName) {
+        return jwtProvider.createCookie(cookieName, null, 0);
+    }*/
+    /*public LocalDateTime currentTime() {
+        return LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime();
+    }*/
 }

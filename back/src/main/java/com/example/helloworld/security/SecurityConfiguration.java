@@ -42,25 +42,30 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-            .csrf(CsrfConfigurer::disable)
-            .httpBasic(HttpBasicConfigurer::disable)
-            .formLogin(FormLoginConfigurer::disable)
-            .sessionManagement(config -> config
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .addFilter(corsFilter())
-            .addFilterBefore(
-                    new JwtAuthenticationFilter(jwtProvider, tokenService),
-                    UsernamePasswordAuthenticationFilter.class
-            )
-            /*.oauth2Login(config -> config.loginPage("/member/login")
-                    .defaultSuccessUrl("/")
-            )*/
-            .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
-                    .requestMatchers("/").permitAll()
-                    .requestMatchers("/**").permitAll()
-                    .requestMatchers("http://localhost:3000/**").permitAll()
-            );
+                .csrf(CsrfConfigurer::disable)
+                .httpBasic(HttpBasicConfigurer::disable)
+                .formLogin(FormLoginConfigurer::disable)
+                .sessionManagement(config -> config
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .addFilter(corsFilter())
+                .addFilterBefore(
+                        new JwtAuthenticationFilter(jwtProvider, tokenService),
+                        UsernamePasswordAuthenticationFilter.class
+                )
+                /*.oauth2Login(config -> config.loginPage("/member/login")
+                        .defaultSuccessUrl("/")
+                )*/
+                .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("http://localhost:3000/**").permitAll()
+                );
+                /*.oauth2Login()
+                .defaultSuccessUrl("/")
+                .successHandler(oAuth2SuccessHandler)
+                .userInfoEndpoint()
+                .userService(oAuth2Service);*/
 
         return httpSecurity.build();
     }

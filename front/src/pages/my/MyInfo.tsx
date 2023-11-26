@@ -25,7 +25,10 @@ function MyInfo() {
 
     let navigate = useNavigate();
     let dispatch = useDispatch();
-    getMyDetailInfo(navigate, dispatch);
+    useEffect(() => {
+        getMyDetailInfo(navigate, dispatch);
+    }, []);
+
     const [pills, setPills] = React.useState("1");
     React.useEffect(() => {
         document.body.classList.add("profile-page");

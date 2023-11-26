@@ -7,6 +7,7 @@ export const logout = (navigate, dispatch) => {
     removeCookie('helloWorld_REFRESH_TOKEN', {
         maxAge: -1,
     });
+    document.cookie = `helloWorld_REFRESH_TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
     getMyInfo(dispatch);
     alert("로그아웃 되었습니다.");
     navigate('/');

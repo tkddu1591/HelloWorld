@@ -15,6 +15,11 @@ public class LoginDTO {
     private String cookieName;
 
 
+    private String regip;
+    private String provider_id;
+    private String accessToken;
+    private String refreshToken;
+    private String myInfo;
     private String provider;
     private String code;
 }
