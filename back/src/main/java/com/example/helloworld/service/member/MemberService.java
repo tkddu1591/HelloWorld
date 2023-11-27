@@ -20,8 +20,8 @@ import java.util.UUID;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final MemberTransform memberTransform;
-    private final PasswordEncoder passwordEncoder;
+    private final MemberTransform  memberTransform;
+    private final PasswordEncoder  passwordEncoder;
 
     public boolean signUp(MemberDTO memberDTO, HttpServletRequest request) {
         String pass1 = memberDTO.getPass();
@@ -51,5 +51,9 @@ public class MemberService {
         MemberDTO myInfpo = memberTransform.toDTO(memberRepository.findByEmail(SecurityUtils.getMyEmail()));
         myInfpo.setPass("*");
         return myInfpo;
+    }
+
+    public String findMyEmail(String name, String hp) {
+        return memberRepository.findByNameAndHp(name, hp).getEmail();
     }
 }

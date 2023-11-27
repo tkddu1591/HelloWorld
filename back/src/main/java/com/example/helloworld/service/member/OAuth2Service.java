@@ -1,14 +1,12 @@
 package com.example.helloworld.service.member;
 
-import com.example.helloworld.dto.member.oauth2.*;
+import com.example.helloworld.dto.member.security_oauth2.*;
 import com.example.helloworld.entity.member.MemberEntity;
 import com.example.helloworld.repository.member.MemberRepository;
 import com.example.helloworld.security.MemberDetails;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;

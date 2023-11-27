@@ -1,11 +1,11 @@
-package com.example.helloworld.dto.member.oauth2;
+package com.example.helloworld.dto.member.security_oauth2;
 
 import lombok.AllArgsConstructor;
 
 import java.util.Map;
 
 @AllArgsConstructor
-public class NaverInfo implements OAuth2MemberInfo {
+public class GoogleInfo implements OAuth2MemberInfo{
     private Map<String, Object> attributes;
 
     @Override
@@ -15,7 +15,7 @@ public class NaverInfo implements OAuth2MemberInfo {
 
     @Override
     public String getProvider() {
-        return Provider.NAVER.getName();
+        return Provider.GOOGLE.getName();
     }
 
     @Override

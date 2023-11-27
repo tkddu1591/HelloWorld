@@ -16,28 +16,18 @@ import {faLock, faAt, faCircleCheck, faCircleQuestion, faSquarePhone, faUser} fr
 import InputField from "./componentsByMember/inputCmpnts/InputField";
 import LinkTo from "./componentsByMember/inputCmpnts/LinkTo";
 import MemberHeader from "./componentsByMember/MemberHeader";
+import InputHp from "./componentsByMember/inputCmpnts/InputHp";
+import InputName from "./componentsByMember/inputCmpnts/InputName";
+import {rememberMyEmail} from "../../utils/rememberMemberInfo/rememberMyEmail";
 
 // core components
 
 function FindByEmail() {
-  const [emailButton, setEmailButton] = useState("default");
-  const [buttonText, setButtonText] = useState("인증번호 요청");
-  const [emailIcon, setEmailIcon] = useState(faCircleQuestion);
-  const [emailIconColor, setEmailIconColor] = useState("");
-  const [isOpenEmail, setIsOpenEmail] = useState(false);
-
-  function emailClick() {
-    if(isOpenEmail === false){
-      setIsOpenEmail(true);
-      setEmailButton("warning");
-      setButtonText("인증번호 확인");
-    }else if(isOpenEmail === true){
-      setEmailButton("success");
-      setButtonText("인증 완료");
-      setEmailIcon(faCircleCheck);
-      setEmailIconColor("green");
-    }
-  }
+  const [inputValue, setInputValue] = useState({
+    name: '',
+    hp: '',
+    email: ''
+  });
   return (
     <>
       <div
@@ -54,12 +44,8 @@ function FindByEmail() {
                 <MemberHeader text={'이메일 찾기'}/>
 
                 <CardBody>
-                  <InputField
-                      placeholder="이름 입력"
-                      type="text" icon={faUser}/>
-                  <InputField
-                      placeholder="휴대번호 입력"
-                      type="text" icon={faSquarePhone}/>
+                  <InputName setInputValue={setInputValue}/>
+                  <InputHp setInputValue={setInputValue}/>
 
                   <LinkTo
                       text="비밀번호 찾기"
@@ -70,11 +56,16 @@ function FindByEmail() {
                 </CardBody>
 
                 <CardFooter className="text-center">
+                  <div style={{height:"30px"}}>
+                    {inputValue.email !== '' && <>
+                      {inputValue.email}
+                    </>}
+                  </div>
                   <Button
                     className="btn-neutral btn-round"
                     color="info"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={() => {rememberMyEmail(inputValue.name, inputValue.hp, setInputValue)}}
                     size="lg"
                   >
                     이메일 찾기

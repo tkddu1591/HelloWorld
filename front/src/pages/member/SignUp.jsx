@@ -112,7 +112,8 @@ function SignUp() {
         changeDTO(setError, 'message', '이메일 전송 중입니다.')
         axios.get(`${API_BASE_URL}/api/reqeustEmail`, {
             params: {
-                "email": inputValue.email
+                "email": inputValue.email,
+                "type": '가입'
             }/*, headers:{Authorization: 'Bearer 어쩌구저쩌구'}*/
         }).then((response) => {
             changeDTO(setError, 'email', false);
@@ -123,7 +124,6 @@ function SignUp() {
             // nosql 처리할 것.
             setAuth(response.data.auth);
             ////////////////////////////////////////////////////////////////////////
-
         }).catch(error => {
             console.log(error);
         });
@@ -142,7 +142,6 @@ function SignUp() {
         }).catch(error => {
             console.log(error);
         });
-
     }
     const submitSignup = () => {
         console.log("회원가입");

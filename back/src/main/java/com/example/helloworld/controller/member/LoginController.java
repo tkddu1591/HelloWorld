@@ -1,15 +1,24 @@
 package com.example.helloworld.controller.member;
 
 import com.example.helloworld.dto.member.LoginDTO;
+import com.example.helloworld.dto.member.MemberDTO;
+import com.example.helloworld.dto.member.oauth2.NaverParams;
 import com.example.helloworld.jwt.JwtProvider;
 import com.example.helloworld.service.member.LoginService;
 /*import com.example.helloworld.service.member.OAuth2Service;*/
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +41,16 @@ public class LoginController {
                                             HttpServletRequest request) {
         login.setRegip(request.getRemoteAddr());
         return loginService.socialLogin(login);
+    }
+
+    @PostMapping("/login/social/token/{provider}")
+    public ResponseEntity<Map<String, Object>> getMyInfo(@PathVariable String provider,
+                                               @RequestBody NaverParams naverParams,
+                                               HttpServletRequest request) {
+        LoginDTO loginDTO = loginService.getMyInfo(provider, naverParams);
+        loginDTO.setRegip(request.getRemoteAddr());
+
+        return ResponseEntity.ok().body(loginService.socialLogin(loginDTO));
     }
 
     /*@PostMapping("/logoutCookie")

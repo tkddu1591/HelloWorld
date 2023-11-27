@@ -24,28 +24,65 @@ import InputField from "./componentsByMember/inputCmpnts/InputField";
 import SubmitButton from "./componentsByMember/buttonCmpnts/SubmitButton";
 import StatusText from "./componentsByMember/status/StatusText";
 import MemberHeader from "./componentsByMember/MemberHeader";
+import InputEmail from "./componentsByMember/inputCmpnts/InputEmail";
+import InputEmailChk from "./componentsByMember/inputCmpnts/InputEmailChk";
+import {isValidEmail} from "../../utils/member/signupValidation";
+import {changeDTO} from "../../store/changeDTO";
+import axios from "axios";
+import {API_BASE_URL} from "../../App";
+import {emailCheckForPassFind} from "../../utils/rememberMemberInfo/emailCheckForPassFind";
 
 // core components
 
 function FindByPass() {
-  const [emailButton, setEmailButton] = useState("default");
-  const [buttonText, setButtonText] = useState("인증번호 요청");
-  const [emailIcon, setEmailIcon] = useState(faCircleQuestion);
-  const [emailIconColor, setEmailIconColor] = useState("");
-  const [isOpenEmail, setIsOpenEmail] = useState(false);
+  let [inputValue, setInputValue] = useState({
+    email: "",
+    emailChk: "",
+    pass: "",
+    passChk: "",
+  });
 
-  function emailClick() {
-    if(isOpenEmail === false){
-      setIsOpenEmail(true);
-      setEmailButton("warning");
-      setButtonText("인증번호 확인");
-    }else if(isOpenEmail === true){
-      setEmailButton("success");
-      setButtonText("인증 완료");
-      setEmailIcon(faCircleCheck);
-      setEmailIconColor("green");
-    }
+  let [pageCondtion, setPageCondtion] = useState({
+    email_button: 'default',
+    email_button_txt: '인증번호 요청',
+    email_icon: faCircleQuestion,
+    email_iconColor: "",
+
+    isOpenPass: false
+  });
+  let [error, setError] = useState({
+    email: false,
+    message: "",
+  });
+
+  async function emailCheckForPassFind() {
+    await axios.get(`${API_BASE_URL}/api/reqeustEmail`, {
+      params: {
+        email: inputValue.email,
+        type: '찾기'
+      }
+    }).then((response) => {
+      changeDTO(setError, 'email', false);
+      if((response.data.message) === '인증번호를 확인해주세요.') setEmailDisplay1();
+      changeDTO(setError, 'message', response.data.message);
+
+    }).catch((err) => {
+      console.error(err);
+    })
+    return null;
   }
+
+  function setEmailDisplay1() {
+    changeDTO(setPageCondtion, 'email_button_txt', "인증번호 확인");
+    changeDTO(setPageCondtion, 'email_button', "warning");
+    changeDTO(setPageCondtion, 'isOpenEmail', true);
+
+    changeDTO(setError, 'email', true);
+    changeDTO(setPageCondtion, 'isOpenEmail', true);
+  }
+
+
+
   return (
     <>
       <div
@@ -62,23 +99,22 @@ function FindByPass() {
                 <MemberHeader text={'비밀번호 찾기'}/>
 
                 <CardBody>
-                  <InputField
-                      placeholder="이메일 입력"
-                      type="text" icon={faAt}/>
-
-                  <InputField
-                      placeholder="이메일 인증번호 입력"
-                      type="text" icon={emailIcon} color={emailIconColor}/>
-                  {/*완료되면 icon={faCircleCheck} style={{color: "#2bff0f",}} 날리기*/}
+                  <div style={{height:'42px', textAlign:'center'}}>
+                    {error.message}
+                  </div>
+                  <InputEmail setInputValue={setInputValue} />
+                  <InputEmailChk  setInputValue={setInputValue}
+                                  emailIcon={pageCondtion.email_icon}
+                                  emailIconColor={pageCondtion.email_iconColor}/>
 
                   <Button
-                      onClick={emailClick}
-                      color={emailButton}
+                      onClick={emailCheckForPassFind}
+                      color={pageCondtion.email_button}
                       style={{marginLeft: "60%", width: "40%"}}>
-                    {buttonText}
+                    {pageCondtion.email_button_txt}
                   </Button>
 
-                  {isOpenEmail && <><InputField
+                  {pageCondtion.isOpenPass && <><InputField
                       placeholder="새 비밀번호 입력"
                       type="password" icon={faLock}/>
 
@@ -93,7 +129,6 @@ function FindByPass() {
                     className="btn-neutral btn-round"
                     color="info"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
                     size="lg"
                   >
                     비밀번호 변경

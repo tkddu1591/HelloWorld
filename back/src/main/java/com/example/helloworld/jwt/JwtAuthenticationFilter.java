@@ -18,10 +18,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Log4j2
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final JwtProvider jwtProvider;
+    private final JwtProvider  jwtProvider;
     private final TokenService tokenService;
     public static final String AUTH_HEADER  = "Authorization";
     public static final String TOKEN_PREFIX = "Bearer";

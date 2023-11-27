@@ -7,10 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController
@@ -21,6 +18,15 @@ public class MemberController {
     @PostMapping("/member/signup")
     public boolean submitSignup(@RequestBody MemberDTO memberDTO, HttpServletRequest request) {
         return memberService.signUp(memberDTO, request);
+    }
+
+    @GetMapping("/member/findMyEmail")
+    public String findMyEmail(@RequestParam String name,
+                              @RequestParam String hp) {
+        log.info(" - findMyEmail > " + name + ", " + hp);
+        String email = memberService.findMyEmail(name, hp);
+        log.info(" - findMyEmail > email : " + email);
+        return email;
     }
 
     @GetMapping("/me")
