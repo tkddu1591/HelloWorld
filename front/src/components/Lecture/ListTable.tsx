@@ -32,6 +32,7 @@ interface LectureListTableProps {
     tags?: { value: number, label: string }[];
     pageRequest?: any;
     moreLink?: string
+    top?: number
 }
 
 //스크롤 맨 아래 확인
@@ -72,6 +73,7 @@ function ListTable({
                        tags,
                        pageRequest,
                        moreLink,
+                       top,
                    }: LectureListTableProps) {
 
     const [clientWidth, setClientWidth] = useState(document.body.clientWidth);
@@ -105,7 +107,7 @@ function ListTable({
     const scrolledToBottom = useScrollToBottom();
     useEffect(() => {
         if (timer)
-            if (scrolledToBottom && listLoading.loading === 'scroll' && !isMore) {
+            if (scrolledToBottom && listLoading.loading === 'scroll' && !isMore && !end) {
                 changeDTO(setPageRequest, 'pg', pageResponse?.pg + 1).then(res => {
                 })
             }
@@ -134,20 +136,48 @@ function ListTable({
                     console.log(list.length)
                     if (!(pageResponse?.lectureList?.length < 12 && list.length > 12)) {
                         setList?.(pageResponse?.lectureList);
+                        setEnd(false)
                     }
-                    setEnd?.(false);
                 } else {
                     // 기존 리스트에 데이터 추가
                     if (pageRequest?.pg === 1) {
                         setList?.(pageResponse?.lectureList);
+                        setEnd(false)
                     } else {
                         if (pageResponse?.last <= pageResponse?.pg) {
-                            setList?.([...list, ...(pageResponse?.lectureList || [])]);
-                            setEnd?.(true);
+                            setList?.((prevList) => {
+                                // 새로운 항목 중복 체크
+                                const newItems = pageResponse?.lectureList || [];
+                                const filteredNewItems = newItems.filter((newItem) => {
+                                    // 중복된 lectureNo가 없으면 true 반환
+                                    return !prevList.some((prevItem) => prevItem.lectureNo === newItem.lectureNo);
+                                });
+
+                                // Set을 사용하여 중복 제거 후 새로운 항목 추가
+                                const updatedList = [...prevList, ...filteredNewItems];
+
+                                // end 설정
+                                setEnd?.(true);
+                                return updatedList;
+                            });
                         } else {
                             setEnd?.(false);
                             console.log(list)
-                            setList?.([...list, ...(pageResponse?.lectureList || [])]);
+                            setList?.((prevList) => {
+                                // 새로운 항목 중복 체크
+                                const newItems = pageResponse?.lectureList || [];
+                                const filteredNewItems = newItems.filter((newItem) => {
+                                    // 중복된 lectureNo가 없으면 true 반환
+                                    return !prevList.some((prevItem) => prevItem.lectureNo === newItem.lectureNo);
+                                });
+
+                                // Set을 사용하여 중복 제거 후 새로운 항목 추가
+                                const updatedList = [...prevList, ...filteredNewItems];
+
+                                // end 설정
+                                setEnd?.(true);
+                                return updatedList;
+                            });
                         }
                     }
                 }
@@ -166,6 +196,7 @@ function ListTable({
         if (setPageRequest)
             changeDTO(setPageRequest, 'pg', 1)
     }, [listLoading]);
+    console.log(end)
     return (
         <>
             <div style={{marginTop: '20px'}}>
@@ -184,12 +215,13 @@ function ListTable({
                     <CardList setPageRequest={setPageRequest} list={list} end={end}
                               listLoading={listLoading.loading} tagColor={tagColor}></CardList>}
                 {listLoading && clientWidth >= 992 && listLoading.view === 'list' &&
-                    <ListList list={list} tagColor={tagColor}
+                    <ListList list={list} tagColor={tagColor} end={end}
                     ></ListList>}
             </div>
             <div style={{marginTop: '20px', marginBottom: '20px'}}>
                 {listLoading && listLoading.loading === 'paging' && !isMore &&
-                    <LecturePagination setPageRequest={setPageRequest} pageResponse={pageResponse}></LecturePagination>}
+                    <LecturePagination setPageRequest={setPageRequest} top={top}
+                                       pageResponse={pageResponse}></LecturePagination>}
             </div>
         </>
     );

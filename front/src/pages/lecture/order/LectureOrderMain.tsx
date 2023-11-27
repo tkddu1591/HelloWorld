@@ -1,25 +1,61 @@
-import { Col, Container, Row } from 'reactstrap';
-import React from 'react';
+import {Col, Container, Row} from 'reactstrap';
+import React, {useEffect, useState} from 'react';
 import LectureOrderBasicInfo from './LectureOrderBasicInfo';
 import LectureOrderAddInfo from './LectureOrderAddInfo';
 import LectureOrderListTable from './LectureOrderListTable';
 import LectureOrderTotal from './LectureOrderTotal';
+import axios from "axios";
+import {API_BASE_URL} from "../../../App";
+import {useSelector} from "react-redux";
+import {CartItem, CartTotal} from "../../../type/cart";
 
 function LectureOrderMain() {
-	return (
-		<>
-			<Container style={{ marginTop: '30px' }} className={'lectureOrderItems'}>
-				<Row>
-					<Col>
-						<LectureOrderBasicInfo></LectureOrderBasicInfo>
-						<LectureOrderAddInfo></LectureOrderAddInfo>
-						<LectureOrderListTable></LectureOrderListTable>
-						<LectureOrderTotal></LectureOrderTotal>
-					</Col>
-				</Row>
-			</Container>
-		</>
-	);
+    const [member, setMember] = useState<any>({})
+
+    const myCartList = useSelector<any>(state => state.myCart.myCartList) as CartItem[];
+    const myCartTotal = useSelector<any>(state => state.myCartTotal) as CartTotal;
+    useEffect(() => {
+        const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
+        if (accessToken !== null)
+            axios.get(`${API_BASE_URL}/me`, {
+                headers: {"Authorization": `Bearer ${accessToken}`}
+            })
+                .then((res) => {
+                    setMember(res.data);
+
+                })
+                .catch((err) => {
+                    console.log("실패? : " + JSON.stringify(err));
+                });
+    }, []);
+    const [order, setOrder] = useState({})
+    const [orderList, setOrderList] = useState<CartItem[]>([])
+    useEffect(() => {
+        setOrder({
+            uid:        member.uid,
+            name:       member.name,
+            email:      member.email,
+            count:      myCartList.length,
+            price:      myCartTotal.price,
+            discount:   myCartTotal.price-myCartTotal.total,
+            totalPrice: myCartTotal.total,
+            hp:         member.hp,
+        })
+        setOrderList(myCartList)
+        console.log(myCartList)
+    }, [member]);
+    return (
+        <Container style={{marginTop: '30px'}} className={'lectureOrderItems'}>
+            <Row>
+                <Col>
+                    <LectureOrderBasicInfo order={order} setOrder={setOrder}></LectureOrderBasicInfo>
+                    <LectureOrderAddInfo order={order} setOrder={setOrder}></LectureOrderAddInfo>
+                    <LectureOrderListTable orderList={orderList} order={order}></LectureOrderListTable>
+                    <LectureOrderTotal setOrder={setOrder} orderList={orderList} order={order}></LectureOrderTotal>
+                </Col>
+            </Row>
+        </Container>
+    );
 }
 
 export default LectureOrderMain;

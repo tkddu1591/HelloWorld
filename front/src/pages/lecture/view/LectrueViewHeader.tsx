@@ -4,24 +4,41 @@ import '../scss/lecture.scss'
 import Star from "../../../components/Lecture/Star";
 import {useNavigate} from "react-router-dom";
 import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
+import axios from "axios";
+import {API_BASE_URL} from "../../../App";
 
-function LectrueViewHeader({lecture, tagColor}) {
+function LectrueViewHeader({lecture, tagColor, member}) {
     let navigate = useNavigate();
     let [arrayList, setArrayList] = useState<string[]>([]);
+    const [checkBuy, setCheckBuy] = useState(false)
+    useEffect(() => {
+        if (member.uid && lecture.lectureNo)
+            axios.get(`${API_BASE_URL}/api/lecture/orderItem/buy?uid=${member.uid}&lectureNo=${lecture.lectureNo}`).then((res) => {
+                if (res.data > 0) {
+                    setCheckBuy(true)
+                }
+            }).catch(err => console.log(err));
+    }, [member, lecture])
     return <>
         <h3 style={{marginBottom: '15px', fontSize: '30px'}}>{lecture.title}</h3>
 
         <div>
             {lecture.score !== 0 && <>
                 <Star size={20} score={lecture.score}></Star>
-                <span style={{marginLeft: '5px', marginRight: '20px'}}>( {lecture.review?.toLocaleString()} 리뷰 )</span></>}
+                <span style={{
+                    marginLeft: '5px', marginRight: '20px'
+                }}>( {lecture.review?.toLocaleString()} 리뷰 )</span></>}
 
-            {lecture?.sold!==0&&lecture.sold && <span style={{marginRight: '10px'}}><i className="bi bi-people-fill"
-                                                                     style={{fontSize: '15px', marginRight: '3px'}}></i>
+            {lecture?.sold !== 0 && lecture.sold && <span style={{marginRight: '10px'}}><i className="bi bi-people-fill"
+                                                                                           style={{
+                                                                                               fontSize:    '15px',
+                                                                                               marginRight: '3px'
+                                                                                           }}></i>
                 {lecture.sold.toLocaleString()}명 수강</span>}
             {lecture.hasTagNames?.map((tag, index) => {
                 arrayList.push(getRandomValueFromArray())
                 return <Button
+                    key={tag}
                     className="btn-round"
                     color={(tagColor?.find(item => item.value === tag) as {
                         value: string; color: string
@@ -39,7 +56,7 @@ function LectrueViewHeader({lecture, tagColor}) {
             })}
         </div>
         <Row>
-            <Col lg='9' style={{marginTop: '10px', display:"flex",justifyContent:"center"}}>
+            <Col lg='9' style={{marginTop: '10px', display: "flex", justifyContent: "center"}}>
                 <img
                     style={{borderRadius: '15px'}}
                     alt="..."
@@ -47,60 +64,133 @@ function LectrueViewHeader({lecture, tagColor}) {
                 ></img>
             </Col>
             <Col lg='3' style={{marginTop: '10px'}}>
+
                 <div
                     style={{
-                        border:          '1px solid lightgray', borderRadius: '2px', height: '240px', padding: '20px',
+                        border:          '1px solid lightgray', borderRadius: '2px', height: 'auto', padding: '20px',
                         backgroundColor: '#Fafafa'
                     }}>
                     <Button
                         onClick={() => {
-                            navigate('/lecture/detail/lectureNo')
+                            console.log(lecture)
+                            console.log(member)
+                            if (checkBuy) {
+                                navigate('/lecture/detail?lectureNo=' + lecture?.lectureNo)
+                            } else if (member.uid !== undefined) {
+                                const cart = async () => {
+                                    let cart = 0;
+                                    await axios.get(`${API_BASE_URL}/api/lecture/cart/count`, {
+                                        params: {
+                                            uid:       member.uid,
+                                            lectureNo: lecture.lectureNo,
+                                        }
+                                    }).then(res => cart = res.data)
+                                    if (cart > 0) {
+                                        if (window.confirm('중복된 상품이 있습니다. 장바구니에 담으시겠습니까?')) {
+                                            cartSave()
+                                        }
+                                    } else if (window.confirm('장바구니에 담으시겠습니까?')) {
+                                        cartSave()
+                                    }
+                                }
+                                const cartSave = async () => {
+                                    await axios.post(`${API_BASE_URL}/api/lecture/cart`,
+                                        {
+                                            uid:       member.uid,
+                                            lectureNo: lecture.lectureNo,
+                                            count:     1,
+                                            price:     lecture.price,
+                                            discount:  lecture.discount,
+                                            total:     lecture.price - lecture.price * lecture.discount / 100,
+                                        }).then(res => {
+                                        alert('장바구니에 담았습니다.')
+                                    }).catch(err => {
+                                        alert('오류가 발생했습니다. 다시 시도해주세요')
+                                    })
+                                }
+                                cart()
+                            } else {
+                                alert('로그인 후 시도해주세요')
+                                if (window.confirm('로그인 하시겠습니까?'))
+                                    navigate('/member/login')
+                            }
                         }}
+
                         style={{
                             borderRadius: '5px', height: '60px', width: '100%', backgroundColor: '#FF5554',
                             paddingTop:   '20px', display: "flex", justifyContent: "center", cursor: "pointer",
                             marginBottom: '20px'
                         }}>
+
                             <span
                                 style={{
                                     textAlign:  "center", color: "white", display: "inline-block", fontSize: '17px',
                                     fontWeight: 'bold', fontFamily: '한컴 말랑말랑'
-                                }}>수강 계속하기</span>
+                                }}>{checkBuy?'강의듣기':'수강하기'}</span>
                     </Button>
 
-                    <div className="progress-container progress-danger"
-                         style={{display: "flex", justifyContent: "center"}}>
+                    {!checkBuy ? <>
+                        {lecture.discount !== 0 &&
+                            <div style={{display: "flex", justifyContent: "center"}}>
+                            <span style={{
+                                textAlign:  "center", fontSize: '12px', textDecoration: 'line-through', color: "gray",
+                                fontFamily: 'NanumSquare'
+                            }}>{(lecture.price?.toLocaleString()) + ' ￦'}</span>
+                            </div>}
+                        <div style={{display: "flex", justifyContent: "center"}}>
+                        <span style={{
+                            textAlign: "center", fontSize: '12px', fontFamily: 'NanumSquare'
+                        }}>{lecture.discount !== 0 && lecture ?
+                            Number((lecture?.price - lecture?.discount * lecture?.price / 100).toFixed(0)).toLocaleString() :
+                            lecture?.price.toLocaleString()} ￦</span>
+                        </div>
 
-                        <Progress max="100" value="60" style={{height: '10px', borderRadius: '2px', width: '85%'}}>
+{/*                        <div
+                            style={{
+                                paddingBottom:  '10px', paddingTop: '20px', marginTop: '10px',
+                                borderBottom:   '1px solid lightgray', borderTop: '1px solid lightgray', display: "flex",
+                                justifyContent: "space-between"
+                            }}>
 
-                        </Progress>
+                            <span style={{fontFamily: '', fontSize: '12px'}}>145 Days</span>
+                            <i className="bi bi-calendar"></i>
+                        </div>*/}
+                    </> : <>
+
+                        <div className="progress-container progress-danger"
+                             style={{display: "flex", justifyContent: "center"}}>
+
+                            <Progress max="100" value="60" style={{height: '10px', borderRadius: '2px', width: '85%'}}>
+
+                            </Progress>
 
 
-                        <span style={{fontSize: '10px', width: '10%', marginTop: '12px', marginLeft: '5%'}}
-                              className="progress-value">60%</span>
+                            <span style={{fontSize: '10px', width: '10%', marginTop: '12px', marginLeft: '5%'}}
+                                  className="progress-value">60%</span>
 
 
-                    </div>
-                    <div style={{display: "flex", justifyContent: "center"}}>
-                        <span style={{textAlign: "center", fontSize: '12px', fontFamily: 'NanumSquare'}}>수강중</span>
-                    </div>
+                        </div>
+                        <div style={{display: "flex", justifyContent: "center"}}>
+                            <span style={{textAlign: "center", fontSize: '12px', fontFamily: 'NanumSquare'}}>수강중</span>
+                        </div>
 
-                    <div
-                        style={{
-                            paddingBottom:  '10px', paddingTop: '20px', marginTop: '10px',
-                            borderBottom:   '1px solid lightgray', borderTop: '1px solid lightgray', display: "flex",
-                            justifyContent: "space-between"
-                        }}>
+                        {/*<div
+                            style={{
+                                paddingBottom:  '10px', paddingTop: '20px', marginTop: '10px',
+                                borderBottom:   '1px solid lightgray', borderTop: '1px solid lightgray', display: "flex",
+                                justifyContent: "space-between"
+                            }}>
 
-                        <span style={{fontFamily: '', fontSize: '12px'}}>145 Days</span>
-                        <i className="bi bi-calendar"></i>
-                    </div>
+                            <span style={{fontFamily: '', fontSize: '12px'}}>145 Days</span>
+                            <i className="bi bi-calendar"></i>
+                        </div>*/}
+                    </>}
                 </div>
                 <div
                     style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>
-                    {lecture?.sold!==0?<span style={{borderBottom: '1px solid lightgray'}}>
+                    {lecture?.sold !== 0 ? <span style={{borderBottom: '1px solid lightgray'}}>
                         {lecture.sold}명의 수강생
-                    </span>:<span style={{borderBottom: '1px solid lightgray'}}>수강생이 없습니다</span>}
+                    </span> : <span style={{borderBottom: '1px solid lightgray'}}>수강생이 없습니다</span>}
                 </div>
                 <div style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>
                     <Button style={{fontFamily: 'nanumsquare'}}>

@@ -15,6 +15,7 @@ public class LectureCartDTO {
     private int cartNo;
     private String uid;
     private int lectureNo;
+    private String title;
     private int count;
     private int price;
     private int discount;

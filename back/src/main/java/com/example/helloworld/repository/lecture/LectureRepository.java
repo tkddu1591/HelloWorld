@@ -2,6 +2,7 @@ package com.example.helloworld.repository.lecture;
 
 import com.example.helloworld.entity.lecture.LectureEntity;
 import com.example.helloworld.repository.custom.LectureRepositoryCustom;
+import jakarta.transaction.Transactional;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,4 +27,8 @@ public interface LectureRepository extends JpaRepository<LectureEntity, Integer>
     @Modifying
     @Query("UPDATE LectureEntity l SET l.hit = l.hit+1 WHERE l.lectureNo = :lectureNo")
     void updateByLectureNoOnHit(@Param("lectureNo") int lectureNo);
+    @Modifying
+    @Query("UPDATE LectureEntity l SET l.sold = l.sold+:count WHERE l.lectureNo = :lectureNo")
+    @Transactional
+    void updateByLectureNoOnSold(@Param("lectureNo") int lectureNo, @Param("count") int count);
 }

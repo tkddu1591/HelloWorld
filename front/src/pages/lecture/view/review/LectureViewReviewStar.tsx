@@ -53,7 +53,7 @@ function LectureReviewStart({pageResponse, lecture, isReviewWrite}: ReviewStarPr
                 <Star size={20} score={lecture.score}></Star>
                 <span style={{fontSize: '15px', marginLeft: '10px', color: 'gray'}}>{pageResponse.total} Ratings</span>
                 {scoreList.map((item, index) => {
-                    return <LectureReviewStarPersent star={item.score} count={item.count}
+                    return <LectureReviewStarPersent star={item.score} count={item.count} key={item.score}
                                                      total={pageResponse.total}></LectureReviewStarPersent>
                 })}
             </>

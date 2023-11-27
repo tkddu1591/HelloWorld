@@ -39,7 +39,7 @@ interface LectureViewCurriculumTableProps {
 
 function LectureViewCurriculumTable({part, index}: LectureViewCurriculumTableProps) {
     let [viewCurriculum, setViecurriculum] = useState<boolean[]>([true, false]);
-    const [contentList, setContentList] = useState<{ contentNo: number,lectureNo:number,title:string,content:string,partNo:number }>()
+    const [contentList, setContentList] = useState<{ contentNo: number,lectureNo:number,title:string,content:string,partNo:number }[]>()
     useEffect(() => {
         if (part)
             axios.get(`${API_BASE_URL}/lecture/content/listByPart?partNo=${part.partNo}`).then(

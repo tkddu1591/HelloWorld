@@ -10,7 +10,7 @@ import {useLocation} from "react-router-dom";
 import axios from "axios";
 import {API_BASE_URL} from "../../../../App";
 
-function LectureViewReview({popup, setPopup, lecture, setIsReviewWrite, isReviewWrite}) {
+function LectureViewReview({popup, setPopup, lecture, setIsReviewWrite, isReviewWrite, member}) {
     let total = 44;
 
     const location = useLocation();
@@ -44,7 +44,7 @@ function LectureViewReview({popup, setPopup, lecture, setIsReviewWrite, isReview
         <LectureReviewStart pageResponse={pageResponse} lecture={lecture} isReviewWrite={isReviewWrite}></LectureReviewStart>
         <LectureViewReviewList  popup={popup} setPopup={setPopup} pageResponse={pageResponse} setPageRequest={setPageRequest}></LectureViewReviewList>
 
-        <LectureViewReviewWrite setIsReviewWrite={setIsReviewWrite}
+        <LectureViewReviewWrite setIsReviewWrite={setIsReviewWrite} member={member}
                                 isReviewWrite={isReviewWrite}></LectureViewReviewWrite>
     </Col>
 }

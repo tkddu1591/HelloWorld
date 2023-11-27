@@ -62,7 +62,7 @@ function LectureWriteMain() {
         label: string
     }[]>([])
 
-
+    const [member, setMember] = useState<any>({})
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -95,9 +95,19 @@ function LectureWriteMain() {
                     return [...(prevLevels || []), ...uniqueLevels];
                 });
 
-                // 마지막으로 동기적으로 실행되어야 하는 작업
-                changeDTO(setLecture, 'regIp', ip);
-                changeDTO(setLecture, 'seller', 'comTest');
+                const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
+
+                if (accessToken !== null)
+                    axios.get(`${API_BASE_URL}/me`, {
+                        headers: {"Authorization": `Bearer ${accessToken}`}
+                    })
+                        .then((res) => {
+                            setMember(res.data);
+                        })
+                        .catch((err) => {
+                            console.log("실패? : " + JSON.stringify(err));
+                        });
+
             } catch (error) {
                 console.error(error);
                 setIsModify(false);
@@ -106,6 +116,11 @@ function LectureWriteMain() {
 
         fetchData();
     }, []);
+    useEffect(() => {
+        // 마지막으로 동기적으로 실행되어야 하는 작업
+        changeDTO(setLecture, 'regIp', ip);
+        changeDTO(setLecture, 'seller', member.uid);
+    }, [member])
 
     useEffect(() => {
         changeDTO(setTagSort, 'list', tags)
@@ -241,15 +256,15 @@ function LectureWriteMain() {
                         await axios.post(`${API_BASE_URL}/lecture/write/main`, lecture).then(
                             (res) => {
                                 if (res.status === 200 && typeof newLectureNo === 'number') {
-                                    newLectureNo = res.data;
+                                    navigate('/lecture/write/content?lectureNo=' + res.data)
                                 }
                             }
                         ).catch(err => {
-                            console.log(err)
+                            alert('오류가 발생했습니다. 다시 시도해주세요')
                         })
                     else
-                        newLectureNo = Number(lectureNo)
-                    await navigate('/lecture/write/content?lectureNo=' + newLectureNo)
+                        navigate('/lecture/write/content?lectureNo=' + lectureNo)
+
                 }}>다음</Button>
             </Col>
         </Row>

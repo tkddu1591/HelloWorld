@@ -9,16 +9,21 @@ import LectureViewReview from "./review/LectureViewReview";
 import LectureViewRecommendation from "./LectureViewRecommendation";
 import axios from "axios";
 import {API_BASE_URL} from "../../../App";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
+import {sendRefreshToken} from "../../../utils/member/sendRefreshToken";
+import {useDispatch} from "react-redux";
 
 function LectureView() {
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [tags, setTags] = useState<{
         value: number,
         label: string
     }[]>([])
     let [tagColor, setTagColor] = useState<{ value: string, color: string }[]>([]);
+    const [member, setMember] = useState({})
     useEffect(() => {
         //태그
         if (tags.length === 0)
@@ -37,6 +42,18 @@ function LectureView() {
             }).catch((err) => {
                 console.log(err);
             });
+        const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
+
+        if (accessToken !== null)
+            axios.get(`${API_BASE_URL}/me`, {
+                headers: {"Authorization": `Bearer ${accessToken}`}
+            })
+                .then((res) => {
+                    setMember(res.data);
+                })
+                .catch((err) => {
+                    console.log("실패? : " + JSON.stringify(err));
+                });
     }, []);
     useEffect(() => {
 
@@ -65,11 +82,12 @@ function LectureView() {
         <Container onClick={() => {
             if (popup !== '') setPopup('')
         }}>
-            <LectureViewHeader tagColor={tagColor} lecture={lecture}></LectureViewHeader>
+            <LectureViewHeader tagColor={tagColor} lecture={lecture} member={member}></LectureViewHeader>
             <Row>
                 <LectureViewContent lecture={lecture}></LectureViewContent>
                 <LectureViewCurriculum lecture={lecture}></LectureViewCurriculum>
-                <LectureViewReview popup={popup} isReviewWrite={isReviewWrite} setIsReviewWrite={setIsReviewWrite} lecture={lecture} setPopup={setPopup}></LectureViewReview>
+                <LectureViewReview member={member} popup={popup} isReviewWrite={isReviewWrite} setIsReviewWrite={setIsReviewWrite}
+                                   lecture={lecture} setPopup={setPopup}></LectureViewReview>
                 <LectureViewRecommendation tagColor={tagColor} tagList={lecture.tagList}></LectureViewRecommendation>
             </Row>
         </Container>

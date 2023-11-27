@@ -83,4 +83,9 @@ public class LectureService {
     public void updateByLectureNoOnScore(int lectureNo, float score) {
         lectureRepository.updateByLectureNoOnScore(lectureNo, score);
     }
+
+
+    public void updateByLectureNoOnSold(int lectureNo, int count) {
+        lectureRepository.updateByLectureNoOnSold(lectureNo, count);
+    }
 }

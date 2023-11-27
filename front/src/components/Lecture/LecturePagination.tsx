@@ -6,12 +6,13 @@ import ScrollToTopButton from "../ScrollToTopButton";
 interface LectureListPaginationProps {
     setPageRequest?: (value: any) => void;
     pageResponse?: any;
+    top?: number
 }
 
-function LecturePagination({setPageRequest, pageResponse}: LectureListPaginationProps) {
+function LecturePagination({setPageRequest, pageResponse, top=0}: LectureListPaginationProps) {
     const handlePageClick = (pageNumber: number) => {
         changeDTO(setPageRequest, 'pg', pageNumber);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: top, behavior: 'smooth' });
     };
 
     if (pageResponse) {

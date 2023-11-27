@@ -7,7 +7,7 @@ import {changeDTO} from "../../../../store/changeDTO";
 import axios from "axios";
 import {API_BASE_URL} from "../../../../App";
 
-function LectureViewReviewWrite({setIsReviewWrite, isReviewWrite}) {
+function LectureViewReviewWrite({setIsReviewWrite, isReviewWrite, member}) {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const lectureNo = searchParams.get('lectureNo');
@@ -17,9 +17,9 @@ function LectureViewReviewWrite({setIsReviewWrite, isReviewWrite}) {
     }>();
     useEffect(() => {
         changeDTO(setReview, 'regIp', myIp).then()
-        changeDTO(setReview, 'uid', 'comTest').then()
+        changeDTO(setReview, 'uid', member.uid).then()
         changeDTO(setReview, 'lectureNo', lectureNo).then()
-    }, []);
+    }, [member]);
     const setScore = (value) => {
         changeDTO(setReview, 'score', value).then()
     }

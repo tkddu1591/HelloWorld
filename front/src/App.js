@@ -52,11 +52,9 @@ import LectureDetail from "./pages/lecture/detail/LectureDetail";
 import LectureWriteContent from "./pages/lecture/write/content/LectureWriteContent";
 import MemberRoutes from "./pages/member/MemberRoutes";
 import {useDispatch} from "react-redux";
-import {insertMyIp} from "./slice/myIpSlice";
 import axios from "axios";
 import OAuth2RedirectHandler from "./pages/member/OAuth2RedirectHandler";
-import {sendRefreshToken} from "./utils/member/sendRefreshToken";
-import {sendAccessToken} from "./utils/member/sendAccessToken";
+import {insertMyIp} from "./slice/myIpSlice";
 
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
@@ -129,7 +127,7 @@ function App() {
                     <LectureWriteContent/>
                 </Suspense>}></Route>
         <Route
-            path="/lecture/detail/:id"
+            path="/lecture/detail"
             element={
                 <Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
                     <LectureDetail/>

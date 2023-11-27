@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -22,6 +23,8 @@ public class LectureOrderEntity {
     @ManyToOne
     @JoinColumn(name = "uid")
     private MemberEntity member;
+    private String name;
+    private String email;
     private int count;
     private int price;
     private int discount;
@@ -31,5 +34,7 @@ public class LectureOrderEntity {
     private String hp;
     private int payment;
     private int complete;
+    @CreationTimestamp
     private LocalDateTime ordDate;
+    private String etc;
 }

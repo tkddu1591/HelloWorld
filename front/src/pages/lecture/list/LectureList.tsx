@@ -142,26 +142,26 @@ function LectureList() {
 
 
     const [isSearch, setIsSearch] = useState(false);
-    const [pageResponse, setPageResponses] = useState();
+    const [pageResponse, setPageResponses] = useState<any>();
 
 
     const handleSearch = () => {
-        changeDTO(setPageRequest, 'lecture', lecture)
-            .then(r =>
-                axios.get(`${API_BASE_URL}/lecture/list`, {
-                    params: {
-                        pg:                  pageRequest?.pg,
-                        size:                pageRequest?.size,
-                        sort:                pageRequest?.sort,
-                        'lecture.title':     lecture?.title,
-                        'lecture.tagList':   lecture?.tagList?.join(','),
-                        'lecture.studyDate': lecture?.studyDate,
-                        'lecture.levelNo':   lecture?.levelNo
-                    }
-                }).then((res) => {
-                    setPageResponses(res.data);
-                }))
-            .catch(err => console.log(err));
+            changeDTO(setPageRequest, 'lecture', lecture)
+                .then(r =>
+                    axios.get(`${API_BASE_URL}/lecture/list`, {
+                        params: {
+                            pg:                  pageRequest?.pg,
+                            size:                pageRequest?.size,
+                            sort:                pageRequest?.sort,
+                            'lecture.title':     lecture?.title,
+                            'lecture.tagList':   lecture?.tagList?.join(','),
+                            'lecture.studyDate': lecture?.studyDate,
+                            'lecture.levelNo':   lecture?.levelNo
+                        }
+                    }).then((res) => {
+                        setPageResponses(res.data);
+                    }))
+                .catch(err => console.log(err));
 
     }
     useEffect(() => {
@@ -172,7 +172,6 @@ function LectureList() {
     useEffect(() => {
         handleSearch()
     }, [pageRequest.pg]);
-
 
 
     return (

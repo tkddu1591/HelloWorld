@@ -9,9 +9,10 @@ import {getRandomValueFromArray} from "../../utils/getRandomValueFromArray";
 interface ListListProps {
     list?: any;
     tagColor?: any
+    end?: boolean
 }
 
-function ListList({tagColor, list}: ListListProps) {
+function ListList({tagColor, list, end}: ListListProps) {
     let navigate = useNavigate();
 
 
@@ -134,6 +135,10 @@ function ListList({tagColor, list}: ListListProps) {
                     </Col>
                 </Row>
             })}
+
+            {end && <Row><Col style={{display: "flex", justifyContent: "center"}}>
+                <span>마지막 페이지입니다.</span>
+            </Col></Row>}
 
         </Container>
     );

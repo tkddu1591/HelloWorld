@@ -23,9 +23,9 @@ public class LectureReviewController {
     @PostMapping(value = {"","/"})
     public void review(@RequestBody LectureReviewDTO lectureReviewDTO) {
         lectureReviewService.save(lectureReviewDTO);
+        log.info(lectureReviewDTO.toString());
         int reviewCount = lectureReviewService.findReviewCount(lectureReviewDTO);
         float score = lectureReviewService.averageByLectureNo(lectureReviewDTO.getLectureNo());
-        log.info(score+"");
         lectureService.updateByLectureNoOnScore(lectureReviewDTO.getLectureNo(), score);
         lectureService.updateReviewCount(lectureReviewDTO.getLectureNo(), reviewCount);
     }

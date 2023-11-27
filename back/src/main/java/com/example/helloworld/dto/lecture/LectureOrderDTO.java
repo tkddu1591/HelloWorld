@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 public class LectureOrderDTO {
     private int ordNo;
     private String uid;
+    private String name;
+    private String email;
     private int count;
     private int price;
     private int discount;
@@ -24,4 +26,5 @@ public class LectureOrderDTO {
     private int payment;
     private int complete;
     private LocalDateTime ordDate;
+    private String etc;
 }

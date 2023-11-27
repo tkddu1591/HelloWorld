@@ -84,9 +84,6 @@
   font-size: 16px;
   border-bottom: 1px solid lightgray;
 
-  tr:nth-last-child(1) td, tr:nth-last-child(2) td {
-    font-weight: 700;
-  }
 
   tr td:last-child {
     width: 20%;
@@ -96,7 +93,6 @@
     font-weight: 700;
   }
 }
-
 .orderTotal {
   border: 1px solid lightgrey;
   padding: 15px 15px 15px 15px;
