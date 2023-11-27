@@ -36,12 +36,13 @@ public class EmailController {
     }
 
     @GetMapping("/api/reqeustEmail")
-    public HashMap<String, String> sendEmail(@RequestParam String email) {
+    public HashMap<String, String> sendEmail(@RequestParam String email,
+                                             @RequestParam String type) {
         log.info(" - sendEmail > email : " + email);
         HashMap<String, String> result = new HashMap<>();
 
         // 1. 이메일 중복 체크
-        if (!emailService.isEmailUnique(email)) {
+        if (!emailService.isEmailUnique(email) && type.equals("가입")) {
             result.put("message", EmailMessage.DUPLICATION.getMessage());
             return result;
         }

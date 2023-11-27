@@ -1,8 +1,8 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {API_FRONT_URL} from "../../App";
-import {REST_API_KEY, SECRET_KEY} from "../../utils/uri/oauth";
+import {API_BASE_URL, API_FRONT_URL} from "../../App";
+import {NAVER_CLENT_ID, NAVER_SECRET_KEY, REST_API_KEY, SECRET_KEY, state} from "../../utils/uri/oauth";
 import LoadingIcon from "../../components/Icon/LoadingIcon";
 import {urlEncoded} from "../../utils/uri/urlEncoded";
 import {getKakaoUserInfo} from "../../utils/oauth/getKakaoUserInfo";
@@ -21,36 +21,27 @@ function OAuth2RedirectHandler() {
 
     // code를 보내 token 요청할 변수들
     const redirectUri = `${API_FRONT_URL}/login/oauth2/${provider}`;
-    const endPointUri = "https://kauth.kakao.com/oauth/token";
-    const data = {
+    let endPointUri = "";
+
+    if(provider === 'kakao') endPointUri = "https://kauth.kakao.com/oauth/token";
+    if(provider === 'naver') endPointUri = "https://nid.naver.com/oauth2.0/token";
+
+    const data_kakao = {
         "grant_type": "authorization_code",
         "client_id": `${REST_API_KEY}`,
         "redirect_uri": redirectUri,
         "code": code,
         "client_secret": `${SECRET_KEY}`,
     }
-    const formData = urlEncoded(data);
-    
-    // token을 보내 정보 요청할 변수들
-    /*const [returnValue, setReturnValue] = useState({
-        'token_type' : '',
-        'access_token': '',
-        'expires_in': '',
-        'refresh_token': '',
-        'refresh_token_expires_in': '',
-        'scope': '',
-    });*/
 
-    const social_login = async () => {
+    const formData = urlEncoded(data_kakao);
+    
+
+    const social_login_kakao = async () => {
         try {
             const response = await axios.post(endPointUri, formData);
-
-            console.log("완료");
-            console.log("data : " + JSON.stringify(response.data));
-
-            const data = await getKakaoUserInfo(response.data.access_token);
+            const data = await getKakaoUserInfo(response.data.access_token, navigate, dispatch);
             const arr = [data.id.toString(), data.kakao_account.email, data.properties.nickname];
-            console.log("myInform : " + JSON.stringify(data))
 
             const loginData = {
                 'provider_id': data.id,
@@ -61,17 +52,59 @@ function OAuth2RedirectHandler() {
                 'myInfo': arr.join(','),
                 'provider': provider
             };
-            postKakaoToken(loginData, navigate, dispatch);
+            await postKakaoToken(loginData, navigate, dispatch);
 
             /*navigate("/");*/
         } catch (err) {
+            console.error("에러 발생 : " + err);
+            console.error("에러 발생 : " + err, null, 2);
+            console.error("에러 발생 : " + err.name); // 에러 타입
+            console.error("에러 발생 : " + err.message); // 에러 메시지
+            console.error("에러 발생 : " + err.response); // 응답 객체
+            console.error("에러 발생 : " + err.request); // 요청 객체
+            console.error("에러 발생 : " + err.config); // Axios 설정
             alert('로그인에 실패했습니다. \n다시 시도해주세요.');
+            console.log('axios 비동기 에러인 것 같음.');
             logout(navigate, dispatch);
             navigate("/member/login");
         }
     }
+    const social_login_naver = async () => {
+        try {
+            const naver_data = {
+                'grant_type': 'authorization_code',
+                'client_id': `${NAVER_CLENT_ID}`,
+                'client_secret': `${NAVER_SECRET_KEY}`,
+                'code': code,
+                'state': `${state}`
+            }
+            const response = await axios.post(`${API_BASE_URL}/login/social/token/naver`, naver_data);
+            if(response.data.grantType === 'Bearer') {
+                const data = {
+                    'accessToken': response.data.accessToken,
+                    'refreshToken': response.data.refreshToken,
+                    'myInfo': response.data.myInfo,
+                }
+                login(data);
+                getMyInfo(dispatch);
+                navigate('/');
+            }else {
+                alert('로그인에 실패했습니다.');
+                logout(navigate, dispatch);
+            }
+
+
+        } catch (err) {
+            console.error('실패');
+            console.error('err.name : ' + err.name);
+            console.error('err.msg  : ' + err.message);
+
+        }
+
+    }
     useEffect(() => {
-        social_login();
+        if(provider === 'kakao') social_login_kakao();
+        if(provider === 'naver') social_login_naver();
     }, []);
 
 
