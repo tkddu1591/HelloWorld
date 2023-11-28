@@ -38,15 +38,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // token이 존재하고 유효한 경우.
         if(token != null) {
             log.info(" - doFilterInternal > 2.1. token is not null..");
-
             try {
                 jwtProvider.validateToken(token); // 1차 토큰 검증
                 if(getRequestPath(request).equals("/refreshToken")) { // /refreshToken path의 요청일 경우
-
                     String email = jwtProvider.getEmailFromToken(token);
-                    String dbToken = tokenService.getToken(email);
 
-                    if(!token.equals(dbToken)) return; // 2차 토큰 검증
+                    if(!(token.trim()).
+                            equals(tokenService.getToken(email).trim())) return; // 2차 토큰 검증
 
                     response.setStatus(HttpServletResponse.SC_CREATED);
                     response.getWriter().print(renewAccessToken(token)); // accessToken 재발급
