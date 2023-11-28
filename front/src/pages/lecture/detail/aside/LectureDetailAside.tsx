@@ -2,10 +2,13 @@ import React, {useEffect, useState} from 'react';
 import LectureDetailAsideHeader from './LectureDetailAsideHeader';
 import LectureDetailAsideTable from './LectureDetailAsideTable';
 import LectureDetailAsideFooter from './LectureDetailAsideFooter';
+import {useSelector} from "react-redux";
 
 function LectureDetailAside() {
     let [aside, setAside] = useState(false);
 
+    const partList = useSelector((state: any) => state.lecturePartList);
+    const contentList = useSelector((state: any) => state.lectureContentList);
     return (<div
             className={'aside'}
             style={{
@@ -22,9 +25,9 @@ function LectureDetailAside() {
 
 
             <div style={{height: 'calc(100vh - 280px)', width: '100%', overflowY: 'scroll'}}>
-                <LectureDetailAsideTable></LectureDetailAsideTable>
-                <LectureDetailAsideTable></LectureDetailAsideTable>
-                <LectureDetailAsideTable></LectureDetailAsideTable>
+                {partList.map((part, index) => {
+                    return <LectureDetailAsideTable setAside={setAside} key={part.partNo} index={index} part={part}></LectureDetailAsideTable>
+                })}
             </div>
             <LectureDetailAsideFooter></LectureDetailAsideFooter>
         </div>

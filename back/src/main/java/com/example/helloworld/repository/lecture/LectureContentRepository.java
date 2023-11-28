@@ -5,6 +5,7 @@ import com.example.helloworld.entity.lecture.LectureCartEntity;
 import com.example.helloworld.entity.lecture.LectureContentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface LectureContentRepository extends JpaRepository<LectureContentEntity, Integer> {
@@ -17,6 +18,8 @@ public interface LectureContentRepository extends JpaRepository<LectureContentEn
     void deleteByPart_PartNo(int partNo);
 
     List<LectureContentEntity> findByLecture_LectureNo(int lectureNo);
-
+    List<LectureContentEntity> findByPart_PartNo(int partNo);
     LectureContentEntity findByTitleAndContentNoBetween(String title, int start, int end);
+
+
 }

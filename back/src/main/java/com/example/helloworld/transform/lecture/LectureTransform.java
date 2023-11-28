@@ -15,12 +15,14 @@ public interface LectureTransform {
     @Mapping(target = "thumb.thumbURL", source = "thumbURL")
     @Mapping(target = "thumb.thumbName", source = "thumbName")
     @Mapping(target = "level.levelNo", source = "levelNo")
+    @Mapping(target = "member.uid", source = "seller")
     LectureEntity toEntity(LectureDTO dto);
 
     @Mapping(source = "thumb.thumbURL", target = "thumbURL")
     @Mapping(source = "thumb.thumbName", target = "thumbName")
     @Mapping(source = "level.levelNo", target = "levelNo")
     @Mapping(target = "hasTagNames", expression = "java(mapTagNames(entity.getHasTags()))")
+    @Mapping(source = "member.uid", target = "seller")
     LectureDTO toDTO(LectureEntity entity);
 
     default List<String> mapTagNames(List<LectureHasTagEntity> hasTags) {

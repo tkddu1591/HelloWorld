@@ -4,17 +4,29 @@ import {useNavigate} from 'react-router-dom';
 import Star from '../../components/Lecture/Star';
 import lectureList from "./list/LectureList";
 import {getRandomValueFromArray} from "../../utils/getRandomValueFromArray";
+import {changeDTO} from "../../store/changeDTO";
+import success from "../codingtest/view/Success";
 
 interface ListItem {
     colSize?: number;
-    pageResponse?: any
-    tags?: {value: number, label:string}[];
+    listLoading?: string
+    setPageRequest?: (value: any) => void;
+    list?: any;
+    end?: boolean;
+    tagColor?: { value: string, color: string }[];
 }
 
-function CardList({colSize = 12, pageResponse, tags}: ListItem) {
+function CardList({
+                      colSize = 12, setPageRequest, listLoading, list, end,
+                       tagColor
+                  }: ListItem) {
     let navigate = useNavigate();
-    let[tagColor, setTagColor] = useState<{value: string, color:string }[]>([]);
     const [clientWidth, setClientWidth] = useState(document.body.clientWidth);
+
+    useEffect(() => {
+        if (setPageRequest)
+            changeDTO(setPageRequest, 'pg', 1)
+    }, [listLoading]);
     useEffect(() => {
         const windowResize = () => {
             setClientWidth(document.body.clientWidth);
@@ -22,18 +34,13 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
 
         window.addEventListener(`resize`, windowResize);
 
-        if (tags!==undefined) {
-            setTagColor(tags.map(tag => ({ value: tag.label, color: getRandomValueFromArray() })));
-        }
-        console.log(tagColor)
         return () => {
             window.removeEventListener(`resize`, windowResize);
         };
-
-    }, [tags]); // tags가 변경될 때만 실행되도록 의존성 배열에 추가
+    }, []); // tags가 변경될 때만 실행되도록 의존성 배열에 추가
 
     function handleClick(lectureNo) {
-        navigate('/lecture/view?lectureNo='+lectureNo);
+        navigate('/lecture/view?lectureNo=' + lectureNo);
     }
 
     const [cardSize, setCardSize] = useState({
@@ -73,32 +80,28 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
         }
     }
 
-    const [divWidths, setDivWidths] = useState<{ div1?: number }>({});
     const divRef = useRef<HTMLElement | null>(null);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setDivWidths({
-                div1: divRef.current?.offsetWidth || 0,
-                // ... (필요한 만큼 계속 추가)
-            });
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
 
     const heightPercentage = 60; // 너비의 20%
+
+    function levelCheck(levelNo) {
+        if (levelNo === 0)
+            return '입문'
+        else if (levelNo === 1)
+            return '초급'
+        else if (levelNo === 2)
+            return '중급'
+        else if (levelNo === 3)
+            return '고급'
+    }
 
     return (
         <Container>
             <div style={{display: 'flex', justifyContent: 'space-between'}}></div>
             <Row style={{padding: '10px'}}>
-                {pageResponse?.lectureList?.map((lecture, index) => {
-                    return <Col key={lecture.lectureNo}
+                {Array.isArray(list) && list?.map((lecture, index) => {
+                    return <Col key={lecture.lectureNo + index + Math.random()}
                                 sm={cardSize.sm}
                                 md={cardSize.md}
                                 lg={cardSize.lg}
@@ -114,6 +117,7 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
                             <div style={{
                                 width: '100%', cursor: 'pointer', height: 'auto', marginBottom: 0, objectFit: 'cover',
                             }} ref={divRef as React.RefObject<HTMLDivElement>}>
+                                <div style={{position: "absolute", right: 20}}>{levelCheck(lecture.levelNo)}</div>
                                 <img
                                     style={{
                                         width:     '100%',
@@ -122,24 +126,26 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
                                     }}
                                     alt="..."
                                     src={lecture.thumbURL}
-                                    onClick={()=>handleClick(lecture.lectureNo)}></img>
+                                    onClick={() => handleClick(lecture.lectureNo)}></img>
                             </div>
 
                             <div style={{justifyContent: 'left', display: 'flex'}}>
-                                {lecture.hasTagNames.map((tag, index) => {
+                                {Array.isArray(lecture.hasTagNames) && lecture.hasTagNames.map((tag, index) => {
                                     return <Button
                                         className="btn-round"
-                                        color={(tagColor.find(item => item.value === tag) as { value: string; color: string } | undefined)?.color || 'defaultColor'}
+                                        color={(tagColor?.find(item => item.value === tag) as {
+                                            value: string; color: string
+                                        } | undefined)?.color || 'defaultColor'}
                                         type="button"
                                         onClick={e => {
                                             e.preventDefault();
                                         }}
-                                        key={tag}
+                                        key={tag + index + lecture.lectureNo + Math.random()}
                                         style={{
                                             fontFamily:   'nanumsquare',
                                             paddingLeft:  '5px',
                                             paddingRight: '5px',
-                                            marginBottom:'5px',
+                                            marginBottom: '5px',
                                             fontSize:     clientWidth <= 768 ? '15px' : '',
                                         }}>
                                         #{tag}
@@ -147,7 +153,7 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
                                 })}
 
                             </div>
-                            {lecture.discount!==0&&<Button
+                            {/* {lecture.discount !== 0 && <Button
                                 className="btn-round"
                                 color="primary"
                                 type="button"
@@ -156,20 +162,21 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
                                 }}
                                 style={{
                                     fontFamily:   'nanumsquare',
-                                    padding:'10px',
-                                    marginTop:'0',
-                                    marginBottom:'0',
-                                    fontSize:     clientWidth <= 768 ? '15px' : '',                                    }}>
+                                    padding:      '10px',
+                                    marginTop:    '0',
+                                    marginBottom: '0',
+                                    fontSize:     clientWidth <= 768 ? '15px' : '',
+                                }}>
                                 할인 중
-                                {/*<span
+                                <span
                                     style={{
                                         borderLeft:   '1px solid skyblue',
                                         marginLeft:   '5px',
                                         marginRight:  '5px',
                                         marginBottom: 'none',
                                     }}></span>
-                                <span style={{marginTop: '0'}}>D-26</span>*/}
-                            </Button>}
+                                <span style={{marginTop: '0'}}>D-26</span>
+                            </Button>}*/}
                             <div
                                 style={{
                                     textAlign: 'left',
@@ -196,7 +203,7 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
                                         display:        "flex",
                                         justifyContent: "left"
                                     }}>
-                                    ￦{lecture.price.toLocaleString()}
+                                    ￦{lecture.price?.toLocaleString()}
                                 </p>}
                                 <div style={{justifyContent: 'space-between', display: 'flex'}}>
                                     <span style={{display: 'inline-block', textAlign: 'left'}}>
@@ -212,7 +219,7 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
                                             <span style={{
                                                 fontSize: clientWidth <= 768 ? '20px' : ''
                                             }}>{lecture.discount !== 0 ?
-                                                (lecture.price - lecture.discount * lecture.price / 100).toLocaleString() :
+                                                Number((lecture.price - lecture.discount * lecture.price / 100).toFixed(0)).toLocaleString() :
                                                 lecture.price.toLocaleString()} ￦</span>
                                         </p>
                                     </span>
@@ -243,7 +250,8 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
 
                                             fontSize: clientWidth <= 768 ? '15px' : '',
                                         }}>
-                                        {lecture.review ? <span>( 1,222 리뷰 )</span> : <span>리뷰없음</span>}
+                                        {lecture.review ? <span>( {lecture.review.toLocaleString()} 리뷰 )</span> :
+                                            <span>리뷰없음</span>}
                                     </span>
                                 </div>
 
@@ -252,6 +260,9 @@ function CardList({colSize = 12, pageResponse, tags}: ListItem) {
                     </Col>
                 })}
             </Row>
+            {end && <Row><Col style={{display: "flex", justifyContent: "center"}}>
+                <span>마지막 페이지입니다.</span>
+            </Col></Row>}
         </Container>
     );
 }

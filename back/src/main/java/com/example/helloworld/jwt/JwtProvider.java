@@ -32,9 +32,11 @@ public class JwtProvider {
     private SecretKey secretKey;
 
     @Getter
-    public int accessToken_expMin = 1; // 단위는 minutes
+    @Value("${jwt.accessToken_exp}")
+    public int accessToken_expMin; // 단위는 minutes
     @Getter
-    public int refreshToken_expMin = 3; // 단위는 minutes
+    @Value("${jwt.refreshToken_exp}")
+    public int refreshToken_expMin; // 단위는 minutes
 
     public JwtProvider(@Value("${jwt.secret}") String secret) {
         String secretKey_toBase64Encoded = Base64.getEncoder().encodeToString(secret.getBytes());
@@ -89,7 +91,7 @@ public class JwtProvider {
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
         String email = (String) claims.get("email");
-        String type  = (String) claims.get("type");
+        Integer type = (Integer) claims.get("type");
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + type));
@@ -115,4 +117,6 @@ public class JwtProvider {
             throw new JwtCustomException(JwtCustomException.JWT_ERROR.BADSIGN);
         }
     }
+
+
 }

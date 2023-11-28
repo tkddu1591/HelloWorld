@@ -1,13 +1,12 @@
 package com.example.helloworld.service.member;
 
-import com.example.helloworld.dto.member.oauth2.*;
+import com.example.helloworld.dto.member.security_oauth2.*;
 import com.example.helloworld.entity.member.MemberEntity;
 import com.example.helloworld.repository.member.MemberRepository;
 import com.example.helloworld.security.MemberDetails;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -27,6 +26,7 @@ public class OAuth2Service extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        log.info(" - loadUser > userRequest : " + userRequest);
         // social 발행 된 jwt accessToken (그림의 4번 과정)
         String accessToken = userRequest.getAccessToken().getTokenValue();
         log.info(" - loadUser > accessToken : " + accessToken);
@@ -87,6 +87,10 @@ public class OAuth2Service extends DefaultOAuth2UserService {
             return new GithubInfo(attributes);
         }
         log.info(" - generateMemberInfo > 로그인 실패");
+        return null;
+    }
+
+    public Map<String, Object> getToken(String code) {
         return null;
     }
 }

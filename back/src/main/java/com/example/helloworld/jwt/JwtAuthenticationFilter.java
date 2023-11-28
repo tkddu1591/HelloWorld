@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -17,10 +18,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Log4j2
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final JwtProvider jwtProvider;
+    private final JwtProvider  jwtProvider;
     private final TokenService tokenService;
     public static final String AUTH_HEADER  = "Authorization";
     public static final String TOKEN_PREFIX = "Bearer";
@@ -31,22 +32,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         log.info(" - doFilterInternal > START!...");
         String header = request.getHeader(AUTH_HEADER);
         String token = getTokenFromHeader(header);
-
         log.info(" - doFilterInternal > 1.1. header : " + header);
         log.info(" - doFilterInternal > 1.2. token : " + token);
 
         // token이 존재하고 유효한 경우.
         if(token != null) {
             log.info(" - doFilterInternal > 2.1. token is not null..");
-
             try {
                 jwtProvider.validateToken(token); // 1차 토큰 검증
                 if(getRequestPath(request).equals("/refreshToken")) { // /refreshToken path의 요청일 경우
-
                     String email = jwtProvider.getEmailFromToken(token);
-                    String dbToken = tokenService.getToken(email);
 
-                    if(!token.equals(dbToken)) return; // 2차 토큰 검증
+                    if(!(token.trim()).
+                            equals(tokenService.getToken(email).trim())) return; // 2차 토큰 검증
 
                     response.setStatus(HttpServletResponse.SC_CREATED);
                     response.getWriter().print(renewAccessToken(token)); // accessToken 재발급
@@ -60,10 +58,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            log.info(" - doFilterInternal > 2.2");
+            log.info(" - doFilterInternal > 2.2.1");
             Authentication authentication = jwtProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.info(" - doFilterInternal > 2.3");
+            log.info(" - doFilterInternal > 2.2.2");
+            SecurityContext securityContext = SecurityContextHolder.getContext();
+            securityContext.setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
         log.info(" - doFilterInternal > END...");
@@ -90,7 +89,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String email = (String) claims.get("email");
         String nick = (String) claims.get("nick");
         Object type = claims.get("type");
-
         log.info(" - renewAccessToken > claims : " + claims);
         log.info(" - renewAccessToken > email : " + email);
         log.info(" - renewAccessToken > nick : " + nick);

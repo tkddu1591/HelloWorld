@@ -1,5 +1,7 @@
 package com.example.helloworld.service.member;
 
+import com.example.helloworld.dto.member.email.EmailFormat;
+import com.example.helloworld.dto.member.email.EmailMessage;
 import com.example.helloworld.repository.member.MemberRepository;
 import jakarta.mail.*;
 import jakarta.mail.internet.MimeMessage;
@@ -9,10 +11,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Properties;
 
 @Log4j2
@@ -25,6 +29,32 @@ public class EmailService {
 
     public boolean isEmailUnique(String email) {
         return memberRepository.countByEmail(email) == 0;
+    }
+
+    public HashMap<String, String> reqeustEmail(String email, String type) {
+        log.info(" - sendEmail > email : " + email);
+
+        HashMap<String, String> result = new HashMap<>();
+        boolean isOnlyOne = isEmailUnique(email);
+
+        if (type.equals(TYPE.SIGN_UP.getType())) {
+            if (!isOnlyOne) {
+                result.put("message", EmailMessage.DUPLICATION.getMessage());
+
+            } else {
+                sendEmailCode(result, email, type);
+            }
+
+        } else if (type.equals(TYPE.FIND_PASS.getType())) {
+            if (!isOnlyOne) {
+                sendEmailCode(result, email, type);
+
+            } else {
+                result.put("message", EmailMessage.UNDEFINED.getMessage());
+            }
+        }
+
+        return result;
     }
 
     // Gmail SMTP 서버 설정
@@ -69,12 +99,25 @@ public class EmailService {
     }
 
     // 이메일 인증용 메서드.
-    public String sendAuthEmail(String emailReceiver) throws MessagingException {
+    public String sendAuthEmail(String emailReceiver, String type) throws MessagingException {
         String authCode = createAuthCode();
         log.info(" - sendAuthEmail > authCode : " + authCode);
+
+        String title = "";
+        String content = "";
+
+        if(type.equals(TYPE.SIGN_UP.getType())) {
+            title   += EmailFormat.SIGNUP_TITLE.getMessage();
+            content += EmailFormat.SIGNUP_CONTENT.getMessage();
+        }
+        if(type.equals(TYPE.FIND_PASS.getType())) {
+            title   += EmailFormat.FINDPASS_TITLE.getMessage();
+            content += EmailFormat.FINDPASS_CONTENT.getMessage();
+        }
+
         EmailData mail = EmailData.builder()
-                .title(EmailFormat.SIGNUP_TITLE.getMessage())
-                .content(EmailFormat.SIGNUP_CONTENT.getMessage() + authCode + EmailFormat.CLOSE.getMessage())
+                .title(title)
+                .content(content + authCode + EmailFormat.CLOSE.getMessage())
                 .receiver(emailReceiver)
                 .authCode(authCode)
                 .build();
@@ -83,33 +126,37 @@ public class EmailService {
     }
 
     @Getter
-    @ToString
-    public enum EmailFormat {
-        SIGNUP_TITLE("HelloWorld 회원가입을 위한 인증 메일입니다."),
-        SIGNUP_CONTENT("<h3> 안녕하세요.</h3>" +
-                "<h3> 개발자를 위한 플랫폼 HelloWorld 입니다.</h3>" +
-                "<br>" +
-                "<p> 아래 코드를 회원가입 창으로 돌아가 입력해주세요.</p>" +
-                "<br>" +
-                "<div align='center' style='border:1px solid black; font-family:verdana; padding: 30px 0;'>" +
-                "<h3 style='color:#0076ff'> 회원가입 인증 코드 입니다. </h3>" +
-                "<div style='font-size:130%'>"),
-        FINDPASS_TITLE("HelloWorld 비밀번호 변경을 위한 인증 메일입니다."),
-        FINDPASS_CONTENT("<h3> 안녕하세요.</h3>" +
-                "<h3> 개발자를 위한 플랫폼 HelloWorld 입니다.</h3>" +
-                "<br>" +
-                "<p> 아래 코드를 비밀번호 변경 창으로 돌아가 입력해주세요.</p>" +
-                "<br>" +
-                "<div align='center' style='border:1px solid black; font-family:verdana; padding: 30px 0;'>" +
-                "<h3 style='color:#0076ff'> 비밀번호 변경 인증 코드 입니다. </h3>" +
-                "<div style='font-size:130%'>"),
-        CLOSE("</div></div><br/>");
-
-        private final String message;
-
-        EmailFormat(String message) {
-            this.message = message;
+    public enum TYPE {
+        SIGN_UP("signup"),
+        FIND_PASS("findpass");
+        private final String type;
+        TYPE(String type) {
+            this.type = type;
         }
+    }
+
+
+    public HashMap<String, String> sendEmailCode(HashMap<String, String> result,
+                                                 String email,
+                                                 String type) {
+        String authCode;
+        try {
+            authCode = sendAuthEmail(email, type);
+            log.info(" - sendEmail > try...authCode : " + authCode);
+        } catch (MailSendException e) {
+            log.error(" - sendEmail > catch...MailSendException : " + e.getMessage());
+            result.put("message", EmailMessage.INVALID.getMessage());
+            return result;
+
+        } catch (MessagingException e) {
+            log.error(" - sendEmail > catch...MessagingException : " + e.getMessage());
+            result.put("message", EmailMessage.ERROR.getMessage());
+            return result;
+        }
+        log.info(" - sendEmail > Success");
+        result.put("message", EmailMessage.SUCCESS.getMessage());
+        result.put("auth", authCode);
+        return result;
     }
 
     @Getter

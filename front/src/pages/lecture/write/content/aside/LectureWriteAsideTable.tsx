@@ -12,7 +12,7 @@ interface LectureWriteAsideTableProps {
     setPart: React.Dispatch<React.SetStateAction<{ title: string, orderNo: number, lectureNo: number }>>;
 }
 
-function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPart, generateOrderNo, lectureNo, setContentList, contentList, post}) {
+function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPart,  generateOrderNo, setAside, lectureNo, setContentList, contentList, post}) {
 
     let [content, setContent] = useState<{ orderNo: number, title: string, lectureNo: number, partNo: number }[]>([])
 
@@ -72,7 +72,7 @@ function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPar
             </tr>
 
             <ContentList setContentList={setContentList} contentList={contentList} lectureNo={lectureNo}
-                         setPost={setPost} post={post}
+                         setPost={setPost} post={post}  setAside={setAside}
                          generateOrderNo={generateOrderNo} part={part} content={content}
             ></ContentList>
 
@@ -83,7 +83,7 @@ function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPar
 }
 
 
-function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, setContentList, content, post}) {
+function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, setContentList, content, post,  setAside}) {
     const deleteContent = (orderNoToDelete: number, contentNoToDelete: number) => {
         // contentList 배열을 복사하여 새로운 배열을 생성
         const updatedContentList = contentList.map(item => ({...item}));
@@ -190,6 +190,7 @@ function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, se
                                 }}></input>
                                 <span style={{cursor: 'pointer', color: 'blue'}}
                                       onClick={(e) => {
+                                          setAside(false)
                                           setPost({
                                               partTitle: part.title,
                                               contentNo: item.contentNo,

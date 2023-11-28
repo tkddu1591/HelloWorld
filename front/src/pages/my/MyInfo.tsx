@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
     Button,
     Col,
@@ -15,11 +15,20 @@ import ProfilePageHeader from "../../components/Headers/ProfilePageHeader";
 import DefaultFooter from "../../components/Footers/DefaultFooter";
 import ListTable from "../../components/Lecture/ListTable";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {API_BASE_URL} from "../../App";
+import {getMyDetailInfo} from "../../utils/member/getMyDetailInfo";
+import {useDispatch} from "react-redux";
 
 
 function MyInfo() {
 
     let navigate = useNavigate();
+    let dispatch = useDispatch();
+    useEffect(() => {
+        getMyDetailInfo(navigate, dispatch);
+    }, []);
+
     const [pills, setPills] = React.useState("1");
     React.useEffect(() => {
         document.body.classList.add("profile-page");
@@ -32,6 +41,94 @@ function MyInfo() {
             document.body.classList.remove("sidebar-collapse");
         };
     }, []);
+
+
+    const [tags, setTags] = useState<{
+        value: number,
+        label: string
+    }[]>([])
+    useEffect(() => {
+        //태그
+        if (tags.length === 0)
+            axios.get(`${API_BASE_URL}/lecture/tags`).then((res) => {
+                if (res.data.length !== 0) {
+                    const newTags = res.data.map((tag) => ({
+                        value: tag.tagNo,
+                        label: tag.tagName,
+                    }));
+                    // 중복된 값을 필터링하여 추가
+                    setTags((prevTags) => {
+                        const uniqueTags = newTags.filter(newTag => !prevTags.some(prevTag => prevTag.value === newTag.value));
+                        return [...(prevTags || []), ...uniqueTags];
+                    });
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+    type LectureType = {
+        title?: string,
+        tagList?: number[],
+        studyDate?: number,
+        levelNo?: number
+    }
+    const [lecture, setLecture] = useState<LectureType>();
+    const [pageRequest, setPageRequest] = useState<{
+        pg?: number,
+        size?: number
+        sort?: string
+        lecture?: LectureType
+    }>({
+        sort: 'regDate',
+        size: 12
+    });
+    const [pageResponse, setPageResponses] = useState();
+
+    const [member, setMember] = useState<any>({})
+    const [cartList, setCartList] = useState<{
+        cartNo: number,
+        uid: string,
+        lectureNo: number
+        title: string,
+        count: number,
+        price: number,
+        discount: number,
+        point: number,
+        total: number,
+    }[]>([]);
+    useEffect(() => {
+        const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
+        if (accessToken !== null)
+            axios.get(`${API_BASE_URL}/me`, {
+                headers: {"Authorization": `Bearer ${accessToken}`}
+            })
+                .then((res) => {
+                    setMember(res.data);
+
+                })
+                .catch((err) => {
+                    console.log("실패? : " + JSON.stringify(err));
+                });
+    }, []);
+
+
+    useEffect(() => {
+        if (member?.uid)
+            axios.get(`${API_BASE_URL}/lecture/list`, {
+                params: {
+                    pg:     1,
+                    size:   4,
+                    sort:   'regDate',
+                    'lecture.seller': member.uid
+                }
+            }).then((res) => {
+                setPageResponses(res.data);
+            }).catch(err => console.log(err));
+
+
+    }, [member])
+
     return (
         <div className="wrapper">
             <ProfilePageHeader/>
@@ -131,14 +228,17 @@ function MyInfo() {
                                 </Nav>
                             </div>
                         </Col>
-                        <TabContent className="gallery" activeTab={"pills" + pills} style={{width:'100%'}}>
-                            <TabPane tabId="pills1" >
+                        <TabContent className="gallery" activeTab={"pills" + pills} style={{width: '100%'}}>
+                            <TabPane tabId="pills1">
                                 <Col className="ml-auto mr-auto" md="12">
                                     <Row className="collections">
-                                        <Col style={{minWidth:'100vh'}} className={'profileContent'}>
-                                            <ListTable isMore={true} title={'나의 강의'}></ListTable>
-                                            <div style={{display:'flex', justifyContent:'right'}}>
-                                            <Button color={'info'} style={{marginRight:'20px'}} onClick={()=>{navigate('/lecture/write/main')}}>강의 작성</Button>
+                                        <Col style={{minWidth: '100vh'}} className={'profileContent'}>
+                                            <ListTable isMore={true} pageResponse={pageResponse} tags={tags}
+                                                       title={'나의 강의'}></ListTable>
+                                            <div style={{display: 'flex', justifyContent: 'right'}}>
+                                                <Button color={'info'} style={{marginRight: '20px'}} onClick={() => {
+                                                    navigate('/lecture/write/main')
+                                                }}>강의 작성</Button>
                                             </div>
                                         </Col>
                                     </Row>

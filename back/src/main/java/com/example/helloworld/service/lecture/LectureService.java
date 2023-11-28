@@ -26,7 +26,7 @@ public class LectureService {
     }
 
     public int getLastLectureNo(String seller) {
-        return lectureRepository.findTopBySellerOrderByLectureNoDesc(seller).getLectureNo();
+        return lectureRepository.findTopByMember_UidOrderByLectureNoDesc(seller).getLectureNo();
     }
 
     public LectureDTO findByLectureNo(int lectureNo) {
@@ -47,10 +47,7 @@ public class LectureService {
         //findBy머시기 by뒤가 where절이라고 보면 됨니다.
         log.info(pageRequestDTO.toString());
         if (pageRequestDTO.getLecture() != null)
-            result = lectureRepository.findBySearch(pageRequestDTO.getLecture().getLevelNo()
-                    , pageRequestDTO.getLecture().getStudyDate()
-                    , pageRequestDTO.getLecture().getTitle()
-                    , pageRequestDTO.getLecture().getTagList()
+            result = lectureRepository.findBySearch(pageRequestDTO.getLecture()
                     , pageRequestDTO.getSort(),
                     pageable);
         else {
@@ -65,13 +62,30 @@ public class LectureService {
 
 
         int totalElement = (int) result.getTotalElements();
-        log.info(totalElement+"");
-        log.info(result.getTotalElements()+"");
+        log.info(totalElement + "");
+        log.info(result.getTotalElements() + "");
 
         return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)
                 .lectureList(dtoList)
                 .total(totalElement)
                 .build();
+    }
+
+    public void updateReviewCount(int lectureNo, int reviewCount) {
+        lectureRepository.updateReviewByLectureNo(lectureNo, reviewCount);
+    }
+
+    public void updateByLectureNoOnHit(LectureDTO lectureDTO) {
+        lectureRepository.updateByLectureNoOnHit(lectureDTO.getLectureNo());
+    }
+
+    public void updateByLectureNoOnScore(int lectureNo, float score) {
+        lectureRepository.updateByLectureNoOnScore(lectureNo, score);
+    }
+
+
+    public void updateByLectureNoOnSold(int lectureNo, int count) {
+        lectureRepository.updateByLectureNoOnSold(lectureNo, count);
     }
 }

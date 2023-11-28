@@ -7,7 +7,7 @@ interface InputNumber {
 }
 
 function InputNumber({ num = 0, setNum }: InputNumber) {
-	const [newNum, setNewNum] = useState(0);
+	const [newNum, setNewNum] = useState(num);
 	const intervalRef = useRef<NodeJS.Timeout>();
 	const speedRef = useRef<number>(300); // 초당 속도, 초기값 100ms
 	const acceleration = 250; // 속도 증가량 (10ms)

@@ -52,11 +52,13 @@ import LectureDetail from "./pages/lecture/detail/LectureDetail";
 import LectureWriteContent from "./pages/lecture/write/content/LectureWriteContent";
 import MemberRoutes from "./pages/member/MemberRoutes";
 import {useDispatch} from "react-redux";
-import {insertMyIp} from "./slice/myIpSlice";
 import axios from "axios";
+import OAuth2RedirectHandler from "./pages/member/OAuth2RedirectHandler";
+import {insertMyIp} from "./slice/myIpSlice";
 
 
 export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
+export const API_FRONT_URL = process.env.REACT_APP_API_FRONT;
 
 function App() {
     let dispatch = useDispatch();
@@ -125,7 +127,7 @@ function App() {
                     <LectureWriteContent/>
                 </Suspense>}></Route>
         <Route
-            path="/lecture/detail/:id"
+            path="/lecture/detail"
             element={
                 <Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
                     <LectureDetail/>
@@ -167,6 +169,7 @@ function App() {
                 <Route path="findByPass" element={<FindByPass/>}/>
                 <Route path="findByEmail" element={<FindByEmail/>}/>
             </Route>
+            <Route path="/login/oauth2/:provider" element={<OAuth2RedirectHandler/>}></Route>
 
             <Route
                 path="company"
@@ -208,6 +211,7 @@ function App() {
 
             </Route>
             <Route path="/" element={<Home/>}></Route>
+
 
             <Route
                 path="community"

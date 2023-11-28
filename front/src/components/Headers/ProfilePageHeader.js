@@ -9,23 +9,25 @@ function ProfilePageHeader() {
     let pageHeader = React.createRef();
 
     React.useEffect(() => {
-        if (window.innerWidth > 991) {
+        if (window.innerWidth > 991 && pageHeader && pageHeader.current) {
             const updateScroll = () => {
                 let windowScrollTop = window.pageYOffset / 3;
                 pageHeader.current.style.transform =
                     "translate3d(0," + windowScrollTop + "px,0)";
             };
+
             window.addEventListener("scroll", updateScroll);
+
             return function cleanup() {
                 window.removeEventListener("scroll", updateScroll);
             };
         }
-    });
+    }, [pageHeader]);
     return (
         <div
             className="page-header clear-filter page-header-small"
             filter-color="blue"
-            style={{height:'300px', paddingTop:'20px'}}
+            style={{height: '300px', paddingTop: '20px'}}
         >
             <div
                 className="page-header-image"

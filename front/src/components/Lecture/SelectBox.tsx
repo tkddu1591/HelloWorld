@@ -35,7 +35,10 @@ function SelectBox({
     }, [selectedOption]);
     useEffect(() => {
         if (value !== undefined) {
-            setSelectedOption(value)
+            if (typeof value === 'string' || typeof value === 'number'){
+                setSelectedOption(options.filter(item => item.value === value));
+            }
+                setSelectedOption(value)
         }
     }, [value]);
     return (

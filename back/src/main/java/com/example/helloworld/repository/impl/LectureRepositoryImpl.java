@@ -1,5 +1,6 @@
 package com.example.helloworld.repository.impl;
 
+import com.example.helloworld.dto.lecture.LectureDTO;
 import com.example.helloworld.entity.lecture.LectureEntity;
 import com.example.helloworld.entity.lecture.QLectureEntity;
 import com.example.helloworld.repository.custom.LectureRepositoryCustom;
@@ -9,6 +10,7 @@ import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class LectureRepositoryImpl implements LectureRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
@@ -42,11 +45,9 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
                 return Expressions.stringTemplate("''"); // 아무 정렬도 하지 않음
         }
     }
+
     @Override
-    public Page<LectureEntity> findBySearch(Integer levelNo,
-                                            Integer studyDate,
-                                            String lectureTitle,
-                                            List<Integer> tagList,
+    public Page<LectureEntity> findBySearch(LectureDTO lectureDTO,
                                             String sortType,
                                             Pageable pageable
     ) {
@@ -54,17 +55,21 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
         BooleanBuilder builder = new BooleanBuilder();
         // 조건에 따라 필터링
-        if (levelNo != null && levelNo!=4) {
-            builder.and(lectureEntity.level.levelNo.eq(levelNo));
+        if (lectureDTO.getSeller() != null) {
+            log.info(lectureDTO.getSeller());
+            builder.and(lectureEntity.member.uid.eq(lectureDTO.getSeller()));
         }
-        if (studyDate != null) {
-            builder.and(lectureEntity.studyDate.goe(studyDate));
+        if (lectureDTO.getLevelNo() != null && lectureDTO.getLevelNo() != 4) {
+            builder.and(lectureEntity.level.levelNo.eq(lectureDTO.getLevelNo()));
         }
-        if (lectureTitle != null) {
-            builder.and(lectureEntity.title.like("%" + lectureTitle + "%"));
+        if (lectureDTO.getStudyDate() != 0) {
+            builder.and(lectureEntity.studyDate.goe(lectureDTO.getStudyDate()));
         }
-        if (tagList != null && !tagList.isEmpty()) {
-            builder.and(lectureEntity.hasTags.any().tag.tagNo.in(tagList));
+        if (lectureDTO.getTitle() != null) {
+            builder.and(lectureEntity.title.like("%" + lectureDTO.getTitle() + "%"));
+        }
+        if (lectureDTO.getTagList() != null && !lectureDTO.getTagList().isEmpty()) {
+            builder.and(lectureEntity.hasTags.any().tag.tagNo.in(lectureDTO.getTagList()));
         }
         builder.and(lectureEntity.isDelete.eq(false));
 

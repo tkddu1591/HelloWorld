@@ -75,4 +75,7 @@ public class LectureContentService {
         return lectureContentRepository.findByLecture_LectureNo(lectureNo).stream().map(lectureContentTransform::toDTO).toList();
     }
 
+    public List<LectureContentDTO> selectByPartNo(int partNo) {
+        return lectureContentRepository.findByPart_PartNo(partNo).stream().map(lectureContentTransform::toDTO).toList();
+    }
 }

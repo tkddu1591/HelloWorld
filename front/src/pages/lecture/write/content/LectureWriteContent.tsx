@@ -29,8 +29,8 @@ function LectureWriteContent() {
             try {
                 // 동시에 여러 axios.get 요청을 보내기 위해 Promise.all 사용
                 const [partResponse, contentListResponse] = await Promise.all([
-                    axios.get(`${API_BASE_URL}/lecture/write/content/partList?lectureNo=${lectureNo}`),
-                    axios.get(`${API_BASE_URL}/lecture/write/content/contentList?lectureNo=${lectureNo}`)
+                    axios.get(`${API_BASE_URL}/lecture/part/list?lectureNo=${lectureNo}`),
+                    axios.get(`${API_BASE_URL}/lecture/content/list?lectureNo=${lectureNo}`)
                 ]);
 
                 // part 데이터를 받아와서 setPart를 통해 상태 업데이트
@@ -86,14 +86,14 @@ function LectureWriteContent() {
             lectureNo,
         }));
         console.log(transformedPart);
-        return axios.post('/lecture/write/content/part', transformedPart);
+        return axios.post('/lecture/part', transformedPart);
     }
 
 
     function contentListSave() {
         const promises = contentList.map(item => {
             if (item.contents.length !== 0) {
-                return axios.post('/lecture/write/content/list', item.contents)
+                return axios.post('/lecture/content/list', item.contents)
                     .then(res => {
                         console.log('업데이트 완료');
                     })
@@ -101,7 +101,7 @@ function LectureWriteContent() {
                         console.error(error);
                     });
             } else {
-                return axios.delete('/lecture/write/content/list?partNo=' + item.orderNo)
+                return axios.delete('/lecture/content/list?partNo=' + item.orderNo)
                     .then(res => {
                         console.log('삭제완료');
                     })
@@ -138,7 +138,7 @@ function LectureWriteContent() {
     }>();
     useEffect(() => {
         if (post?.contentNo) {
-            axios.get('/lecture/write/content/one?contentNo=' + post?.contentNo + "&title=" + post?.title).then(res => {
+            axios.get('/lecture/content/?contentNo=' + post?.contentNo + "&title=" + post?.title).then(res => {
                 setState({value: res.data.content});
             }).catch(error => {
                 console.error(error);
@@ -147,7 +147,7 @@ function LectureWriteContent() {
     }, [post?.contentNo]);
     const postUpdate = () => {
         if (post?.content !== null && post && post.content !== undefined) {
-            axios.post(`${API_BASE_URL}/lecture/write/content/one`, post)
+            axios.post(`${API_BASE_URL}/lecture/content`, post)
                 .then(res => {
                     console.log('내용 저장');
                     alert('저장 완료');

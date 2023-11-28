@@ -11,14 +11,29 @@ interface LectureCartItmeProps {
 		}[];
 		placeholder?: string;
 	};
+	cartList?:{
+		cartNo: number,
+		uid: string,
+		lectureNo: number
+		title: string,
+		count : number,
+		price: number,
+		discount: number,
+		point: number,
+		total: number,
+	}[];
+	setCartList: (value: any)=> void
+	isChange: boolean;
+	setIsChange: (value: boolean)=> void
 }
 
-function LectureCartItem({ coupon }) {
+function LectureCartItem({ coupon, cartList, setCartList, isChange, setIsChange }:LectureCartItmeProps) {
+
 	return (
 		<Container>
 			<Row style={{ marginTop: '20px' }}>
-				<LectureCartList coupon={coupon}></LectureCartList>
-				<LectureCartTotal></LectureCartTotal>
+				<LectureCartList isChange={isChange} setIsChange={setIsChange} setCartList={setCartList} coupon={coupon} cartList={cartList}></LectureCartList>
+				<LectureCartTotal cartList={cartList}></LectureCartTotal>
 			</Row>
 			{/*				<div style={{display:'flex', justifyContent:'center', alignItems:'center', marginTop:'100px'}}>
 					<i className="bi bi-cart-x" style={{fontSize: '100px'}}></i>

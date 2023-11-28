@@ -14,7 +14,7 @@ public class LectureDTO {
     private int lectureNo;
     private String seller;
     private String title;
-    private int score;
+    private float score;
     private Integer levelNo;
     private int price;
     private int studyDate;
