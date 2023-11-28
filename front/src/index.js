@@ -38,8 +38,8 @@ root.render(
    <React.StrictMode>
        <CookiesProvider>
           <Provider store={store}>
-             <BrowserRouter basename='/root/HelloWorld/front'>
-             {/*<BrowserRouter>*/}
+             {/*<BrowserRouter basename='/root/HelloWorld/front'>*/}
+             <BrowserRouter>
                 <ScrollToTop/>
                 <App />
              </BrowserRouter>
