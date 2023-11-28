@@ -74,7 +74,7 @@ public class EmailService {
     }
 
     // 이메일 인증용 메서드.
-    public String sendAuthEmail(String emailReceiver, int type) throws MessagingException {
+    public String sendAuthEmail(String emailReceiver) throws MessagingException {
         String authCode = createAuthCode();
         log.info(" - sendAuthEmail > authCode : " + authCode);
 
