@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompanyTechnologyStackUseDTO {
-    private int TechnologyStackUseNo;
-    private int TechnologyStackNo;
+public class CompanyUsedTechStackDTO {
+    private int TechStackUseNo;
+    private int TechStackNo;
     private int companyNo;
 }
