@@ -4,7 +4,6 @@ import '../scss/lecture/list/list.scss';
 import ListTable from '../../../components/Lecture/ListTable';
 import {API_BASE_URL} from "../../../App";
 import axios from "axios";
-import {Type} from "react-bootstrap-icons";
 import {changeDTO} from "../../../store/changeDTO";
 import {useLocation} from "react-router-dom";
 
@@ -146,22 +145,23 @@ function LectureList() {
 
 
     const handleSearch = () => {
-            changeDTO(setPageRequest, 'lecture', lecture)
-                .then(r =>
-                    axios.get(`${API_BASE_URL}/lecture/list`, {
-                        params: {
-                            pg:                  pageRequest?.pg,
-                            size:                pageRequest?.size,
-                            sort:                pageRequest?.sort,
-                            'lecture.title':     lecture?.title,
-                            'lecture.tagList':   lecture?.tagList?.join(','),
-                            'lecture.studyDate': lecture?.studyDate,
-                            'lecture.levelNo':   lecture?.levelNo
-                        }
-                    }).then((res) => {
-                        setPageResponses(res.data);
-                    }))
-                .catch(err => console.log(err));
+        console.log(pageRequest.pg)
+        changeDTO(setPageRequest, 'lecture', lecture)
+            .then(r =>
+                axios.get(`${API_BASE_URL}/lecture/list`, {
+                    params: {
+                        pg:                  pageRequest?.pg,
+                        size:                pageRequest?.size,
+                        sort:                pageRequest?.sort,
+                        'lecture.title':     lecture?.title,
+                        'lecture.tagList':   lecture?.tagList?.join(','),
+                        'lecture.studyDate': lecture?.studyDate,
+                        'lecture.levelNo':   lecture?.levelNo
+                    }
+                }).then((res) => {
+                    setPageResponses(res.data);
+                }))
+            .catch(err => console.log(err));
 
     }
     useEffect(() => {

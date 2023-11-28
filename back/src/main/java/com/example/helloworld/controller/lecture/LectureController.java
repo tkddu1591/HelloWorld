@@ -46,6 +46,7 @@ public class LectureController {
 
     @GetMapping("/list")
     public PageResponseDTO findByCondition(PageRequestDTO pageRequestDTO){
+        log.info("dd");
         return lectureService.findByCondition(pageRequestDTO);
     }
 

@@ -56,7 +56,7 @@ function IndexNavbar() {
 							target="_blank"
 							id="navbar-brand"
 							style={{ cursor: 'pointer' }}>
-							<img src={`/images/home/main_logo.png`} style={{ width: '22px' }} />{' '}
+							<img src={`${process.env.PUBLIC_URL}/images/home/main_logo.png`} style={{ width: '22px' }} />{' '}
 							<span style={{ fontSize: '19px' }}>Hello World</span>
 						</NavbarBrand>
 						<UncontrolledTooltip target="#navbar-brand">홈페이지로 이동합니다.</UncontrolledTooltip>

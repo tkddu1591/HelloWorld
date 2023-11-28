@@ -38,8 +38,8 @@ root.render(
    <React.StrictMode>
        <CookiesProvider>
           <Provider store={store}>
-             {/*<BrowserRouter basename='/User/java3/IdeaProjects/HelloWorld/back/src/main/resources/templates'>*/}
-             <BrowserRouter>
+             <BrowserRouter basename='/root/HelloWorld/front'>
+             {/*<BrowserRouter>*/}
                 <ScrollToTop/>
                 <App />
              </BrowserRouter>
