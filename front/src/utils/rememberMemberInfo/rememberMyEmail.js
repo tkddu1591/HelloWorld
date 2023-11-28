@@ -4,13 +4,13 @@ import {changeDTO} from "../../store/changeDTO";
 
 export async function rememberMyEmail(name, hp, setInputValue) {
     try {
+        await changeDTO(setInputValue, 'email', '이메일을 찾는 중 입니다.');
         const response = await axios.get(`${API_BASE_URL}/member/findMyEmail`, {
             params: {
                 name: name,
                 hp: hp
             }
         });
-        const email = response.data;
         await changeDTO(setInputValue, 'email', '이메일은 "' + response.data + '"입니다.');
     } catch (err) {
 

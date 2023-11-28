@@ -1,6 +1,7 @@
 package com.example.helloworld.controller.member;
 
 
+import com.example.helloworld.dto.member.LoginDTO;
 import com.example.helloworld.dto.member.MemberDTO;
 import com.example.helloworld.service.member.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,12 +22,13 @@ public class MemberController {
     }
 
     @GetMapping("/member/findMyEmail")
-    public String findMyEmail(@RequestParam String name,
-                              @RequestParam String hp) {
-        log.info(" - findMyEmail > " + name + ", " + hp);
-        String email = memberService.findMyEmail(name, hp);
-        log.info(" - findMyEmail > email : " + email);
-        return email;
+    public String findMyEmail(@RequestParam String name, @RequestParam String hp) {
+        return memberService.findMyEmail(name, hp);
+    }
+
+    @PutMapping("/member/findMyPass")
+    public boolean findMyPass(@RequestBody MemberDTO memberDTO) {
+        return memberService.findMyPass(memberDTO);
     }
 
     @GetMapping("/me")
