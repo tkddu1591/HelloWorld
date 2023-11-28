@@ -1,5 +1,6 @@
 package com.example.helloworld.entity.lecture;
 
+import com.example.helloworld.entity.member.MemberEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -20,10 +21,12 @@ public class LectureEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lectureNo;
-    private String seller;
+    @ManyToOne
+    @JoinColumn(name = "seller")
+    private MemberEntity member;
     private String title;
-    @Column(columnDefinition = "int default 0")
-    private int score;
+    @Builder.Default
+    private float score= 0;
     @ManyToOne
     @JoinColumn(name = "levelNo")
     private LectureLevelEntity level;
@@ -39,7 +42,6 @@ public class LectureEntity {
     @CreationTimestamp
     private LocalDateTime regDate;
     private String regIp;
-    @Column(columnDefinition = "boolean default false")
     private Boolean isDelete;
     private String content;
     @Column(columnDefinition = "int default 0")

@@ -3,6 +3,7 @@ import SubmitButton from "./buttonCmpnts/SubmitButton";
 import {Button} from "reactstrap";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {API_BASE_URL} from "../../../App";
 
 function TermsModal({isOpenModal, termsAgreeHandler}) {
     const nav = useNavigate();
@@ -10,7 +11,7 @@ function TermsModal({isOpenModal, termsAgreeHandler}) {
     useEffect(() => {
         const getTerms = async () => {
             try {
-                const result = await axios.get('http://localhost:8080/api/terms');
+                const result = await axios.get(`${API_BASE_URL}/api/terms`);
                 setTerms(result.data);
             } catch (error) {
                 alert("이용약관을 불러올 수 없습니다. 다시 시도해주세요.")

@@ -22,9 +22,10 @@ public class HelloWorldApplication {
 						.allowedOrigins("http://localhost:3000",
 								"http://localhost:8080",
 								"http://localhost:63342",
-								"http://13.125.254.233:3000",
-								"http://13.125.254.233:8080")
+								"http://52.79.236.227:8080",
+								"http://52.79.236.227:8080")
 						.allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE");
+						/*.allowedHeaders("Authorization", "Content-Type");*/
 
 			}
 		};

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/lecture/write/content")
+@RequestMapping("/lecture/content")
 @RequiredArgsConstructor
 public class LectureContentController {
     private final LectureContentService lectureContentService;
@@ -19,12 +19,12 @@ public class LectureContentController {
         List<LectureContentDTO> contentDTOS = lectureContentService.selectByLectureNo(lectureContentDTOList.get(0).getLectureNo());
         lectureContentService.changeLectureContents(lectureContentDTOList,contentDTOS);
     }
-    @PostMapping("/one")
+    @PostMapping(value = {"","/"})
     public void write(@RequestBody LectureContentDTO lectureContentDTO) {
         log.info(lectureContentDTO.toString());
         lectureContentService.save(lectureContentDTO);
     }
-    @GetMapping("/one")
+    @GetMapping(value = {"","/"})
     public LectureContentDTO findOne(@RequestParam int contentNo, String title) {
         log.info(contentNo + " " + title);
         return lectureContentService.findByContentNo(contentNo, title);
@@ -34,9 +34,13 @@ public class LectureContentController {
         lectureContentService.deleteByPartNo(partNo);
     }
 
-    @GetMapping("/contentList")
-    public List<LectureContentDTO> list(@RequestParam int lectureNo) {
+    @GetMapping("/list")
+    public List<LectureContentDTO> listByLecture(@RequestParam int lectureNo) {
         return lectureContentService.selectByLectureNo(lectureNo);
+    }
+    @GetMapping("/listByPart")
+    public List<LectureContentDTO> listByPart(@RequestParam int partNo) {
+        return lectureContentService.selectByPartNo(partNo);
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.helloworld.dto.commuity.CommunityCommentDTO;
 import com.example.helloworld.dto.commuity.CommunityDTO;
 import com.example.helloworld.dto.commuity.CommunityHasTagDTO;
 import com.example.helloworld.dto.lecture.LectureDTO;
+import com.example.helloworld.dto.lecture.LectureReviewDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class PageResponseDTO {
     private int prevNo;
     private int nextNo;
     private List<LectureDTO> lectureList;
+    private List<LectureReviewDTO> lectureReviewList;
 
 
 
@@ -39,7 +41,7 @@ public class PageResponseDTO {
                            CommunityDTO view,
                            List<CommunityCommentDTO> commentsList,
                            List<CommunityHasTagDTO> hasTagsList,
-
+                           List<LectureReviewDTO> lectureReviewList,
                            String sort,
                            int prevNo,
                            int nextNo,
@@ -53,7 +55,7 @@ public class PageResponseDTO {
         this.view = view;
         this.commentsList = commentsList;
         this.hasTagsList = hasTagsList;
-
+        this.lectureReviewList = lectureReviewList;
         this.sort = sort;
         this.prevNo = prevNo;
         this.nextNo = nextNo;

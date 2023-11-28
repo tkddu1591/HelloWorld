@@ -5,7 +5,8 @@ import GithubIcon from "../../../../components/Icon/GithubIcon";
 import GoogleIcon from "../../../../components/Icon/GoogleIcon";
 import KakaoIcon from "../../../../components/Icon/KakaoIcon";
 import NaverIcon from "../../../../components/Icon/NaverIcon";
-import {openKakaoLogin} from "../../../../service/authenticationService";
+import {openKakaoLogin} from "../../../../service/kakaoAuthenticationService";
+import {openNaverLogin} from "../../../../service/naverAuthenticationService";
 
 function SocialLoginButton() {
     return (
@@ -20,7 +21,7 @@ function SocialLoginButton() {
                 <a onClick={openKakaoLogin}>
                     <KakaoIcon />
                 </a>&nbsp;
-                <a href={"#"}>
+                <a onClick={openNaverLogin}>
                     <NaverIcon />
                 </a>
             </div>

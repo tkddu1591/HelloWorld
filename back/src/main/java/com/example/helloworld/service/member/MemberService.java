@@ -1,7 +1,9 @@
 package com.example.helloworld.service.member;
 
 import com.example.helloworld.dto.member.MemberDTO;
+import com.example.helloworld.entity.member.MemberEntity;
 import com.example.helloworld.repository.member.MemberRepository;
+import com.example.helloworld.security.SecurityUtils;
 import com.example.helloworld.transform.member.MemberTransform;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +21,8 @@ import java.util.UUID;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final MemberTransform memberTransform;
-    private final PasswordEncoder passwordEncoder;
+    private final MemberTransform  memberTransform;
+    private final PasswordEncoder  passwordEncoder;
 
     public boolean signUp(MemberDTO memberDTO, HttpServletRequest request) {
         String pass1 = memberDTO.getPass();
@@ -44,5 +46,34 @@ public class MemberService {
             log.error(" - signUp > save failed... DataAccessException : " + e.getMessage());
             return false;
         }
+    }
+
+    public MemberDTO getMyInfo() {
+        MemberDTO myInfo = memberTransform.toDTO(memberRepository.findByEmail(SecurityUtils.getMyEmail()));
+        if(myInfo != null) myInfo.setPass("*");
+        return myInfo;
+    }
+
+    public String findMyEmail(String name, String hp) {
+        return memberRepository.findByNameAndHp(name, hp).getEmail();
+    }
+
+    public boolean findMyPass(MemberDTO memberDTO) {
+        String email   = memberDTO.getEmail();
+        String pass    = memberDTO.getPass();
+        String passChk = memberDTO.getPassChk();
+
+        if(pass == null || !pass.equals(passChk)) return false;
+
+        MemberEntity memberEntity = memberRepository.findByEmail(email);
+        if(memberEntity == null) return false;
+        String fstPass = memberEntity.getPass();
+
+        memberEntity.setPass(passwordEncoder.encode(memberDTO.getPass()));
+
+        MemberEntity resultEntity = memberRepository.save(memberEntity);
+        String scdPass = resultEntity.getPass();
+
+        return !fstPass.equals(scdPass);
     }
 }

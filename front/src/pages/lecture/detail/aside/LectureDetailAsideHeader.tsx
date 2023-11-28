@@ -25,20 +25,20 @@ function LectureDetailAsideHeader({ aside, setAside }) {
             style={{
                height: '160px',
                padding: '20px',
-               paddingTop: '30px',
+               paddingTop: '40px',
                backgroundColor: '#383838',
                color: 'white',
             }}>
             <div>
                <span style={{ fontSize: '16px' }}>React 리액트 기초부터 쇼핑몰 프로젝트까지!</span>
             </div>
-            <div style={{ marginTop: '20px' }}>
+{/*            <div style={{ marginTop: '20px' }}>
                <span style={{ fontWeight: '700', fontSize: '15px' }}>수강기간 : 220Days</span>
-            </div>
+            </div>*/}
 
             <ProgressBar
                now={now}
-               style={{ marginTop: '20px' }}
+               style={{ marginTop: '40px' }}
                animated={true}
                label={`${now}%`}
                variant={'success'}></ProgressBar>

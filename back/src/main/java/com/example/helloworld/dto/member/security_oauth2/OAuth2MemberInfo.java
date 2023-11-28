@@ -1,4 +1,4 @@
-package com.example.helloworld.dto.member.oauth2;
+package com.example.helloworld.dto.member.security_oauth2;
 
 public interface OAuth2MemberInfo {
     String getProviderId();

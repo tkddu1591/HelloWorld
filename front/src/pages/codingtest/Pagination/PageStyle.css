@@ -21,11 +21,11 @@ ul.pagination li {
 }
 
 ul.pagination li:first-child{
-    border-radius: 5px 0 0 5px;
+    border-radius: 2px;
 }
 
 ul.pagination li:last-child{
-    border-radius: 0 5px 5px 0;
+    border-radius: 2px;
 }
 
 ul.pagination li a {

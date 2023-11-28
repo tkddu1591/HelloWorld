@@ -15,11 +15,9 @@ import {useNavigate} from "react-router-dom";
 import {API_BASE_URL} from "../../App";
 import {useDispatch} from "react-redux";
 import {setCookie} from "../../utils/member/cookieHandler";
-import {insertMyInfo} from "../../slice/UserSlice";
 import {getMyInfo} from "../../utils/member/getMyInfo";
-import {changeDTO} from "../../store/changeDTO";
-
-
+import {sendAccessToken} from "../../utils/member/sendAccessToken";
+import {login} from "../../utils/member/login";
 
 function LoginPage() {
     const nav = useNavigate();
@@ -46,15 +44,13 @@ function LoginPage() {
             "isAutoLogin": inputValue.isAutoLogin,
         }).then((response) => {
             if(response.data.accessToken) {
-                localStorage.setItem('helloWorld_ACCESS_TOKEN', response.data.accessToken);
-                localStorage.setItem('helloWorld_WELCOME_GREETING_HELLO', response.data.myInfo);
-
-                const maxAge = (inputValue.isAutoLogin) ? (7 * 24 * 60 * 60) : (3 * 60 * 60);
-                setCookie('helloWorld_REFRESH_TOKEN', response.data.refreshToken, {
-                    path: '/',
-                    secure: true,
-                    maxAge: maxAge,
-                });
+                const data = {
+                    'accessToken': response.data.accessToken,
+                    'refreshToken': response.data.refreshToken,
+                    'myInfo': response.data.myInfo,
+                    'isAutoLogin:': inputValue.isAutoLogin
+                }
+                login(data);
                 getMyInfo(dispatch);
                 nav('/');
             }else
