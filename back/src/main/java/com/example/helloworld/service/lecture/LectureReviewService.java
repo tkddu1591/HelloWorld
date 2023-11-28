@@ -2,7 +2,6 @@ package com.example.helloworld.service.lecture;
 
 import com.example.helloworld.dto.PageRequestDTO;
 import com.example.helloworld.dto.PageResponseDTO;
-import com.example.helloworld.dto.lecture.LectureDTO;
 import com.example.helloworld.dto.lecture.LectureReviewDTO;
 import com.example.helloworld.entity.lecture.LectureReviewEntity;
 import com.example.helloworld.repository.lecture.LectureReviewRepository;
@@ -66,10 +65,18 @@ public class LectureReviewService {
     }
 
     public int star1ByLectureNo(int lectureNo, int score) {
-        return lectureReviewRepository.countByLecture_LectureNoAndScoreAndIsDelete(lectureNo,score,false);
+        return lectureReviewRepository.countByLecture_LectureNoAndScoreAndIsDelete(lectureNo, score, false);
     }
 
     public float averageByLectureNo(int lectureNo) {
         return lectureReviewRepository.averageByLecture_LectureNo(lectureNo);
+    }
+
+    public void update(LectureReviewDTO lectureReviewDTO) {
+        lectureReviewRepository.updateByReviewNoOnContent(lectureReviewDTO.getReviewNo(), lectureReviewDTO.getContent(), lectureReviewDTO.getScore(), lectureReviewDTO.getTitle());
+    }
+
+    public void delete(LectureReviewDTO lectureReviewDTO) {
+        lectureReviewRepository.deleteByReviewNo(lectureReviewDTO.getReviewNo());
     }
 }

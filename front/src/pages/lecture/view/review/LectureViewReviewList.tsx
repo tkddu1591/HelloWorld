@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ReviewList from "../../../../components/Lecture/ReviewList";
-import axios from "axios";
-import {API_BASE_URL} from "../../../../App";
-import {useLocation} from "react-router-dom";
 import LecturePagination from "../../../../components/Lecture/LecturePagination";
 
-function LectureViewReviewList({popup, setPopup, setPageRequest, pageResponse}) {
-
+function LectureViewReviewList({
+                                   popup, setPopup, setPageRequest, pageResponse, member, setIsReviewWrite,
+                                   isReviewWrite, checkBuy, top
+                               }) {
     return <div style={{marginTop: '40px'}}>
-        <ReviewList setPopup={setPopup} popup={popup} setPageRequest={setPageRequest} pageResponse={pageResponse}></ReviewList>
-        <LecturePagination setPageRequest={setPageRequest} pageResponse={pageResponse}></LecturePagination>
+        {pageResponse?.list.map((item) => {
+            return <ReviewList member={member} setPopup={setPopup} popup={popup} setPageRequest={setPageRequest}
+                               isReviewWrite={isReviewWrite} setIsReviewWrite={setIsReviewWrite}
+                               pageResponse={pageResponse} key={item.reviewNo} item={item}></ReviewList>
+        })}
+            <LecturePagination top={top} setPageRequest={setPageRequest}
+                               pageResponse={pageResponse}></LecturePagination>
     </div>
 }
 

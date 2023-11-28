@@ -28,11 +28,11 @@ function LectureReviewStart({pageResponse, lecture, isReviewWrite}: ReviewStarPr
                             const response = await axios.get(`${API_BASE_URL}/lecture/review/scoreCount?lectureNo=` + lecture.lectureNo, {
                                 params: {
                                     lectureNo: lecture.lectureNo,
-                                    score: score
+                                    score:     score
                                 }
                             });
 
-                            newScoreList.push({ score: score, count: response.data });
+                            newScoreList.push({score: score, count: response.data});
                         } catch (error) {
                             console.error("Error fetching data:", error);
                         }
@@ -58,6 +58,7 @@ function LectureReviewStart({pageResponse, lecture, isReviewWrite}: ReviewStarPr
                 })}
             </>
         }
+
 
 
     </div>}</>

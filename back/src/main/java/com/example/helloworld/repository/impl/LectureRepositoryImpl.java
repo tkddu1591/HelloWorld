@@ -10,6 +10,7 @@ import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class LectureRepositoryImpl implements LectureRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
@@ -53,8 +55,12 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
         BooleanBuilder builder = new BooleanBuilder();
         // 조건에 따라 필터링
+        if (lectureDTO.getSeller() != null) {
+            log.info(lectureDTO.getSeller());
+            builder.and(lectureEntity.member.uid.eq(lectureDTO.getSeller()));
+        }
         if (lectureDTO.getLevelNo() != null && lectureDTO.getLevelNo() != 4) {
-            builder.and(lectureEntity.level.levelNo.eq( lectureDTO.getLevelNo()));
+            builder.and(lectureEntity.level.levelNo.eq(lectureDTO.getLevelNo()));
         }
         if (lectureDTO.getStudyDate() != 0) {
             builder.and(lectureEntity.studyDate.goe(lectureDTO.getStudyDate()));

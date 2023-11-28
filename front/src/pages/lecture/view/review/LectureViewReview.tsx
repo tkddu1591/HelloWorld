@@ -10,24 +10,24 @@ import {useLocation} from "react-router-dom";
 import axios from "axios";
 import {API_BASE_URL} from "../../../../App";
 
-function LectureViewReview({popup, setPopup, lecture, setIsReviewWrite, isReviewWrite, member}) {
+function LectureViewReview({checkBuy, popup, setPopup, lecture, setIsReviewWrite, isReviewWrite, member, div, top}) {
     let total = 44;
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const lectureNo = searchParams.get('lectureNo');
     const [pageRequest, setPageRequest] = useState({
-        pg: 1,
-        size : 5,
+        pg:        1,
+        size:      5,
         lectureNo: lectureNo,
-        sort: 'reviewNo'
+        sort:      'reviewNo'
     });
     const [pageResponse, setPageResponse] = useState();
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/lecture/review/list`, { params: pageRequest })
+        axios.get(`${API_BASE_URL}/lecture/review/list`, {params: pageRequest})
             .then(response => {
                 // lectureReviewList의 이름을 list로 변경
-                const modifiedResponse = { ...response.data, list: response.data.lectureReviewList };
+                const modifiedResponse = {...response.data, list: response.data.lectureReviewList};
                 // 변경된 response를 state에 저장
                 setPageResponse(modifiedResponse);
             })
@@ -40,13 +40,21 @@ function LectureViewReview({popup, setPopup, lecture, setIsReviewWrite, isReview
         console.log(pageResponse)
     }, [pageResponse]);
     return <Col lg='9'>
-        <Subhead title={'수강생 리뷰'}></Subhead>
-        <LectureReviewStart pageResponse={pageResponse} lecture={lecture} isReviewWrite={isReviewWrite}></LectureReviewStart>
-        <LectureViewReviewList  popup={popup} setPopup={setPopup} pageResponse={pageResponse} setPageRequest={setPageRequest}></LectureViewReviewList>
+        <div ref={div}>
+            <Subhead title={'수강생 리뷰'}></Subhead>
+            <LectureReviewStart pageResponse={pageResponse} lecture={lecture}
+                                isReviewWrite={isReviewWrite}></LectureReviewStart>
+            <LectureViewReviewList member={member} popup={popup} setPopup={setPopup} pageResponse={pageResponse}
+                                   setPageRequest={setPageRequest} setIsReviewWrite={setIsReviewWrite}
+                                   checkBuy={checkBuy}
+                                   isReviewWrite={isReviewWrite} top={top}></LectureViewReviewList>
 
-        <LectureViewReviewWrite setIsReviewWrite={setIsReviewWrite} member={member}
-                                isReviewWrite={isReviewWrite}></LectureViewReviewWrite>
+            {checkBuy &&
+                <LectureViewReviewWrite setIsReviewWrite={setIsReviewWrite} member={member}
+                                        isReviewWrite={isReviewWrite}></LectureViewReviewWrite>}
+        </div>
     </Col>
+
 }
 
 

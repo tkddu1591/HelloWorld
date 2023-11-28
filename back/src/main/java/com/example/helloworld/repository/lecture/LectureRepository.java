@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 
 
 public interface LectureRepository extends JpaRepository<LectureEntity, Integer>, LectureRepositoryCustom {
-    LectureEntity findTopBySellerOrderByLectureNoDesc(String seller);
+    LectureEntity findTopByMember_UidOrderByLectureNoDesc(String seller);
 
     LectureEntity findByLectureNo(int lectureNo);
 

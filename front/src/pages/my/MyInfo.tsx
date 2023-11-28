@@ -84,19 +84,50 @@ function MyInfo() {
         size: 12
     });
     const [pageResponse, setPageResponses] = useState();
+
+    const [member, setMember] = useState<any>({})
+    const [cartList, setCartList] = useState<{
+        cartNo: number,
+        uid: string,
+        lectureNo: number
+        title: string,
+        count: number,
+        price: number,
+        discount: number,
+        point: number,
+        total: number,
+    }[]>([]);
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/lecture/list`, {
-            params: {
-                pg:   1,
-                size: 4,
-                sort: 'regDate',
-            }
-        }).then((res) => {
-            setPageResponses(res.data);
-        }).catch(err => console.log(err));
+        const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
+        if (accessToken !== null)
+            axios.get(`${API_BASE_URL}/me`, {
+                headers: {"Authorization": `Bearer ${accessToken}`}
+            })
+                .then((res) => {
+                    setMember(res.data);
+
+                })
+                .catch((err) => {
+                    console.log("실패? : " + JSON.stringify(err));
+                });
+    }, []);
 
 
-    }, [])
+    useEffect(() => {
+        if (member?.uid)
+            axios.get(`${API_BASE_URL}/lecture/list`, {
+                params: {
+                    pg:     1,
+                    size:   4,
+                    sort:   'regDate',
+                    'lecture.seller': member.uid
+                }
+            }).then((res) => {
+                setPageResponses(res.data);
+            }).catch(err => console.log(err));
+
+
+    }, [member])
 
     return (
         <div className="wrapper">
@@ -197,14 +228,17 @@ function MyInfo() {
                                 </Nav>
                             </div>
                         </Col>
-                        <TabContent className="gallery" activeTab={"pills" + pills} style={{width:'100%'}}>
-                            <TabPane tabId="pills1" >
+                        <TabContent className="gallery" activeTab={"pills" + pills} style={{width: '100%'}}>
+                            <TabPane tabId="pills1">
                                 <Col className="ml-auto mr-auto" md="12">
                                     <Row className="collections">
-                                        <Col style={{minWidth:'100vh'}} className={'profileContent'}>
-                                            <ListTable isMore={true} pageResponse={pageResponse} tags={tags} title={'나의 강의'}></ListTable>
-                                            <div style={{display:'flex', justifyContent:'right'}}>
-                                            <Button color={'info'} style={{marginRight:'20px'}} onClick={()=>{navigate('/lecture/write/main')}}>강의 작성</Button>
+                                        <Col style={{minWidth: '100vh'}} className={'profileContent'}>
+                                            <ListTable isMore={true} pageResponse={pageResponse} tags={tags}
+                                                       title={'나의 강의'}></ListTable>
+                                            <div style={{display: 'flex', justifyContent: 'right'}}>
+                                                <Button color={'info'} style={{marginRight: '20px'}} onClick={() => {
+                                                    navigate('/lecture/write/main')
+                                                }}>강의 작성</Button>
                                             </div>
                                         </Col>
                                     </Row>

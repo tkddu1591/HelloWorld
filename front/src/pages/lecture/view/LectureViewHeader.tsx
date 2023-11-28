@@ -7,18 +7,9 @@ import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
 import axios from "axios";
 import {API_BASE_URL} from "../../../App";
 
-function LectrueViewHeader({lecture, tagColor, member}) {
+function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
     let navigate = useNavigate();
     let [arrayList, setArrayList] = useState<string[]>([]);
-    const [checkBuy, setCheckBuy] = useState(false)
-    useEffect(() => {
-        if (member.uid && lecture.lectureNo)
-            axios.get(`${API_BASE_URL}/api/lecture/orderItem/buy?uid=${member.uid}&lectureNo=${lecture.lectureNo}`).then((res) => {
-                if (res.data > 0) {
-                    setCheckBuy(true)
-                }
-            }).catch(err => console.log(err));
-    }, [member, lecture])
     return <>
         <h3 style={{marginBottom: '15px', fontSize: '30px'}}>{lecture.title}</h3>
 
@@ -74,7 +65,9 @@ function LectrueViewHeader({lecture, tagColor, member}) {
                         onClick={() => {
                             console.log(lecture)
                             console.log(member)
-                            if (checkBuy) {
+                            if(checkSeller)
+                                navigate(`/lecture/write/main?lectureNo=${lecture.lectureNo}`)
+                            else if (checkBuy) {
                                 navigate('/lecture/detail?lectureNo=' + lecture?.lectureNo)
                             } else if (member.uid !== undefined) {
                                 const cart = async () => {
@@ -126,7 +119,7 @@ function LectrueViewHeader({lecture, tagColor, member}) {
                                 style={{
                                     textAlign:  "center", color: "white", display: "inline-block", fontSize: '17px',
                                     fontWeight: 'bold', fontFamily: '한컴 말랑말랑'
-                                }}>{checkBuy?'강의듣기':'수강하기'}</span>
+                                }}>{checkSeller?'수정하기': checkBuy?'강의듣기':'수강하기'}</span>
                     </Button>
 
                     {!checkBuy ? <>
@@ -201,4 +194,4 @@ function LectrueViewHeader({lecture, tagColor, member}) {
         </Row></>
 }
 
-export default LectrueViewHeader
+export default LectureViewHeader

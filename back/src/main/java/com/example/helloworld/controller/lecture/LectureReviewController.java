@@ -10,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/lecture/review")
 @RequiredArgsConstructor
@@ -40,5 +38,25 @@ public class LectureReviewController {
     public int star1ByLectureNo(@RequestParam int lectureNo,@RequestParam int score){
         log.info(lectureNo+" "+score);
         return lectureReviewService.star1ByLectureNo(lectureNo, score);
+    }
+    @Transactional
+    @PostMapping("/update")
+    public void update(@RequestBody LectureReviewDTO lectureReviewDTO){
+        log.info(lectureReviewDTO.toString());
+        lectureReviewService.update(lectureReviewDTO);
+        int reviewCount = lectureReviewService.findReviewCount(lectureReviewDTO);
+        float score = lectureReviewService.averageByLectureNo(lectureReviewDTO.getLectureNo());
+        lectureService.updateByLectureNoOnScore(lectureReviewDTO.getLectureNo(), score);
+        lectureService.updateReviewCount(lectureReviewDTO.getLectureNo(), reviewCount);
+    }
+    @Transactional
+    @DeleteMapping("")
+    public void delete(LectureReviewDTO lectureReviewDTO){
+        log.info(lectureReviewDTO.toString());
+        lectureReviewService.delete(lectureReviewDTO);
+        int reviewCount = lectureReviewService.findReviewCount(lectureReviewDTO);
+        float score = lectureReviewService.averageByLectureNo(lectureReviewDTO.getLectureNo());
+        lectureService.updateByLectureNoOnScore(lectureReviewDTO.getLectureNo(), score);
+        lectureService.updateReviewCount(lectureReviewDTO.getLectureNo(), reviewCount);
     }
 }

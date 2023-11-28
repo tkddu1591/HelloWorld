@@ -26,7 +26,7 @@ public class LectureService {
     }
 
     public int getLastLectureNo(String seller) {
-        return lectureRepository.findTopBySellerOrderByLectureNoDesc(seller).getLectureNo();
+        return lectureRepository.findTopByMember_UidOrderByLectureNoDesc(seller).getLectureNo();
     }
 
     public LectureDTO findByLectureNo(int lectureNo) {
