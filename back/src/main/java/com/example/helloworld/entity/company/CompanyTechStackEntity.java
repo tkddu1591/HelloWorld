@@ -11,9 +11,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "commuity_study_member")
-public class CompanyTechnologyStackEntity {
+@Table(name = "company_techStack")
+public class CompanyTechStackEntity {
     @Id
-    private int technologyStackNo;
-    private String technologyStack;
+    private int techStackNo;
+    private String techStackName;
 }

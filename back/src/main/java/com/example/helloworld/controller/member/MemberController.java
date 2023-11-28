@@ -1,7 +1,6 @@
 package com.example.helloworld.controller.member;
 
 
-import com.example.helloworld.dto.member.LoginDTO;
 import com.example.helloworld.dto.member.MemberDTO;
 import com.example.helloworld.service.member.MemberService;
 import jakarta.servlet.http.HttpServletRequest;

@@ -9,14 +9,16 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "commuity_study_member")
-public class CompanyTechnologyStackUseEntity {
+@Table(name = "company_usedTechStack")
+public class CompanyUsedTechStackEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int technologyStackUseNo;
+    private int usedTechStackNo;
+
     @ManyToOne
-    @JoinColumn(name = "technologyStackNo")
-    private CompanyTechnologyStackEntity technologyStack;
+    @JoinColumn(name = "techStackNo")
+    private CompanyTechStackEntity techStack;
+
     @ManyToOne
     @JoinColumn(name = "companyNo")
     private CompanyEntity company;
