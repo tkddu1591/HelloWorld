@@ -44,7 +44,7 @@ function ContentList({data, sort}) {
                                         <a className={'txt'} onClick={() => {
                                             navigate(`/community/view?tab=${sort}&cate=${a.cateNo}&no=${a.communityNo}`);
                                         }}>
-                                            {a.content}
+                                            <div dangerouslySetInnerHTML={{__html: a.content}}/>
                                         </a>
                                     </div>
                                     <div className={'con_bottom'}>

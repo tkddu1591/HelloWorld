@@ -30,6 +30,8 @@ public interface CommunityRepository extends JpaRepository<CommunityEntity, Inte
     @Query("SELECT c.communityNo FROM CommunityEntity c WHERE c.cate.cateNo = :cateNo AND c.communityNo > :communityNo ORDER BY c.communityNo ASC LIMIT 1")
     public String  findNextNo(@Param("cateNo") int cateNo, @Param("communityNo") int communityNo);
 
+    @Query("SELECT c.communityNo FROM CommunityEntity c WHERE c.isDelete = 0 AND c.member.uid = :uid ORDER BY c.regDate DESC LIMIT 1")
+    public int selectLatestCommunityNo(@Param("uid") String uid);
 
     public Page<CommunityEntity> findByCate_CateNo(int cateNo, Pageable pageable);
 

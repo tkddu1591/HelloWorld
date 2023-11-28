@@ -5,6 +5,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jdk.jfr.Category;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -34,9 +35,10 @@ public class CommunityEntity {
     @ManyToOne
     @JoinColumn(name = "uid")
     private MemberEntity member;
+    @CreationTimestamp
     private LocalDateTime regDate;
     private String regIp;
-    private boolean isDelete;
+    private int isDelete;
     private int likes;
     private int dislike;
     private int comAmount;

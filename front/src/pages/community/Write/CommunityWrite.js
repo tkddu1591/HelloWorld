@@ -11,33 +11,33 @@ import {useSelector} from "react-redux";
 
 
 const searchSelect = [
-    {value: '0', label: '자유게시판'},
-    {value: '1', label: '스터디'},
-    {value: '2', label: 'Q&A'},
+    {value: '1', label: '자유게시판'},
+    {value: '2', label: '스터디'},
+    {value: '3', label: 'Q&A'},
 ];
 
 const options = [
-    {value: 'java', label: 'Java'},
-    {value: 'python', label: 'Python'},
-    {value: 'c', label: 'C'},
-    {value: 'c#', label: 'C#'},
-    {value: 'c++', label: 'C++'},
-    {value: 'Android', label: 'Android'},
-    {value: 'react', label: 'React'},
-    {value: 'vue', label: 'Vue'},
-    {value: 'mysql', label: 'MySql'},
-    {value: 'oracle', label: 'Oracle'},
-    {value: 'flutter', label: 'Flutter'},
-    {value: 'javascript', label: 'Javascript'},
-    {value: 'django', label: 'Django'},
-    {value: 'html', label: 'Html'},
-    {value: 'css', label: 'Css'},
-    {value: 'node.js', label: 'Node.js'}
+    {value: 0, label: 'Java'},
+    {value: 1, label: 'Python'},
+    {value: 2, label: 'C'},
+    {value: 3, label: 'C#'},
+    {value: 4, label: 'C++'},
+    {value: 5, label: 'Android'},
+    {value: 6, label: 'React'},
+    {value: 7, label: 'Vue'},
+    {value: 8, label: 'MySql'},
+    {value: 9, label: 'Oracle'},
+    {value: 10, label: 'Flutter'},
+    {value: 11, label: 'Javascript'},
+    {value: 12, label: 'Django'},
+    {value: 13, label: 'Html'},
+    {value: 14, label: 'Css'},
+    {value: 15, label: 'Node.js'}
 ];
 
 
 function CommunityWrite() {
-    const [selectedSearch, setSelectedSearch] = useState(null);
+    const [selectedSearch, setSelectedSearch] = useState(0);
     const [selectedOption, setSelectedOption] = useState(null);
     const [content, setContent] = useState({value: null});
     const [title, setTitle] = useState({value: null});
@@ -87,6 +87,7 @@ function CommunityWrite() {
         )
             .then(res=>{
                 console.log('register success: ' + res.data);
+                navigate(`/community/view?cate=${selectedSearch.value}&no=${res.data}`);
             })
             .catch(err =>{
                 console.log(err);

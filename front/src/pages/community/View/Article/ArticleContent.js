@@ -14,7 +14,7 @@ function ArticleContent({view}){
                         {/*CONTENST_HEADER*/}
                         {/*SE_DOC_HEADER_END*/}
                         <div className={'se-main-container'}>
-                            {view.content}
+                            <div dangerouslySetInnerHTML={{__html: view.content}}/>
                         </div>
                     </div>
                 </div>

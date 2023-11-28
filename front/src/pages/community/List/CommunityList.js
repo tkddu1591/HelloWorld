@@ -86,23 +86,28 @@ function CommunityList() {
    // LIST 불러 오기
    useEffect(() => {
       console.log(sort);
-
       axios.get(`${API_BASE_URL}/community/list`,{
          params: pageRequestDTO
       })
           .then(res=>{
+             console.log('view axios success');
+             console.log(pageRequestDTO);
              setPageResponseDTO(res.data);
              setSort(res.data.sort);
           })
           .catch(err=>{
              console.log(err);
           })
-   }, [pageRequestDTO]);
+   }, []);
 
    useEffect(() => {
       console.log(pageResponseDTO)
       console.log(pageRequestDTO)
    }, [pageResponseDTO]);
+
+   useEffect(() => {
+      setPageRequestDTO(prev => ({ ...prev, cateNo: newCate }));
+   }, [newCate]);
    let navigate = useNavigate();
    if(pageResponseDTO.communityList.length!==0)
    return (<>

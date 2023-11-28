@@ -31,8 +31,8 @@ public class CommunityController {
     public PageResponseDTO list( PageRequestDTO pageRequestDTO){
         log.info("List");
         log.info(pageRequestDTO);
+        log.info("cateNo : "+pageRequestDTO.getCateNo());
         PageResponseDTO result = communityService.findCommunityByType(pageRequestDTO);
-
 
         log.info("here..1 : " +result);
         return result;
@@ -42,6 +42,8 @@ public class CommunityController {
     public PageResponseDTO view(int communityNo, int cateNo, PageRequestDTO pageRequestDTO, HttpServletRequest request, HttpServletResponse response){
 
         log.info("view...here");
+
+        log.info(pageRequestDTO.toString());
 
         return communityService.findByCommunityNo(communityNo, cateNo, pageRequestDTO, request, response);
     }
@@ -84,16 +86,18 @@ public class CommunityController {
     }
 
     @PostMapping("/register")
-    public CommunityDTO register(@RequestBody CommunityDTO communityDTO){
+    public int register(@RequestBody CommunityDTO communityDTO){
 
         CommunityEntity entity = null;
 
         log.info(communityDTO.toString());
         log.info("register");
 
-        communityService.register(communityDTO);
+        int result = communityService.register(communityDTO);
 
-        return null;
+        log.info("register completed: "+result);
+
+        return result;
     }
 
 

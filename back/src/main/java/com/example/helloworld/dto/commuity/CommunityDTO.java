@@ -19,7 +19,7 @@ public class CommunityDTO {
     private int fileNo;
     private LocalDateTime regDate;
     private String regIp;
-    private boolean isDelete;
+    private int isDelete;
     private int likes;
     private int dislike;
     private int comAmount;
@@ -31,5 +31,5 @@ public class CommunityDTO {
     private String nick;
     private String profileImg;
     private String boardName;
-    private List<String> tags;
+    private List<Integer> tags;
 }
