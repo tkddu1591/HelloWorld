@@ -34,8 +34,9 @@ function CommunityView() {
     let [commentsList, setCommentsList] = useState([]);
     let [commentReply, setCommentReply] = useState([]);
     let [uid, setUid] = useState('');
-    const [commentWrite, setCommentWrite] = useState('');
-    const [replyToComment, setReplyToComment] = useState(null);
+    let [commentWrite, setCommentWrite] = useState('');
+    let [replyToComment, setReplyToComment] = useState(null);
+    let [refreshTrigger, setRefreshTrigger] = useState(false);
     let [parentNo, setParentNo] = useState(0);
     let [tagsList, setTagsList] = useState([]);
     let myInfo = useSelector((state) => {return state.myInfo} )
@@ -53,7 +54,9 @@ function CommunityView() {
     };
 
     const commentRefresh = () => {
+        console.log('refresh here================');
         console.log('communityNo : '+communityNo);
+        console.log('commentType : '+commentType);
         axios.get(`${API_BASE_URL}/community/comment`,{
             params: {
                 communityNo : communityNo,
@@ -62,7 +65,9 @@ function CommunityView() {
         })
             .then(res => {
                 console.log('refresh success');
+                console.log(res.data.commentsList);
                 setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
+                setCommentReply(res.data.commentsList.filter(comment => comment.parentNo != 0));
             })
             .catch(err=>{
                 console.log(err);
@@ -120,6 +125,8 @@ function CommunityView() {
 
         setCommentsList(clonedList);
     }, [commentType]);
+
+
     useEffect(() => {
     }, [buttonStatus]);
 
@@ -133,6 +140,7 @@ function CommunityView() {
     const insertComment = () =>{
         axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo, parentNo, commentType, uid})
             .then(res => {
+                /*commentRefresh();*/
                 console.log('success');
                 setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
                 setCommentReply(res.data.commentsList.filter(comment => comment.parentNo != 0));
@@ -143,9 +151,18 @@ function CommunityView() {
                 setView(updatedView);
             })
     }
-    useEffect(()=>{
+    /*useEffect(()=>{
         commentRefresh();
-    },[commentsList])
+    },[commentsList])*/
+
+    useEffect(() => {
+        if(refreshTrigger === true){
+            console.log('refreshTrigger: '+ refreshTrigger);
+            commentRefresh();
+            setRefreshTrigger(false);
+        }
+        setRefreshTrigger(false);
+    }, [refreshTrigger]);
 
     return (
         <>
@@ -190,7 +207,8 @@ function CommunityView() {
                                                              myInfo={myInfo}
                                                              communityNo={communityNo}
                                                              commentType={commentType}
-                                                             commentRefresh={commentRefresh}>
+                                                             commentRefresh={commentRefresh}
+                                                             setRefreshTrigger={setRefreshTrigger}>
                                                 </CommentList>
                                                 <CommentWriter commentWrite={commentWrite}
                                                                setCommentWrite={setCommentWrite}

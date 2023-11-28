@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -30,4 +31,5 @@ public class CommunityDTO {
     private String nick;
     private String profileImg;
     private String boardName;
+    private List<String> tags;
 }
