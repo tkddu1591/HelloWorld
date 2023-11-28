@@ -48,9 +48,9 @@ public class MemberService {
     }
 
     public MemberDTO getMyInfo() {
-        MemberDTO myInfpo = memberTransform.toDTO(memberRepository.findByEmail(SecurityUtils.getMyEmail()));
-        myInfpo.setPass("*");
-        return myInfpo;
+        MemberDTO myInfo = memberTransform.toDTO(memberRepository.findByEmail(SecurityUtils.getMyEmail()));
+        if(myInfo != null) myInfo.setPass("*");
+        return myInfo;
     }
 
     public String findMyEmail(String name, String hp) {

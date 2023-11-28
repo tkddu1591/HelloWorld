@@ -1,5 +1,7 @@
 package com.example.helloworld.service.member;
 
+import com.example.helloworld.controller.member.EmailController;
+import com.example.helloworld.dto.member.EmailMessage;
 import com.example.helloworld.repository.member.MemberRepository;
 import jakarta.mail.*;
 import jakarta.mail.internet.MimeMessage;
@@ -9,10 +11,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 @Log4j2
@@ -69,17 +74,52 @@ public class EmailService {
     }
 
     // 이메일 인증용 메서드.
-    public String sendAuthEmail(String emailReceiver) throws MessagingException {
+    public String sendAuthEmail(String emailReceiver, int type) throws MessagingException {
         String authCode = createAuthCode();
         log.info(" - sendAuthEmail > authCode : " + authCode);
+
+
         EmailData mail = EmailData.builder()
                 .title(EmailFormat.SIGNUP_TITLE.getMessage())
-                .content(EmailFormat.SIGNUP_CONTENT.getMessage() + authCode + EmailFormat.CLOSE.getMessage())
+                .content(EmailFormat.SIGNUP_CONTENT.getMessage()
+                        + authCode + EmailFormat.CLOSE.getMessage())
                 .receiver(emailReceiver)
                 .authCode(authCode)
                 .build();
 
         return sendEmail(mail);
+    }
+
+    @Getter
+    public enum TYPE {
+        SIGN_UP(100),
+        FIND_PASS(200);
+        private final int type;
+        TYPE(int type) {
+            this.type = type;
+        }
+    }
+
+
+    public HashMap<String, String> sendEmailCode(HashMap<String, String> result, String email) {
+        String authCode;
+        try {
+            authCode = sendAuthEmail(email);
+            log.info(" - sendEmail > try...authCode : " + authCode);
+        } catch (MailSendException e) {
+            log.error(" - sendEmail > catch...MailSendException : " + e.getMessage());
+            result.put("message", EmailMessage.INVALID.getMessage());
+            return result;
+
+        } catch (MessagingException e) {
+            log.error(" - sendEmail > catch...MessagingException : " + e.getMessage());
+            result.put("message", EmailMessage.ERROR.getMessage());
+            return result;
+        }
+        log.info(" - sendEmail > Success");
+        result.put("message", EmailMessage.SUCCESS.getMessage());
+        result.put("auth", authCode);
+        return result;
     }
 
     @Getter

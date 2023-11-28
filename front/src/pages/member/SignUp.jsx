@@ -113,7 +113,7 @@ function SignUp() {
         axios.get(`${API_BASE_URL}/api/reqeustEmail`, {
             params: {
                 "email": inputValue.email,
-                "type": '가입'
+                "type": '100'
             }/*, headers:{Authorization: 'Bearer 어쩌구저쩌구'}*/
         }).then((response) => {
             changeDTO(setError, 'email', false);
