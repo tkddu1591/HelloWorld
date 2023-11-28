@@ -7,6 +7,8 @@ import com.example.helloworld.dto.commuity.CommunityCommentDTO;
 import com.example.helloworld.dto.commuity.CommunityDTO;
 import com.example.helloworld.entity.commuity.CommunityEntity;
 import com.example.helloworld.service.service.CommunityService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.annotations.Param;
@@ -37,9 +39,11 @@ public class CommunityController {
     }
 
     @GetMapping("/view")
-    public PageResponseDTO view(int communityNo, int cateNo, PageRequestDTO pageRequestDTO){
+    public PageResponseDTO view(int communityNo, int cateNo, PageRequestDTO pageRequestDTO, HttpServletRequest request, HttpServletResponse response){
 
-        return communityService.findByCommunityNo(communityNo, cateNo, pageRequestDTO);
+        log.info("view...here");
+
+        return communityService.findByCommunityNo(communityNo, cateNo, pageRequestDTO, request, response);
     }
 
 
@@ -72,10 +76,24 @@ public class CommunityController {
     public PageResponseDTO deleteComment(@RequestBody PageRequestDTO pageRequestDTO){
 
         log.info("delete");
+        log.info("commentNo : "+pageRequestDTO.getCommentNo());
         communityService.deleteComment(pageRequestDTO.getCommentNo());
 
         log.info("delete completed");
         return communityService.commentRefresh(pageRequestDTO, pageRequestDTO.getCommunityNo(), pageRequestDTO.getCommentType());
+    }
+
+    @PostMapping("/register")
+    public CommunityDTO register(@RequestBody CommunityDTO communityDTO){
+
+        CommunityEntity entity = null;
+
+        log.info(communityDTO.toString());
+        log.info("register");
+
+        communityService.register(communityDTO);
+
+        return null;
     }
 
 

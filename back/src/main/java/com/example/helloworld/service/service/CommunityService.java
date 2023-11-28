@@ -19,6 +19,9 @@ import com.example.helloworld.repository.member.MemberRepository;
 import com.example.helloworld.transform.commuity.CommunityCommentTransform;
 import com.example.helloworld.transform.commuity.CommunityHasTagTransform;
 import com.example.helloworld.transform.commuity.CommunityTransform;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,7 +30,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -88,7 +95,9 @@ public class CommunityService {
                 .build();
     }
 
-    public PageResponseDTO findByCommunityNo(int communityNo, int cateNo, PageRequestDTO pageRequestDTO) {
+    @Transactional
+    public PageResponseDTO findByCommunityNo(int communityNo, int cateNo, PageRequestDTO pageRequestDTO, HttpServletRequest request, HttpServletResponse response) {
+        viewCountValidation(communityNo, request, response);
         pageRequestDTO.setSize(20);
         pageRequestDTO.setSort("commentNo");
         Pageable pageable = pageRequestDTO.getPageableAsc();
@@ -139,6 +148,43 @@ public class CommunityService {
                 .nextNo(Integer.parseInt(nextNo))
                 .total(totalElement)
                 .build();
+    }
+
+    // COMMUNITY VIEW VALIDATION CHECK
+    // 한달에 한번만 조회수 1 증가하게끔 하는 쿠키 생성 및 유효성 검사
+    private void viewCountValidation(int communityNo, HttpServletRequest request, HttpServletResponse response) {
+        log.info("viewCountValidation here...1");
+        Cookie[] cookies = Optional.ofNullable(request.getCookies()).orElseGet(() ->new Cookie[0]);
+        log.info("viewCountValidation here...2");
+        Cookie cookie = Arrays.stream(cookies)
+                .filter(c -> c.getName().equals("viewCount"))
+                .findFirst()
+                .orElseGet(() -> {
+                    communityRepository.addHitCount(communityNo);
+                    return new Cookie("productView", "[" + communityNo + "]");
+                });
+
+        log.info("viewCountValidation here...3");
+        if (!cookie.getValue().contains("[" + communityNo + "]")) {
+            communityRepository.addHitCount(communityNo);
+            cookie.setValue(cookie.getValue() + "[" + communityNo + "]");
+        }
+        // 현재 시간
+        LocalDateTime now = LocalDateTime.now();
+
+        // 한 달 후의 시간을 계산
+        LocalDateTime oneMonthLater = now.plusMonths(1);
+
+        // 초 단위로 변환
+        long currentSecond = now.toEpochSecond(ZoneOffset.UTC);
+        long oneMonthLaterSecond = oneMonthLater.toEpochSecond(ZoneOffset.UTC);
+
+        /*long todayEndSecond = LocalDate.now().atTime(LocalTime.MAX).toEpochSecond(ZoneOffset.UTC);
+        long currentSecond = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);*/
+        cookie.setPath("/"); // 모든 경로에서 접근 가능
+        /*cookie.setMaxAge((int) (todayEndSecond - currentSecond)); // 오늘 하루 자정까지 남은 시간초 설정*/
+        cookie.setMaxAge((int) (oneMonthLaterSecond - currentSecond)); // 한 달 동안의 초로 설정
+        response.addCookie(cookie);
     }
 
     /*public PageResponseDTO findCommentsByCommunityNo(){
@@ -198,5 +244,23 @@ public class CommunityService {
         log.info("commentNo: " + commentNo);
         communityCommentRepository.updateIsDeletedByCommentNo(commentNo);
         log.info("delete service...2");
+    }
+
+
+    @Transactional
+    public void register(CommunityDTO community){
+
+        CommunityEntity entity = new CommunityEntity();
+        MemberEntity member = new MemberEntity();
+        CommunityCategoryEntity category = new CommunityCategoryEntity();
+
+        member.setUid(community.getUid());
+        category.setCateNo(community.getCateNo());
+
+        entity.setMember(member);
+        entity.setCate(category);
+
+        communityRepository.save(entity);
+
     }
 }

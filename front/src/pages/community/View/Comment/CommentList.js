@@ -243,6 +243,7 @@ function CommentList({
                                                         title="더보기"
                                                         className="comment_tool_button"
                                                         onClick={() => {
+                                                            changeDTO(setPopupSetting, 'axiosData', reply.commentNo)
                                                             setPopup('comment' + j);
                                                         }}>
                                                         <svg
@@ -384,6 +385,7 @@ function CommentList({
                                                         title="더보기"
                                                         className="comment_tool_button"
                                                         onClick={() => {
+                                                            changeDTO(setPopupSetting, 'axiosData', reply.commentNo)
                                                             setPopup('comment' + j);
                                                         }}>
                                                         <svg

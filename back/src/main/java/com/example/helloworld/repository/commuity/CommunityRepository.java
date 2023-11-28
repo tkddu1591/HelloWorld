@@ -17,6 +17,10 @@ public interface CommunityRepository extends JpaRepository<CommunityEntity, Inte
     public CommunityEntity findByCommunityNo(int i);
 
     @Modifying
+    @Query("UPDATE CommunityEntity c SET c.hit = c.hit + 1 WHERE c.communityNo = :communityNo")
+    void addHitCount(@Param("communityNo") int communityNo);
+
+    @Modifying
     @Query("UPDATE CommunityEntity e SET e.comAmount = e.comAmount + 1 WHERE e.communityNo = :communityNo")
     void updateComAmountByCommunityNo(@Param("communityNo") int communityNo);
 

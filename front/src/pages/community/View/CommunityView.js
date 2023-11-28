@@ -54,7 +54,9 @@ function CommunityView() {
     };
 
     const commentRefresh = () => {
+        console.log('refresh here================');
         console.log('communityNo : '+communityNo);
+        console.log('commentType : '+commentType);
         axios.get(`${API_BASE_URL}/community/comment`,{
             params: {
                 communityNo : communityNo,
@@ -63,7 +65,9 @@ function CommunityView() {
         })
             .then(res => {
                 console.log('refresh success');
+                console.log(res.data.commentsList);
                 setCommentsList(res.data.commentsList.filter(comment => comment.parentNo === 0));
+                setCommentReply(res.data.commentsList.filter(comment => comment.parentNo != 0));
             })
             .catch(err=>{
                 console.log(err);
@@ -153,6 +157,7 @@ function CommunityView() {
 
     useEffect(() => {
         if(refreshTrigger === true){
+            console.log('refreshTrigger: '+ refreshTrigger);
             commentRefresh();
             setRefreshTrigger(false);
         }
