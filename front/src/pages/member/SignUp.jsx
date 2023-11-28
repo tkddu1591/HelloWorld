@@ -110,20 +110,16 @@ function SignUp() {
     // axios
     const requestEmailAuthCode = () => {
         changeDTO(setError, 'message', '이메일 전송 중입니다.')
-        axios.get(`${API_BASE_URL}/api/reqeustEmail`, {
+        axios.get(`${API_BASE_URL}/api/reqeustEmail/signup`, {
             params: {
                 "email": inputValue.email,
-                "type": '100'
             }/*, headers:{Authorization: 'Bearer 어쩌구저쩌구'}*/
         }).then((response) => {
             changeDTO(setError, 'email', false);
             if(response.data.message === "인증번호를 확인해주세요.") setEmailDisplay1();
             changeDTO(setError, 'message', response.data.message);
 
-            ////////////////////////////////////////////////////////////////////////
-            // nosql 처리할 것.
             setAuth(response.data.auth);
-            ////////////////////////////////////////////////////////////////////////
         }).catch(error => {
             console.log(error);
         });
