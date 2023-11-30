@@ -25,7 +25,7 @@ function LectureList() {
         //태그
         if (tags.length === 0)
             apiClient.get(`/lecture/tags`).then((res) => {
-                if (res.data.length !== 0) {
+                if (res.data.length !== 0 && Array.isArray(res.data)) {
                     const newTags = res.data.map((tag) => ({
                         value: tag.tagNo,
                         label: tag.tagName,
@@ -41,16 +41,19 @@ function LectureList() {
             });
         //레벨
         apiClient.get(`/lecture/levels`).then((res) => {
-            const newLevel = res.data.map((level) => ({
-                value: level.levelNo,
-                label: level.levelName,
-            }));
+            if (Array.isArray(res.data)) {
+                const newLevel = res.data.map((level) => ({
+                    value: level.levelNo,
+                    label: level.levelName,
+                }));
 
-            // 중복된 값을 필터링하여 추가
-            setLevels((prevLevels) => {
-                const uniqueLevels = newLevel.filter(newTag => !prevLevels.some(prevTag => prevTag.value === newTag.value));
-                return [...(prevLevels || []), ...uniqueLevels];
-            });
+
+                // 중복된 값을 필터링하여 추가
+                setLevels((prevLevels) => {
+                    const uniqueLevels = newLevel.filter(newTag => !prevLevels.some(prevTag => prevTag.value === newTag.value));
+                    return [...(prevLevels || []), ...uniqueLevels];
+                });
+            }
         }).catch((err) => {
             console.log(err);
         });
