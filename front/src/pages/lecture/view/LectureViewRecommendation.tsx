@@ -3,8 +3,7 @@ import React, {useEffect, useState} from "react";
 import CardList from "../CardList";
 import Subhead from "../../../Subhead";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import lectureList from "../list/LectureList";
 import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
 
@@ -37,7 +36,7 @@ function LectureViewRecommendation({tagList, tagColor}) {
     }>();
 
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/lecture/list`, {
+        apiClient.get(`/lecture/list`, {
             params: {
                 pg:                1,
                 size:              3,

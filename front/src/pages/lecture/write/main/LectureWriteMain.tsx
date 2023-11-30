@@ -6,8 +6,7 @@ import EditorToolbar, {formats, modules} from "../../../community/EditorToolBar"
 import ReactQuill from "react-quill";
 import {useLocation, useNavigate} from "react-router-dom";
 import FileUpload from "./FileUpload";
-import axios from "axios";
-import {API_BASE_URL} from "../../../../App";
+import {API_BASE_URL, apiClient} from "../../../../App";
 import {changeDTO} from "../../../../store/changeDTO";
 import {useSelector} from "react-redux";
 
@@ -68,13 +67,13 @@ function LectureWriteMain() {
             try {
                 // 첫 번째 요청
                 if (lectureNo !== null) {
-                    const lectureResponse = await axios.get(API_BASE_URL + `/lecture/view?lectureNo=${lectureNo}`);
+                    const lectureResponse = await apiClient.get(`/lecture/view?lectureNo=${lectureNo}`);
                     setLecture(lectureResponse.data);
                     setIsModify(true);
                 }
 
                 // 두 번째 요청 (태그)
-                const tagsResponse = await axios.get(`${API_BASE_URL}/lecture/tags`);
+                const tagsResponse = await apiClient.get(`/lecture/tags`);
                 const newTags = tagsResponse.data.map((tag) => ({
                     value: tag.tagNo,
                     label: tag.tagName,
@@ -85,7 +84,7 @@ function LectureWriteMain() {
                 });
 
                 // 세 번째 요청 (레벨)
-                const levelsResponse = await axios.get(`${API_BASE_URL}/lecture/levels`);
+                const levelsResponse = await apiClient.get(`/lecture/levels`);
                 const newLevel = levelsResponse.data.map((level) => ({
                     value: level.levelNo,
                     label: level.levelName,
@@ -98,7 +97,7 @@ function LectureWriteMain() {
                 const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
 
                 if (accessToken !== null)
-                    axios.get(`${API_BASE_URL}/me`, {
+                    apiClient.get(`/me`, {
                         headers: {"Authorization": `Bearer ${accessToken}`}
                     })
                         .then((res) => {
@@ -253,7 +252,7 @@ function LectureWriteMain() {
                 <Button color={'info'} type={'submit'} onClick={async () => {
                     let newLectureNo: number = 0
                     if (lectureNo === null)
-                        await axios.post(`${API_BASE_URL}/lecture/write/main`, lecture).then(
+                        await apiClient.post(`/lecture/write/main`, lecture).then(
                             (res) => {
                                 if (res.status === 200 && typeof newLectureNo === 'number') {
                                     navigate('/lecture/write/content?lectureNo=' + res.data)

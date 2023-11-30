@@ -8,7 +8,7 @@ import LectureViewCurriculum from "./LectureViewCurriculum";
 import LectureViewReview from "./review/LectureViewReview";
 import LectureViewRecommendation from "./LectureViewRecommendation";
 import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {useLocation, useNavigate} from "react-router-dom";
 import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
 import {sendRefreshToken} from "../../../utils/member/sendRefreshToken";
@@ -116,7 +116,7 @@ function LectureView() {
     useEffect(() => {
         console.log(member)
         if (member.uid !== undefined)
-            axios.get(`${API_BASE_URL}/api/member/lecture/content/list`, {params: {lectureNo: lectureNo, uid: member.uid}}).then(response => {
+            apiClient.get(`/api/member/lecture/content/list`, {params: {lectureNo: lectureNo, uid: member.uid}}).then(response => {
                 dispatch(changeLectureIHeardList(response.data));
             })
     }, [member]);

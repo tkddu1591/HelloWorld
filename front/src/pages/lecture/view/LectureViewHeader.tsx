@@ -4,8 +4,7 @@ import '../scss/lecture.scss'
 import Star from "../../../components/Lecture/Star";
 import {useNavigate} from "react-router-dom";
 import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {useDispatch, useSelector} from "react-redux";
 import {changeContentCount} from "../../../slice/LectureContent";
 
@@ -17,7 +16,7 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
     let dispatch = useDispatch()
     useEffect(() => {
         if (lecture.lectureNo !== undefined)
-            axios.get(`${API_BASE_URL}/lecture/content/countByLecture`, {params: {lectureNo: lecture.lectureNo}}).then((res) => {
+            apiClient.get(`/lecture/content/countByLecture`, {params: {lectureNo: lecture.lectureNo}}).then((res) => {
                 dispatch(changeContentCount(res.data))
             }).catch(err => console.log(err));
     }, [lecture]);
@@ -85,7 +84,7 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
                             } else if (member.uid !== undefined) {
                                 const cart = async () => {
                                     let cart = 0;
-                                    await axios.get(`${API_BASE_URL}/api/lecture/cart/count`, {
+                                    await apiClient.get(`/api/lecture/cart/count`, {
                                         params: {
                                             uid:       member.uid,
                                             lectureNo: lecture.lectureNo,
@@ -100,7 +99,7 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
                                     }
                                 }
                                 const cartSave = async () => {
-                                    await axios.post(`${API_BASE_URL}/api/lecture/cart`,
+                                    await apiClient.post(`/api/lecture/cart`,
                                         {
                                             uid:       member.uid,
                                             lectureNo: lecture.lectureNo,

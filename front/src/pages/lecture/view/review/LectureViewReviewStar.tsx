@@ -1,8 +1,7 @@
 import Star from "../../../../components/Lecture/Star";
 import {Progress} from "reactstrap";
 import React, {useEffect, useState} from "react";
-import axios from "axios";
-import {API_BASE_URL} from "../../../../App";
+import {API_BASE_URL, apiClient} from "../../../../App";
 
 
 interface ReviewStarProps {
@@ -25,7 +24,7 @@ function LectureReviewStart({pageResponse, lecture, isReviewWrite}: ReviewStarPr
 
                     if (!existingScore) {
                         try {
-                            const response = await axios.get(`${API_BASE_URL}/lecture/review/scoreCount?lectureNo=` + lecture.lectureNo, {
+                            const response = await apiClient.get(`/lecture/review/scoreCount?lectureNo=` + lecture.lectureNo, {
                                 params: {
                                     lectureNo: lecture.lectureNo,
                                     score:     score

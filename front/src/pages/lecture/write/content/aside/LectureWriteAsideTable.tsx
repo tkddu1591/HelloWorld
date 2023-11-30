@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Button, Table} from "reactstrap";
 import {changeDTO} from "../../../../../store/changeDTO";
 import firebase from "firebase/compat";
-import axios from "axios";
 
 
 interface LectureWriteAsideTableProps {

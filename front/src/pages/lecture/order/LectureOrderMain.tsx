@@ -4,7 +4,6 @@ import LectureOrderBasicInfo from './LectureOrderBasicInfo';
 import LectureOrderAddInfo from './LectureOrderAddInfo';
 import LectureOrderListTable from './LectureOrderListTable';
 import LectureOrderTotal from './LectureOrderTotal';
-import axios from "axios";
 import {API_BASE_URL, apiClient} from "../../../App";
 import {useSelector} from "react-redux";
 import {CartItem, CartTotal} from "../../../type/cart";

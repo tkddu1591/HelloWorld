@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import LectureWriteAsideHeader from './LectureWriteAsideHeader';
 import LectureWriteAsideTable from './LectureWriteAsideTable';
 import LectureWriteAsideFooter from './LectureWriteAsideFooter';
-import axios from "axios";
 
 function LectureWriteAside({lectureNo, setPost, part, contentList,setPart,setContentList, contentListSave,partSave, post}) {
     let [aside, setAside] = useState(false);

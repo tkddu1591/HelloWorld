@@ -7,8 +7,7 @@ import LectureViewReviewWrite from "./LectureViewReviewWrite";
 import reviewList from "../../../../components/Lecture/ReviewList";
 import LecturePagination from "../../../../components/Lecture/LecturePagination";
 import {useLocation} from "react-router-dom";
-import axios from "axios";
-import {API_BASE_URL} from "../../../../App";
+import {API_BASE_URL, apiClient} from "../../../../App";
 import {changeDTO} from "../../../../store/changeDTO";
 
 function LectureViewReview({checkBuy, popup, setPopup, lecture, setIsReviewWrite, isReviewWrite, member, div, top}) {
@@ -31,7 +30,7 @@ function LectureViewReview({checkBuy, popup, setPopup, lecture, setIsReviewWrite
         changeDTO(setPageRequest,'lectureNo',lectureNo)
     }, [lectureNo]);
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/lecture/review/list`, {params: pageRequest})
+        apiClient.get(`/lecture/review/list`, {params: pageRequest})
             .then(response => {
                 // lectureReviewList의 이름을 list로 변경
                 const modifiedResponse = {...response.data, list: response.data.lectureReviewList};
