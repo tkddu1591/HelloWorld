@@ -81,6 +81,7 @@
     "chokidar": "3.5.3"
   },
   "homepage": "./",
+  "homepage": "https://master--wonderful-genie-12322.netlify.app/",
   "devDependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

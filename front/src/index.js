@@ -39,7 +39,7 @@ root.render(
    <React.StrictMode>
        <CookiesProvider>
           <Provider store={store}>
-             <BrowserRouter basename={BASENAME}>
+             <BrowserRouter basename={process.env.PUBLIC_URL}>
              {/*<BrowserRouter>*/}
                 <ScrollToTop/>
                 <App />
