@@ -1,12 +1,32 @@
 import React from 'react';
 import '../../../../css/community/view.css';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import {API_BASE_URL} from "../../../../App";
 
-function ArticleTopBtns ({view, prevNo, nextNo, setCateNo, setCommunityNo}){
+function ArticleTopBtns ({view, prevNo, nextNo, setCateNo, setCommunityNo, myInfo, storeCateNo, listURL}){
     let navigate = useNavigate();
     return(<>
         <div className="ArticleTopBtns">
-            <div className="left_area">{/*빈 공간*/}</div>
+            {view.uid === myInfo.uid && <div className="left_area">{/*빈 공간*/}
+                <a role="button" className="BaseButton BaseButton--skinGray size_default" onClick={() => {
+                    if (window.confirm('수정하시겠습니까?'))
+                        axios.get(`${API_BASE_URL}/community/modify`, {params: {communityNo: view.communityNo, uid: myInfo.uid}}).then(() => {
+                            navigate(`community/list?cateNo=${storeCateNo.no}`);
+                        })
+                }}>{/*<!---->*/}
+                    <span className="BaseButton__txt"> 수정 </span>
+                </a>
+                <a role="button" className="BaseButton BaseButton--skinGray size_default" onClick={() => {
+                    if (window.confirm('삭제하시겠습니까?'))
+                        axios.get(`${API_BASE_URL}/community/view/delete`, {params: {communityNo: view.communityNo, uid: myInfo.uid}}).then(() => {
+                            alert('삭제되었습니다.');
+                            navigate(`community/list?cateNo=${storeCateNo.no}`);
+                        })
+                }}>{/*<!---->*/}
+                    <span className="BaseButton__txt"> 삭제 </span>
+                </a>
+            </div>}
             <div className="right_area">
                 { prevNo != 0 &&
                     <a
@@ -57,7 +77,7 @@ function ArticleTopBtns ({view, prevNo, nextNo, setCateNo, setCommunityNo}){
                 <a
                     className="BaseButton BaseButton--skinGray size_default"
                     onClick={() => {
-                        navigate(`/community/list?cateNo=${view.cateNo}`);
+                        navigate(listURL);
                     }}>
                     {/**/}
                     <span className={'BaseButton_txt'}>목록</span>

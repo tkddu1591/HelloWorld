@@ -68,7 +68,7 @@ function ArticleHeader({view, navigate, scrollToCommentOption}){
                         </div>
                         <em className="nick_level">
                             {' '}
-                            등급임(레벨)
+                            Level_1
                             <i
                                 data-v-83d84c4a=""
                                 className="LevelIcon icon_level"

@@ -185,7 +185,7 @@ function IndexNavbar() {
 								<DropdownMenu>
 									<DropdownItem to="/community/list?cateNo=1" tag={Link}>
 										<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
-										개발자 라운지
+										자유게시판
 									</DropdownItem>
 									<DropdownItem to="/community/list?cateNo=2" tag={Link}>
 										<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>

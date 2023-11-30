@@ -84,14 +84,14 @@ function ContentList({data, sort}) {
                                     </div>
                                 </div>
                                 <div className={'movie-img'}>
-                                    <a onClick={() => {
+                                    {a.thumb !=null || a.thumb == "" &&  <a onClick={() => {
                                         navigate('/community/view');
                                     }}>
-                                        <img src={`/images/community/testimg.jpg`} width={'120px'}
+                                        <img src={a.thumb} width={'120px'}
                                              height={'120px'}
                                              alt={'썸네일'}>
                                         </img>
-                                    </a>
+                                    </a>}
                                 </div>
                             </div>
                         </li>

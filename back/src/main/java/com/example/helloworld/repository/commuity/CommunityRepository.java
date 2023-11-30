@@ -3,6 +3,7 @@ package com.example.helloworld.repository.commuity;
 import com.example.helloworld.dto.PageResponseDTO;
 import com.example.helloworld.entity.commuity.CommunityCategoryEntity;
 import com.example.helloworld.entity.commuity.CommunityEntity;
+import jakarta.transaction.Transactional;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,11 @@ import org.springframework.stereotype.Repository;
 public interface CommunityRepository extends JpaRepository<CommunityEntity, Integer> {
 
     public CommunityEntity findByCommunityNo(int i);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE CommunityEntity c SET c.isDelete = -1 WHERE c.communityNo = :communityNo AND c.member.uid = :uid")
+    public void updateDeleteCommunity(@Param("communityNo")int communityNo, @Param("uid") String uid);
 
     @Modifying
     @Query("UPDATE CommunityEntity c SET c.hit = c.hit + 1 WHERE c.communityNo = :communityNo")
@@ -33,6 +39,6 @@ public interface CommunityRepository extends JpaRepository<CommunityEntity, Inte
     @Query("SELECT c.communityNo FROM CommunityEntity c WHERE c.isDelete = 0 AND c.member.uid = :uid ORDER BY c.regDate DESC LIMIT 1")
     public int selectLatestCommunityNo(@Param("uid") String uid);
 
-    public Page<CommunityEntity> findByCate_CateNo(int cateNo, Pageable pageable);
+    public Page<CommunityEntity> findByCate_CateNoAndIsDelete(int cateNo, int isDelete, Pageable pageable);
 
 }

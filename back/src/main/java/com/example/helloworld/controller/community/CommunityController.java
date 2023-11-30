@@ -32,6 +32,7 @@ public class CommunityController {
         log.info("List");
         log.info(pageRequestDTO);
         log.info("cateNo : "+pageRequestDTO.getCateNo());
+        log.info("sort : "+pageRequestDTO.getSort());
         PageResponseDTO result = communityService.findCommunityByType(pageRequestDTO);
 
         log.info("here..1 : " +result);
@@ -46,6 +47,17 @@ public class CommunityController {
         log.info(pageRequestDTO.toString());
 
         return communityService.findByCommunityNo(communityNo, cateNo, pageRequestDTO, request, response);
+    }
+
+    @GetMapping("/view/delete")
+    public void deleteCommunity(int communityNo, String uid){
+        log.info("delete...here");
+
+        log.info("communityNo: "+communityNo);
+        log.info("uid: "+uid);
+
+        communityService.deleteCommunity(communityNo, uid);
+        log.info("delete...complete");
     }
 
 

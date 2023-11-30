@@ -11,6 +11,8 @@ import LecturePagination from "../../../components/Lecture/LecturePagination";
 import {API_BASE_URL} from "../../../App";
 import axios from "axios";
 import {changeDTO} from "../../../store/changeDTO";
+import {useDispatch, useSelector} from "react-redux";
+import {changeURL} from "../../../slice/CommunityListURL";
 
 const options = [
    { value: 'java', label: 'Java' },
@@ -42,11 +44,13 @@ const searchSelect = [
 function CommunityList() {
    const location = useLocation();
    const searchParams = new URLSearchParams(location.search);
+   let dispatch = useDispatch();
+   let listURL = useSelector((state)=>{return state.listURL});
 
    const newSearch = searchParams.get('search');
    const [search, setSearch] = useState(newSearch);
-   const newSort = searchParams.get('sort');
-   const [sort, setSort] = useState(newSort);
+   const newSort = searchParams.get('tab');
+   const [sort, setSort] = useState('communityNo');
    const [num1, setNum1] = useState(0);
    const [num2, setNum2] = useState(0);
    const [detailSearch, setDetailSearch] = useState(newSearch);
@@ -57,10 +61,10 @@ function CommunityList() {
    });
 
    let [pageRequestDTO, setPageRequestDTO] = useState({
-      pg: 1, size: 10, cateNo: newCate, sort: "communityNo"
+      pg: 1, size: 10, cateNo: newCate, sort: newSort
    })
    let [pageResponseDTO, setPageResponseDTO] = useState({
-      cateNo: parseInt(cateNo), communityList: [], end: 10, start: 1, next: true, prev: true, total: 10, size: 10, sort: "communityNo"
+      cateNo: parseInt(cateNo), communityList: [], end: 10, start: 1, next: true, prev: true, total: 10, size: 10, sort: sort
    });
    const [selectedOption, setSelectedOption] = useState(null);
    const [selectedSearch, setSelectedSearch] = useState(null);
@@ -77,11 +81,6 @@ function CommunityList() {
          window.removeEventListener(`resize`, windowResize);
       };
    }, []);
-
-   useEffect(()=>{
-      changeDTO(setPageRequestDTO, 'sort', sort)
-      /*searchParams.set(`${API_BASE_URL}/community/list?cate`)*/
-   },[sort])
 
    // LIST 불러 오기
    useEffect(() => {
@@ -100,6 +99,34 @@ function CommunityList() {
           })
    }, []);
 
+   useEffect(()=>{
+      console.log('sort: '+sort);
+      console.log('newSort: '+newSort);
+      console.log('listURL: '+listURL.url);
+      console.log('cate: '+pageRequestDTO.cateNo);
+      changeDTO(setPageRequestDTO, 'sort', sort)
+   },[sort])
+
+   useEffect(() => {
+      console.log('pageRequestDTO: '+pageRequestDTO);
+      axios.get(`${API_BASE_URL}/community/list`,{
+         params: pageRequestDTO
+      })
+          .then(res=>{
+             dispatch(changeURL(location.pathname+location.search));
+             console.log('view axios success');
+             console.log(pageRequestDTO);
+             setPageResponseDTO(res.data);
+          })
+          .catch(err=>{
+             console.log(err);
+          })
+   }, [pageRequestDTO]);
+
+   useEffect(() => {
+      changeDTO(setPageRequestDTO, 'sort', sort)
+   }, [newSort]);
+
    useEffect(() => {
       console.log(pageResponseDTO)
       console.log(pageRequestDTO)
@@ -113,11 +140,13 @@ function CommunityList() {
    return (<>
       <Container style={{ userSelect: 'none' }}>
          <div className='list'>
-            <SearchBar selectedSearch={selectedSearch} setSelectedSearch={setSelectedSearch}
+            <SearchBar selectedSearch={selectedSearch}
+                       setSelectedSearch={setSelectedSearch}
                        searchSelect={searchSelect}
                        selectedOption={selectedOption}
                        setSelectedOption={setSelectedOption}
-                       options={options}></SearchBar>
+                       options={options}>
+            </SearchBar>
             <ViewOption cateNo={cateNo} sort={sort} setSort={setSort} listLoading={listLoading} setListLoading={setListLoading} navigate={navigate}></ViewOption>
             {listLoading && (clientWidth < 992 || listLoading.view === 'card') && <ContentCard data={pageResponseDTO}></ContentCard>}
             {listLoading && clientWidth >= 992 && listLoading.view === 'list' && <ContentList sort={sort} data={pageResponseDTO}></ContentList>}

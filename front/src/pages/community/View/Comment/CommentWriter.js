@@ -109,6 +109,10 @@ function CommentWriter({
                     </a>)}
                     <a data-v-afadf0bc="" role="button" className="button btn_register is_active"
                        onClick={() => {
+                           if(text === null || text === '') {
+                               alert('내용을 작성해주세요.');
+                               return;
+                           }
                            setParentNo(0);
                            setCommentWrite(text);
                            insertComment();

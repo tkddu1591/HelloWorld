@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Nav from 'react-bootstrap/Nav';
 import './../../../css/community/list.css';
 import PageListViewType from '../../../components/Lecture/PageListType';
 import Button from 'react-bootstrap/Button';
+import {changeCateNo} from "../../../slice/CommunityCateNo";
+import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
+import {changeURL} from "../../../slice/CommunityListURL";
 
 function ViewOption({sort, setSort, listLoading, setListLoading, navigate, cateNo}) {
+
+    let dispatch = useDispatch();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
+
+    useEffect(() => {
+        console.log(location.pathname+location.search);
+    }, [location]);
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
@@ -14,18 +27,21 @@ function ViewOption({sort, setSort, listLoading, setListLoading, navigate, cateN
                     <Nav.Link eventKey='link-0' active={sort==="communityNo"} onClick={()=>{
                         setSort("communityNo");
                         navigate(`/community/list?tab=communityNo&cateNo=${cateNo}`);
+                        /*dispatch(changeURL(`/community/list?tab=communityNo&cateNo=${cateNo}`));*/
                     }}>최신순</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link eventKey='link-1' active={sort==="comAmount"} onClick={()=>{
                         setSort("comAmount");
                         navigate(`/community/list?tab=comAmount&cateNo=${cateNo}`);
+                        /*dispatch(changeURL(location.pathname+location.search));*/
                     }}>댓글 TOP</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link eventKey='link-2' active={sort==="likes"} onClick={()=>{
                         setSort("likes");
                         navigate(`/community/list?tab=likes&cateNo=${cateNo}`);
+                        /*dispatch(changeURL(location.pathname+location.search));*/
                     }}>좋아요 TOP</Nav.Link>
                 </Nav.Item>
             </Nav>
@@ -33,6 +49,7 @@ function ViewOption({sort, setSort, listLoading, setListLoading, navigate, cateN
             <div>
                 <Button variant='primary' style={{ background: '#2CA8FF' }} onClick={
                     () => {
+                        dispatch(changeCateNo(cateNo))
                         navigate('/community/write');
                     }
                 }>

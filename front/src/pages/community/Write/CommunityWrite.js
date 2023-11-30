@@ -37,12 +37,17 @@ const options = [
 
 
 function CommunityWrite() {
-    const [selectedSearch, setSelectedSearch] = useState(0);
+    let storeCateNo = useSelector((state) => {
+        return state.cateNo
+    });
+    const [selectedSearch, setSelectedSearch] = useState(searchSelect[storeCateNo.no - 1]);
     const [selectedOption, setSelectedOption] = useState(null);
     const [content, setContent] = useState({value: null});
     const [title, setTitle] = useState({value: null});
     let [uid, setUid] = useState('');
-    let myInfo = useSelector((state) => {return state.myInfo} );
+    let myInfo = useSelector((state) => {
+        return state.myInfo
+    });
     let navigate = useNavigate();
 
     const handleChange = value => {
@@ -55,6 +60,9 @@ function CommunityWrite() {
 
     useEffect(() => {
         setUid(myInfo.uid);
+        console.log('storeCateNo: ' + storeCateNo.no);
+        console.log('searchSelect : ' + searchSelect[storeCateNo.no]);
+        /*setSelectedSearch(searchSelect[]);*/
     }, []);
 
     useEffect(() => {
@@ -85,23 +93,27 @@ function CommunityWrite() {
                 uid: uid
             }
         )
-            .then(res=>{
+            .then(res => {
                 console.log('register success: ' + res.data);
                 navigate(`/community/view?cate=${selectedSearch.value}&no=${res.data}`);
             })
-            .catch(err =>{
+            .catch(err => {
                 console.log(err);
             })
     }
 
     useEffect(() => {
-        console.log('title : '+title.value);
-    },[title])
+        console.log(selectedSearch);
+        console.log('title : ' + title.value);
+    }, [title])
 
     return (<>
             <Container>
                 <div className="write" style={{marginTop: "90px"}}>
-                    <WriteHeader register={register}></WriteHeader>
+                    <WriteHeader register={register}
+                                 title={title}
+                                 content={content}>
+                    </WriteHeader>
                     <WriteTitleBar selectedSearch={selectedSearch}
                                    setSelectedSearch={setSelectedSearch}
                                    searchSelect={searchSelect}
@@ -110,7 +122,9 @@ function CommunityWrite() {
                                    setSelectedOption={setSelectedOption}
                                    title={title}
                                    setTitle={setTitle}
-                                   titleChange={titleChange}></WriteTitleBar>
+                                   titleChange={titleChange}
+                                   storeCateNo={storeCateNo}>
+                    </WriteTitleBar>
                     <MyComponent handleChange={handleChange} content={content}></MyComponent>
                 </div>
             </Container>

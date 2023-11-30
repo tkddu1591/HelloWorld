@@ -75,7 +75,7 @@ public class CommunityService {
         //dtoList
         //findBy머시기 by뒤가 where절이라고 보면 됨니다.
         if (pageRequestDTO.getCateNo() != 0) {
-            result = communityRepository.findByCate_CateNo(pageRequestDTO.getCateNo(), pageable);
+            result = communityRepository.findByCate_CateNoAndIsDelete(pageRequestDTO.getCateNo(), 0, pageable);
         }
 
 
@@ -186,6 +186,13 @@ public class CommunityService {
         /*cookie.setMaxAge((int) (todayEndSecond - currentSecond)); // 오늘 하루 자정까지 남은 시간초 설정*/
         cookie.setMaxAge((int) (oneMonthLaterSecond - currentSecond)); // 한 달 동안의 초로 설정
         response.addCookie(cookie);
+    }
+
+    public void deleteCommunity(int communityNo, String uid){
+
+        log.info("deleteCommunity here...1");
+        communityRepository.updateDeleteCommunity(communityNo, uid);
+        log.info("deleteCommunity here...2");
     }
 
     /*public PageResponseDTO findCommentsByCommunityNo(){
