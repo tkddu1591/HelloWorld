@@ -201,11 +201,9 @@ function App() {
             <Route
                 path="lecture"
                 element={
-                    <>
                         <Suspense fallback={<Fallback fallback={fallback}></Fallback>}>
                             <Outlet></Outlet>
                         </Suspense>
-                    </>
                 }>
                 <Route path="list" element={<LectureList></LectureList>}></Route>
                 <Route path="index" element={<LectureHome></LectureHome>}></Route>

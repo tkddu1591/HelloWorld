@@ -18,7 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "http://52.78.236.129:8080",
                         "http://52.78.236.129:80",
                         "http://52.78.236.129",
-                        "https://wonderful-genie-12322.netlify.app"
+                        "https://wonderful-genie-12322.netlify.app",
+                        "https://silver-dodol-a6f296.netlify.app/"
                 )
                 .allowedHeaders("*")
                 .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE");
