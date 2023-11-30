@@ -4,7 +4,6 @@ from = "/api/*"
 to = "http://52.78.236.129:8080"
 status = 200
 force = true
-
 [[redirects]]
 from = "/proxy/*"
 to = "/index.html"

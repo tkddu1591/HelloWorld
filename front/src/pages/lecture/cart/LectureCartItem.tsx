@@ -3,7 +3,7 @@ import React from 'react';
 import LectureCartList from './LectureCartList';
 import LectureCartTotal from './LectureCartTotal';
 
-interface LectureCartItmeProps {
+interface LectureCartItemProps {
 	coupon?: {
 		list?: {
 			value?: string;
@@ -27,7 +27,7 @@ interface LectureCartItmeProps {
 	setIsChange: (value: boolean)=> void
 }
 
-function LectureCartItem({ coupon, cartList, setCartList, isChange, setIsChange }:LectureCartItmeProps) {
+function LectureCartItem({ coupon, cartList, setCartList, isChange, setIsChange }:LectureCartItemProps) {
 
 	return (
 		<Container>
