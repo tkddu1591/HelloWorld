@@ -63,7 +63,7 @@ const host = window.location.hostname === "localhost"
     ? 'http://52.78.236.129:8080'
     : "api";
 
-export const API_CLIENT = axios.create({
+export const apiClient = axios.create({
     baseURL: host,
 });
 function App() {

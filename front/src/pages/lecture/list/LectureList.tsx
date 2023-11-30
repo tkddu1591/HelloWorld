@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SearchBar from '../../../components/Lecture/SearchBar';
 import '../scss/lecture/list/list.scss';
 import ListTable from '../../../components/Lecture/ListTable';
-import {API_BASE_URL, API_CLIENT} from "../../../App";
-import axios from "axios";
+import {apiClient} from "../../../App";
 import {changeDTO} from "../../../store/changeDTO";
 import {useLocation} from "react-router-dom";
 
@@ -25,7 +24,7 @@ function LectureList() {
     useEffect(() => {
         //태그
         if (tags.length === 0)
-            axios.get(`/lecture/tags`).then((res) => {
+            apiClient.get(`/lecture/tags`).then((res) => {
                 if (res.data.length !== 0) {
                     const newTags = res.data.map((tag) => ({
                         value: tag.tagNo,
@@ -41,7 +40,7 @@ function LectureList() {
                 console.log(err);
             });
         //레벨
-        axios.get(`/lecture/levels`).then((res) => {
+        apiClient.get(`/lecture/levels`).then((res) => {
             const newLevel = res.data.map((level) => ({
                 value: level.levelNo,
                 label: level.levelName,
@@ -148,7 +147,7 @@ function LectureList() {
         console.log(pageRequest.pg)
         changeDTO(setPageRequest, 'lecture', lecture)
             .then(r =>
-                axios.get(`/lecture/list`, {
+                apiClient.get(`/lecture/list`, {
                     params: {
                         pg:                  pageRequest?.pg,
                         size:                pageRequest?.size,
