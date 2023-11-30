@@ -18,3 +18,9 @@
 
 /log/
 .env
+/front/.env
+/front/.env.local
+/front/.env.production
+/front/.env/
+/front/.env.local/
+/front/.env.production/
