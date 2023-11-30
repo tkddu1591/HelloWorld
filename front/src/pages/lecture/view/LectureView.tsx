@@ -7,7 +7,6 @@ import LectureViewContent from "./LectureViewContent";
 import LectureViewCurriculum from "./LectureViewCurriculum";
 import LectureViewReview from "./review/LectureViewReview";
 import LectureViewRecommendation from "./LectureViewRecommendation";
-import axios from "axios";
 import {API_BASE_URL, apiClient} from "../../../App";
 import {useLocation, useNavigate} from "react-router-dom";
 import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
@@ -31,7 +30,7 @@ function LectureView() {
     useEffect(() => {
         //태그
         if (tags.length === 0)
-            axios.get(`${API_BASE_URL}/lecture/tags`).then((res) => {
+            apiClient.get(`/lecture/tags`).then((res) => {
                 if (res.data.length !== 0) {
                     const newTags = res.data.map((tag) => ({
                         value: tag.tagNo,
@@ -49,7 +48,7 @@ function LectureView() {
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
 
         if (accessToken !== null)
-            axios.get(`${API_BASE_URL}/me`, {
+            apiClient.get(`/me`, {
                 headers: {"Authorization": `Bearer ${accessToken}`}
             })
                 .then((res) => {
@@ -74,7 +73,7 @@ function LectureView() {
     const [isReviewWrite, setIsReviewWrite] = useState(false);
     useEffect(() => {
         if (lectureNo !== null) {
-            axios.get(API_BASE_URL + `/lecture/view?lectureNo=${searchParams.get('lectureNo')}`).then(response => {
+            apiClient.get(`/lecture/view?lectureNo=${searchParams.get('lectureNo')}`).then(response => {
                 setLecture(response.data)
             }).catch(err => {
                 console.log(err)
@@ -97,7 +96,7 @@ function LectureView() {
             setCheckSeller(true)
             setCheckBuy(false)
         } else if (member.uid && lecture.lectureNo)
-            axios.get(`${API_BASE_URL}/api/lecture/orderItem/buy?uid=${member.uid}&lectureNo=${lecture.lectureNo}`).then((res) => {
+            apiClient.get(`/api/lecture/orderItem/buy?uid=${member.uid}&lectureNo=${lecture.lectureNo}`).then((res) => {
                 if (res.data > 0) {
                     setCheckBuy(true)
                     setCheckSeller(false)
