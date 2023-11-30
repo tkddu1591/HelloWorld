@@ -91,7 +91,6 @@ function LectureView() {
         }
     };
     useEffect(() => {
-        console.log(lecture)
         if ((member.uid && lecture.seller) && member?.uid === lecture?.seller) {
             setCheckSeller(true)
             setCheckBuy(false)
@@ -113,7 +112,6 @@ function LectureView() {
     }, [member, lecture])
 
     useEffect(() => {
-        console.log(member)
         if (member.uid !== undefined)
             apiClient.get(`/api/member/lecture/content/list`, {params: {lectureNo: lectureNo, uid: member.uid}}).then(response => {
                 dispatch(changeLectureIHeardList(response.data));

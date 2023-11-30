@@ -12,7 +12,6 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
     let navigate = useNavigate();
     let [arrayList, setArrayList] = useState<string[]>([]);
     let contentCount = useSelector((state: any) => state.contentCount);
-    console.log(contentCount)
     let dispatch = useDispatch()
     useEffect(() => {
         if (lecture.lectureNo !== undefined)

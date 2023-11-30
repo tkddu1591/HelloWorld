@@ -110,7 +110,13 @@ function LectureComplete() {
                                 {order &&
                                     <tr>
                                         <td>{order?.ordNo}</td>
-                                        <td>{order.ordDate?.substring(0, 10)} {order.ordDate?.substring(11, 19)}</td>
+                                        <td>{Array.isArray(order.ordDate) && (
+                                            order.ordDate.slice(0, 6).map((number, index) => (
+                                                (index === 0 ? String(number).padStart(4, '0') :
+                                                    String(number).padStart(2, '0')) +
+                                                ((index < 2) ? '-' : (index === 2 ? ' ' : (index === 5 ? '' : ':')))
+                                            )).join('')
+                                        )}</td>
                                         <td>{order.email}</td>
                                         <td>￦{order.totalPrice?.toLocaleString()}</td>
                                         <td>{paymentCheck(order.payment)}</td>
@@ -139,7 +145,8 @@ function LectureComplete() {
                                             <td>
                                                 {item.discount !== 0 &&
                                                     <div
-                                                        style={{color: "gray", textDecoration: 'line-through'}}>{Number((item.price * item.count).toFixed(0)).toLocaleString()} ￦
+                                                        style={{color:      "gray", textDecoration: 'line-through'
+                                                        }}>{Number((item.price * item.count).toFixed(0)).toLocaleString()} ￦
                                                     </div>}
                                                 <div>{Number(item.total.toFixed(0)).toLocaleString()} ￦</div>
                                             </td>

@@ -54,7 +54,6 @@ function LectureViewReview({checkBuy, popup, setPopup, lecture, setIsReviewWrite
                                    setPageRequest={setPageRequest} setIsReviewWrite={setIsReviewWrite}
                                    checkBuy={checkBuy}
                                    isReviewWrite={isReviewWrite} top={top}></LectureViewReviewList>
-
             {checkBuy &&
                 <LectureViewReviewWrite setIsReviewWrite={setIsReviewWrite} member={member}
                                         isReviewWrite={isReviewWrite}></LectureViewReviewWrite>}
