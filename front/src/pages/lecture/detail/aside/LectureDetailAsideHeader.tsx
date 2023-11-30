@@ -42,7 +42,7 @@ function LectureDetailAsideHeader({ aside, setAside }) {
                now={lectureIHeardList.length/contentCount*100}
                style={{ marginTop: '40px' }}
                animated={true}
-               label={`${lectureIHeardList.length/contentCount*100}%`}
+               label={`${(lectureIHeardList.length/contentCount*100).toFixed(2)}%`}
                variant={'success'}></ProgressBar>
          </div>
       </>

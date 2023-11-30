@@ -164,14 +164,14 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
                         <div className="progress-container progress-danger"
                              style={{display: "flex", justifyContent: "center"}}>
 
-                            <Progress max="100" value={lectureIHeardList?.length / contentCount * 100}
+                            <Progress max="100" value={(lectureIHeardList?.length / contentCount * 100)}
                                       style={{height: '10px', borderRadius: '2px', width: '85%'}}>
 
                             </Progress>
 
 
                             <span style={{fontSize: '10px', width: '10%', marginTop: '12px', marginLeft: '5%'}}
-                                  className="progress-value">{lectureIHeardList?.length / contentCount * 100}%</span>
+                                  className="progress-value">{(lectureIHeardList?.length / contentCount * 100).toFixed(2)}%</span>
 
 
                         </div>
