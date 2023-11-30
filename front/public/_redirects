@@ -1,1 +1,2 @@
-/api/* http://wonderful-genie-12322.netlify.app/:splat 200
+/* /index.html 200
+/api/* http://52.78.236.129:8080/:splat 200
