@@ -61,7 +61,7 @@ export const API_BASE_URL = process.env.REACT_APP_API_ROOT;
 export const API_FRONT_URL = process.env.REACT_APP_API_FRONT;
 const host = window.location.hostname === "localhost"
     ? 'http://52.78.236.129:8080'
-    : "api";
+    : "/api";
 
 export const apiClient = axios.create({
     baseURL: host,

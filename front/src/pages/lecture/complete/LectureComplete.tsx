@@ -6,8 +6,7 @@ import {Button, Col, Container, Row, Table} from 'reactstrap';
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {CartItem, CartTotal} from "../../../type/cart";
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {changeDTO} from "../../../store/changeDTO";
 
 function LectureComplete() {
@@ -39,7 +38,7 @@ function LectureComplete() {
     useEffect(() => {
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
         if (accessToken !== null)
-            axios.get(`${API_BASE_URL}/me`, {
+            apiClient.get(`/me`, {
                 headers: {"Authorization": `Bearer ${accessToken}`}
             })
                 .then((res) => {
@@ -63,7 +62,7 @@ function LectureComplete() {
         })
         setOrderList(myCartList)
         console.log(myCartList)
-        axios.get(`${API_BASE_URL}/api/lecture/order/last?uid=` + member.uid,).then((res) => {
+        apiClient.get(`/api/lecture/order/last?uid=` + member.uid,).then((res) => {
             changeDTO(setOrder, 'ordNo', res.data.ordNo)
             changeDTO(setOrder, 'complete', res.data.complete)
             changeDTO(setOrder, 'payment', res.data.payment)

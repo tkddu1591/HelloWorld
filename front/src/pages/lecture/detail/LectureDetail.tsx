@@ -4,15 +4,13 @@ import LectureDetailAside from "./aside/LectureDetailAside";
 import LectureDetailPlayer from "./LectureDetailPlayer";
 import '../scss/lecture/detail/detailContent.scss'
 import {useLocation, useNavigate} from "react-router-dom";
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {useDispatch, useSelector} from "react-redux";
 import {
     changeContentCount,
     changeContentList,
     changeLectureIHeardList,
     changePartList,
-    partListSlice
 } from "../../../slice/LectureContent";
 import {Button} from "reactstrap";
 import {CartItem, CartTotal} from "../../../type/cart";
@@ -67,7 +65,7 @@ function LectureDetail() {
     useEffect(() => {
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
         if (accessToken !== null)
-            axios.get(`${API_BASE_URL}/me`, {
+            apiClient.get(`/me`, {
                 headers: {"Authorization": `Bearer ${accessToken}`}
             })
                 .then((res) => {
@@ -80,20 +78,20 @@ function LectureDetail() {
     }, []);
     useEffect(() => {
         if (lectureNo !== undefined)
-            axios.get(`${API_BASE_URL}/lecture/content/countByLecture`, {params: {lectureNo: lectureNo}}).then((res) => {
+            apiClient.get(`/lecture/content/countByLecture`, {params: {lectureNo: lectureNo}}).then((res) => {
                 dispatch(changeContentCount(res.data))
             }).catch(err => console.log(err));
     }, []);
     useEffect(() => {
         if (partList[0]?.lectureNo !== lectureNo) {
-            axios.get(`${API_BASE_URL}/lecture/part/list?lectureNo=${lectureNo}`).then(response =>
+            apiClient.get(`/lecture/part/list?lectureNo=${lectureNo}`).then(response =>
                 dispatch(changePartList(response.data))).catch(err => {
                 console.log(err)
             })
         }
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
         if (accessToken !== null)
-            axios.get(`${API_BASE_URL}/me`, {
+            apiClient.get(`/me`, {
                 headers: {"Authorization": `Bearer ${accessToken}`}
             })
                 .then((res) => {
@@ -106,7 +104,7 @@ function LectureDetail() {
     }, []);
     useEffect(() => {
         if (contentList[0]?.lectureNo !== lectureNo)
-            axios.get(`${API_BASE_URL}/lecture/content/list?lectureNo=${lectureNo}`).then(
+            apiClient.get(`/lecture/content/list?lectureNo=${lectureNo}`).then(
                 response => dispatch(changeContentList(response.data))).catch(err => {
                 console.log(err)
             })
@@ -114,7 +112,7 @@ function LectureDetail() {
     let nowNum = 0;
     useEffect(() => {
         const postData = async (contentNo) => {
-            await axios.post(`${API_BASE_URL}/api/member/lecture/content`, {uid: member.uid, contentNo: contentNo}).catch(err => {
+            await apiClient.post(`/api/member/lecture/content`, {uid: member.uid, contentNo: contentNo}).catch(err => {
             }).then(res => {
             })
         }
@@ -122,12 +120,12 @@ function LectureDetail() {
         if (member.uid !== undefined && contentList !== null) {
             if (contentNo === null) {
                 postData(contentList[0].contentNo).then(() =>
-                    axios.get(`${API_BASE_URL}/api/member/lecture/content/list`, {params: {lectureNo: searchParams.get('lectureNo'), uid: member.uid}}).then(response => {
+                    apiClient.get(`/api/member/lecture/content/list`, {params: {lectureNo: searchParams.get('lectureNo'), uid: member.uid}}).then(response => {
                         dispatch(changeLectureIHeardList(response.data));
                     }))
             } else {
                 postData(searchParams.get('contentNo')).then(() =>
-                    axios.get(`${API_BASE_URL}/api/member/lecture/content/list`, {params: {lectureNo: searchParams.get('lectureNo'), uid: member.uid}}).then(response => {
+                    apiClient.get(`/api/member/lecture/content/list`, {params: {lectureNo: searchParams.get('lectureNo'), uid: member.uid}}).then(response => {
                         dispatch(changeLectureIHeardList(response.data));
                     }))
             }
