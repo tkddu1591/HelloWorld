@@ -95,7 +95,7 @@ function LectureCartListItem({item, setCartList, setIsChange, isChange}) {
                 <i className="bi bi-x"
                    onClick={() => {
                        apiClient
-                           .delete(`${API_BASE_URL}/api/lecture/cart?cartNo=${item?.cartNo}`)
+                           .delete(`/api/lecture/cart?cartNo=${item?.cartNo}`)
                            .then(res => setIsChange(!isChange))
                            .catch((err) => console.log(err));
                    }}></i>

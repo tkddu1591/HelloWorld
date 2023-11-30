@@ -5,8 +5,7 @@ import {changeDTO} from "../../../store/changeDTO";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import TermsModal from "../../member/componentsByMember/TermsModal";
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 
 function LectureOrderTotal({order, setOrder, orderList}) {
     let navigate = useNavigate();
@@ -87,18 +86,18 @@ function LectureOrderTotal({order, setOrder, orderList}) {
                     onClick={async () => {
                         try {
                             // 메인 주문 요청
-                            await axios.post(`${API_BASE_URL}/api/lecture/order`, order).then(res => {
+                            await apiClient.post(`/api/lecture/order`, order).then(res => {
                             }).catch(err => console.log(err));
                             // orderList 배열을 비동기적으로 처리하기 위해 Promise.all 사용
                             let ordNo;
-                            await axios.get(`${API_BASE_URL}/api/lecture/order/last?uid=` + order.uid).then((res) => ordNo =
+                            await apiClient.get(`/api/lecture/order/last?uid=` + order.uid).then((res) => ordNo =
                                 res.data.ordNo).catch(err => console.log(err));
                             console.log(ordNo)
                             await Promise.all(
                                 orderList?.map(async (orderItem) => {
                                     try {
                                         // 각 주문 항목에 대한 요청
-                                        await axios.post(`${API_BASE_URL}/api/lecture/orderItem?ordNo=` + ordNo, orderItem);
+                                        await apiClient.post(`/api/lecture/orderItem?ordNo=` + ordNo, orderItem);
                                     } catch (err) {
                                         // 주문 항목 처리 중 에러 발생 시 예외 처리
                                         console.error(err);
@@ -106,7 +105,7 @@ function LectureOrderTotal({order, setOrder, orderList}) {
                                 })
                             );
                             // 모든 orderItem이 성공적으로 처리된 경우에 실행되는 블록
-                            await axios.delete(`${API_BASE_URL}/api/lecture/cart/uid?uid=` + order.uid).then().catch(err => console.log(err));
+                            await apiClient.delete(`/api/lecture/cart/uid?uid=` + order.uid).then().catch(err => console.log(err));
                             await navigate('/lecture/complete')
                         } catch (err) {
                             // 메인 주문 요청 중 에러 발생 시 예외 처리

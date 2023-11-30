@@ -37,7 +37,7 @@ function LectureCart() {
     useEffect(() => {
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
         if (accessToken !== null)
-            apiClient.get(`${API_BASE_URL}/me`, {
+            apiClient.get(`/me`, {
                 headers: {"Authorization": `Bearer ${accessToken}`}
             })
                 .then((res) => {
@@ -50,7 +50,7 @@ function LectureCart() {
     }, []);
     const [isChange, setIsChange] = useState(false);
     useEffect(() => {
-        apiClient.get(`${API_BASE_URL}/api/lecture/cart?uid=` + member.uid).then(res => {
+        apiClient.get(`/api/lecture/cart?uid=` + member.uid).then(res => {
             setCartList(res.data)
         })
     }, [member, isChange]);

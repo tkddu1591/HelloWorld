@@ -5,7 +5,7 @@ import LectureOrderAddInfo from './LectureOrderAddInfo';
 import LectureOrderListTable from './LectureOrderListTable';
 import LectureOrderTotal from './LectureOrderTotal';
 import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {useSelector} from "react-redux";
 import {CartItem, CartTotal} from "../../../type/cart";
 
@@ -17,7 +17,7 @@ function LectureOrderMain() {
     useEffect(() => {
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
         if (accessToken !== null)
-            axios.get(`${API_BASE_URL}/me`, {
+            apiClient.get(`/me`, {
                 headers: {"Authorization": `Bearer ${accessToken}`}
             })
                 .then((res) => {
