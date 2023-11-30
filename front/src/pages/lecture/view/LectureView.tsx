@@ -13,6 +13,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
 import {sendRefreshToken} from "../../../utils/member/sendRefreshToken";
 import {useDispatch} from "react-redux";
+import {changeLectureIHeardList} from "../../../slice/LectureContent";
 
 function LectureView() {
 
@@ -22,7 +23,10 @@ function LectureView() {
         value: number,
         label: string
     }[]>([])
-    let [tagColor, setTagColor] = useState<{ value: string, color: string }[]>([]);
+    let [tagColor, setTagColor] = useState<{
+        value: string,
+        color: string
+    }[]>([]);
     const [member, setMember] = useState<any>({})
     useEffect(() => {
         //태그
@@ -72,7 +76,6 @@ function LectureView() {
         if (lectureNo !== null) {
             axios.get(API_BASE_URL + `/lecture/view?lectureNo=${searchParams.get('lectureNo')}`).then(response => {
                 setLecture(response.data)
-                console.log(response.data)
             }).catch(err => {
                 console.log(err)
             });
@@ -85,33 +88,50 @@ function LectureView() {
     let [top, setTop] = useState(0);
     const findTop = (div) => {
         if (div.current) {
-            setTop(Number(div.current.getBoundingClientRect().top)-20)
+            setTop(Number(div.current.getBoundingClientRect().top) - 20)
         }
-        console.log(div.current?.getBoundingClientRect())
     };
     useEffect(() => {
-        if((member.uid && lecture.seller)&&member?.uid ===lecture?.seller){
+        console.log(lecture)
+        if ((member.uid && lecture.seller) && member?.uid === lecture?.seller) {
             setCheckSeller(true)
-        }
-        else if (member.uid && lecture.lectureNo)
+            setCheckBuy(false)
+        } else if (member.uid && lecture.lectureNo)
             axios.get(`${API_BASE_URL}/api/lecture/orderItem/buy?uid=${member.uid}&lectureNo=${lecture.lectureNo}`).then((res) => {
                 if (res.data > 0) {
                     setCheckBuy(true)
+                    setCheckSeller(false)
+                } else {
+                    setCheckBuy(false)
+                    setCheckSeller(false)
                 }
             }).catch(err => console.log(err));
+        else {
+            setCheckBuy(false)
+            setCheckSeller(false)
+        }
         findTop(div)
     }, [member, lecture])
 
+    useEffect(() => {
+        console.log(member)
+        if (member.uid !== undefined)
+            axios.get(`${API_BASE_URL}/api/member/lecture/content/list`, {params: {lectureNo: lectureNo, uid: member.uid}}).then(response => {
+                dispatch(changeLectureIHeardList(response.data));
+            })
+    }, [member]);
     return <>
         <div style={{marginTop: '100px'}} className="lectureView"></div>
         <Container onClick={() => {
             if (popup !== '') setPopup('')
         }}>
-            <LectureViewHeader  tagColor={tagColor} checkBuy={checkBuy} checkSeller={checkSeller} lecture={lecture} member={member}></LectureViewHeader>
+            <LectureViewHeader tagColor={tagColor} checkBuy={checkBuy} checkSeller={checkSeller} lecture={lecture}
+                               member={member}></LectureViewHeader>
             <Row>
                 <LectureViewContent lecture={lecture}></LectureViewContent>
                 <LectureViewCurriculum lecture={lecture}></LectureViewCurriculum>
-                <LectureViewReview div={div} top={top} checkBuy={checkBuy} member={member} popup={popup} isReviewWrite={isReviewWrite} setIsReviewWrite={setIsReviewWrite}
+                <LectureViewReview div={div} top={top} checkBuy={checkBuy} member={member} popup={popup}
+                                   isReviewWrite={isReviewWrite} setIsReviewWrite={setIsReviewWrite}
                                    lecture={lecture} setPopup={setPopup}></LectureViewReview>
                 <LectureViewRecommendation tagColor={tagColor} tagList={lecture.tagList}></LectureViewRecommendation>
             </Row>

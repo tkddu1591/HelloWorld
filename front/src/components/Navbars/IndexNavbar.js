@@ -247,7 +247,7 @@ function IndexNavbar() {
 							<NavItem>
 								<div>
 									<Link
-										to={'/dm'}
+										onClick={()=>handleOpenNewTab('/dm')}
 										className="nav-link btn-info"
 										style={{
 											backgroundColor: 'none',

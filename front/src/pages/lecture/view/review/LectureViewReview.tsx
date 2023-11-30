@@ -9,13 +9,14 @@ import LecturePagination from "../../../../components/Lecture/LecturePagination"
 import {useLocation} from "react-router-dom";
 import axios from "axios";
 import {API_BASE_URL} from "../../../../App";
+import {changeDTO} from "../../../../store/changeDTO";
 
 function LectureViewReview({checkBuy, popup, setPopup, lecture, setIsReviewWrite, isReviewWrite, member, div, top}) {
     let total = 44;
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const lectureNo = searchParams.get('lectureNo');
+    const [lectureNo,setLectureNo] = useState(searchParams.get('lectureNo'));
     const [pageRequest, setPageRequest] = useState({
         pg:        1,
         size:      5,
@@ -23,6 +24,12 @@ function LectureViewReview({checkBuy, popup, setPopup, lecture, setIsReviewWrite
         sort:      'reviewNo'
     });
     const [pageResponse, setPageResponse] = useState();
+    useEffect(() => {
+        setLectureNo(searchParams.get('lectureNo'))
+    }, [ location.search]);
+    useEffect(() => {
+        changeDTO(setPageRequest,'lectureNo',lectureNo)
+    }, [lectureNo]);
     useEffect(() => {
         axios.get(`${API_BASE_URL}/lecture/review/list`, {params: pageRequest})
             .then(response => {

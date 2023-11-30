@@ -21,11 +21,13 @@ public class HelloWorldApplication {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:3000",
                                 "http://localhost:8080",
-                                "http://localhost:63342",
                                 "http://52.79.236.227:8080",
-                                "https://tkddu1591.github.io",
-                                "http://13.209.14.16:8080")
+                                "http://13.209.14.16:8080",
+                                "https://wonderful-genie-12322.netlify.app"
+                        )
+                        .allowedHeaders("*")
                         .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE");
+
                 /*.allowedHeaders("Authorization", "Content-Type");*/
 
             }

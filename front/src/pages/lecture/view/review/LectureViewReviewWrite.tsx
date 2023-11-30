@@ -23,9 +23,6 @@ function LectureViewReviewWrite({setIsReviewWrite, isReviewWrite, member}) {
     const setScore = (value) => {
         changeDTO(setReview, 'score', value).then()
     }
-    useEffect(() => {
-        console.log(review)
-    }, [review]);
     return <div style={{marginTop: '50px'}}>
         <p style={{fontSize: '25px'}}>리뷰 작성</p>
         <p>제목</p>

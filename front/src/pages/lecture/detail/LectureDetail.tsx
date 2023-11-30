@@ -7,8 +7,42 @@ import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {API_BASE_URL} from "../../../App";
 import {useDispatch, useSelector} from "react-redux";
-import {changeContentList, changePartList, partListSlice} from "../../../slice/LectureContent";
+import {
+    changeContentCount,
+    changeContentList,
+    changeLectureIHeardList,
+    changePartList,
+    partListSlice
+} from "../../../slice/LectureContent";
 import {Button} from "reactstrap";
+import {CartItem, CartTotal} from "../../../type/cart";
+
+//스크롤 맨 아래 확인
+
+function useScrollToBottom() {
+    const [isBottom, setIsBottom] = useState(false);
+
+    useEffect(() => {
+        function handleScroll() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const scrollHeight =
+                      document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+            const reachedBottom = scrollTop >= scrollHeight;
+
+            setIsBottom(reachedBottom);
+        }
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    return isBottom;
+}
+
 
 function LectureDetail() {
 
@@ -20,6 +54,7 @@ function LectureDetail() {
         title: "git 설치 (맥/윈도우)"
     }]);
 
+    const scrolledToBottom = useScrollToBottom();
     const navigate = useNavigate();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -28,6 +63,27 @@ function LectureDetail() {
     const partList = useSelector((state: any) => state.lecturePartList);
     const contentList = useSelector((state: any) => state.lectureContentList);
     const dispatch = useDispatch();
+    const [member, setMember] = useState<any>({})
+    useEffect(() => {
+        const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
+        if (accessToken !== null)
+            axios.get(`${API_BASE_URL}/me`, {
+                headers: {"Authorization": `Bearer ${accessToken}`}
+            })
+                .then((res) => {
+                    setMember(res.data);
+
+                })
+                .catch((err) => {
+                    console.log("실패? : " + JSON.stringify(err));
+                });
+    }, []);
+    useEffect(() => {
+        if (lectureNo !== undefined)
+            axios.get(`${API_BASE_URL}/lecture/content/countByLecture`, {params: {lectureNo: lectureNo}}).then((res) => {
+                dispatch(changeContentCount(res.data))
+            }).catch(err => console.log(err));
+    }, []);
     useEffect(() => {
         if (partList[0]?.lectureNo !== lectureNo) {
             axios.get(`${API_BASE_URL}/lecture/part/list?lectureNo=${lectureNo}`).then(response =>
@@ -35,6 +91,18 @@ function LectureDetail() {
                 console.log(err)
             })
         }
+        const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
+        if (accessToken !== null)
+            axios.get(`${API_BASE_URL}/me`, {
+                headers: {"Authorization": `Bearer ${accessToken}`}
+            })
+                .then((res) => {
+                    setMember(res.data);
+
+                })
+                .catch((err) => {
+                    console.log("실패? : " + JSON.stringify(err));
+                });
     }, []);
     useEffect(() => {
         if (contentList[0]?.lectureNo !== lectureNo)
@@ -43,8 +111,30 @@ function LectureDetail() {
                 console.log(err)
             })
     }, [partList]);
-    let num = 0;
-    console.log(contentList)
+    let nowNum = 0;
+    useEffect(() => {
+        const postData = async (contentNo) => {
+            await axios.post(`${API_BASE_URL}/api/member/lecture/content`, {uid: member.uid, contentNo: contentNo}).catch(err => {
+            }).then(res => {
+            })
+        }
+
+        if (member.uid !== undefined && contentList !== null) {
+            if (contentNo === null) {
+                postData(contentList[0].contentNo).then(() =>
+                    axios.get(`${API_BASE_URL}/api/member/lecture/content/list`, {params: {lectureNo: searchParams.get('lectureNo'), uid: member.uid}}).then(response => {
+                        dispatch(changeLectureIHeardList(response.data));
+                    }))
+            } else {
+                postData(searchParams.get('contentNo')).then(() =>
+                    axios.get(`${API_BASE_URL}/api/member/lecture/content/list`, {params: {lectureNo: searchParams.get('lectureNo'), uid: member.uid}}).then(response => {
+                        dispatch(changeLectureIHeardList(response.data));
+                    }))
+            }
+        }
+
+    }, [contentList, location.search]);
+
     return (
         <>
             <LectureDetailAside></LectureDetailAside>
@@ -64,7 +154,7 @@ function LectureDetail() {
                         : <div style={{flex: 1}}>
                             {Array.isArray(contentList) && contentList.map((content, index) => {
                                 if (Number(content.contentNo) === Number(contentNo)) {
-                                    num = index
+                                    nowNum = index
                                     return <>
                                         <p style={{fontSize: '20px', fontWeight: '700'}}>{content.title}</p>
                                         {/*<LectureDetailPlayer timeCheck={timeCheck}></LectureDetailPlayer>*/}
@@ -80,11 +170,11 @@ function LectureDetail() {
                             width: '100%', display: "flex", justifyContent: "space-between"
                         }}>{contentNo === null || (Number(contentNo) % 10000 === 101) ?
                         <span style={{color: 'white', userSelect: "none"}}>d</span> : <Button onClick={() => {
-                            navigate(`/lecture/detail?lectureNo=${lectureNo}&contentNo=${contentList[num - 1].contentNo}`)
+                            navigate(`/lecture/detail?lectureNo=${lectureNo}&contentNo=${contentList[nowNum - 1].contentNo}`)
                         }}>이전 강의</Button>}
-                        {contentList.length-1 !== num && <Button
+                        {contentList.length - 1 !== nowNum && <Button
                             onClick={() => {
-                                navigate(`/lecture/detail?lectureNo=${lectureNo}&contentNo=${contentList[num + 1].contentNo}`)
+                                navigate(`/lecture/detail?lectureNo=${lectureNo}&contentNo=${contentList[nowNum + 1].contentNo}`)
                             }}>다음
                             강의</Button>}</div>
                 </div>

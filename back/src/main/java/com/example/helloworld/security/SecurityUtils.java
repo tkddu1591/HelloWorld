@@ -10,7 +10,7 @@ public class SecurityUtils {
 
     public static String getMyEmail() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info("isLogin? : " + authentication.isAuthenticated());
+        /*log.info("isLogin? : " + authentication.isAuthenticated());*/
         return authentication.getName();
     }
 }

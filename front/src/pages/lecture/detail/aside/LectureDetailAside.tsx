@@ -3,10 +3,12 @@ import LectureDetailAsideHeader from './LectureDetailAsideHeader';
 import LectureDetailAsideTable from './LectureDetailAsideTable';
 import LectureDetailAsideFooter from './LectureDetailAsideFooter';
 import {useSelector} from "react-redux";
+import axios from "axios/index";
+import {API_BASE_URL} from "../../../../App";
+import {changeContentCount} from "../../../../slice/LectureContent";
 
 function LectureDetailAside() {
     let [aside, setAside] = useState(false);
-
     const partList = useSelector((state: any) => state.lecturePartList);
     const contentList = useSelector((state: any) => state.lectureContentList);
     return (<div

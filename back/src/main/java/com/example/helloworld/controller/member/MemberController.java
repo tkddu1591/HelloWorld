@@ -32,7 +32,7 @@ public class MemberController {
 
     @GetMapping("/me")
     public ResponseEntity<MemberDTO> getMyInfo() {
-        log.info("start!");
+        /*log.info("start!");*/
         return ResponseEntity.ok().body(memberService.getMyInfo());
     }
 }

@@ -78,4 +78,8 @@ public class LectureContentService {
     public List<LectureContentDTO> selectByPartNo(int partNo) {
         return lectureContentRepository.findByPart_PartNo(partNo).stream().map(lectureContentTransform::toDTO).toList();
     }
+
+    public int countByLectureNo(int lectureNo) {
+        return lectureContentRepository.countByLecture_LectureNo(lectureNo);
+    }
 }

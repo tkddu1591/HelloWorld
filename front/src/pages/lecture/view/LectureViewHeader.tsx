@@ -6,10 +6,22 @@ import {useNavigate} from "react-router-dom";
 import {getRandomValueFromArray} from "../../../utils/getRandomValueFromArray";
 import axios from "axios";
 import {API_BASE_URL} from "../../../App";
+import {useDispatch, useSelector} from "react-redux";
+import {changeContentCount} from "../../../slice/LectureContent";
 
 function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
     let navigate = useNavigate();
     let [arrayList, setArrayList] = useState<string[]>([]);
+    let contentCount = useSelector((state: any) => state.contentCount);
+    console.log(contentCount)
+    let dispatch = useDispatch()
+    useEffect(() => {
+        if (lecture.lectureNo !== undefined)
+            axios.get(`${API_BASE_URL}/lecture/content/countByLecture`, {params: {lectureNo: lecture.lectureNo}}).then((res) => {
+                dispatch(changeContentCount(res.data))
+            }).catch(err => console.log(err));
+    }, [lecture]);
+    let lectureIHeardList = useSelector((state: any) => state.lectureIHeardList);
     return <>
         <h3 style={{marginBottom: '15px', fontSize: '30px'}}>{lecture.title}</h3>
 
@@ -32,7 +44,8 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
                     key={tag}
                     className="btn-round"
                     color={(tagColor?.find(item => item.value === tag) as {
-                        value: string; color: string
+                        value: string;
+                        color: string
                     } | undefined)?.color || 'defaultColor'}
                     type="button"
                     onClick={e => {
@@ -65,7 +78,7 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
                         onClick={() => {
                             console.log(lecture)
                             console.log(member)
-                            if(checkSeller)
+                            if (checkSeller)
                                 navigate(`/lecture/write/main?lectureNo=${lecture.lectureNo}`)
                             else if (checkBuy) {
                                 navigate('/lecture/detail?lectureNo=' + lecture?.lectureNo)
@@ -119,7 +132,7 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
                                 style={{
                                     textAlign:  "center", color: "white", display: "inline-block", fontSize: '17px',
                                     fontWeight: 'bold', fontFamily: '한컴 말랑말랑'
-                                }}>{checkSeller?'수정하기': checkBuy?'강의듣기':'수강하기'}</span>
+                                }}>{checkSeller ? '수정하기' : checkBuy ? '강의듣기' : '수강하기'}</span>
                     </Button>
 
                     {!checkBuy ? <>
@@ -138,7 +151,7 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
                             lecture?.price.toLocaleString()} ￦</span>
                         </div>
 
-{/*                        <div
+                        {/*                        <div
                             style={{
                                 paddingBottom:  '10px', paddingTop: '20px', marginTop: '10px',
                                 borderBottom:   '1px solid lightgray', borderTop: '1px solid lightgray', display: "flex",
@@ -153,18 +166,21 @@ function LectureViewHeader({lecture, tagColor, member, checkBuy, checkSeller}) {
                         <div className="progress-container progress-danger"
                              style={{display: "flex", justifyContent: "center"}}>
 
-                            <Progress max="100" value="60" style={{height: '10px', borderRadius: '2px', width: '85%'}}>
+                            <Progress max="100" value={lectureIHeardList?.length / contentCount * 100}
+                                      style={{height: '10px', borderRadius: '2px', width: '85%'}}>
 
                             </Progress>
 
 
                             <span style={{fontSize: '10px', width: '10%', marginTop: '12px', marginLeft: '5%'}}
-                                  className="progress-value">60%</span>
+                                  className="progress-value">{lectureIHeardList?.length / contentCount * 100}%</span>
 
 
                         </div>
                         <div style={{display: "flex", justifyContent: "center"}}>
-                            <span style={{textAlign: "center", fontSize: '12px', fontFamily: 'NanumSquare'}}>수강중</span>
+                            <span
+                                style={{textAlign: "center", fontSize: '12px', fontFamily: 'NanumSquare'}}>{lectureIHeardList?.length / contentCount === 1 ?
+                                '수강완료' : '수강중'}</span>
                         </div>
 
                         {/*<div
