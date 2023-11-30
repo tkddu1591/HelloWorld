@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                 .sessionManagement(config -> config
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilter(corsFilter())
+                /*.addFilter(corsFilter())*/
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtProvider, tokenService),
                         UsernamePasswordAuthenticationFilter.class
@@ -59,7 +59,6 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/**").permitAll()
-                        .requestMatchers("http://localhost:3000/**").permitAll()
                 );
                 /*.oauth2Login()
                 .defaultSuccessUrl("/")
@@ -69,6 +68,7 @@ public class SecurityConfiguration {
 
         return httpSecurity.build();
     }
+/*
 
     @Bean
     public CorsFilter corsFilter() {
@@ -81,6 +81,7 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
