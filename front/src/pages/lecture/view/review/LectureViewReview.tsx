@@ -7,15 +7,15 @@ import LectureViewReviewWrite from "./LectureViewReviewWrite";
 import reviewList from "../../../../components/Lecture/ReviewList";
 import LecturePagination from "../../../../components/Lecture/LecturePagination";
 import {useLocation} from "react-router-dom";
-import axios from "axios";
-import {API_BASE_URL} from "../../../../App";
+import {API_BASE_URL, apiClient} from "../../../../App";
+import {changeDTO} from "../../../../store/changeDTO";
 
 function LectureViewReview({checkBuy, popup, setPopup, lecture, setIsReviewWrite, isReviewWrite, member, div, top}) {
     let total = 44;
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const lectureNo = searchParams.get('lectureNo');
+    const [lectureNo,setLectureNo] = useState(searchParams.get('lectureNo'));
     const [pageRequest, setPageRequest] = useState({
         pg:        1,
         size:      5,
@@ -24,7 +24,13 @@ function LectureViewReview({checkBuy, popup, setPopup, lecture, setIsReviewWrite
     });
     const [pageResponse, setPageResponse] = useState();
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/lecture/review/list`, {params: pageRequest})
+        setLectureNo(searchParams.get('lectureNo'))
+    }, [ location.search]);
+    useEffect(() => {
+        changeDTO(setPageRequest,'lectureNo',lectureNo)
+    }, [lectureNo]);
+    useEffect(() => {
+        apiClient.get(`/lecture/review/list`, {params: pageRequest})
             .then(response => {
                 // lectureReviewList의 이름을 list로 변경
                 const modifiedResponse = {...response.data, list: response.data.lectureReviewList};
@@ -48,7 +54,6 @@ function LectureViewReview({checkBuy, popup, setPopup, lecture, setIsReviewWrite
                                    setPageRequest={setPageRequest} setIsReviewWrite={setIsReviewWrite}
                                    checkBuy={checkBuy}
                                    isReviewWrite={isReviewWrite} top={top}></LectureViewReviewList>
-
             {checkBuy &&
                 <LectureViewReviewWrite setIsReviewWrite={setIsReviewWrite} member={member}
                                         isReviewWrite={isReviewWrite}></LectureViewReviewWrite>}

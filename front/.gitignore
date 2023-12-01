@@ -30,3 +30,6 @@ package-lock.json
 
 *.yml
 *.gradle
+/.env
+/.env.local
+/.env.production

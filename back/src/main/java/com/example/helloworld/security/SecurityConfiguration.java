@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -48,7 +49,7 @@ public class SecurityConfiguration {
                 .sessionManagement(config -> config
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilter(corsFilter())
+                /*.addFilter(corsFilter())*/
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtProvider, tokenService),
                         UsernamePasswordAuthenticationFilter.class
@@ -60,6 +61,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/**").permitAll()
                         .requestMatchers("http://localhost:3000/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS,"*").permitAll()
                 );
                 /*.oauth2Login()
                 .defaultSuccessUrl("/")
@@ -70,17 +72,19 @@ public class SecurityConfiguration {
         return httpSecurity.build();
     }
 
+/*
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("**");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {

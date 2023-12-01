@@ -8,11 +8,14 @@ import com.example.helloworld.transform.member.MemberTransform;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Log4j2
@@ -23,6 +26,12 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberTransform  memberTransform;
     private final PasswordEncoder  passwordEncoder;
+    private final EmailService     emailService;
+
+    public String getCurrentTime() {
+        return LocalDateTime.now(ZoneId.of("Asia/Seoul"))
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 
     public boolean signUp(MemberDTO memberDTO, HttpServletRequest request) {
         String pass1 = memberDTO.getPass();
@@ -35,6 +44,7 @@ public class MemberService {
         if(!pass1.equals(pass2)) return false;
 
         memberDTO.setUid(UUID.randomUUID().toString());
+        memberDTO.setNick(emailService.createAuthCode());
         memberDTO.setRegIp(request.getRemoteAddr());
         memberDTO.setPass(passwordEncoder.encode(memberDTO.getPass()));
 
@@ -75,5 +85,42 @@ public class MemberService {
         String scdPass = resultEntity.getPass();
 
         return !fstPass.equals(scdPass);
+    }
+
+    public MemberDTO modifyUserInfo(MemberDTO memberDTO) {
+        MemberEntity member = memberRepository.findByEmail(memberDTO.getEmail());
+        member.setNick(memberDTO.getNick());
+        member.setName(memberDTO.getName());
+        member.setHp(memberDTO.getHp());
+
+        MemberEntity entity = memberRepository.save(member);
+        return memberTransform.toDTO(entity);
+    }
+
+    public MemberDTO modifySellerInfo(MemberDTO memberDTO) {
+        MemberEntity member = memberRepository.findByEmail(memberDTO.getEmail());
+        member.setType(memberDTO.getType());
+        member.setCeo(memberDTO.getCeo());
+        member.setCompany(memberDTO.getCompany());
+        member.setTel(memberDTO.getTel());
+        member.setFax(memberDTO.getFax());
+        member.setBizRegNum(memberDTO.getBizRegNum());
+        member.setComRegNum(memberDTO.getComRegNum());
+
+        MemberEntity entity = memberRepository.save(member);
+        return memberTransform.toDTO(entity);
+    }
+
+    public MemberDTO deleteAccount(String email) {
+        MemberEntity entity = memberRepository.findByEmail(email);
+        MemberEntity tempEntity = MemberEntity.builder()
+                .uid(entity.getUid())
+                .email(entity.getEmail())
+                .isCondition(2)
+                .regIp(entity.getRegIp())
+                .regDate(entity.getRegDate())
+                .wdate(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
+                .build();
+        return memberTransform.toDTO(memberRepository.save(tempEntity));
     }
 }

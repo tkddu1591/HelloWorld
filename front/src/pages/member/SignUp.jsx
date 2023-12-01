@@ -20,7 +20,7 @@ import InputEmailChk from "./componentsByMember/inputCmpnts/InputEmailChk";
 import axios from "axios";
 import {changeDTO} from "../../store/changeDTO";
 import {isValidEmail, isValidPass} from "../../utils/member/signupValidation";
-import {API_BASE_URL} from "../../App";
+import {API_BASE_URL, apiClient} from "../../App";
 import {useNavigate} from "react-router-dom";
 
 
@@ -110,7 +110,7 @@ function SignUp() {
     // axios
     const requestEmailAuthCode = () => {
         changeDTO(setError, 'message', '이메일 전송 중입니다.')
-        axios.get(`${API_BASE_URL}/api/reqeustEmail/signup`, {
+        apiClient.get(`/api/reqeustEmail/signup`, {
             params: {
                 "email": inputValue.email,
             }/*, headers:{Authorization: 'Bearer 어쩌구저쩌구'}*/
@@ -125,7 +125,7 @@ function SignUp() {
         });
     }
     const responseEmailAuthCode = () => {
-        axios.get(`${API_BASE_URL}/api/responseEmail`, {
+        apiClient.get(`/api/responseEmail`, {
             params: {
                 "email": inputValue.email,
                 "inputCode": inputValue.emailChk,
@@ -153,7 +153,7 @@ function SignUp() {
             alert("이메일 인증을 해주세요.");
             return;
         }
-        axios.post(`${API_BASE_URL}/member/signup`, {
+        apiClient.post(`/member/signup`, {
             "email": inputValue.email,
             "pass": inputValue.pass,
             "passChk": inputValue.passChk,

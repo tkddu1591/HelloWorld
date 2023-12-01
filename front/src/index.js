@@ -32,14 +32,15 @@ import reportWebVitals from './reportWebVitals';
 import ScrollToTop from "./components/ScrollToTop";
 import {CookiesProvider} from "react-cookie";
 
+export const BASENAME = process.env.REACT_APP_ROUTE_BASENAME;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
    <React.StrictMode>
        <CookiesProvider>
           <Provider store={store}>
-             {/*<BrowserRouter basename='/User/java3/IdeaProjects/HelloWorld/back/src/main/resources/templates'>*/}
-             <BrowserRouter>
+             <BrowserRouter basename={process.env.PUBLIC_URL}>
+             {/*<BrowserRouter>*/}
                 <ScrollToTop/>
                 <App />
              </BrowserRouter>

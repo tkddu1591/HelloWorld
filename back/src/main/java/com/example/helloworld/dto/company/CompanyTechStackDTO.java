@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanyTechnologyStackDTO {
-    private int technologyStackNo;
-    private String technologyStack;
+public class CompanyTechStackDTO {
+    private int techStackNo;
+    private String techStackName;
 }

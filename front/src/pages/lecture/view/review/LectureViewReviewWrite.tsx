@@ -4,8 +4,7 @@ import {Button} from "reactstrap";
 import {useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {changeDTO} from "../../../../store/changeDTO";
-import axios from "axios";
-import {API_BASE_URL} from "../../../../App";
+import {apiClient} from "../../../../App";
 
 function LectureViewReviewWrite({setIsReviewWrite, isReviewWrite, member}) {
     const location = useLocation();
@@ -23,9 +22,6 @@ function LectureViewReviewWrite({setIsReviewWrite, isReviewWrite, member}) {
     const setScore = (value) => {
         changeDTO(setReview, 'score', value).then()
     }
-    useEffect(() => {
-        console.log(review)
-    }, [review]);
     return <div style={{marginTop: '50px'}}>
         <p style={{fontSize: '25px'}}>리뷰 작성</p>
         <p>제목</p>
@@ -42,7 +38,7 @@ function LectureViewReviewWrite({setIsReviewWrite, isReviewWrite, member}) {
                   }}/>
         <Button color='info' style={{fontFamily: 'nanumsquare', fontWeight: '500'}}
                 onClick={() => {
-                    axios.post(`${API_BASE_URL}/lecture/review`, review).then(res => {
+                    apiClient.post(`/lecture/review`, review).then(res => {
                         changeDTO(setReview,'content','').then(res=>{
                             changeDTO(setReview,'title','').then(res=>{
                                 changeDTO(setReview,'score',0).then(res=>{

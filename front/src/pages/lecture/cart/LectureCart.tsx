@@ -2,8 +2,7 @@ import '../scss/lecture/cart/cart.scss';
 import React, {useEffect, useState} from 'react';
 import LectureOrderHeader from './LectureOrderHeader';
 import LectureCartItem from './LectureCartItem';
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 
 function LectureCart() {
     let [coupon, setCoupon] = useState({
@@ -38,7 +37,7 @@ function LectureCart() {
     useEffect(() => {
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
         if (accessToken !== null)
-            axios.get(`${API_BASE_URL}/me`, {
+            apiClient.get(`/me`, {
                 headers: {"Authorization": `Bearer ${accessToken}`}
             })
                 .then((res) => {
@@ -51,7 +50,7 @@ function LectureCart() {
     }, []);
     const [isChange, setIsChange] = useState(false);
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/api/lecture/cart?uid=` + member.uid).then(res => {
+        apiClient.get(`/api/lecture/cart?uid=` + member.uid).then(res => {
             setCartList(res.data)
         })
     }, [member, isChange]);

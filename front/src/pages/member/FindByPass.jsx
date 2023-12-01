@@ -18,7 +18,7 @@ import InputEmailChk from "./componentsByMember/inputCmpnts/InputEmailChk";
 import {isValidEmail} from "../../utils/member/signupValidation";
 import {changeDTO} from "../../store/changeDTO";
 import axios from "axios";
-import {API_BASE_URL} from "../../App";
+import {API_BASE_URL, apiClient} from "../../App";
 import LoadingModal from "../../components/LoadingModal";
 import InputPass from "./componentsByMember/inputCmpnts/InputPass";
 import InputPassChk from "./componentsByMember/inputCmpnts/InputPassChk";
@@ -134,7 +134,7 @@ function FindByPass() {
       alert("이메일 인증을 해주세요.");
       return;
     }
-    axios.put(`${API_BASE_URL}/member/findMyPass`, {
+    apiClient.put(`/member/findMyPass`, {
       "email": inputValue.email,
       "pass": inputValue.pass,
       "passChk": inputValue.passChk,

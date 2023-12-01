@@ -10,9 +10,8 @@ import AutoLoginButton from "./componentsByMember/buttonCmpnts/AutoLoginButton";
 import MemberHeader from "./componentsByMember/MemberHeader";
 import InputEmail from "./componentsByMember/inputCmpnts/InputEmail";
 import InputPass from "./componentsByMember/inputCmpnts/InputPass";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {API_BASE_URL} from "../../App";
+import {API_BASE_URL, apiClient} from "../../App";
 import {useDispatch} from "react-redux";
 import {setCookie} from "../../utils/member/cookieHandler";
 import {getMyInfo} from "../../utils/member/getMyInfo";
@@ -38,7 +37,7 @@ function LoginPage() {
 
 
     const default_login = () => {
-        axios.post(`${API_BASE_URL}/login`, {
+        apiClient.post(`/login`, {
             "email": inputValue.email,
             "pass": inputValue.pass,
             "isAutoLogin": inputValue.isAutoLogin,

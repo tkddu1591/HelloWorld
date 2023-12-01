@@ -21,7 +21,6 @@ public class LectureReviewController {
     @PostMapping(value = {"","/"})
     public void review(@RequestBody LectureReviewDTO lectureReviewDTO) {
         lectureReviewService.save(lectureReviewDTO);
-        log.info(lectureReviewDTO.toString());
         int reviewCount = lectureReviewService.findReviewCount(lectureReviewDTO);
         float score = lectureReviewService.averageByLectureNo(lectureReviewDTO.getLectureNo());
         lectureService.updateByLectureNoOnScore(lectureReviewDTO.getLectureNo(), score);
@@ -30,19 +29,16 @@ public class LectureReviewController {
     @Transactional
     @GetMapping("/list")
     public PageResponseDTO listByLectureNo(PageRequestDTO pageRequestDTO){
-        log.info(pageRequestDTO.toString());
         return lectureReviewService.findByLectureNo(pageRequestDTO);
     }
     @Transactional
     @GetMapping("/scoreCount")
     public int star1ByLectureNo(@RequestParam int lectureNo,@RequestParam int score){
-        log.info(lectureNo+" "+score);
         return lectureReviewService.star1ByLectureNo(lectureNo, score);
     }
     @Transactional
     @PostMapping("/update")
     public void update(@RequestBody LectureReviewDTO lectureReviewDTO){
-        log.info(lectureReviewDTO.toString());
         lectureReviewService.update(lectureReviewDTO);
         int reviewCount = lectureReviewService.findReviewCount(lectureReviewDTO);
         float score = lectureReviewService.averageByLectureNo(lectureReviewDTO.getLectureNo());
@@ -52,7 +48,6 @@ public class LectureReviewController {
     @Transactional
     @DeleteMapping("")
     public void delete(LectureReviewDTO lectureReviewDTO){
-        log.info(lectureReviewDTO.toString());
         lectureReviewService.delete(lectureReviewDTO);
         int reviewCount = lectureReviewService.findReviewCount(lectureReviewDTO);
         float score = lectureReviewService.averageByLectureNo(lectureReviewDTO.getLectureNo());
