@@ -1,13 +1,13 @@
 import axios from "axios";
-import {API_BASE_URL} from "../../App";
+import {API_BASE_URL, apiClient} from "../../App";
 import {login} from "../member/login";
 import {getMyInfo} from "../member/getMyInfo";
 import {logout} from "../member/logout";
 
 
 export const postKakaoToken = async (data, navigate, dispatch) => {
-    axios
-        .post(`${API_BASE_URL}/login/social/${data.provider}`, data)
+    apiClient
+        .post(`/login/social/${data.provider}`, data)
         .then((response)=>{
             if(response.data.accessToken) {
                 const data = {
