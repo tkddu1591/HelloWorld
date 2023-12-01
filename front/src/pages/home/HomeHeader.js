@@ -62,7 +62,7 @@ function HomeHeader() {
 	let navigate = useNavigate();
 	return (
 		<>
-			<div className="clear-filter page-header" style={{ minHeight: '30vh', maxHeight: '500px', height: 'auto' }}>
+			<div className="clear-filter page-header" style={{ minHeight: '30vh', maxHeight: '600px', height: 'auto' }}>
 				<div className="page-header-image" ref={pageHeader}></div>
 				<Container style={{ paddingLeft: 0, paddingRight: 0 }}>
 					{/*<section style={{width:'100%', border:'1px solid black'}} filter-color="blue" className="clear-filter">
@@ -162,7 +162,7 @@ function HomeHeader() {
 						</Col>
 					</Row>
 
-					<div className="content brand" style={{ marginTop: '10px' }}>
+					<div className="content brand" style={{ marginTop: '50px' }}>
 						<h1 className="h1-seo" style={{ color: 'black', fontSize: '30px' }}>
 							<img
 								src={`${process.env.PUBLIC_URL}/images/home/main_logo.png`}
@@ -173,7 +173,7 @@ function HomeHeader() {
 					</div>
 				</Container>
 			</div>
-			<div>
+			<div style={{marginTop: '20px'}}>
 				<Nav className="nav-pills-info nav-pills-just-icons d-flex justify-content-center" pills role="tablist">
 					<NavItem className="mr-2">
 						<NavLink
