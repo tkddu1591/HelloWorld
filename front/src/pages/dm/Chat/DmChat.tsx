@@ -33,12 +33,9 @@ function DmChat() {
     }
 
 
-    const webHost = window.location.hostname === "localhost"
-        ? '//localhost:8080'
-        : "/api";
     // @ts-ignore
     const webSocketLogin = useCallback(() => {
-        ws.current = new WebSocket(`ws:${webHost}/socket/chatt`);
+        ws.current = new WebSocket("ws://localhost:8080/socket/chatt");
 
         ws.current.onmessage = (message) => {
             const dataSet = JSON.parse(message.data);
