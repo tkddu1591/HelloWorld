@@ -49,7 +49,7 @@ function LectureViewCurriculumTable({part, index}: LectureViewCurriculumTablePro
     return (
         <div style={{marginTop: '20px'}}>
             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '10px'}}>
-                <span style={{fontSize: '20px'}}>{index+1}강</span>
+                <span style={{fontSize: '20px'}}>{index+1}강 {part.title}</span>
                 <i
                     className={viewCurriculum[0] ? 'bi bi-dash-circle' : 'bi bi-plus-circle'}
                     style={{fontSize: '20px', cursor: 'pointer'}}

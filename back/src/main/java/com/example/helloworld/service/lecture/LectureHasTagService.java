@@ -19,6 +19,7 @@ public class LectureHasTagService {
     private final LectureHasTagTransform lectureHasTagTransform;
 
     public void save(LectureDTO lectureDTO) {
+        lectureHasTagRepository.deleteByLecture_LectureNo(lectureDTO.getLectureNo());
         for (int tagNo : lectureDTO.getTagList()) {
             LectureHasTagDTO lectureHasTagDTO = new LectureHasTagDTO(); // 객체 생성 및 초기화
             lectureHasTagDTO.setLectureNo(lectureDTO.getLectureNo());

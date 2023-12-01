@@ -156,8 +156,6 @@ function ListTable({
                                 // Set을 사용하여 중복 제거 후 새로운 항목 추가
                                 const updatedList = [...prevList, ...filteredNewItems];
 
-                                // end 설정
-                                setEnd?.(true);
                                 return updatedList;
                             });
                         } else {
@@ -175,7 +173,6 @@ function ListTable({
                                 const updatedList = [...prevList, ...filteredNewItems];
 
                                 // end 설정
-                                setEnd?.(true);
                                 return updatedList;
                             });
                         }
@@ -196,7 +193,9 @@ function ListTable({
         if (setPageRequest)
             changeDTO(setPageRequest, 'pg', 1)
     }, [listLoading]);
-    console.log(end)
+    useEffect(() => {
+
+    }, [pageResponse]);
     return (
         <>
             <div style={{marginTop: '20px'}}>
