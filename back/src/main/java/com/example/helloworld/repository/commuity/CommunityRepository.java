@@ -3,6 +3,7 @@ package com.example.helloworld.repository.commuity;
 import com.example.helloworld.dto.PageResponseDTO;
 import com.example.helloworld.entity.commuity.CommunityCategoryEntity;
 import com.example.helloworld.entity.commuity.CommunityEntity;
+import com.example.helloworld.repository.custom.CommunityRepositoryCustom;
 import jakarta.transaction.Transactional;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
@@ -13,7 +14,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CommunityRepository extends JpaRepository<CommunityEntity, Integer> {
+public interface CommunityRepository extends JpaRepository<CommunityEntity, Integer> , CommunityRepositoryCustom {
 
     public CommunityEntity findByCommunityNo(int i);
 

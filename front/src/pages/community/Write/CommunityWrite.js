@@ -2,7 +2,7 @@ import React, {useState, useMemo, useEffect} from "react";
 import {Col, Container, FormGroup, Input, Row} from "reactstrap";
 import "../../../css/community/write.scss";
 import MyComponent from "../EditorComponent";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import WriteHeader from "./WriteHeader";
 import WriteTitleBar from "./WriteTitleBar";
 import axios from "axios";
@@ -41,7 +41,7 @@ function CommunityWrite() {
         return state.cateNo
     });
     const [selectedSearch, setSelectedSearch] = useState(searchSelect[storeCateNo.no - 1]);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState([]);
     const [content, setContent] = useState({value: null});
     const [title, setTitle] = useState({value: null});
     let [uid, setUid] = useState('');
@@ -82,6 +82,30 @@ function CommunityWrite() {
         console.log('content: ' + content.value);
     }, [content]);
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const communityNo = searchParams.get('communityNo');
+    const [cateNo, setCateNo] = useState()
+    useEffect(() => {
+        if (communityNo !== null) {
+            apiClient.get(`community/view?communityNo=${communityNo}&cateNo=${storeCateNo.no}`).then(
+                (response) => {
+
+                    const newOptions = response.data.hasTagsList.map(tag => ({
+                        value: tag.tagNo,
+                        label: tag.tagName
+                    }));
+
+                    setSelectedOption([...selectedOption, ...newOptions]);
+                    setTitle(response.data.view.title)
+                    setContent(response.data.view.content)
+                    setSelectedSearch(response.data.view.cateNo)
+                }
+            )
+        }
+    }, []);
+
+
     const register = () => {
         console.log('register')
         apiClient.post(`/community/register`,
@@ -106,6 +130,10 @@ function CommunityWrite() {
         console.log(selectedSearch);
         console.log('title : ' + title.value);
     }, [title])
+
+    useEffect(() => {
+
+    }, []);
 
     return (<>
             <Container>
