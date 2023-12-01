@@ -122,7 +122,6 @@ function CardList({
                                     style={{
                                         width:     '100%',
                                         height:    `${(divRef.current?.offsetWidth || 300) * heightPercentage / 100}px`,
-                                        objectFit: 'contain'
                                     }}
                                     alt="..."
                                     src={lecture.thumbURL}

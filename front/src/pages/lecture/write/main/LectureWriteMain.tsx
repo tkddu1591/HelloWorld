@@ -251,19 +251,18 @@ function LectureWriteMain() {
                 }}>이전</Button>
                 <Button color={'info'} type={'submit'} onClick={async () => {
                     let newLectureNo: number = 0
-                    if (lectureNo === null)
-                        await apiClient.post(`/lecture/write/main`, lecture).then(
-                            (res) => {
-                                if (res.status === 200 && typeof newLectureNo === 'number') {
+                    await apiClient.post(`/lecture/write/main`, lecture).then(
+                        (res) => {
+                            if (res.status === 200 && typeof newLectureNo === 'number') {
+                                if (lectureNo === null)
                                     navigate('/lecture/write/content?lectureNo=' + res.data)
-                                }
+                                else
+                                    navigate('/lecture/write/content?lectureNo=' + lectureNo)
                             }
-                        ).catch(err => {
-                            alert('오류가 발생했습니다. 다시 시도해주세요')
-                        })
-                    else
-                        navigate('/lecture/write/content?lectureNo=' + lectureNo)
-
+                        }
+                    ).catch(err => {
+                        alert('오류가 발생했습니다. 다시 시도해주세요')
+                    })
                 }}>다음</Button>
             </Col>
         </Row>
