@@ -62,8 +62,7 @@ public class LectureService {
 
 
         int totalElement = (int) result.getTotalElements();
-        log.info(totalElement + "");
-        log.info(result.getTotalElements() + "");
+        log.info(dtoList.toString());
 
         return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)

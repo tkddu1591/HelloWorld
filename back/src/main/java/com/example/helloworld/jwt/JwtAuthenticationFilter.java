@@ -48,6 +48,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                     response.setStatus(HttpServletResponse.SC_CREATED);
                     response.getWriter().print(renewAccessToken(token)); // accessToken 재발급
+                    log.info("re generate accessToken");
                     return;
                 }
 
