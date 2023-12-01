@@ -69,8 +69,10 @@ function LectureWriteContent() {
                 }, []);
 
                 // formattedContentList를 setContentList를 통해 상태 업데이트
-                if (Array.isArray(contentListResponse) && contentListResponse[0].contents.length > 0)
+
+                if (formattedContentList.length > 0) {
                     setContentList(formattedContentList);
+                }
             } catch (error) {
                 console.error(error);
             }
