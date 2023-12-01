@@ -17,7 +17,6 @@ function DmMain() {
 	useEffect(() => {
 		if (socketData !== undefined) {
 			const tempData = chatt.concat(socketData);
-			console.log(tempData);
 			dispatch(insertMyChatt([tempData]))
 		}
 	}, [socketData]);
@@ -48,6 +47,7 @@ function DmMain() {
 	useEffect(() => {
 		setName(member.name)
 		webSocketLogin();
+		setChkLog(true);
 	}, [member]);
 	return (
 		<>
