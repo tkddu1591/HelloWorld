@@ -15,11 +15,11 @@ const API_FRONT_URI = process.env.REACT_APP_API_FRONT;
 export const KAKAO_AUTH_URL
     = `https://kauth.kakao.com/oauth/authorize`
     + `?client_id=${CLIENT_ID}`
-    + `&redirect_uri=${API_FRONT_URI}/login/oauth2/kakao`
+    + `&redirect_uri=https://wonderful-genie-12322.netlify.app/login/oauth2/kakao`
     + `&response_type=code`;
 
 export const state = generateRandomString(6);
-const redirectUri = encodeURIComponent(`${API_FRONT_URI}/login/oauth2/naver`);
+const redirectUri = encodeURIComponent(`https://wonderful-genie-12322.netlify.app/login/oauth2/naver`);
 /*const redirectUri = `${API_FRONT_URI}/login/oauth2/naver`;*/
 export const NAVER_AUTH_URL
     = `https://nid.naver.com/oauth2.0/authorize`

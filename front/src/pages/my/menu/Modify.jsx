@@ -37,6 +37,9 @@ function Modify({member, setMember}) {
                 'hp': inputValue.hp,
             });
             alert(`${response.data.nick}님의 정보를 수정 하였습니다.`)
+            await changeDTO(setMember, 'nick', response.data.nick);
+            await changeDTO(setMember, 'name', response.data.name);
+            await changeDTO(setMember, 'hp', response.data.hp);
 
         } catch (err) {
             console.error(err)

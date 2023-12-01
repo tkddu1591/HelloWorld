@@ -132,7 +132,7 @@ function MyInfo() {
 
     return (
         <div className="wrapper">
-            <ProfilePageHeader/>
+            <ProfilePageHeader member={member}/>
             <div className="section">
                 <Container>
                     <div className="button-container">
@@ -199,7 +199,7 @@ function MyInfo() {
                                                 setPills("2");
                                             }}
                                         >
-                                            <i className="now-ui-icons location_world"></i>
+                                            <i className="now-ui-icons users_single-02"></i>
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
@@ -223,7 +223,7 @@ function MyInfo() {
                                                 setPills("4");
                                             }}
                                         >
-                                            <i className="now-ui-icons sport_user-run"></i>
+                                            <i className="now-ui-icons ui-1_settings-gear-63"></i>
                                         </NavLink>
                                     </NavItem>
                                 </Nav>
