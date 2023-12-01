@@ -17,8 +17,6 @@ public class LectureOrderItemController {
     private final LectureService lectureService;
     @PostMapping("")
     public void save(@RequestParam int ordNo, @RequestBody LectureOrderItemDTO lectureOrderItemDTO) {
-        lectureOrderItemDTO.setOrdNo(ordNo);
-        log.info(ordNo +"");
         lectureOrderItemService.save(lectureOrderItemDTO);
         lectureService.updateByLectureNoOnSold(lectureOrderItemDTO.getLectureNo(), lectureOrderItemDTO.getCount());
     }

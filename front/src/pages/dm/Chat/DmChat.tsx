@@ -100,8 +100,6 @@ function DmChat() {
     }, []);
     useEffect(() => {
         setName(member.nick)
-        webSocketLogin();
-        setChkLog(true);
     }, [member]);
     return (
         <>

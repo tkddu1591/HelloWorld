@@ -96,6 +96,7 @@ function LectureView() {
             setCheckBuy(false)
         } else if (member.uid && lecture.lectureNo)
             apiClient.get(`/api/lecture/orderItem/buy?uid=${member.uid}&lectureNo=${lecture.lectureNo}`).then((res) => {
+                console.log(res.data)
                 if (res.data > 0) {
                     setCheckBuy(true)
                     setCheckSeller(false)
@@ -117,6 +118,7 @@ function LectureView() {
                 dispatch(changeLectureIHeardList(response.data));
             })
     }, [member]);
+
     return <>
         <div style={{marginTop: '100px'}} className="lectureView"></div>
         <Container onClick={() => {
