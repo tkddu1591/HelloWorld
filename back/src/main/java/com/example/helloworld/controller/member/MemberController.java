@@ -49,8 +49,15 @@ public class MemberController {
         return ResponseEntity.ok().body(memberService.modifySellerInfo(member));
     }
 
+    @PutMapping("/apply/seller/{email}")
+    public ResponseEntity<MemberDTO> applyForSellerType(@PathVariable String    email,
+                                                        @RequestBody  MemberDTO member) {
+        return ResponseEntity.ok().body(memberService.applyForSellerType(email, member.getType()));
+    }
+
     @PutMapping("/my/delete/{email}")
     public ResponseEntity<MemberDTO> deleteAccount(@PathVariable String email) {
         return ResponseEntity.ok().body(memberService.deleteAccount(email));
     }
+
 }

@@ -123,4 +123,11 @@ public class MemberService {
                 .build();
         return memberTransform.toDTO(memberRepository.save(tempEntity));
     }
+
+    public MemberDTO applyForSellerType(String email, int type) {
+        log.info("email : " + email + ", type : " + type);
+        MemberEntity entity = memberRepository.findByEmail(email);
+        entity.setType(type);
+        return memberTransform.toDTO(memberRepository.save(entity));
+    }
 }
