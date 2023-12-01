@@ -17,18 +17,14 @@ function DmChat() {
     const ws = useRef<any>(null);    //webSocket을 담는 변수,
     //컴포넌트가 변경될 때 객체가 유지되어야하므로 'ref'로 저장
 
-    console.log(chatt)
     useEffect(() => {
         if (socketData !== undefined) {
             const tempData = chatt.concat(socketData);
-            console.log(tempData);
             dispatch(insertMyChatt(tempData))
         }
     }, [socketData]);
-    console.log(myChatt)
 
     const onText = event => {
-        console.log(event.target.value);
         setMsg(event.target.value);
     }
 
@@ -36,7 +32,6 @@ function DmChat() {
     // @ts-ignore
     const webSocketLogin = useCallback(() => {
         ws.current = new WebSocket("ws://localhost:8080/socket/chatt");
-
         ws.current.onmessage = (message) => {
             const dataSet = JSON.parse(message.data);
             setSocketData(dataSet);
@@ -105,7 +100,6 @@ function DmChat() {
     }, []);
     useEffect(() => {
         setName(member.name)
-        webSocketLogin();
     }, [member]);
     return (
         <>

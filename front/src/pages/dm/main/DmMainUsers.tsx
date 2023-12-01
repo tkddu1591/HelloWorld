@@ -180,13 +180,6 @@ function DmMainUsers({ index, title, item }: DmMainUsersProps) {
 								}}>
 								{item.date}
 							</div>
-							<div
-								style={{
-									fontSize: '11px',
-									color: 'gray',
-								}}>
-								{item.name}
-							</div>
 						</>
 					)}
 				</div>
