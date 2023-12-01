@@ -31,7 +31,7 @@ public class LoginController {
     /*private final OAuth2Service oAuth2Service;*/
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody LoginDTO login, HttpServletResponse response) {
+    public Map<String, Object> login(@RequestBody LoginDTO login) {
         return loginService.defaultLogin(login);
     }
 
