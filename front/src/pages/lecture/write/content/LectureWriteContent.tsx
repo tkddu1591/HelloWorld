@@ -71,7 +71,7 @@ function LectureWriteContent() {
                 // formattedContentList를 setContentList를 통해 상태 업데이트
 
                 if (formattedContentList.length > 0&& formattedContentList[0].contents.length > 0) {
-                    console.log(formattedContentList);
+                    console.log(formattedContentList[0].contents);
                     setContentList(formattedContentList);
                 }
             } catch (error) {

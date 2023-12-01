@@ -135,6 +135,8 @@ function LectureWriteMain() {
         }
     }, [lecture])
 
+    if(lecture?.tagList)
+    console.log(lecture?.tagList)
     const [selectLevel, setSelectLevel] = useState(levels.filter(level => level.value === lecture?.levelNo)[0])
     useEffect(() => {
         if (levels.filter(level => level.value === lecture?.levelNo)[0] !== undefined)
