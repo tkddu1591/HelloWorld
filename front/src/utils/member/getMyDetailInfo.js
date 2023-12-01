@@ -1,10 +1,10 @@
 import {useEffect} from "react";
 import axios from "axios";
 import {sendRefreshToken} from "./sendRefreshToken";
-import {API_BASE_URL} from "../../App";
+import {API_BASE_URL, apiClient} from "../../App";
 export const getMyDetailInfo = (navigate, dispatch) => {
     const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
-    axios.get(`${API_BASE_URL}/me`, {
+    apiClient.get(`/me`, {
         headers: { "Authorization": `Bearer ${accessToken}` }
     })
     .then((res) => {
