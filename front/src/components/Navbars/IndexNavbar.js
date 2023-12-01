@@ -110,10 +110,10 @@ function IndexNavbar() {
 										<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 										전체
 									</DropdownItem>
-									<DropdownItem to="/lecture/list" target="_blank">
+									{/*<DropdownItem to="/lecture/list" target="_blank">
 										<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 										추천강의
-									</DropdownItem>
+									</DropdownItem>*/}
 								</DropdownMenu>
 							</UncontrolledDropdown>
 							{/*<UncontrolledDropdown nav>
