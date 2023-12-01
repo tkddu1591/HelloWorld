@@ -6,7 +6,7 @@ function Home() {
     return <>
 
         <HomeHeader></HomeHeader>
-        <HomeMain></HomeMain>
+        {/*<HomeMain></HomeMain>*/}
 
     </>
 }
