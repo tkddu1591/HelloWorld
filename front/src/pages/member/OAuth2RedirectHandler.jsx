@@ -20,7 +20,7 @@ function OAuth2RedirectHandler() {
     const { provider } = useParams();
 
     // code를 보내 token 요청할 변수들
-    const redirectUri = `/login/oauth2/${provider}`;
+    const redirectUri = `https://wonderful-genie-12322.netlify.app/login/oauth2/${provider}`;
     let endPointUri = "";
 
     if(provider === 'kakao') endPointUri = "https://kauth.kakao.com/oauth/token";
@@ -57,12 +57,7 @@ function OAuth2RedirectHandler() {
             /*navigate("/");*/
         } catch (err) {
             console.error("에러 발생 : " + err);
-            console.error("에러 발생 : " + err, null, 2);
-            console.error("에러 발생 : " + err.name); // 에러 타입
             console.error("에러 발생 : " + err.message); // 에러 메시지
-            console.error("에러 발생 : " + err.response); // 응답 객체
-            console.error("에러 발생 : " + err.request); // 요청 객체
-            console.error("에러 발생 : " + err.config); // Axios 설정
             alert('로그인에 실패했습니다. \n다시 시도해주세요.');
             console.log('axios 비동기 에러인 것 같음.');
             logout(navigate, dispatch);
