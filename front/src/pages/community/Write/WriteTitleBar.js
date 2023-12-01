@@ -22,7 +22,7 @@ function WriteTitleBar(props) {
                 <Col lg="10">
                     <Input
                         style={{border: '1px solid black', height:"38px", maxWidth: '100%', display: 'inline-block', borderRadius: "5px", borderColor: "hsl(0, 0%, 70%)"}}
-                        defaultValue=""
+                        value={props.title}
                         onChange={event => props.setTitle({value: event.target.value})}
                         /*value={props.title.value}*/
                         placeholder="제목을 입력해 주세요."

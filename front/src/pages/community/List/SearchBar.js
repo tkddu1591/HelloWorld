@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './../../../css/community/list.css';
-import { Col, Container, FormGroup, Input, Row } from 'reactstrap';
+import {Col, Container, FormGroup, Input, Row} from 'reactstrap';
 import Select from 'react-select';
+import {apiClient} from "../../../App";
+import {changeDTO} from "../../../store/changeDTO";
 
 function SearchBar(props) {
+    const handleEvents = () => {
+        console.log(props.pageRequestDTO)
+        apiClient.get(`/community/list`, {
+            params: {
+            }
+        })
+            .then(res => {
+                props.setPageResponseDTO(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
     return (<>
         <div className='search_area'
-             style={{ marginTop: '100px', minWidth: '160px' }}>
+             style={{marginTop: '100px', minWidth: '160px'}}>
             <Row>
                 <Col lg='2'>
                     <Select
@@ -20,19 +35,22 @@ function SearchBar(props) {
                     />
                 </Col>
                 <Col lg='10'>
-                    <FormGroup style={{ border: '1px solid #ccc', borderRadius: '5px', width: '10' }}>
+                    <FormGroup style={{border: '1px solid #ccc', borderRadius: '5px', width: '10'}}>
                         <Input
-                            style={{ border: 'none', maxWidth: '95%', display: 'inline-block' }}
+                            style={{border: 'none', maxWidth: '95%', display: 'inline-block'}}
                             defaultValue=''
                             placeholder='검색어를 입력해 주세요.'
                             type='text'
+                            onChange={(e) => {
+                            }}
                         ></Input>
                         <div className='now-ui-icons ui-1_zoom-bold'
-                             style={{ width: '5%', height: '22px', marginTop: '10px', cursor: 'pointer' }}></div>
+                             style={{width: '5%', height: '22px', marginTop: '10px', cursor: 'pointer'}}
+                             onClick={handleEvents}></div>
                     </FormGroup>
                 </Col>
             </Row>
-            <Row>
+            {/* <Row>
                 <Col lg='12'>
                     <div style={{ marginBottom: '15px' }}>
                         <Select
@@ -46,7 +64,7 @@ function SearchBar(props) {
                         />
                     </div>
                 </Col>
-            </Row>
+            </Row>*/}
         </div>
     </>);
 }
