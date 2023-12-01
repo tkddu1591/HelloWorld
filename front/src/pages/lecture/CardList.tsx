@@ -117,7 +117,7 @@ function CardList({
                             <div style={{
                                 width: '100%', cursor: 'pointer', height: 'auto', marginBottom: 0, objectFit: 'cover',
                             }} ref={divRef as React.RefObject<HTMLDivElement>}>
-                                <div style={{position: "absolute", right: 20}}>{levelCheck(lecture.levelNo)}</div>
+                                <div style={{position: "absolute", right: 20,top:18,paddingLeft:'5px',paddingRight:'5px', backgroundColor:'white', borderRadius:'5px'}}>{levelCheck(lecture.levelNo)}</div>
                                 <img
                                     style={{
                                         width:     '100%',
