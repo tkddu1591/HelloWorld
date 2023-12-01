@@ -99,7 +99,11 @@ function DmChat() {
                 });
     }, []);
     useEffect(() => {
-        setName(member.nick)
+        if(member.nick!==undefined) {
+            setName(member.nick)
+            webSocketLogin();
+            setChkLog(true);
+        }
     }, [member]);
     return (
         <>
