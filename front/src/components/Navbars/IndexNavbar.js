@@ -198,6 +198,8 @@ function IndexNavbar() {
 									</DropdownItem>
 								</DropdownMenu>
 							</UncontrolledDropdown>
+
+							{myInfo.email !== '비회원' &&<>
 							<NavItem>
 								<div>
 									<Link
@@ -218,7 +220,7 @@ function IndexNavbar() {
 												fontSize: '20px',
 												position: 'relative',
 											}}>
-											<div
+											{/*<div
 												style={{
 													position: 'absolute',
 													top: -15,
@@ -240,7 +242,7 @@ function IndexNavbar() {
 													}}>
 													12
 												</span>
-											</div>
+											</div>*/}
 										</i>
 									</Link>
 								</div>
@@ -293,6 +295,7 @@ function IndexNavbar() {
 									</Link>
 								</div>
 							</NavItem>
+								</>}
 							{myInfo.email === '비회원' ?
 							<NavItem>
 								<Button
