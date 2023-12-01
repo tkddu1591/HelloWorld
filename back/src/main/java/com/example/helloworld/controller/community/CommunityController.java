@@ -3,20 +3,15 @@ package com.example.helloworld.controller.community;
 
 import com.example.helloworld.dto.PageRequestDTO;
 import com.example.helloworld.dto.PageResponseDTO;
-import com.example.helloworld.dto.commuity.CommunityCommentDTO;
 import com.example.helloworld.dto.commuity.CommunityDTO;
 import com.example.helloworld.entity.commuity.CommunityEntity;
-import com.example.helloworld.service.service.CommunityService;
+import com.example.helloworld.service.community.CommunityService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @Log4j2
@@ -33,16 +28,14 @@ public class CommunityController {
         log.info(pageRequestDTO);
         log.info("cateNo : "+pageRequestDTO.getCateNo());
         log.info("sort : "+pageRequestDTO.getSort());
-        PageResponseDTO result = communityService.findCommunityByType(pageRequestDTO);
-
+        PageResponseDTO result = communityService.findByCondition(pageRequestDTO);
         log.info("regDate"+ result.getCommunityList());
-
         log.info("here..1 : " +result);
         return result;
     }
 
     @GetMapping("/view")
-    public PageResponseDTO view(int communityNo, int cateNo, PageRequestDTO pageRequestDTO, HttpServletRequest request, HttpServletResponse response){
+    public PageResponseDTO view(int communityNo,@RequestParam(required=false) int cateNo, PageRequestDTO pageRequestDTO, HttpServletRequest request, HttpServletResponse response){
 
         log.info("view...here");
 
@@ -113,6 +106,4 @@ public class CommunityController {
 
         return result;
     }
-
-
 }

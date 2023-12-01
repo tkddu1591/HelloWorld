@@ -1,17 +1,15 @@
-package com.example.helloworld.service.service;
+package com.example.helloworld.service.community;
 
 import com.example.helloworld.dto.PageRequestDTO;
 import com.example.helloworld.dto.PageResponseDTO;
 import com.example.helloworld.dto.commuity.CommunityCommentDTO;
 import com.example.helloworld.dto.commuity.CommunityDTO;
 import com.example.helloworld.dto.commuity.CommunityHasTagDTO;
-import com.example.helloworld.dto.commuity.CommunityTagDTO;
 import com.example.helloworld.entity.commuity.CommunityCategoryEntity;
 import com.example.helloworld.entity.commuity.CommunityCommentEntity;
 import com.example.helloworld.entity.commuity.CommunityEntity;
 import com.example.helloworld.entity.commuity.CommunityHasTagEntity;
 import com.example.helloworld.entity.member.MemberEntity;
-import com.example.helloworld.mapper.commuity.CommunityMapper;
 import com.example.helloworld.repository.commuity.CommunityCategoryRepository;
 import com.example.helloworld.repository.commuity.CommunityCommentRepository;
 import com.example.helloworld.repository.commuity.CommunityHasTagRepository;
@@ -26,7 +24,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -105,16 +102,16 @@ public class CommunityService {
 
         log.info("view Service...1");
         CommunityEntity viewEntity = communityRepository.findByCommunityNo(communityNo);
-        log.info("cateNo: "+ pageRequestDTO.getCateNo());
+        log.info("cateNo: " + pageRequestDTO.getCateNo());
         log.info("view Service...1.1");
 
-        String  prevNo = communityRepository.findPrevNo(cateNo, communityNo);
-        String  nextNo = communityRepository.findNextNo(cateNo, communityNo);
-        if(prevNo == null){
-            prevNo="0";
+        String prevNo = communityRepository.findPrevNo(cateNo, communityNo);
+        String nextNo = communityRepository.findNextNo(cateNo, communityNo);
+        if (prevNo == null) {
+            prevNo = "0";
         }
-        if(nextNo == null){
-            nextNo="0";
+        if (nextNo == null) {
+            nextNo = "0";
         }
         log.info(pageable);
         Page<CommunityCommentEntity> commentEntity = communityCommentRepository.findByCommunity_CommunityNo(communityNo, pageable);
@@ -155,7 +152,7 @@ public class CommunityService {
     // 한달에 한번만 조회수 1 증가하게끔 하는 쿠키 생성 및 유효성 검사
     private void viewCountValidation(int communityNo, HttpServletRequest request, HttpServletResponse response) {
         log.info("viewCountValidation here...1");
-        Cookie[] cookies = Optional.ofNullable(request.getCookies()).orElseGet(() ->new Cookie[0]);
+        Cookie[] cookies = Optional.ofNullable(request.getCookies()).orElseGet(() -> new Cookie[0]);
         log.info("viewCountValidation here...2");
         Cookie cookie = Arrays.stream(cookies)
                 .filter(c -> c.getName().equals("viewCount"))
@@ -188,7 +185,7 @@ public class CommunityService {
         response.addCookie(cookie);
     }
 
-    public void deleteCommunity(int communityNo, String uid){
+    public void deleteCommunity(int communityNo, String uid) {
 
         log.info("deleteCommunity here...1");
         communityRepository.updateDeleteCommunity(communityNo, uid);
@@ -199,13 +196,13 @@ public class CommunityService {
 
     }*/
 
-    public PageResponseDTO commentRefresh(PageRequestDTO pageRequestDTO, int communityNo, String commentType){
+    public PageResponseDTO commentRefresh(PageRequestDTO pageRequestDTO, int communityNo, String commentType) {
         pageRequestDTO.setSize(20);
         pageRequestDTO.setSort("commentNo");
         Pageable pageable = null;
-        if(commentType.equals("Desc")){
+        if (commentType.equals("Desc")) {
             pageable = pageRequestDTO.getPageableDesc();
-        }else if(commentType.equals("Asc")){
+        } else if (commentType.equals("Asc")) {
             pageable = pageRequestDTO.getPageableAsc();
         }
 
@@ -220,7 +217,6 @@ public class CommunityService {
         int totalElement = (int) commentEntity.getTotalElements();
 
 
-
         return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)
                 .commentsList(commentDTOList)
@@ -229,7 +225,7 @@ public class CommunityService {
     }
 
     @Transactional
-    public void insertComment(PageRequestDTO pageRequestDTO){
+    public void insertComment(PageRequestDTO pageRequestDTO) {
 
         CommunityCommentEntity entity = new CommunityCommentEntity();
         // 글 내용 입력
@@ -246,7 +242,7 @@ public class CommunityService {
 
     }
 
-    public void deleteComment(int commentNo){
+    public void deleteComment(int commentNo) {
 
         log.info("delete service...1");
         log.info("commentNo: " + commentNo);
@@ -256,7 +252,7 @@ public class CommunityService {
 
 
     @Transactional
-    public int register(CommunityDTO community){
+    public int register(CommunityDTO community) {
 
         log.info("register here...1");
         CommunityEntity entity = new CommunityEntity();
@@ -281,7 +277,7 @@ public class CommunityService {
         log.info("register here...4");
         int result = communityRepository.selectLatestCommunityNo(community.getUid());
 
-        for(int hasTag : community.getTags()){
+        for (int hasTag : community.getTags()) {
             CommunityHasTagDTO hasTagDTO = new CommunityHasTagDTO();
             hasTagDTO.setCommunityNo(result);
             hasTagDTO.setTagNo(hasTag);
@@ -290,4 +286,48 @@ public class CommunityService {
         log.info("register here...5");
         return result;
     }
+
+
+    public PageResponseDTO findByCondition(PageRequestDTO pageRequestDTO) {
+
+        //Order By 정렬할 컬럼명 Desc
+        //getPageableDesc 내림차순 getPageableAsc 오름차순 ("정렬할 컬럼명")
+        //pg , size 가공해서 같이 ordet by랑 섞어줌
+        Pageable pageable = pageRequestDTO.getPageableDesc();
+
+        //Page
+        Page<CommunityEntity> result = null;
+        //dtoList
+        //findBy머시기 by뒤가 where절이라고 보면 됨니다.
+        log.info(pageRequestDTO.toString());
+        result = communityRepository.findBySearch((pageRequestDTO.getCommunityDTO())
+                , pageRequestDTO.getSort(),
+                pageRequestDTO.getSortTag(),
+                pageable);
+
+        result.getContent(); // Entity
+        result.getTotalElements(); // 숫자 형이 double -> int변경해줘야함
+
+        // content를 dto로 변환 해주는 역할
+        List<CommunityDTO> dtoList = ((result.getContent().stream().map(communityTransform::toDTO).toList()));
+
+
+        int totalElement = (int) result.getTotalElements();
+        log.info(dtoList.toString());
+
+        return PageResponseDTO.builder()
+                        .
+
+                pageRequestDTO(pageRequestDTO)
+                        .
+
+                communityList(dtoList)
+                        .
+
+                total(totalElement)
+                        .
+
+                build();
+    }
+
 }

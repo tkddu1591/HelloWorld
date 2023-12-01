@@ -14,7 +14,7 @@ export const MyComponent = ({handleChange, content}) => {
             <ReactQuill
                 style={{height:"600px", marginBottom:"50px"}}
                 theme="snow"
-                value={content.value}
+                value={content}
                 onChange={handleChange}
                 placeholder={"내용을 입력해주세요."}
                 modules={modules}

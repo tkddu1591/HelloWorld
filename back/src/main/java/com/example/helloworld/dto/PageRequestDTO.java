@@ -1,6 +1,7 @@
 package com.example.helloworld.dto;
 
 
+import com.example.helloworld.dto.commuity.CommunityDTO;
 import com.example.helloworld.dto.lecture.LectureDTO;
 import lombok.*;
 import lombok.experimental.WithBy;
@@ -39,6 +40,8 @@ public class PageRequestDTO {
     private String uid = "";
     private LectureDTO lecture;
     private int lectureNo;
+    private CommunityDTO communityDTO;
+    private String sortTag="";
 
     public Pageable getPageableDesc(){
         return  PageRequest.of(this.pg - 1, this.size, Sort.by(this.sort).descending());
