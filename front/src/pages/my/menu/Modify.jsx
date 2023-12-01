@@ -3,7 +3,7 @@ import {Button, CardTitle, Input, Modal} from "reactstrap";
 import {changeDTO} from "../../../store/changeDTO";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {ModalTitle} from "react-bootstrap";
 import {logout} from "../../../utils/member/logout";
 import {useNavigate} from "react-router-dom";
@@ -31,7 +31,7 @@ function Modify({member, setMember}) {
         // eslint-disable-next-line no-restricted-globals
         if(!confirm('수정하시겠습니까?')) return
         try {
-            const response = await axios.put(`${API_BASE_URL}/my/modify`, {
+            const response = await apiClient.put(`/my/modify`, {
                 'email': inputValue.email,
                 'nick': inputValue.nick,
                 'name': inputValue.name,
@@ -50,7 +50,7 @@ function Modify({member, setMember}) {
         // eslint-disable-next-line no-restricted-globals
         if(!confirm('삭제하면 다시 되돌릴 수 없습니다.\n정말 삭제하시겠습니까?')) return;
 
-        const response = await axios.put(`${API_BASE_URL}/my/delete/${inputValue.email}`);
+        const response = await apiClient.put(`/my/delete/${inputValue.email}`);
         try {
             alert(`${response.data.email}님의 계정을 삭제하였습니다.\n삭제일시:${response.data.wdate}`)
             logout(navigate, dispatch)
