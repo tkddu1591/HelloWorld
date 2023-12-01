@@ -39,7 +39,7 @@ function OAuth2RedirectHandler() {
 
     const social_login_kakao = async () => {
         try {
-            const response = await apiClient.post(endPointUri, formData);
+            const response = await axios.post(endPointUri, formData);
             const data = await getKakaoUserInfo(response.data.access_token, navigate, dispatch);
             const arr = [data.id.toString(), data.kakao_account.email, data.properties.nickname];
 
