@@ -3,8 +3,6 @@ import React, {useEffect, useState} from 'react';
 import LectureOrderHeader from '../cart/LectureOrderHeader';
 import '../scss/lecture/order/order.scss';
 import LectureOrderMain from './LectureOrderMain';
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
 
 function LectureOrder() {
 

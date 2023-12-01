@@ -6,8 +6,7 @@ import {Button, Col, Container, Row, Table} from 'reactstrap';
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {CartItem, CartTotal} from "../../../type/cart";
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {changeDTO} from "../../../store/changeDTO";
 
 function LectureComplete() {
@@ -39,7 +38,7 @@ function LectureComplete() {
     useEffect(() => {
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
         if (accessToken !== null)
-            axios.get(`${API_BASE_URL}/me`, {
+            apiClient.get(`/me`, {
                 headers: {"Authorization": `Bearer ${accessToken}`}
             })
                 .then((res) => {
@@ -63,7 +62,7 @@ function LectureComplete() {
         })
         setOrderList(myCartList)
         console.log(myCartList)
-        axios.get(`${API_BASE_URL}/api/lecture/order/last?uid=` + member.uid,).then((res) => {
+        apiClient.get(`/api/lecture/order/last?uid=` + member.uid,).then((res) => {
             changeDTO(setOrder, 'ordNo', res.data.ordNo)
             changeDTO(setOrder, 'complete', res.data.complete)
             changeDTO(setOrder, 'payment', res.data.payment)
@@ -111,7 +110,13 @@ function LectureComplete() {
                                 {order &&
                                     <tr>
                                         <td>{order?.ordNo}</td>
-                                        <td>{order.ordDate?.substring(0, 10)} {order.ordDate?.substring(11, 19)}</td>
+                                        <td>{Array.isArray(order.ordDate) && (
+                                            order.ordDate.slice(0, 6).map((number, index) => (
+                                                (index === 0 ? String(number).padStart(4, '0') :
+                                                    String(number).padStart(2, '0')) +
+                                                ((index < 2) ? '-' : (index === 2 ? ' ' : (index === 5 ? '' : ':')))
+                                            )).join('')
+                                        )}</td>
                                         <td>{order.email}</td>
                                         <td>￦{order.totalPrice?.toLocaleString()}</td>
                                         <td>{paymentCheck(order.payment)}</td>
@@ -140,7 +145,8 @@ function LectureComplete() {
                                             <td>
                                                 {item.discount !== 0 &&
                                                     <div
-                                                        style={{color: "gray", textDecoration: 'line-through'}}>{Number((item.price * item.count).toFixed(0)).toLocaleString()} ￦
+                                                        style={{color:      "gray", textDecoration: 'line-through'
+                                                        }}>{Number((item.price * item.count).toFixed(0)).toLocaleString()} ￦
                                                     </div>}
                                                 <div>{Number(item.total.toFixed(0)).toLocaleString()} ￦</div>
                                             </td>

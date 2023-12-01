@@ -2,9 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SearchBar from '../../../components/Lecture/SearchBar';
 import '../scss/lecture/list/list.scss';
 import ListTable from '../../../components/Lecture/ListTable';
-import {API_BASE_URL} from "../../../App";
-import axios from "axios";
-import {Type} from "react-bootstrap-icons";
+import {apiClient} from "../../../App";
 import {changeDTO} from "../../../store/changeDTO";
 import {useLocation} from "react-router-dom";
 
@@ -26,8 +24,8 @@ function LectureList() {
     useEffect(() => {
         //태그
         if (tags.length === 0)
-            axios.get(`${API_BASE_URL}/lecture/tags`).then((res) => {
-                if (res.data.length !== 0) {
+            apiClient.get(`/lecture/tags`).then((res) => {
+                if (res.data.length !== 0 && Array.isArray(res.data)) {
                     const newTags = res.data.map((tag) => ({
                         value: tag.tagNo,
                         label: tag.tagName,
@@ -42,17 +40,20 @@ function LectureList() {
                 console.log(err);
             });
         //레벨
-        axios.get(`${API_BASE_URL}/lecture/levels`).then((res) => {
-            const newLevel = res.data.map((level) => ({
-                value: level.levelNo,
-                label: level.levelName,
-            }));
+        apiClient.get(`/lecture/levels`).then((res) => {
+            if (Array.isArray(res.data)) {
+                const newLevel = res.data.map((level) => ({
+                    value: level.levelNo,
+                    label: level.levelName,
+                }));
 
-            // 중복된 값을 필터링하여 추가
-            setLevels((prevLevels) => {
-                const uniqueLevels = newLevel.filter(newTag => !prevLevels.some(prevTag => prevTag.value === newTag.value));
-                return [...(prevLevels || []), ...uniqueLevels];
-            });
+
+                // 중복된 값을 필터링하여 추가
+                setLevels((prevLevels) => {
+                    const uniqueLevels = newLevel.filter(newTag => !prevLevels.some(prevTag => prevTag.value === newTag.value));
+                    return [...(prevLevels || []), ...uniqueLevels];
+                });
+            }
         }).catch((err) => {
             console.log(err);
         });
@@ -146,22 +147,23 @@ function LectureList() {
 
 
     const handleSearch = () => {
-            changeDTO(setPageRequest, 'lecture', lecture)
-                .then(r =>
-                    axios.get(`${API_BASE_URL}/lecture/list`, {
-                        params: {
-                            pg:                  pageRequest?.pg,
-                            size:                pageRequest?.size,
-                            sort:                pageRequest?.sort,
-                            'lecture.title':     lecture?.title,
-                            'lecture.tagList':   lecture?.tagList?.join(','),
-                            'lecture.studyDate': lecture?.studyDate,
-                            'lecture.levelNo':   lecture?.levelNo
-                        }
-                    }).then((res) => {
-                        setPageResponses(res.data);
-                    }))
-                .catch(err => console.log(err));
+        console.log(pageRequest.pg)
+        changeDTO(setPageRequest, 'lecture', lecture)
+            .then(r =>
+                apiClient.get(`/lecture/list`, {
+                    params: {
+                        pg:                  pageRequest?.pg,
+                        size:                pageRequest?.size,
+                        sort:                pageRequest?.sort,
+                        'lecture.title':     lecture?.title,
+                        'lecture.tagList':   lecture?.tagList?.join(','),
+                        'lecture.studyDate': lecture?.studyDate,
+                        'lecture.levelNo':   lecture?.levelNo
+                    }
+                }).then((res) => {
+                    setPageResponses(res.data);
+                }))
+            .catch(err => console.log(err));
 
     }
     useEffect(() => {

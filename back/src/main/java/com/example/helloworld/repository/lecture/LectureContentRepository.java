@@ -22,4 +22,5 @@ public interface LectureContentRepository extends JpaRepository<LectureContentEn
     LectureContentEntity findByTitleAndContentNoBetween(String title, int start, int end);
 
 
+    int countByLecture_LectureNo(int lectureNo);
 }

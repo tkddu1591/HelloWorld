@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.local react-scripts start",
-    "build": "env-cmd -f .env.production cross-env BUILD_PATH='../back/src/main/resources/templates' react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
@@ -54,7 +54,6 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:8080",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -81,6 +80,7 @@
     "chokidar": "3.5.3"
   },
   "homepage": "./",
+  "homepage": "https://master--wonderful-genie-12322.netlify.app/",
   "devDependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

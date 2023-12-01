@@ -56,7 +56,6 @@ public class LectureReviewService {
 
 
         int totalElement = (int) result.getTotalElements();
-
         return PageResponseDTO.builder()
                 .pageRequestDTO(pageRequestDTO)
                 .lectureReviewList(dtoList)

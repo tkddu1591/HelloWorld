@@ -6,7 +6,6 @@ import {useSelector} from "react-redux";
 
 function LectureDetailAside() {
     let [aside, setAside] = useState(false);
-
     const partList = useSelector((state: any) => state.lecturePartList);
     const contentList = useSelector((state: any) => state.lectureContentList);
     return (<div

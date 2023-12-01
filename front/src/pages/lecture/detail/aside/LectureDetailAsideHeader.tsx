@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Button } from 'reactstrap';
 import { ProgressBar } from 'react-bootstrap';
+import {useSelector} from "react-redux";
 
 function LectureDetailAsideHeader({ aside, setAside }) {
-   let [now, setNow] = useState(60);
+    let contentCount = useSelector((state: any) => state.contentCount);
+    let lectureIHeardList = useSelector((state: any) => state.lectureIHeardList);
    return (
       <>
          <Button
@@ -37,10 +39,10 @@ function LectureDetailAsideHeader({ aside, setAside }) {
             </div>*/}
 
             <ProgressBar
-               now={now}
+               now={lectureIHeardList.length/contentCount*100}
                style={{ marginTop: '40px' }}
                animated={true}
-               label={`${now}%`}
+               label={`${(lectureIHeardList.length/contentCount*100).toFixed(2)}%`}
                variant={'success'}></ProgressBar>
          </div>
       </>

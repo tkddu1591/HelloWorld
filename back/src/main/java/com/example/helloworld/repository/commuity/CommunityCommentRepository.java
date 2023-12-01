@@ -21,7 +21,7 @@ public interface CommunityCommentRepository extends JpaRepository<CommunityComme
     @Transactional
     @Modifying
     @Query("UPDATE CommunityCommentEntity c SET c.isDeleted = -1 WHERE c.commentNo = :commentNo")
-    public void updateByCommentNo(int commentNo);
+    public void updateIsDeletedByCommentNo(int commentNo);
 
     /*public void save(int communityNo, String content);*/
 }

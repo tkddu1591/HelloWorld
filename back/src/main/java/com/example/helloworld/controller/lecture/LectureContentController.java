@@ -42,5 +42,9 @@ public class LectureContentController {
     public List<LectureContentDTO> listByPart(@RequestParam int partNo) {
         return lectureContentService.selectByPartNo(partNo);
     }
+    @GetMapping("/countByLecture")
+    public int countByLecture(@RequestParam int lectureNo) {
+        return lectureContentService.countByLectureNo(lectureNo);
+    }
 
 }

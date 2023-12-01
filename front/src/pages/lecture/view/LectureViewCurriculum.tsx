@@ -2,8 +2,7 @@ import {Col, Table} from 'reactstrap';
 import React, {useEffect, useState} from 'react';
 import {changeDTO} from '../../../store/changeDTO';
 import Subhead from '../../../Subhead';
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 
 function LectureViewCurriculum({lecture}) {
     const [partList, setParts] = useState<{
@@ -14,7 +13,7 @@ function LectureViewCurriculum({lecture}) {
 
     useEffect(() => {
         if (lecture?.lectureNo) {
-            axios.get(`${API_BASE_URL}/lecture/part/list?lectureNo=${lecture.lectureNo}`).then(response =>
+            apiClient.get(`/lecture/part/list?lectureNo=${lecture.lectureNo}`).then(response =>
                 setParts(response.data)).catch(err => {
                 console.log(err)
             })
@@ -42,7 +41,7 @@ function LectureViewCurriculumTable({part, index}: LectureViewCurriculumTablePro
     const [contentList, setContentList] = useState<{ contentNo: number,lectureNo:number,title:string,content:string,partNo:number }[]>()
     useEffect(() => {
         if (part)
-            axios.get(`${API_BASE_URL}/lecture/content/listByPart?partNo=${part.partNo}`).then(
+            apiClient.get(`/lecture/content/listByPart?partNo=${part.partNo}`).then(
                 response => setContentList(response.data)).catch(err => {
                 console.log(err)
             })

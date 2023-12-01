@@ -85,6 +85,7 @@ function ReviewList({popup, setPopup, item, setPageRequest, member, setIsReviewW
     }
 
 
+    console.log(item)
     return <div key={item.reviewNo}
                 style={{
                     display:        'flex',
@@ -107,7 +108,12 @@ function ReviewList({popup, setPopup, item, setPageRequest, member, setIsReviewW
                             }}>
 							{item.nick}
 						</span>{' '}
-                / {item.regDate.substring(0, 10) + " " + item.regDate.substring(11, 19)}
+                / {Array.isArray(item.regDate) && (
+                item.regDate.slice(0, 6).map((number, index) => (
+                    (index === 0 ? String(number).padStart(4, '0') : String(number).padStart(2, '0')) +
+                    ((index < 2) ? '-' : (index === 2 ? ' ' : (index === 5 ? '' : ':')))
+                )).join('')
+            )}
             </p>
             <textarea style={{
                 width:      '100%',

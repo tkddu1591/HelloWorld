@@ -15,8 +15,7 @@ import ProfilePageHeader from "../../components/Headers/ProfilePageHeader";
 import DefaultFooter from "../../components/Footers/DefaultFooter";
 import ListTable from "../../components/Lecture/ListTable";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
-import {API_BASE_URL} from "../../App";
+import {API_BASE_URL, apiClient} from "../../App";
 import {getMyDetailInfo} from "../../utils/member/getMyDetailInfo";
 import {useDispatch} from "react-redux";
 import Modify from "./menu/Modify";
@@ -52,7 +51,7 @@ function MyInfo() {
     useEffect(() => {
         //태그
         if (tags.length === 0)
-            axios.get(`${API_BASE_URL}/lecture/tags`).then((res) => {
+            apiClient.get(`/lecture/tags`).then((res) => {
                 if (res.data.length !== 0) {
                     const newTags = res.data.map((tag) => ({
                         value: tag.tagNo,
@@ -102,7 +101,7 @@ function MyInfo() {
     useEffect(() => {
         const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
         if (accessToken !== null)
-            axios.get(`${API_BASE_URL}/me`, {
+            apiClient.get(`/me`, {
                 headers: {"Authorization": `Bearer ${accessToken}`}
             })
                 .then((res) => {
@@ -117,7 +116,7 @@ function MyInfo() {
 
     useEffect(() => {
         if (member?.uid)
-            axios.get(`${API_BASE_URL}/lecture/list`, {
+            apiClient.get(`/lecture/list`, {
                 params: {
                     pg:     1,
                     size:   4,

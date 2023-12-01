@@ -1,7 +1,6 @@
 package com.example.helloworld.controller.member;
 
 
-import com.example.helloworld.dto.member.LoginDTO;
 import com.example.helloworld.dto.member.MemberDTO;
 import com.example.helloworld.service.member.LoginService;
 import com.example.helloworld.service.member.MemberService;
@@ -36,7 +35,7 @@ public class MemberController {
 
     @GetMapping("/me")
     public ResponseEntity<MemberDTO> getMyInfo() {
-        log.info("start!");
+        /*log.info("start!");*/
         return ResponseEntity.ok().body(memberService.getMyInfo());
     }
 

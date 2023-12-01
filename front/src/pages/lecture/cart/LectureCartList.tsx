@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Col, Table} from 'reactstrap';
 import InputNumber from '../../../components/Lecture/InputNumber';
 import SelectBox from '../../../components/Lecture/SelectBox';
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 
 interface LectureCartListProps {
     coupon?: {
@@ -95,8 +94,8 @@ function LectureCartListItem({item, setCartList, setIsChange, isChange}) {
             <div>
                 <i className="bi bi-x"
                    onClick={() => {
-                       axios
-                           .delete(`${API_BASE_URL}/api/lecture/cart?cartNo=${item?.cartNo}`)
+                       apiClient
+                           .delete(`/api/lecture/cart?cartNo=${item?.cartNo}`)
                            .then(res => setIsChange(!isChange))
                            .catch((err) => console.log(err));
                    }}></i>

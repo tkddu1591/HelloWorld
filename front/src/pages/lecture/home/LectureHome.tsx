@@ -1,8 +1,7 @@
 import Banner from '../../../components/Lecture/Banner';
 import React, {useEffect, useState} from 'react';
 import ListTable from '../../../components/Lecture/ListTable';
-import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {changeDTO} from "../../../store/changeDTO";
 
 function LectureHome() {
@@ -13,7 +12,7 @@ function LectureHome() {
     useEffect(() => {
         //태그
         if (tags.length === 0)
-            axios.get(`${API_BASE_URL}/lecture/tags`).then((res) => {
+            apiClient.get(`/lecture/tags`).then((res) => {
                 if (res.data.length !== 0) {
                     const newTags = res.data.map((tag) => ({
                         value: tag.tagNo,
@@ -50,7 +49,7 @@ function LectureHome() {
     const [newPageResponse, setNewPageResponses] = useState();
     const [discountPageResponse, setDiscountPageResponses] = useState();
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/lecture/list`, {
+        apiClient.get(`/lecture/list`, {
             params: {
                 pg:   1,
                 size: 4,
@@ -60,7 +59,7 @@ function LectureHome() {
             setHitPageResponses(res.data);
         }).catch(err => console.log(err));
 
-        axios.get(`${API_BASE_URL}/lecture/list`, {
+        apiClient.get(`/lecture/list`, {
             params: {
                 pg:   1,
                 size: 4,
@@ -70,7 +69,7 @@ function LectureHome() {
             setNewPageResponses(res.data);
         }).catch(err => console.log(err));
 
-        axios.get(`${API_BASE_URL}/lecture/list`, {
+        apiClient.get(`/lecture/list`, {
             params: {
                 pg:   1,
                 size: 4,
