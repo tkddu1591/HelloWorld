@@ -12,7 +12,7 @@ function WriteTitleBar(props) {
                     <Select
                         onChange={props.setSelectedSearch}
                         options={props.searchSelect}
-                        defaultValue={props.searchSelect[0]}
+                        defaultValue={props.searchSelect[props.storeCateNo.no-1]}
                         isMulti={false}
                         maxMenuHeight={"300px"}
                         readonly={true}

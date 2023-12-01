@@ -125,6 +125,44 @@ function CommentList({
                                         <span className="comment_info_date">{formattedDate}</span>
                                         <a role="button" className="comment_info_button"
                                            onClick={() => {
+                                               // 해당 댓글의 작성자와 현재 로그인한 사용자의 UID 비교
+                                               const isCurrentUserComment = a.memberUid === myInfo.uid;
+
+                                               // 동적으로 메뉴 설정
+                                               const dynamicMenu = isCurrentUserComment
+                                                   ? [
+                                                       {
+                                                           data: '수정',
+                                                           action: '/community/editComment',
+                                                           type: 'axios',
+                                                       },
+                                                       {
+                                                           data: '삭제',
+                                                           action: '/community/deleteComment',
+                                                           type: 'axios',
+                                                       },
+                                                   ]
+                                                   : [
+                                                       {
+                                                           data: '대화',
+                                                           action: '/dm/chat/1',
+                                                           newWindow: true,
+                                                       },
+                                                       {
+                                                           data: '차단',
+                                                           action: '/member/block',
+                                                           type: 'axios',
+                                                       },
+                                                       {
+                                                           data: '신고',
+                                                           action: '/member/report',
+                                                           type: 'axios',
+                                                       },
+                                                   ];
+                                               changeDTO(setPopupSetting, 'condition', dynamicMenu);
+                                               changeDTO(setPopupSetting, 'axiosData', a.commentNo);
+                                               console.log('popupSetting: '+popupSetting);
+                                               setPopup('user' + i);
                                                setReplyToComment(a.commentNo);
                                                setParentNo(a.commentNo);
                                            }}>
@@ -449,9 +487,14 @@ function CommentList({
                         })}
                     </>)
             })}
+        </ul>
+    </>)
+}
 
 
-            {/*<li id="97566728" className="CommentItem CommentItem--reply">
+export default CommentList;
+
+{/*<li id="97566728" className="CommentItem CommentItem--reply">
                 <div className="comment_area">
                     <a href="#" className="comment_thumb">
                         <img
@@ -614,9 +657,3 @@ function CommentList({
                     </div>
                 </div>
             </li>*/}
-        </ul>
-    </>)
-}
-
-
-export default CommentList;

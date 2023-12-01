@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../../../css/community/write.scss";
 
-function WriteHeader({register}){
+function WriteHeader({register, title, content}){
     return (<>
         <div className="WritingHeader" style={{marginTop: "70px"}}>
             <h2 className={"title"}>글쓰기</h2>
@@ -12,7 +12,17 @@ function WriteHeader({register}){
                 </div>
                 <a className="BaseButton BaseButton--skinGreen size_default" style={{background:"lightskyblue"}}>
                     {/*<Button variant="primary" style={{background:"#2CA8FF"}}>등록</Button>*/}
-                    <span className={"BaseButton__txt"} style={{color:"darkslateblue"}} onClick={()=>{register()}}>등록</span>
+                    <span className={"BaseButton__txt"} style={{color:"darkslateblue"}} onClick={()=>{
+                        if(title.value === null || title.value === "") {
+                            alert("제목을 입력하세요.");
+                            return;
+                        }
+                        if(content.value === null || content.value === "") {
+                            alert("내용을 입력하세요.");
+                            return;
+                        }
+                        register();
+                    }}>등록</span>
                 </a>
 
             </div>

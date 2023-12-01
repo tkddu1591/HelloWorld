@@ -11,38 +11,43 @@ import {useSelector} from "react-redux";
 
 
 const searchSelect = [
-    {value: '0', label: '자유게시판'},
-    {value: '1', label: '스터디'},
-    {value: '2', label: 'Q&A'},
+    {value: '1', label: '자유게시판'},
+    {value: '2', label: '스터디'},
+    {value: '3', label: 'Q&A'},
 ];
 
 const options = [
-    {value: 'java', label: 'Java'},
-    {value: 'python', label: 'Python'},
-    {value: 'c', label: 'C'},
-    {value: 'c#', label: 'C#'},
-    {value: 'c++', label: 'C++'},
-    {value: 'Android', label: 'Android'},
-    {value: 'react', label: 'React'},
-    {value: 'vue', label: 'Vue'},
-    {value: 'mysql', label: 'MySql'},
-    {value: 'oracle', label: 'Oracle'},
-    {value: 'flutter', label: 'Flutter'},
-    {value: 'javascript', label: 'Javascript'},
-    {value: 'django', label: 'Django'},
-    {value: 'html', label: 'Html'},
-    {value: 'css', label: 'Css'},
-    {value: 'node.js', label: 'Node.js'}
+    {value: 0, label: 'Java'},
+    {value: 1, label: 'Python'},
+    {value: 2, label: 'C'},
+    {value: 3, label: 'C#'},
+    {value: 4, label: 'C++'},
+    {value: 5, label: 'Android'},
+    {value: 6, label: 'React'},
+    {value: 7, label: 'Vue'},
+    {value: 8, label: 'MySql'},
+    {value: 9, label: 'Oracle'},
+    {value: 10, label: 'Flutter'},
+    {value: 11, label: 'Javascript'},
+    {value: 12, label: 'Django'},
+    {value: 13, label: 'Html'},
+    {value: 14, label: 'Css'},
+    {value: 15, label: 'Node.js'}
 ];
 
 
 function CommunityWrite() {
-    const [selectedSearch, setSelectedSearch] = useState(null);
+    let storeCateNo = useSelector((state) => {
+        return state.cateNo
+    });
+    const [selectedSearch, setSelectedSearch] = useState(searchSelect[storeCateNo.no - 1]);
     const [selectedOption, setSelectedOption] = useState(null);
     const [content, setContent] = useState({value: null});
     const [title, setTitle] = useState({value: null});
     let [uid, setUid] = useState('');
-    let myInfo = useSelector((state) => {return state.myInfo} );
+    let myInfo = useSelector((state) => {
+        return state.myInfo
+    });
     let navigate = useNavigate();
 
     const handleChange = value => {
@@ -55,6 +60,9 @@ function CommunityWrite() {
 
     useEffect(() => {
         setUid(myInfo.uid);
+        console.log('storeCateNo: ' + storeCateNo.no);
+        console.log('searchSelect : ' + searchSelect[storeCateNo.no]);
+        /*setSelectedSearch(searchSelect[]);*/
     }, []);
 
     useEffect(() => {
@@ -85,22 +93,27 @@ function CommunityWrite() {
                 uid: uid
             }
         )
-            .then(res=>{
+            .then(res => {
                 console.log('register success: ' + res.data);
+                navigate(`/community/view?cate=${selectedSearch.value}&no=${res.data}`);
             })
-            .catch(err =>{
+            .catch(err => {
                 console.log(err);
             })
     }
 
     useEffect(() => {
-        console.log('title : '+title.value);
-    },[title])
+        console.log(selectedSearch);
+        console.log('title : ' + title.value);
+    }, [title])
 
     return (<>
             <Container>
                 <div className="write" style={{marginTop: "90px"}}>
-                    <WriteHeader register={register}></WriteHeader>
+                    <WriteHeader register={register}
+                                 title={title}
+                                 content={content}>
+                    </WriteHeader>
                     <WriteTitleBar selectedSearch={selectedSearch}
                                    setSelectedSearch={setSelectedSearch}
                                    searchSelect={searchSelect}
@@ -109,7 +122,9 @@ function CommunityWrite() {
                                    setSelectedOption={setSelectedOption}
                                    title={title}
                                    setTitle={setTitle}
-                                   titleChange={titleChange}></WriteTitleBar>
+                                   titleChange={titleChange}
+                                   storeCateNo={storeCateNo}>
+                    </WriteTitleBar>
                     <MyComponent handleChange={handleChange} content={content}></MyComponent>
                 </div>
             </Container>

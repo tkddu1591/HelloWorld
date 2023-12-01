@@ -40,6 +40,8 @@ function CommunityView() {
     let [parentNo, setParentNo] = useState(0);
     let [tagsList, setTagsList] = useState([]);
     let myInfo = useSelector((state) => {return state.myInfo} )
+    let storeCateNo = useSelector((state)=>{return state.cateNo})
+    let listURL = useSelector((state)=>{return state.listURL.url})
 
     // CommentOption의 ref를 생성합니다.
     const commentRef = React.createRef();
@@ -174,8 +176,14 @@ function CommunityView() {
                         <div className="view" style={{marginTop: '80px'}}>
                             <div className="Article layout_content">
                                 <div className="article_wrap">
-                                    <ArticleTopBtns setCateNo={setCateNo} setCommunityNo={setCommunityNo} view={view}
-                                                    prevNo={prevNo} nextNo={nextNo}></ArticleTopBtns>
+                                    <ArticleTopBtns setCateNo={setCateNo}
+                                                    setCommunityNo={setCommunityNo}
+                                                    view={view}
+                                                    storeCateNo={storeCateNo}
+                                                    listURL={listURL}
+                                                    myInfo={myInfo}
+                                                    prevNo={prevNo}
+                                                    nextNo={nextNo}></ArticleTopBtns>
                                     <div className="ArticleContentBox" style={{marginBottom: '100px'}}>
                                         <ArticleHeader scrollToCommentOption={scrollToCommentOption} navigate={navigate}
                                                        view={view}></ArticleHeader>

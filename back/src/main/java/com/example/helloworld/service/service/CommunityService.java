@@ -5,6 +5,7 @@ import com.example.helloworld.dto.PageResponseDTO;
 import com.example.helloworld.dto.commuity.CommunityCommentDTO;
 import com.example.helloworld.dto.commuity.CommunityDTO;
 import com.example.helloworld.dto.commuity.CommunityHasTagDTO;
+import com.example.helloworld.dto.commuity.CommunityTagDTO;
 import com.example.helloworld.entity.commuity.CommunityCategoryEntity;
 import com.example.helloworld.entity.commuity.CommunityCommentEntity;
 import com.example.helloworld.entity.commuity.CommunityEntity;
@@ -74,7 +75,7 @@ public class CommunityService {
         //dtoList
         //findBy머시기 by뒤가 where절이라고 보면 됨니다.
         if (pageRequestDTO.getCateNo() != 0) {
-            result = communityRepository.findByCate_CateNo(pageRequestDTO.getCateNo(), pageable);
+            result = communityRepository.findByCate_CateNoAndIsDelete(pageRequestDTO.getCateNo(), 0, pageable);
         }
 
 
@@ -187,6 +188,13 @@ public class CommunityService {
         response.addCookie(cookie);
     }
 
+    public void deleteCommunity(int communityNo, String uid){
+
+        log.info("deleteCommunity here...1");
+        communityRepository.updateDeleteCommunity(communityNo, uid);
+        log.info("deleteCommunity here...2");
+    }
+
     /*public PageResponseDTO findCommentsByCommunityNo(){
 
     }*/
@@ -248,19 +256,38 @@ public class CommunityService {
 
 
     @Transactional
-    public void register(CommunityDTO community){
+    public int register(CommunityDTO community){
 
+        log.info("register here...1");
         CommunityEntity entity = new CommunityEntity();
         MemberEntity member = new MemberEntity();
         CommunityCategoryEntity category = new CommunityCategoryEntity();
 
+        log.info("register here...2");
+
+        log.info("register here...3");
         member.setUid(community.getUid());
         category.setCateNo(community.getCateNo());
 
         entity.setMember(member);
         entity.setCate(category);
+        entity.setTitle(community.getTitle());
+        entity.setRegDate(community.getRegDate());
+        entity.setContent(community.getContent());
+        entity.setThumb(community.getThumb());
+
 
         communityRepository.save(entity);
+        log.info("register here...4");
+        int result = communityRepository.selectLatestCommunityNo(community.getUid());
 
+        for(int hasTag : community.getTags()){
+            CommunityHasTagDTO hasTagDTO = new CommunityHasTagDTO();
+            hasTagDTO.setCommunityNo(result);
+            hasTagDTO.setTagNo(hasTag);
+            hasTagRepository.save(hasTagTransform.toEntity(hasTagDTO));
+        }
+        log.info("register here...5");
+        return result;
     }
 }
