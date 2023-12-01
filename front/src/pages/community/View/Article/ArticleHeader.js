@@ -4,7 +4,7 @@ import '../../../../css/community/view.css';
 
 
 function ArticleHeader({view, navigate, scrollToCommentOption}){
-    const date = new Date(view.regDate);
+    /*const date = new Date(view.regDate);
 
 
     const options = {
@@ -17,7 +17,7 @@ function ArticleHeader({view, navigate, scrollToCommentOption}){
     }
 
     // 형식화된 날짜 및 시간 문자열 생성
-    const formattedDate = date.toLocaleDateString('ko-KR', options).replace(/\//g, '.').replace(',', '');
+    const formattedDate = date.toLocaleDateString('ko-KR', options).replace(/\//g, '.').replace(',', '');*/
 
     return (<>
         <div className="article_header">
@@ -100,7 +100,7 @@ function ArticleHeader({view, navigate, scrollToCommentOption}){
                         </a>
                     </div>
                     <div className="article_info">
-                        <span className="date">{formattedDate}</span>
+                        <span className="date">{Array.isArray(view.regDate)&&(view.regDate[0]+'.'+view.regDate[1]+'.'+view.regDate[2]+'. '+view.regDate[3]+':'+view.regDate[4])}</span>
                         <span className="count">조회 {view.hit}</span>
                     </div>
                 </div>
