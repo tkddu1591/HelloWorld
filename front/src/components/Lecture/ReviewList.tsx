@@ -2,8 +2,7 @@ import UserPopup from './UserPopup';
 import Star from './Star';
 import React, {RefObject, useEffect, useRef, useState} from 'react';
 import {changeDTO} from "../../store/changeDTO";
-import axios from "axios";
-import {API_BASE_URL} from "../../App";
+import {API_BASE_URL, apiClient} from "../../App";
 import javascript from "../../views/index-sections/Javascript";
 import {useSelector} from "react-redux";
 
@@ -167,7 +166,7 @@ function ReviewList({popup, setPopup, item, setPageRequest, member, setIsReviewW
                                 alert('수정된 사항이 없습니다.')
                             else {
                                 if (window.confirm('수정하시겠습니까?')) {
-                                    await axios.post(`${API_BASE_URL}/lecture/review/update`, newReview)
+                                    await apiClient.post(`/lecture/review/update`, newReview)
                                     await changeDTO(setNewReview, 'isChange', false).then((res) => setIsReviewWrite(!isReviewWrite))
                                 }
                             }
@@ -176,7 +175,7 @@ function ReviewList({popup, setPopup, item, setPageRequest, member, setIsReviewW
                     <span style={{userSelect: "none"}}>|</span>
                     <span style={{cursor: "pointer"}} onClick={() => {
                         if (window.confirm('삭제하시겠습니까?'))
-                            axios.delete(`${API_BASE_URL}/lecture/review`, {params: item}).then(() => setIsReviewWrite(!isReviewWrite))
+                            apiClient.delete(`/lecture/review`, {params: item}).then(() => setIsReviewWrite(!isReviewWrite))
                     }}>삭제</span></div>
             </>
             }
