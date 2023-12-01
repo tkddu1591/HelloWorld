@@ -41,6 +41,7 @@ function SelectBox({
                 setSelectedOption(value)
         }
     }, [value]);
+    console.log(value)
     return (
         <div className="App">
             <Select
