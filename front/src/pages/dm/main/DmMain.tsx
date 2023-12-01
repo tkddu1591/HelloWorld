@@ -17,7 +17,7 @@ function DmMain() {
 	useEffect(() => {
 		if (socketData !== undefined) {
 			const tempData = chatt.concat(socketData);
-			dispatch(insertMyChatt([tempData]))
+			dispatch(insertMyChatt(tempData))
 		}
 	}, [socketData]);
 	// @ts-ignore
@@ -29,6 +29,7 @@ function DmMain() {
 			setSocketData(dataSet);
 		}
 	});
+	console.log(chatt)
 	const [member, setMember] = useState<any>({})
 	useEffect(() => {
 		const accessToken = localStorage.getItem("helloWorld_ACCESS_TOKEN")
