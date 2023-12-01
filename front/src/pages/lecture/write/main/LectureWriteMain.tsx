@@ -150,6 +150,7 @@ function LectureWriteMain() {
             setSelectTag(tags.filter(tag => lecture?.tagList.includes(tag.value)))
     }, [tags])
     let navigate = useNavigate()
+    console.log(tags)
     return <Container style={{marginTop: '100px'}} className={'lectureMainWrite'}>
         <Row>
             <Col className={'lectureWrite'}>
