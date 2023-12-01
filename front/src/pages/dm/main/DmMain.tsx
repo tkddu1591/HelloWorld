@@ -46,7 +46,7 @@ function DmMain() {
 				});
 	}, []);
 	useEffect(() => {
-		setName(member.name)
+		setName(member.nick)
 		webSocketLogin();
 		setChkLog(true);
 	}, [member]);

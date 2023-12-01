@@ -99,7 +99,7 @@ function DmChat() {
                 });
     }, []);
     useEffect(() => {
-        setName(member.name)
+        setName(member.nick)
         webSocketLogin();
         setChkLog(true);
     }, [member]);
@@ -115,7 +115,7 @@ function DmChat() {
 function ChatBox({item, member}) {
 
 
-    if (item.name === member.name) {
+    if (item.name === member.nick) {
         return (<div style={{height: 'auto', display: 'flex', justifyContent: 'left'}}>
                 <div style={{height: '100%', width: '50px'}}></div>
                 <div className={'myChatBox'}>
