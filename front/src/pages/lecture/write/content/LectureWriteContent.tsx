@@ -160,6 +160,7 @@ function LectureWriteContent() {
         changeDTO(setPost, 'content', state.value)
     }, [state]);
     useEffect(() => {
+        console.log(contentList)
     }, [part]);
     return <>
         <LectureWriteAside setPost={setPost} lectureNo={lectureNo} setContentList={setContentList}
