@@ -45,11 +45,7 @@ function ProfilePageHeader({member}) {
                              borderRadius: '70%',
                              overflow: 'hidden'
                          }}
-                         src={
-                             member.profileImg === 'https://ssl.pstatic.net/static/cafe/cafe_pc/default/cafe_profile_77.png?type=c77_77'
-                                 ? member.profileImg
-                                 : process.env.PUBLIC_URL + `/images/profile/${member.profileImg}`
-                         }
+                         src={member.profileImg}
                     />
                 </div>
                 <h3 className="title">{member.nick}</h3>
