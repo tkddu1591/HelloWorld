@@ -62,7 +62,7 @@ function HomeHeader() {
 	let navigate = useNavigate();
 	return (
 		<>
-			<div className="clear-filter page-header" style={{ minHeight: '30vh', maxHeight: '500px', height: 'auto' }}>
+			<div className="clear-filter page-header" style={{ minHeight: '30vh', maxHeight: '600px', height: 'auto' }}>
 				<div className="page-header-image" ref={pageHeader}></div>
 				<Container style={{ paddingLeft: 0, paddingRight: 0 }}>
 					{/*<section style={{width:'100%', border:'1px solid black'}} filter-color="blue" className="clear-filter">
@@ -162,7 +162,7 @@ function HomeHeader() {
 						</Col>
 					</Row>
 
-					<div className="content brand" style={{ marginTop: '10px' }}>
+					<div className="content brand" style={{ marginTop: '50px' }}>
 						<h1 className="h1-seo" style={{ color: 'black', fontSize: '30px' }}>
 							<img
 								src={`${process.env.PUBLIC_URL}/images/home/main_logo.png`}
@@ -173,7 +173,7 @@ function HomeHeader() {
 					</div>
 				</Container>
 			</div>
-			<div>
+			<div style={{marginTop: '20px'}}>
 				<Nav className="nav-pills-info nav-pills-just-icons d-flex justify-content-center" pills role="tablist">
 					<NavItem className="mr-2">
 						<NavLink
@@ -189,7 +189,7 @@ function HomeHeader() {
 							</span>
 						</NavLink>
 					</NavItem>
-					<NavItem className="mr-2">
+					{/*<NavItem className="mr-2">
 						<NavLink
 							className={pills === '2' ? 'active' : ''}
 							href="#pablo"
@@ -216,7 +216,7 @@ function HomeHeader() {
 								채용공고
 							</span>
 						</NavLink>
-					</NavItem>
+					</NavItem>*/}
 					<NavItem className="mr-2">
 						<NavLink
 							className={pills === '4' ? 'active' : ''}
@@ -228,6 +228,20 @@ function HomeHeader() {
 							<i className="now-ui-icons business_globe"></i>
 							<span className="far" style={{ fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px' }}>
 								커뮤니티
+							</span>
+						</NavLink>
+					</NavItem>
+					<NavItem className="mr-2">
+						<NavLink
+							className={pills === '1' ? 'active' : ''}
+							href="#pablo"
+							onClick={e => {
+								e.preventDefault();
+								navigate('/community/list?cateNo=1');
+							}}>
+							<i className="now-ui-icons transportation_air-baloon"></i>
+							<span className="far" style={{ fontFamily: '한컴 말랑말랑', fontSize: '15px', marginTop: '5px' }}>
+								개발자라운지
 							</span>
 						</NavLink>
 					</NavItem>

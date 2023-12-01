@@ -110,13 +110,13 @@ function IndexNavbar() {
 										<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 										전체
 									</DropdownItem>
-									<DropdownItem to="/lecture/list" target="_blank">
+									{/*<DropdownItem to="/lecture/list" target="_blank">
 										<i className="now-ui-icons arrows-1_minimal-right mr-2"></i>
 										추천강의
-									</DropdownItem>
+									</DropdownItem>*/}
 								</DropdownMenu>
 							</UncontrolledDropdown>
-							<UncontrolledDropdown nav>
+							{/*<UncontrolledDropdown nav>
 								<DropdownToggle
 									caret
 									color="default"
@@ -171,7 +171,7 @@ function IndexNavbar() {
 										받은 제안
 									</DropdownItem>
 								</DropdownMenu>
-							</UncontrolledDropdown>
+							</UncontrolledDropdown>*/}
 							<UncontrolledDropdown nav>
 								<DropdownToggle
 									caret
