@@ -3,7 +3,7 @@ import {Button, CardTitle, Input, Modal} from "reactstrap";
 import {changeDTO} from "../../../store/changeDTO";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {ModalTitle} from "react-bootstrap";
 import {logout} from "../../../utils/member/logout";
 import {useNavigate} from "react-router-dom";
@@ -41,7 +41,7 @@ function Seller({member, setMember}) {
         // eslint-disable-next-line no-restricted-globals
         if(!confirm('수정하시겠습니까?')) return
         try {
-            const response = await axios.put(`${API_BASE_URL}/my/modify/seller`, {
+            const response = await apiClient.put(`/my/modify/seller`, {
                 'email': inputValue.email,
                 'type': inputValue.type,
                 'ceo': inputValue.ceo,

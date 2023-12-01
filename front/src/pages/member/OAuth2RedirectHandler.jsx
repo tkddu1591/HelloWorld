@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {API_BASE_URL, API_FRONT_URL} from "../../App";
+import {API_BASE_URL, API_FRONT_URL, apiClient} from "../../App";
 import {NAVER_CLENT_ID, NAVER_SECRET_KEY, REST_API_KEY, SECRET_KEY, state} from "../../utils/uri/oauth";
 import LoadingIcon from "../../components/Icon/LoadingIcon";
 import {urlEncoded} from "../../utils/uri/urlEncoded";
@@ -20,7 +20,7 @@ function OAuth2RedirectHandler() {
     const { provider } = useParams();
 
     // code를 보내 token 요청할 변수들
-    const redirectUri = `${API_FRONT_URL}/login/oauth2/${provider}`;
+    const redirectUri = `/login/oauth2/${provider}`;
     let endPointUri = "";
 
     if(provider === 'kakao') endPointUri = "https://kauth.kakao.com/oauth/token";
@@ -39,7 +39,7 @@ function OAuth2RedirectHandler() {
 
     const social_login_kakao = async () => {
         try {
-            const response = await axios.post(endPointUri, formData);
+            const response = await apiClient.post(endPointUri, formData);
             const data = await getKakaoUserInfo(response.data.access_token, navigate, dispatch);
             const arr = [data.id.toString(), data.kakao_account.email, data.properties.nickname];
 
@@ -78,7 +78,7 @@ function OAuth2RedirectHandler() {
                 'code': code,
                 'state': `${state}`
             }
-            const response = await axios.post(`${API_BASE_URL}/login/social/token/naver`, naver_data);
+            const response = await apiClient.post(`/login/social/token/naver`, naver_data);
             if(response.data.grantType === 'Bearer') {
                 const data = {
                     'accessToken': response.data.accessToken,
