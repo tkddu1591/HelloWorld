@@ -135,7 +135,7 @@ function MyInfo() {
             <ProfilePageHeader member={member}/>
             <div className="section">
                 <Container>
-                    <div className="button-container">
+                    {/*<div className="button-container">
                         <Button className="btn-round" color="info" size="lg">
                             Follow
                         </Button>
@@ -168,10 +168,10 @@ function MyInfo() {
                         Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
                         and records all of his own music, giving it a warm, intimate feel
                         with a solid groove structure. An artist of considerable range.
-                    </h5>
+                    </h5>*/}
                     <Row>
                         <Col className="ml-auto mr-auto" md="6">
-                            <h4 className="title text-center">My Portfolio</h4>
+                            <h4 className="title text-center">내 프로필</h4>
                             <div className="nav-align-center">
                                 <Nav
                                     className="nav-pills-info nav-pills-just-icons"
@@ -187,7 +187,7 @@ function MyInfo() {
                                                 setPills("1");
                                             }}
                                         >
-                                            <i className="now-ui-icons design_image"></i>
+                                            <i className="now-ui-icons users_single-02"></i>
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
@@ -199,7 +199,7 @@ function MyInfo() {
                                                 setPills("2");
                                             }}
                                         >
-                                            <i className="now-ui-icons users_single-02"></i>
+                                            <i className="now-ui-icons ui-1_calendar-60"></i>
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
@@ -211,10 +211,10 @@ function MyInfo() {
                                                 setPills("3");
                                             }}
                                         >
-                                            <i className="now-ui-icons sport_user-run"></i>
+                                            <i className="now-ui-icons ui-1_simple-add"></i>
                                         </NavLink>
                                     </NavItem>
-                                    <NavItem>
+                                    {/*<NavItem>
                                         <NavLink
                                             className={pills === "4" ? "active" : ""}
                                             href="#pablo"
@@ -225,12 +225,12 @@ function MyInfo() {
                                         >
                                             <i className="now-ui-icons ui-1_settings-gear-63"></i>
                                         </NavLink>
-                                    </NavItem>
+                                    </NavItem>*/}
                                 </Nav>
                             </div>
                         </Col>
                         <TabContent className="gallery" activeTab={"pills" + pills} style={{width: '100%'}}>
-                            <TabPane tabId="pills1">
+                            <TabPane tabId="pills2">
                                 <Col className="ml-auto mr-auto" md="12">
                                     <Row className="collections">
                                         <Col style={{minWidth: '100vh'}} className={'profileContent'}>
@@ -245,7 +245,7 @@ function MyInfo() {
                                     </Row>
                                 </Col>
                             </TabPane>
-                            <TabPane tabId="pills2">
+                            <TabPane tabId="pills1">
                                 <Col className="ml-auto mr-auto" md="10">
                                     <Row className="collections">
                                         <Col md="6" style={{textAlign:"left", margin:"0 auto"}}>
