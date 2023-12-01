@@ -48,19 +48,19 @@ function LectureWriteContent() {
                         // 이미 존재하는 그룹에 추가
                         existingGroup.contents.push({
                             contentNo: item.contentNo,
-                            title: item.title,
+                            title:     item.title,
                             lectureNo: item.lectureNo,
-                            partNo: item.partNo,
+                            partNo:    item.partNo,
                         });
                     } else {
                         // 새로운 그룹 추가
                         acc.push({
-                            orderNo: item.partNo,
+                            orderNo:  item.partNo,
                             contents: [{
                                 contentNo: item.contentNo,
-                                title: item.title,
+                                title:     item.title,
                                 lectureNo: item.lectureNo,
-                                partNo: item.partNo,
+                                partNo:    item.partNo,
                             }],
                         });
                     }
@@ -69,7 +69,8 @@ function LectureWriteContent() {
                 }, []);
 
                 // formattedContentList를 setContentList를 통해 상태 업데이트
-                setContentList(formattedContentList);
+                if (Array.isArray(contentListResponse) && contentListResponse[0].contents.length > 0)
+                    setContentList(formattedContentList);
             } catch (error) {
                 console.error(error);
             }
@@ -160,7 +161,6 @@ function LectureWriteContent() {
         changeDTO(setPost, 'content', state.value)
     }, [state]);
     useEffect(() => {
-        console.log(contentList)
     }, [part]);
     return <>
         <LectureWriteAside setPost={setPost} lectureNo={lectureNo} setContentList={setContentList}
