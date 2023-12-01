@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import WriteHeader from "./WriteHeader";
 import WriteTitleBar from "./WriteTitleBar";
 import axios from "axios";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import {useSelector} from "react-redux";
 
 
@@ -84,7 +84,7 @@ function CommunityWrite() {
 
     const register = () => {
         console.log('register')
-        axios.post(`${API_BASE_URL}/community/register`,
+        apiClient.post(`/community/register`,
             {
                 title: title.value,
                 cateNo: selectedSearch.value,

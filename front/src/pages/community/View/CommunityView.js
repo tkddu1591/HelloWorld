@@ -11,7 +11,7 @@ import ReplyBox from "./ReplyBox";
 import CommentWriter from "./Comment/CommentWriter";
 import CommentList from "./Comment/CommentList";
 import CommentOption from "./Comment/CommentOption";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import axios from "axios";
 import {useSelector} from "react-redux";
 
@@ -59,7 +59,7 @@ function CommunityView() {
         console.log('refresh here================');
         console.log('communityNo : '+communityNo);
         console.log('commentType : '+commentType);
-        axios.get(`${API_BASE_URL}/community/comment`,{
+        apiClient.get(`/community/comment`,{
             params: {
                 communityNo : communityNo,
                 commentType : commentType
@@ -78,7 +78,7 @@ function CommunityView() {
 
     // VIEW GET
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/community/view`, {
+        apiClient.get(`/community/view`, {
             params: {communityNo: communityNo, cateNo: cateNo}
         })
             .then(res => {
@@ -140,7 +140,7 @@ function CommunityView() {
 
     console.log(myInfo);
     const insertComment = () =>{
-        axios.post(`${API_BASE_URL}/community/insertComment`,{commentWrite, communityNo, parentNo, commentType, uid})
+        apiClient.post(`/community/insertComment`,{commentWrite, communityNo, parentNo, commentType, uid})
             .then(res => {
                 /*commentRefresh();*/
                 console.log('success');

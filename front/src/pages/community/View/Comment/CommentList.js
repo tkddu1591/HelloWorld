@@ -58,7 +58,7 @@ function CommentList({
         <ul className={'comment_list'}>
 
             {commentsList.map(function (a, i) {
-                const date = new Date(a.regDate);
+                /*const date = new Date(a.regDate);
 
                 if (isNaN(date)) {
                     throw new Error('Invalid Date');
@@ -73,7 +73,7 @@ function CommentList({
                 }
 
                 // 형식화된 날짜 및 시간 문자열 생성
-                const formattedDate = date.toLocaleDateString('ko-KR', options).replace(/\//g, '.').replace(',', '');
+                const formattedDate = date.toLocaleDateString('ko-KR', options).replace(/\//g, '.').replace(',', '');*/
 
                 if (a.isDeleted === 0)
                     return (<div onClick={() => {
@@ -122,7 +122,7 @@ function CommentList({
                                         {/*<!---->*/}
                                     </div>
                                     <div className="comment_info_box">
-                                        <span className="comment_info_date">{formattedDate}</span>
+                                        <span className="comment_info_date">{a.regDate[0]+'.'+a.regDate[1]+'.'+a.regDate[2]+'. '+a.regDate[3]+':'+a.regDate[4]}</span>
                                         <a role="button" className="comment_info_button"
                                            onClick={() => {
                                                // 해당 댓글의 작성자와 현재 로그인한 사용자의 UID 비교
@@ -263,7 +263,7 @@ function CommentList({
                                                     {/*<!---->*/}
                                                 </div>
                                                 <div className="comment_info_box">
-                                                    <span className="comment_info_date">{formattedDate}</span>
+                                                    <span className="comment_info_date">{reply.regDate[0]+'.'+reply.regDate[1]+'.'+reply.regDate[2]+'. '+reply.regDate[3]+':'+reply.regDate[4]}</span>
                                                     <a role="button" className="comment_info_button"
                                                        onClick={() => {
                                                            setReplyToComment(reply.commentNo);
@@ -405,7 +405,7 @@ function CommentList({
                                                     {/*<!---->*/}
                                                 </div>
                                                 <div className="comment_info_box">
-                                                    <span className="comment_info_date">{formattedDate}</span>
+                                                    <span className="comment_info_date">{reply.regDate[0]+'.'+reply.regDate[1]+'.'+reply.regDate[2]+'. '+reply.regDate[3]+':'+reply.regDate[4]}</span>
                                                     <a role="button" className="comment_info_button"
                                                        onClick={() => {
                                                            setReplyToComment(reply.commentNo);

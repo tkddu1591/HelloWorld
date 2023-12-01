@@ -8,23 +8,28 @@ function ContentList({data, sort}) {
         <div className='main-area' style={{ display: 'flex', justifyContent: 'space-between' }}>
             <ul className={'article'}>
                 {data.communityList.map(function(a, i){
-
-                    const date = new Date(a.regDate);
-
-                    if (isNaN(date)) {
-                        throw new Error('Invalid Date');
-                    }
-                    const options = {
+                    /*const options = {
                         year: 'numeric',
                         month: '2-digit',
                         day: '2-digit',
                         hour: '2-digit',
                         minute: '2-digit',
-                        hour12: false, // 오후/오전 표시 제거
-                    }
+                        hour12: false,
+                    };
+
+                    // 날짜 배열을 기반으로 Date 객체 생성
+                    const date = new Date(
+                        a.regDate[0],  // 년도
+                        a.regDate[1] - 1,  // 월 (0부터 시작하므로 1을 빼줌)
+                        a.regDate[2],  // 일
+                        a.regDate[3],  // 시간
+                        a.regDate[4],  // 분
+                        a.regDate[5],  // 초
+                        a.regDate[6]  // 밀리초
+                    );
 
                     // 형식화된 날짜 및 시간 문자열 생성
-                    const formattedDate = date.toLocaleDateString('ko-KR', options).replace(/\//g, '.').replace(',', '');
+                    const formattedDate = date.toLocaleString('ko-KR', options).replace(/\//g, '.');*/
 
                     return (<>
                         <li>
@@ -63,7 +68,7 @@ function ContentList({data, sort}) {
                                             </div>
                                             <script type={'text/javascript'}>wordBreak($(""));</script>
                                             <div className={'date_num'}>
-                                                <span className={'date'}>{formattedDate}</span>
+                                                <span className={'date'}>{a.regDate[0]+'.'+a.regDate[1]+'.'+a.regDate[2]+'. '+a.regDate[3]+':'+a.regDate[4]}</span>
                                                 <span className={'num'}>조회 {a.hit}</span>
                                                 <div className={'like_area'}>
                                                     <div className={'comment_area'}>
