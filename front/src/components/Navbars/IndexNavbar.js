@@ -31,7 +31,8 @@ function IndexNavbar() {
 
 	const [navbarColor, setNavbarColor] = React.useState('navbar-info');
 	const [collapseOpen, setCollapseOpen] = React.useState(false);
-
+	const chatt= useSelector((state) => state.myChatt);
+	console.log(chatt)
 	const handleOpenNewTab = url => {
 		window.open(url, '_blank', 'width=400,height=600');
 	};
@@ -264,6 +265,7 @@ function IndexNavbar() {
 												fontSize: '20px',
 												position: 'relative',
 											}}>
+											{chatt.length>0&&
 											<div
 												style={{
 													position: 'absolute',
@@ -284,9 +286,9 @@ function IndexNavbar() {
 														fontWeight: '555',
 														fontFamily: 'nanumsquare',
 													}}>
-													12
+													{chatt.length}
 												</span>
-											</div>
+											</div>}
 										</i>
 									</Link>
 								</div>

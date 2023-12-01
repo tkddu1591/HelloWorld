@@ -7,7 +7,7 @@ function DmHide() {
     return (
         <>
             <DmHeader title={title}></DmHeader>
-            <DmMainTable title={title}></DmMainTable>
+            {/*<DmMainTable title={title}></DmMainTable>*/}
         </>
     );
 }

@@ -75,16 +75,6 @@ function DmHeader({ isMain = false, title = '내 채팅' }: DmHeaderProps) {
 					)}
 
 					<i
-						className="bi bi-house"
-						style={{
-							marginRight: '25px',
-							fontSize: '25px',
-							cursor: 'pointer',
-						}}
-						onClick={() => {
-							navigate('/');
-						}}></i>
-					<i
 						onClick={() => {
 							setPopup('chat');
 							if (popup === 'chat') setPopup('');

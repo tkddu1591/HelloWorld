@@ -2,10 +2,10 @@ import {configureStore} from "@reduxjs/toolkit";
 import {myIp} from "./slice/myIpSlice";
 import {myInfo} from "./slice/UserSlice";
 import {myCartTotalSlice, myCartSlice} from "./slice/myCartSlice";
-import {partListSlice, contentListSlice} from "./slice/LectureContent"
 import {cateNo, changeCateNo} from "./slice/CommunityCateNo"
 import {listURL, changeURL} from "./slice/CommunityListURL";
 import {partListSlice, contentListSlice, lectureIHeardList, contentCount} from "./slice/LectureContent"
+import {myChatt} from "./slice/ChatSlice";
 
 
 export default configureStore({
@@ -19,6 +19,7 @@ export default configureStore({
         cateNo : cateNo.reducer,
         listURL: listURL.reducer,
         lectureIHeardList: lectureIHeardList.reducer,
-        contentCount: contentCount.reducer
+        contentCount: contentCount.reducer,
+        myChatt: myChatt.reducer
     }
 })

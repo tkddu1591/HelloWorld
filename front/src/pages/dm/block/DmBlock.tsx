@@ -7,7 +7,7 @@ function DmBlock() {
     return (
         <>
             <DmHeader title={title}></DmHeader>
-            <DmMainTable title={title}></DmMainTable>
+            {/*<DmMainTable title={title}></DmMainTable>*/}
         </>
     );
 }

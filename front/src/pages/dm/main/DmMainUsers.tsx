@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 interface DmMainUsersProps {
 	index: number;
 	title: string;
+	item: any
 }
 
-function DmMainUsers({ index, title }: DmMainUsersProps) {
+function DmMainUsers({ index, title, item }: DmMainUsersProps) {
 	let navigate = useNavigate();
 	const [popupSetting, setPopupSetting] = useState({
 		width: 162,
@@ -109,7 +110,6 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 	}
 
 	return (
-		<>
 			<div
 				className="dm-user-select"
 				style={{
@@ -145,7 +145,7 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 							fontSize: title !== '내 채팅' ? '15px' : '',
 						}}>
 						<span style={{ cursor: 'pointer' }} className="dm-user-content" onClick={handleClick}>
-							유저77{' '}
+							{item.name}{' '}
 							{/*
 							{title !== '내 채팅' && (
 								<div
@@ -170,7 +170,7 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 									fontSize: '12px',
 								}}>
 								<span style={{ cursor: 'pointer' }} className="dm-user-content" onClick={handleClick}>
-									내용입니당dddddddddddd
+									{item.msg}
 								</span>
 							</div>
 							<div
@@ -178,7 +178,14 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 									fontSize: '11px',
 									color: 'gray',
 								}}>
-								2023/10/22 10:23
+								{item.date}
+							</div>
+							<div
+								style={{
+									fontSize: '11px',
+									color: 'gray',
+								}}>
+								{item.name}
 							</div>
 						</>
 					)}
@@ -222,7 +229,6 @@ function DmMainUsers({ index, title }: DmMainUsersProps) {
 					)}
 				</div>
 			</div>
-		</>
 	);
 }
 

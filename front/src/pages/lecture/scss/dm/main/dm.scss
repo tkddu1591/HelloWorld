@@ -78,7 +78,7 @@
   font-size: 14px;
 }
 
-.userChat {
+.myChat {
   position: relative;
   margin-right: 10px;
   padding-left: 5px;
@@ -89,6 +89,12 @@
   color: white;
   font-size: 14px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  max-width: calc(90% - 50px);
+  display: flex;
+  justify-content: left;
+  word-wrap: break-word;
+  position: relative;
 }
 
 .userChatFirst:before {
@@ -99,4 +105,80 @@
   content: "";
   position: absolute;
   right: -10px;
+}
+
+.myChatBox {
+  height: 100%;
+  width: calc(100%);
+  position: relative;
+  display: flex;
+  justify-content: right;
+
+  .messageBox {
+    height: 100%;
+    width: calc(100% - 50px);
+    position: relative;
+    display: flex;
+    justify-content: right;
+  }
+
+  .myTimeBox {
+    position: relative;
+    width: 50px;
+
+    .time {
+      position: absolute;
+      padding-left: 5px;
+      bottom: 0;
+    }
+  }
+}
+
+.userChatBox {
+  height: auto;
+  display: flex;
+  justify-content: left;
+  margin-top: 5px;
+
+  .iconBox {
+    height: 100%;
+    width: 50px;
+
+    .icon {
+      font-size: 40px;
+      margin-left: 5px;
+    }
+
+    .name {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+  }
+
+  .messageBox {
+
+    height: 100%;
+    width: calc(100% - 50px);
+    position: relative;
+    display: flex;
+    justify-content: left;
+
+    .message {
+      max-width: calc(90% - 40px);
+      display: flex;
+      justify-content: left;
+      word-wrap: break-word;
+      position: relative;
+      top: 20px;
+    }
+  }
+
+  .timeBox {
+
+    position: absolute;
+    padding-left: 5px;
+    top: 25px;
+  }
+
 }
