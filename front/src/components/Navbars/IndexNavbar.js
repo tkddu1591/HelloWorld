@@ -116,7 +116,7 @@ function IndexNavbar() {
 									</DropdownItem>
 								</DropdownMenu>
 							</UncontrolledDropdown>
-							<UncontrolledDropdown nav>
+							{/*<UncontrolledDropdown nav>
 								<DropdownToggle
 									caret
 									color="default"
@@ -171,7 +171,7 @@ function IndexNavbar() {
 										받은 제안
 									</DropdownItem>
 								</DropdownMenu>
-							</UncontrolledDropdown>
+							</UncontrolledDropdown>*/}
 							<UncontrolledDropdown nav>
 								<DropdownToggle
 									caret
