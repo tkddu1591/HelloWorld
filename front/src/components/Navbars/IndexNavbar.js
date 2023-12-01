@@ -32,7 +32,6 @@ function IndexNavbar() {
 	const [navbarColor, setNavbarColor] = React.useState('navbar-info');
 	const [collapseOpen, setCollapseOpen] = React.useState(false);
 	const chatt= useSelector((state) => state.myChatt);
-	console.log(chatt)
 	const handleOpenNewTab = url => {
 		window.open(url, '_blank', 'width=400,height=600');
 	};

@@ -166,6 +166,7 @@ function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, se
     useEffect(() => {
         transformContentToContentList();
     }, [content]);
+    console.log(contentList)
     return <>
         {contentList.map((value) => {
             if (part.orderNo === value.orderNo) {
