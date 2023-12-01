@@ -63,7 +63,7 @@ function FindByPass() {
   }
   async function requestEmailAuthCode() {
     setModal(true);
-    await axios.get(`${API_BASE_URL}/api/reqeustEmail/findpass`, {
+    await apiClient.get(`/api/reqeustEmail/findpass`, {
       params: {
         email: inputValue.email,
       }
@@ -79,7 +79,7 @@ function FindByPass() {
     setModal(false);
   }
   async function responseEmailAuthCode() {
-    await axios.get(`${API_BASE_URL}/api/responseEmail`, {
+    await apiClient.get(`/api/responseEmail`, {
       params: {
         email: inputValue.email,
         inputCode: inputValue.emailChk,
