@@ -189,7 +189,7 @@ function HomeHeader() {
 							</span>
 						</NavLink>
 					</NavItem>
-					<NavItem className="mr-2">
+					{/*<NavItem className="mr-2">
 						<NavLink
 							className={pills === '2' ? 'active' : ''}
 							href="#pablo"
@@ -216,7 +216,7 @@ function HomeHeader() {
 								채용공고
 							</span>
 						</NavLink>
-					</NavItem>
+					</NavItem>*/}
 					<NavItem className="mr-2">
 						<NavLink
 							className={pills === '4' ? 'active' : ''}
@@ -228,6 +228,20 @@ function HomeHeader() {
 							<i className="now-ui-icons business_globe"></i>
 							<span className="far" style={{ fontFamily: '한컴 말랑말랑', fontSize: '16px', marginTop: '5px' }}>
 								커뮤니티
+							</span>
+						</NavLink>
+					</NavItem>
+					<NavItem className="mr-2">
+						<NavLink
+							className={pills === '1' ? 'active' : ''}
+							href="#pablo"
+							onClick={e => {
+								e.preventDefault();
+								navigate('/community/list?cateNo=1');
+							}}>
+							<i className="now-ui-icons transportation_air-baloon"></i>
+							<span className="far" style={{ fontFamily: '한컴 말랑말랑', fontSize: '15px', marginTop: '5px' }}>
+								개발자라운지
 							</span>
 						</NavLink>
 					</NavItem>
