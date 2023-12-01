@@ -115,12 +115,14 @@ function DmChat() {
 function ChatBox({item, member}) {
 
 
+    let time = (item.date.split(" ")[4].split(":"))
+    let pM = (item.date.split(" ")[3])
     if (item.name === member.nick) {
         return (<div style={{height: 'auto', display: 'flex', justifyContent: 'left'}}>
                 <div style={{height: '100%', width: '50px'}}></div>
                 <div className={'myChatBox'}>
                     <div className={'myTimeBox'}>
-                        <span className={'time'}>10:22</span>
+                        <span className={'time'}>{pM==='오후'?12+Number(time[0])+":"+time[1]:time[0]+":"+time[1]}</span>
                     </div>
                     <div
                         className={'myChat'}>
@@ -149,7 +151,7 @@ function ChatBox({item, member}) {
 							</span>
                     </div>
                     <div style={{position: 'relative', width: '10px'}}>
-                        <span className={'timeBox'}>{item.date?.substring(16, 21)}</span>
+                        <span className={'timeBox'}>{pM==='오후'?12+Number(time[0])+":"+time[1]:time[0]+":"+time[1]}</span>
                     </div>
                 </div>
 
