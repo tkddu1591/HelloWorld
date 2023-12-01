@@ -11,19 +11,17 @@ function DarkFooter() {
 				<nav>
 					<ul>
 						<li>
-							<a href="https://www.creative-tim.com?ref=nukr-dark-footer" target="_blank">
-								Creative Tim
+							|
+							<a href="https://github.com/tkddu1591/HelloWorld" target="_blank">
+								HelloWorld GitHub
 							</a>
+							|
 						</li>
 						<li>
-							<a href="http://presentation.creative-tim.com?ref=nukr-dark-footer" target="_blank">
-								About Us
+							<a href="https://demos.creative-tim.com/now-ui-kit-react/?_ga=2.256269134.417406142.1698895734-613302324.1698895734#/index" target="_blank">
+								Used Bootstrap
 							</a>
-						</li>
-						<li>
-							<a href="http://blog.creative-tim.com?ref=nukr-dark-footer" target="_blank">
-								Blog
-							</a>
+							|
 						</li>
 					</ul>
 				</nav>
