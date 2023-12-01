@@ -1,14 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Button, CardTitle, Input, Modal} from "reactstrap";
+import {Button, Input} from "reactstrap";
 import {changeDTO} from "../../../store/changeDTO";
 import {useDispatch, useSelector} from "react-redux";
-import axios from "axios";
-import {API_BASE_URL, apiClient} from "../../../App";
+import {apiClient} from "../../../App";
 import {ModalTitle} from "react-bootstrap";
-import {logout} from "../../../utils/member/logout";
 import {useNavigate} from "react-router-dom";
-import Select from "react-select";
-import {Option} from "react-bootstrap-icons";
 
 
 function Seller({member, setMember}) {
