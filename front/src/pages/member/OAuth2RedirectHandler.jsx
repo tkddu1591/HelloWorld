@@ -39,9 +39,13 @@ function OAuth2RedirectHandler() {
 
     const social_login_kakao = async () => {
         try {
-            const response = await apiClient.post(endPointUri, formData);
+            console.log('here1');
+            const response = await axios.post(endPointUri, formData);
+            console.log('here2');
             const data = await getKakaoUserInfo(response.data.access_token, navigate, dispatch);
+            console.log('here3');
             const arr = [data.id.toString(), data.kakao_account.email, data.properties.nickname];
+            console.log('here4');
 
             const loginData = {
                 'provider_id': data.id,
@@ -52,7 +56,9 @@ function OAuth2RedirectHandler() {
                 'myInfo': arr.join(','),
                 'provider': provider
             };
+            console.log('here5');
             await postKakaoToken(loginData, navigate, dispatch);
+            console.log('here6');
 
             /*navigate("/");*/
         } catch (err) {

@@ -35,6 +35,8 @@ public class CommunityController {
         log.info("sort : "+pageRequestDTO.getSort());
         PageResponseDTO result = communityService.findCommunityByType(pageRequestDTO);
 
+        log.info("regDate"+ result.getCommunityList());
+
         log.info("here..1 : " +result);
         return result;
     }

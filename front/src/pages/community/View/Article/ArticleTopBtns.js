@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../../css/community/view.css';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import {API_BASE_URL} from "../../../../App";
+import {API_BASE_URL, apiClient} from "../../../../App";
 
 function ArticleTopBtns ({view, prevNo, nextNo, setCateNo, setCommunityNo, myInfo, storeCateNo, listURL}){
     let navigate = useNavigate();
@@ -11,7 +11,7 @@ function ArticleTopBtns ({view, prevNo, nextNo, setCateNo, setCommunityNo, myInf
             {view.uid === myInfo.uid && <div className="left_area">{/*빈 공간*/}
                 <a role="button" className="BaseButton BaseButton--skinGray size_default" onClick={() => {
                     if (window.confirm('수정하시겠습니까?'))
-                        axios.get(`${API_BASE_URL}/community/modify`, {params: {communityNo: view.communityNo, uid: myInfo.uid}}).then(() => {
+                        apiClient.get(`/community/modify`, {params: {communityNo: view.communityNo, uid: myInfo.uid}}).then(() => {
                             navigate(`community/list?cateNo=${storeCateNo.no}`);
                         })
                 }}>{/*<!---->*/}
@@ -19,7 +19,7 @@ function ArticleTopBtns ({view, prevNo, nextNo, setCateNo, setCommunityNo, myInf
                 </a>
                 <a role="button" className="BaseButton BaseButton--skinGray size_default" onClick={() => {
                     if (window.confirm('삭제하시겠습니까?'))
-                        axios.get(`${API_BASE_URL}/community/view/delete`, {params: {communityNo: view.communityNo, uid: myInfo.uid}}).then(() => {
+                        apiClient.get(`/community/view/delete`, {params: {communityNo: view.communityNo, uid: myInfo.uid}}).then(() => {
                             alert('삭제되었습니다.');
                             navigate(`community/list?cateNo=${storeCateNo.no}`);
                         })

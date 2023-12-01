@@ -8,7 +8,7 @@ import SearchBar from './SearchBar';
 import ViewOption from "./ViewOption";
 import ContentCard from "./ContentCard";
 import LecturePagination from "../../../components/Lecture/LecturePagination";
-import {API_BASE_URL} from "../../../App";
+import {API_BASE_URL, apiClient} from "../../../App";
 import axios from "axios";
 import {changeDTO} from "../../../store/changeDTO";
 import {useDispatch, useSelector} from "react-redux";
@@ -85,12 +85,13 @@ function CommunityList() {
    // LIST 불러 오기
    useEffect(() => {
       console.log(sort);
-      axios.get(`${API_BASE_URL}/community/list`,{
+      apiClient.get(`/community/list`,{
          params: pageRequestDTO
       })
           .then(res=>{
              console.log('view axios success');
              console.log(pageRequestDTO);
+             console.log(res.data.communityList[0].regDate);
              setPageResponseDTO(res.data);
              setSort(res.data.sort);
           })
@@ -109,7 +110,7 @@ function CommunityList() {
 
    useEffect(() => {
       console.log('pageRequestDTO: '+pageRequestDTO);
-      axios.get(`${API_BASE_URL}/community/list`,{
+      apiClient.get(`/community/list`,{
          params: pageRequestDTO
       })
           .then(res=>{
