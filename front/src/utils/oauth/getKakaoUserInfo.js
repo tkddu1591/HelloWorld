@@ -1,5 +1,6 @@
 import axios from "axios";
 import {logout} from "../member/logout";
+import {apiClient} from "../../App";
 
 const getUserInfoUri = 'https://kapi.kakao.com/v2/user/me';
 /*
@@ -12,7 +13,7 @@ export const getKakaoUserInfo = async (access_token, navigate, dispatch) => {
     };
 
     try {
-        const response = await axios.get(getUserInfoUri, { headers });
+        const response = await apiClient.get(getUserInfoUri, { headers });
         return response.data;
     } catch (err) {
         console.log('getKakaoUserInfo failed')
