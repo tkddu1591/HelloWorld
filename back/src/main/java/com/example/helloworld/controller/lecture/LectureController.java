@@ -26,18 +26,20 @@ public class LectureController {
     public int mainWrite(@RequestBody LectureDTO lectureDTO) {
         log.info(lectureDTO.toString());
 
+        //썸네일 저장
+        lectureThumbService.save(lectureDTO);
+
         //게시물 저장
         lectureService.save(lectureDTO);
+
         int lastLectureNo = 0;
         if (lectureDTO.getLectureNo() != 0)
             lastLectureNo = lectureDTO.getLectureNo();
         else
-            lastLectureNo = lectureService.getLastLectureNo(lectureDTO.getSeller());
+            lastLectureNo = lectureService.getLastLectureNo(lectureDTO.getSeller())+1;
         lectureDTO.setLectureNo(lastLectureNo);
         //태그 저장
         lectureHasTagService.save(lectureDTO);
-        //썸네일 저장
-        lectureThumbService.save(lectureDTO);
         return lastLectureNo;
     }
 
