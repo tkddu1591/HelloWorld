@@ -175,7 +175,7 @@ function ReviewList({popup, setPopup, item, setPageRequest, member, setIsReviewW
                     <span style={{userSelect: "none"}}>|</span>
                     <span style={{cursor: "pointer"}} onClick={() => {
                         if (window.confirm('삭제하시겠습니까?'))
-                            apiClient.delete(`/lecture/review`, {params: item}).then(() => setIsReviewWrite(!isReviewWrite))
+                            apiClient.delete(`/lecture/review`, {params:{reviewNo: item.reviewNo, lectureNo:item.lectureNo}}).then(() => setIsReviewWrite(!isReviewWrite))
                     }}>삭제</span></div>
             </>
             }
