@@ -142,7 +142,8 @@ function LectureWriteMain() {
     }, [levels, lecture?.levelNo]);
     const [selectTag, setSelectTag] = useState(tags.filter(tag => lecture?.tagList?.includes(Number(tag.value))));
     useEffect(() => {
-        if (lecture?.tagList && tags.filter(tag => lecture.tagList.includes(tag.value)).length !== 0)
+
+        if (lecture?.tagList.length===0&&lecture?.tagList && tags.filter(tag => lecture.tagList.includes(tag.value)).length !== 0)
             setSelectTag(tags.filter(tag => lecture.tagList.includes(tag.value)));
     }, [tags, lecture?.tagList]);
     let navigate = useNavigate();
