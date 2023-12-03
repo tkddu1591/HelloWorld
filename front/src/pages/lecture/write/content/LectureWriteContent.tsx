@@ -22,6 +22,7 @@ function LectureWriteContent() {
         orderNo: number,
         contents: { contentNo: number, title: string, lectureNo: number, partNo: number }[]
     }[]>([])
+    const [addContent, setAddContent] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -73,6 +74,7 @@ function LectureWriteContent() {
                 if (formattedContentList.length > 0&& formattedContentList[0].contents.length > 0) {
                     console.log(formattedContentList[0].contents);
                     setContentList(formattedContentList);
+                    setAddContent(true);
                 }
             } catch (error) {
                 console.error(error);
@@ -166,7 +168,7 @@ function LectureWriteContent() {
     useEffect(() => {
     }, [part]);
     return <>
-        <LectureWriteAside setPost={setPost} lectureNo={lectureNo} setContentList={setContentList}
+        <LectureWriteAside addContent={addContent} setPost={setPost} lectureNo={lectureNo} setContentList={setContentList}
                            contentListSave={contentListSave} contentList={contentList} partSave={partSave} part={part}
                            setPart={setPart} post={post}></LectureWriteAside>
 

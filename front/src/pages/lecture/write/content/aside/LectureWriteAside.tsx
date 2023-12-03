@@ -3,7 +3,7 @@ import LectureWriteAsideHeader from './LectureWriteAsideHeader';
 import LectureWriteAsideTable from './LectureWriteAsideTable';
 import LectureWriteAsideFooter from './LectureWriteAsideFooter';
 
-function LectureWriteAside({lectureNo, setPost, part, contentList,setPart,setContentList, contentListSave,partSave, post}) {
+function LectureWriteAside({lectureNo, setPost, part, contentList,setPart,setContentList, contentListSave,partSave, post, addContent}) {
     let [aside, setAside] = useState(false);
     const updateTitle = (index, title, set) => {
         // orderNo가 1인 객체를 찾아 해당 객체를 복사한 후 title을 수정합니다.
@@ -80,7 +80,7 @@ function LectureWriteAside({lectureNo, setPost, part, contentList,setPart,setCon
 
             <div style={{height: 'calc(100vh - 280px)', width: '100%', overflowY: 'scroll'}}>
                 {part.map((value, index) => {
-                    return <LectureWriteAsideTable setPost={setPost} deleteBySet={deleteBySet} key={value.orderNo}
+                    return <LectureWriteAsideTable addContent={addContent} setPost={setPost} deleteBySet={deleteBySet} key={value.orderNo}
                                                    updateTitle={updateTitle} setPart={setPart} lectureNo={lectureNo}
                                                    part={value} setContentList={setContentList}
                                                    contentList={contentList} post={post} setAside={setAside}

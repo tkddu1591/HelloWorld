@@ -9,9 +9,10 @@ interface LectureWriteAsideTableProps {
     updateTitle: (index: number, title: string, set: React.Dispatch<React.SetStateAction<any>>) => void;
     part: { orderNo: number, title: string, lectureNo: number };
     setPart: React.Dispatch<React.SetStateAction<{ title: string, orderNo: number, lectureNo: number }>>;
+    addContent: boolean
 }
 
-function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPart, generateOrderNo, setAside, lectureNo, setContentList, contentList, post}) {
+function LectureWriteAsideTable({addContent, setPost, deleteBySet, part, updateTitle, setPart, generateOrderNo, setAside, lectureNo, setContentList, contentList, post}) {
 
     let [content, setContent] = useState<{ orderNo: number, title: string, lectureNo: number, partNo: number }[]>([])
 
@@ -70,7 +71,7 @@ function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPar
                 </th>
             </tr>
 
-            <ContentList setContentList={setContentList} contentList={contentList} lectureNo={lectureNo}
+            <ContentList addContent={addContent} setContentList={setContentList} contentList={contentList} lectureNo={lectureNo}
                          setPost={setPost} post={post} setAside={setAside}
                          generateOrderNo={generateOrderNo} part={part} content={content}
             ></ContentList>
@@ -82,7 +83,7 @@ function LectureWriteAsideTable({setPost, deleteBySet, part, updateTitle, setPar
 }
 
 
-function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, setContentList, content, post, setAside}) {
+function ContentList({part, setPost, generateOrderNo,addContent, lectureNo, contentList, setContentList, content, post, setAside}) {
     const deleteContent = (orderNoToDelete: number, contentNoToDelete: number) => {
         // contentList 배열을 복사하여 새로운 배열을 생성
         const updatedContentList = contentList.map(item => ({...item}));
@@ -164,7 +165,10 @@ function ContentList({part, setPost, generateOrderNo, lectureNo, contentList, se
         }
     };
     useEffect(() => {
-        if (content.length > 1)
+        if(addContent) {
+            if (content.length > 1)
+                transformContentToContentList();
+        }else
             transformContentToContentList();
     }, [content]);
     return <>
