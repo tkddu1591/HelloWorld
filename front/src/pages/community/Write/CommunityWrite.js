@@ -135,6 +135,7 @@ function CommunityWrite() {
 
     }, []);
 
+    console.log(title)
     return (<>
             <Container>
                 <div className="write" style={{marginTop: "90px"}}>
