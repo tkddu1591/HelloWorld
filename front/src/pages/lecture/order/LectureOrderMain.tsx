@@ -42,6 +42,7 @@ function LectureOrderMain() {
         })
         setOrderList(myCartList)
         console.log(myCartList)
+        console.log(order)
     }, [member]);
     return (
         <Container style={{marginTop: '30px'}} className={'lectureOrderItems'}>

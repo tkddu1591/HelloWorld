@@ -92,15 +92,18 @@ function LectureView() {
     };
     useEffect(() => {
         if ((member.uid && lecture.seller) && member?.uid === lecture?.seller) {
+            console.log('11')
             setCheckSeller(true)
             setCheckBuy(false)
         } else if (member.uid && lecture.lectureNo)
             apiClient.get(`/api/lecture/orderItem/buy?uid=${member.uid}&lectureNo=${lecture.lectureNo}`).then((res) => {
                 console.log(res.data)
                 if (res.data > 0) {
+                    console.log('22')
                     setCheckBuy(true)
                     setCheckSeller(false)
                 } else {
+                    console.log('33')
                     setCheckBuy(false)
                     setCheckSeller(false)
                 }

@@ -31,7 +31,6 @@ public class LectureController {
 
         //게시물 저장
         lectureService.save(lectureDTO);
-
         int lastLectureNo = 0;
         if (lectureDTO.getLectureNo() != 0)
             lastLectureNo = lectureDTO.getLectureNo();
