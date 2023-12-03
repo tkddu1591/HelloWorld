@@ -239,9 +239,9 @@ function HomeHeader() {
 								e.preventDefault();
 								navigate('/community/list?cateNo=1');
 							}}>
-							<i className="now-ui-icons transportation_air-baloon"></i>
+                            <i className="bi bi-book"></i>
 							<span className="far" style={{ fontFamily: '한컴 말랑말랑', fontSize: '15px', marginTop: '5px' }}>
-								개발자라운지
+                                스터디
 							</span>
 						</NavLink>
 					</NavItem>
