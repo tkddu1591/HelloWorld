@@ -20,18 +20,24 @@ public class LectureController {
     private final LectureHasTagService lectureHasTagService;
     private final LectureService lectureService;
     private final LectureThumbService lectureThumbService;
+
     @Transactional
     @PostMapping("/write/main")
     public int mainWrite(@RequestBody LectureDTO lectureDTO) {
         log.info(lectureDTO.toString());
+
+        //썸네일 저장
+        lectureThumbService.save(lectureDTO);
         //게시물 저장
         lectureService.save(lectureDTO);
-        int lastLectureNo = lectureService.getLastLectureNo(lectureDTO.getSeller());
+        int lastLectureNo = 0;
+        if (lectureDTO.getLectureNo() != 0)
+            lastLectureNo = lectureDTO.getLectureNo();
+        else
+            lastLectureNo = lectureService.getLastLectureNo(lectureDTO.getSeller());
         lectureDTO.setLectureNo(lastLectureNo);
         //태그 저장
         lectureHasTagService.save(lectureDTO);
-        //썸네일 저장
-        lectureThumbService.save(lectureDTO);
         return lastLectureNo;
     }
 
@@ -45,10 +51,11 @@ public class LectureController {
     }
 
     @GetMapping("/list")
-    public PageResponseDTO findByCondition(PageRequestDTO pageRequestDTO){
+    public PageResponseDTO findByCondition(PageRequestDTO pageRequestDTO) {
         log.info("dd");
         return lectureService.findByCondition(pageRequestDTO);
     }
+
     @Transactional
     @DeleteMapping("")
     public void deleteByLectureNo(@RequestParam int lectureNo) {
