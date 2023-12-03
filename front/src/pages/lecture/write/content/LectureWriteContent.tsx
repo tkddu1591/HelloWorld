@@ -167,6 +167,7 @@ function LectureWriteContent() {
     }, [state]);
     useEffect(() => {
     }, [part]);
+    console.log(addContent)
     return <>
         <LectureWriteAside addContent={addContent} setPost={setPost} lectureNo={lectureNo} setContentList={setContentList}
                            contentListSave={contentListSave} contentList={contentList} partSave={partSave} part={part}
