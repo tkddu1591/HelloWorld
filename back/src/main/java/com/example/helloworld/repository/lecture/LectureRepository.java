@@ -31,4 +31,8 @@ public interface LectureRepository extends JpaRepository<LectureEntity, Integer>
     @Query("UPDATE LectureEntity l SET l.sold = l.sold+:count WHERE l.lectureNo = :lectureNo")
     @Transactional
     void updateByLectureNoOnSold(@Param("lectureNo") int lectureNo, @Param("count") int count);
+    @Modifying
+    @Query("UPDATE LectureEntity l SET l.isDelete = true WHERE l.lectureNo = :lectureNo")
+    @Transactional
+    void deleteByLectureNo(@Param("lectureNo") int lectureNo);
 }

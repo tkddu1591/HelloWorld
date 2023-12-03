@@ -87,4 +87,8 @@ public class LectureService {
     public void updateByLectureNoOnSold(int lectureNo, int count) {
         lectureRepository.updateByLectureNoOnSold(lectureNo, count);
     }
+
+    public void deleteByLectureNo(int lectureNo) {
+        lectureRepository.deleteByLectureNo(lectureNo);
+    }
 }

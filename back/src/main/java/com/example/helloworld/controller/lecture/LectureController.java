@@ -49,5 +49,10 @@ public class LectureController {
         log.info("dd");
         return lectureService.findByCondition(pageRequestDTO);
     }
+    @Transactional
+    @DeleteMapping("")
+    public void deleteByLectureNo(@RequestParam int lectureNo) {
+        lectureService.deleteByLectureNo(lectureNo);
+    }
 
 }
