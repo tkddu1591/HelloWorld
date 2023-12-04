@@ -65,9 +65,11 @@ function ListList({tagColor, list, end}: ListListProps) {
                             }}>
                             {lecture.review !== 0 ? <>
                                     <Star size={15} score={5}></Star>
-                                    <span style={{marginLeft: '5px '}}>({lecture.review} 리뷰)</span>
-                                    <span style={{marginLeft: '5px '}}>1,200 sold</span></> :
-                                <span>리뷰가 없습니다.</span>}
+                                    <span style={{marginLeft: '5px '}}>({lecture.review?.toLocaleString()} 리뷰)</span>
+                                    </> :
+                                <span>리뷰 없음.</span>}
+                            {lecture.sold!==0?<span style={{marginLeft: '5px '}}>{lecture.sold?.toLocaleString()} sold</span>:
+                                <span style={{marginLeft: '5px '}}>판매 없음.</span>}
                         </div>
                         <div
                             style={{
@@ -76,10 +78,8 @@ function ListList({tagColor, list, end}: ListListProps) {
                                 fontSize:       '15px',
                                 marginTop:      '10px',
                             }}>
-                            <span style={{marginLeft: '5px '}}>
-                                {' '}
-                                코드짜다가 갑자기 2일 전으로 시간을 돌리고 싶으면? 팀원과 코드 충돌없이 협업하고 싶으면?
-                                버전 컨트롤을 도와주는 소프트웨어인 git 쓰면 가능합니다. 그리고 git 모르면 취업 못함 …
+                            <span style={{marginLeft: '5px '}} className={'listContent'}>
+                                <div dangerouslySetInnerHTML={{__html: lecture.content}}/>
                             </span>
                             <div style={{bottom: 0}}></div>
                         </div>
@@ -90,7 +90,7 @@ function ListList({tagColor, list, end}: ListListProps) {
                                 right:    '0',
                                 width:'100%'
                             }}>
-                            <p
+                            {lecture.discount!==0&&<p
                                 className="category"
                                 style={{
                                     textDecoration: 'line-through',
@@ -99,8 +99,8 @@ function ListList({tagColor, list, end}: ListListProps) {
                                     justifyContent: 'right',
                                     fontSize:       '20px',
                                 }}>
-                                ￦35,000
-                            </p>
+                                {lecture.price?.toLocaleString()}￦
+                            </p>}
                             <div style={{justifyContent: 'space-between', display: 'flex'}}>
                                 <div>
                                 {Array.isArray(lecture.hasTagNames) && lecture.hasTagNames.map((tag, index) => {
@@ -126,8 +126,10 @@ function ListList({tagColor, list, end}: ListListProps) {
                                 })}</div>
                                 <span style={{ textAlign: 'left'}}>
                                     <p className="category" style={{color: 'black', fontSize: '20px'}}>
-                                        <span style={{color: 'red', marginRight: '10px'}}>50%</span>
-                                        ￦35,000
+                                        {lecture.discount!==0&&<span style={{color: 'red', marginRight: '10px'}}>{lecture.discount}%</span>}
+                                        {lecture.discount !== 0 ?
+                                            Number((lecture.price - lecture.discount * lecture.price / 100).toFixed(0)).toLocaleString() :
+                                            lecture.price.toLocaleString()} ￦
                                     </p>
                                 </span>
                             </div>
