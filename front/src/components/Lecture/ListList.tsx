@@ -16,8 +16,8 @@ function ListList({tagColor, list, end}: ListListProps) {
     let navigate = useNavigate();
 
 
-    function handleClick(e) {
-        navigate('/lecture/view');
+    function handleClick(lectureNo) {
+        navigate('/lecture/view?lectureNo='+lectureNo);
     }
     const [clientWidth, setClientWidth] = useState(document.body.clientWidth);
 
@@ -42,7 +42,7 @@ function ListList({tagColor, list, end}: ListListProps) {
                         }}
                         alt="..."
                         src={lecture.thumbURL}
-                        onClick={handleClick}></img>
+                        onClick={()=>handleClick(lecture.lectureNo)}></img>
                 </Col>
                     <Col xl={9} lg={9} style={{position: 'relative'}}>
                         <div>
