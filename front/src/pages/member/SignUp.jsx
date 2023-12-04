@@ -157,6 +157,7 @@ function SignUp() {
             "email": inputValue.email,
             "pass": inputValue.pass,
             "passChk": inputValue.passChk,
+            "profileImg": "/images/profile/136421877.png"
         }).then((response) => {
             if(!response.data) alert("회원가입에 실패했습니다. \n 다시 시도해주세요.");
             alert("회원가입 완료");
