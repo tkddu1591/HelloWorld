@@ -40,7 +40,6 @@ function DmHeader({ isMain = false, title = '내 채팅' }: DmHeaderProps) {
 			},
 		],
 	};
-	console.log(title.indexOf('님과의 채팅') !== -1);
 	const [popup, setPopup] = React.useState('');
 	return (
 		<>
@@ -58,7 +57,7 @@ function DmHeader({ isMain = false, title = '내 채팅' }: DmHeaderProps) {
 						fontSize: '20px',
 						fontWeight: '900',
 					}}>
-					{title}
+					{title?.indexOf('null')!== -1 ?'대화 상대가 없습니다.':title}
 				</div>
 				<div>
 					{!isMain && (

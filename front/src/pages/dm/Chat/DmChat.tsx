@@ -4,12 +4,18 @@ import '../../lecture/scss/dm/main/dm.scss';
 import {apiClient} from "../../../App";
 import {useDispatch, useSelector} from "react-redux";
 import {insertMyChatt, myChatt} from "../../../slice/ChatSlice";
+import {useLocation} from "react-router-dom";
+import ScrollToBottom from "../../../components/ScrollToBottom";
+import {Button} from "reactstrap";
 
 function DmChat() {
     let [chatSize, setChatSize] = useState(50);
-    console.log(chatSize + 70);
     const [msg, setMsg] = useState("");
-    const [name, setName] = useState("");
+    const [nick, setNick] = useState("");
+    const [uid, setUid] = useState("");
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const receiver = searchParams.get('receiver');
     const chatt = useSelector((state: any) => state.myChatt);
     const [chkLog, setChkLog] = useState(false);
     const [socketData, setSocketData] = useState();
@@ -42,21 +48,17 @@ function DmChat() {
     // @ts-ignore
     const send = useCallback(() => {
         if (!chkLog) {
-            if (name === "") {
-                alert("이름을 입력하세요.");
-                // @ts-ignore
-                document.getElementById("name").focus();
-                return;
-            }
             webSocketLogin();
             setChkLog(true);
         }
 
         if (msg !== '') {
             const data = {
-                name,
+                nick,
                 msg,
                 date: new Date().toLocaleString(),
+                receiver,
+                uid
             };  //전송 데이터(JSON)
 
             const temp = JSON.stringify(data);
@@ -75,7 +77,7 @@ function DmChat() {
             document.getElementById("msg").focus();
             return;
         }
-        setMsg("");
+        setMsg('');
     });
     //webSocket
     //webSocket
@@ -92,39 +94,39 @@ function DmChat() {
             })
                 .then((res) => {
                     setMember(res.data);
-
                 })
                 .catch((err) => {
                     console.log("실패? : " + JSON.stringify(err));
                 });
     }, []);
     useEffect(() => {
-        if(member.nick!==undefined) {
-            setName(member.nick)
-            webSocketLogin();
-            setChkLog(true);
+        if (member.nick !== undefined) {
+            setNick(member.nick)
+            setUid(member.uid)
         }
     }, [member]);
     return (
         <>
-            <DmHeader title={'채팅'}></DmHeader>
+            <DmHeader title={receiver + ' 님과의 채팅'}></DmHeader>
             <DmChatMessages chatSize={chatSize} chatt={chatt} member={member}></DmChatMessages>
-            <DmChatMessageSend chatSize={chatSize} send={send} msg={msg} onText={onText}></DmChatMessageSend>
+            <DmChatMessageSend setMsg={setMsg} chatSize={chatSize} send={send} msg={msg} onText={onText}></DmChatMessageSend>
         </>
     );
 }
 
 function ChatBox({item, member}) {
 
-
+    const div = useRef<HTMLDivElement>(null);
     let time = (item.date.split(" ")[4].split(":"))
     let pM = (item.date.split(" ")[3])
-    if (item.name === member.nick) {
+    console.log(div)
+    if (item.uid === member.uid) {
         return (<div style={{height: 'auto', display: 'flex', justifyContent: 'left'}}>
                 <div style={{height: '100%', width: '50px'}}></div>
-                <div className={'myChatBox'}>
+                <div className={'myChatBox'} ref={div}>
                     <div className={'myTimeBox'}>
-                        <span className={'time'}>{pM==='오후'?12+Number(time[0])+":"+time[1]:time[0]+":"+time[1]}</span>
+                        <span className={'time'}>{pM === '오후' ? 12 + Number(time[0]) + ":" + time[1] :
+                            time[0] + ":" + time[1]}</span>
                     </div>
                     <div
                         className={'myChat'}>
@@ -137,7 +139,7 @@ function ChatBox({item, member}) {
         )
     } else
         return <div key={item}>
-            <div className={'userChatBox'}>
+            <div className={'userChatBox'} ref={div}>
 
                 <div className={'iconBox'}>
                     <i className="bi bi-person-circle icon"></i>
@@ -153,7 +155,8 @@ function ChatBox({item, member}) {
 							</span>
                     </div>
                     <div style={{position: 'relative', width: '10px'}}>
-                        <span className={'timeBox'}>{pM==='오후'?12+Number(time[0])+":"+time[1]:time[0]+":"+time[1]}</span>
+                        <span className={'timeBox'}>{pM === '오후' ? 12 + Number(time[0]) + ":" + time[1] :
+                            time[0] + ":" + time[1]}</span>
                     </div>
                 </div>
 
@@ -177,13 +180,14 @@ function DmChatMessages({chatSize, chatt, member}) {
             }}>
 
             {chatt.map((item, idx) => {
-                return <ChatBox member={member} item={item} key={item}></ChatBox>
+                return <ChatBox member={member} item={item} key={item + Math.random()}></ChatBox>
             })}
         </section>
     );
 }
 
-function DmChatMessageSend({chatSize, msg, onText, send}) {
+function DmChatMessageSend({chatSize, msg, onText, send, setMsg}) {
+    let [shift, setShift] = useState(false)
     return (
         <div
             style={{
@@ -196,9 +200,22 @@ function DmChatMessageSend({chatSize, msg, onText, send}) {
 					<textarea
                         id='msg' value={msg} onChange={onText}
                         onKeyDown={(ev) => {
-                            if (ev.keyCode === 13) {
+
+                            if(ev.key==='Shift'&&!shift) {
+                                setShift(true);
+                            }
+                            if (ev.key === 'Enter'&&!shift) {
                                 send();
                             }
+                        }}
+                        onKeyUp={(e)=>{
+                            if(e.key==='Shift'&&shift) {
+                                setShift(false)
+                            }
+                            if(e.key==='Enter'&&!shift) {
+                                setMsg('')
+                            }
+
                         }}
                         style={{
                             backgroundColor: 'white',
